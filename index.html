@@ -1772,6 +1772,23 @@
     </div>
   </footer>
 
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lbClose" aria-label="Cerrar">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
+    <div class="lightbox-inner">
+      <div class="lightbox-img-wrap"><img id="lbImg" src="" alt=""></div>
+      <div class="lb-thumbs" id="lbThumbs"></div>
+      <div class="lightbox-info">
+        <div>
+          <h3 id="lbName"></h3>
+          <div class="lb-meta" id="lbMeta"></div>
+        </div>
+        <button class="lb-next-project" id="lbNextProject">Siguiente proyecto →</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     try {
       // Mobile menu
@@ -2060,23 +2077,6 @@
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
   </script>
-
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lbClose" aria-label="Cerrar">&times;</button>
-    <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
-    <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
-    <div class="lightbox-inner">
-      <div class="lightbox-img-wrap"><img id="lbImg" src="" alt=""></div>
-      <div class="lb-thumbs" id="lbThumbs"></div>
-      <div class="lightbox-info">
-        <div>
-          <h3 id="lbName"></h3>
-          <div class="lb-meta" id="lbMeta"></div>
-        </div>
-        <button class="lb-next-project" id="lbNextProject">Siguiente proyecto →</button>
-      </div>
-    </div>
-  </div>
 
 </body>
 
