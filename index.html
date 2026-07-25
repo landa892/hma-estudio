@@ -1157,24 +1157,24 @@
     /* ---------- STACK CARDS ---------- */
     .stack-wrap {
       margin-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
     }
 
     .stack-item {
-      height: 88vh;
-      display: flex;
-      align-items: flex-start;
+      display: block;
     }
 
     .stack-card {
-      position: sticky;
       width: 100%;
       border: 1.5px solid var(--black);
       border-radius: 26px;
-      background: var(--paper);
+      background: #FFFFFF;
       padding: 26px;
-      transform-origin: top center;
-      box-shadow: 0 30px 60px rgba(10, 10, 10, 0.08);
+      box-shadow: 0 20px 45px rgba(10, 10, 10, 0.18);
       cursor: pointer;
+      overflow: hidden;
     }
 
     .stack-top {
@@ -1220,23 +1220,34 @@
     .stack-imgs {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
+      grid-template-rows: 1fr;
       gap: 12px;
+      height: clamp(280px, 34vw, 420px);
+      overflow: hidden;
     }
 
     .stack-imgs .col-left {
       display: grid;
       grid-template-rows: 1fr 1fr;
       gap: 12px;
+      overflow: hidden;
     }
 
     .stack-imgs img {
       width: 100%;
-      height: 100%;
       object-fit: cover;
       border-radius: 16px;
       display: block;
       transition: transform .5s cubic-bezier(.2, .7, .2, 1), filter .3s ease;
       filter: grayscale(0.1) contrast(1.02);
+    }
+
+    .stack-imgs .col-left img {
+      height: calc((clamp(280px, 34vw, 420px) - 12px) / 2);
+    }
+
+    .stack-imgs .col-right img {
+      height: clamp(280px, 34vw, 420px);
     }
 
     .stack-card:hover .stack-imgs img {
@@ -1247,18 +1258,20 @@
       transform: scale(1.03);
     }
 
-    .stack-imgs .col-right img {
-      height: 100%;
-      min-height: 220px;
-    }
-
     @media(max-width:700px) {
       .stack-imgs {
         grid-template-columns: 1fr;
+        height: auto;
       }
 
       .stack-imgs .col-left {
         grid-template-rows: 1fr 1fr;
+        height: 240px;
+      }
+
+      .stack-imgs .col-right img {
+        height: 200px;
+        min-height: 0;
       }
 
       .stack-card {
@@ -1474,7 +1487,7 @@
 
       <div class="stack-wrap" id="stackWrap">
         <div class="stack-item">
-          <div class="stack-card" style="top:96px;" data-slug="movistar-arena">
+          <div class="stack-card" data-slug="movistar-arena">
             <div class="stack-top">
               <span class="stack-num">01</span>
               <div class="stack-info">
@@ -1493,7 +1506,7 @@
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" style="top:122px;" data-slug="osten">
+          <div class="stack-card" data-slug="osten">
             <div class="stack-top">
               <span class="stack-num">02</span>
               <div class="stack-info">
@@ -1511,7 +1524,7 @@
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" style="top:148px;" data-slug="araoz">
+          <div class="stack-card" data-slug="araoz">
             <div class="stack-top">
               <span class="stack-num">03</span>
               <div class="stack-info">
@@ -1917,28 +1930,7 @@
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
     try {
-      /* ---------- STICKY STACK CARDS ---------- */
-      const stackCards = Array.from(document.querySelectorAll('.stack-item .stack-card'));
-      function updateStack() {
-        for (let i = 0; i < stackCards.length - 1; i++) {
-          const next = stackCards[i + 1];
-          const nextRect = next.getBoundingClientRect();
-          let progress = 1 - Math.min(Math.max(nextRect.top / window.innerHeight, 0), 1);
-          progress = Math.max(progress, 0);
-          let scale = 1;
-          for (let j = i; j < stackCards.length - 1; j++) {
-            const r = stackCards[j + 1].getBoundingClientRect();
-            let p = 1 - Math.min(Math.max(r.top / window.innerHeight, 0), 1);
-            p = Math.max(p, 0);
-            scale -= p * 0.05;
-          }
-          stackCards[i].style.transform = `scale(${Math.max(scale, 0.85)})`;
-        }
-      }
-      window.addEventListener('scroll', () => requestAnimationFrame(updateStack), { passive: true });
-      window.addEventListener('resize', updateStack);
-      updateStack();
-
+      /* ---------- (efecto de scroll apilado eliminado: las 3 tarjetas ahora son un listado simple y estable) ---------- */
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
     try {
