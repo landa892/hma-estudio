@@ -1174,6 +1174,7 @@
       padding: 26px;
       transform-origin: top center;
       box-shadow: 0 30px 60px rgba(10, 10, 10, 0.08);
+      cursor: pointer;
     }
 
     .stack-top {
@@ -1234,6 +1235,16 @@
       object-fit: cover;
       border-radius: 16px;
       display: block;
+      transition: transform .5s cubic-bezier(.2, .7, .2, 1), filter .3s ease;
+      filter: grayscale(0.1) contrast(1.02);
+    }
+
+    .stack-card:hover .stack-imgs img {
+      filter: grayscale(0);
+    }
+
+    .stack-card:hover .stack-imgs .col-right img {
+      transform: scale(1.03);
     }
 
     .stack-imgs .col-right img {
@@ -1463,7 +1474,7 @@
 
       <div class="stack-wrap" id="stackWrap">
         <div class="stack-item">
-          <div class="stack-card" style="top:96px;">
+          <div class="stack-card" style="top:96px;" data-slug="movistar-arena">
             <div class="stack-top">
               <span class="stack-num">01</span>
               <div class="stack-info">
@@ -1473,15 +1484,16 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/movistar-arena.jpg" alt=""><img src="assets/manduca.jpg" alt="">
+              <div class="col-left"><img src="assets/gallery/movistar-arena/1.jpg" alt=""><img
+                  src="assets/gallery/movistar-arena/2.jpg" alt="">
               </div>
-              <div class="col-right"><img src="assets/hyatt-ziva.jpg" alt=""></div>
+              <div class="col-right"><img src="assets/gallery/movistar-arena/3.jpg" alt=""></div>
             </div>
           </div>
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" style="top:122px;">
+          <div class="stack-card" style="top:122px;" data-slug="osten">
             <div class="stack-top">
               <span class="stack-num">02</span>
               <div class="stack-info">
@@ -1491,14 +1503,15 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/osten.jpg" alt=""><img src="assets/moshu.jpg" alt=""></div>
-              <div class="col-right"><img src="assets/cerveceria-austral.jpg" alt=""></div>
+              <div class="col-left"><img src="assets/gallery/osten/1.jpg" alt=""><img src="assets/gallery/osten/2.jpg"
+                  alt=""></div>
+              <div class="col-right"><img src="assets/gallery/osten/3.jpg" alt=""></div>
             </div>
           </div>
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" style="top:148px;">
+          <div class="stack-card" style="top:148px;" data-slug="araoz">
             <div class="stack-top">
               <span class="stack-num">03</span>
               <div class="stack-info">
@@ -1508,8 +1521,9 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/araoz.jpg" alt=""><img src="assets/malabia.jpg" alt=""></div>
-              <div class="col-right"><img src="assets/dos-casas-conde.jpg" alt=""></div>
+              <div class="col-left"><img src="assets/gallery/araoz/1.jpg" alt=""><img src="assets/gallery/araoz/2.jpg"
+                  alt=""></div>
+              <div class="col-right"><img src="assets/gallery/araoz/3.jpg" alt=""></div>
             </div>
           </div>
         </div>
@@ -2013,35 +2027,36 @@
       const lbNext = document.getElementById('lbNext');
       const lbNextProject = document.getElementById('lbNextProject');
 
-      function getVisibleCards() {
-        return Array.from(document.querySelectorAll('.project-card')).filter(c => !c.classList.contains('hidden'));
-      }
+      // Lista maestra de proyectos, tomada de las tarjetas de la grilla completa
+      const PROJECTS = Array.from(document.querySelectorAll('.project-card')).map(card => ({
+        slug: card.dataset.slug,
+        name: card.querySelector('.p-name').textContent,
+        metaHTML: card.querySelector('.p-meta').innerHTML
+      }));
+
       let currentProjectIndex = 0;
       let currentPhotoIndex = 0;
 
-      function openLightbox(card) {
-        const visible = getVisibleCards();
-        currentProjectIndex = visible.indexOf(card);
+      function openLightboxBySlug(slug) {
+        const idx = PROJECTS.findIndex(p => p.slug === slug);
+        if (idx === -1) return;
+        currentProjectIndex = idx;
         currentPhotoIndex = 0;
         renderLightbox();
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
       function renderLightbox() {
-        const visible = getVisibleCards();
-        const card = visible[currentProjectIndex];
-        if (!card) return;
-        const slug = card.dataset.slug;
-        const name = card.querySelector('.p-name').textContent;
-        const meta = card.querySelector('.p-meta').innerHTML;
-        lbImg.src = `assets/gallery/${slug}/${currentPhotoIndex + 1}.jpg`;
-        lbImg.alt = name;
-        lbName.textContent = name;
-        lbMeta.innerHTML = meta;
+        const proj = PROJECTS[currentProjectIndex];
+        if (!proj) return;
+        lbImg.src = `assets/gallery/${proj.slug}/${currentPhotoIndex + 1}.jpg`;
+        lbImg.alt = proj.name;
+        lbName.textContent = proj.name;
+        lbMeta.innerHTML = proj.metaHTML;
         lbThumbs.innerHTML = '';
         for (let i = 1; i <= 6; i++) {
           const t = document.createElement('img');
-          t.src = `assets/gallery/${slug}/${i}.jpg`;
+          t.src = `assets/gallery/${proj.slug}/${i}.jpg`;
           t.className = (i - 1 === currentPhotoIndex) ? 'active' : '';
           t.addEventListener('click', () => { currentPhotoIndex = i - 1; renderLightbox(); });
           lbThumbs.appendChild(t);
@@ -2054,14 +2069,16 @@
       function nextPhoto() { currentPhotoIndex = (currentPhotoIndex + 1) % 6; renderLightbox(); }
       function prevPhoto() { currentPhotoIndex = (currentPhotoIndex - 1 + 6) % 6; renderLightbox(); }
       function nextProject() {
-        const visible = getVisibleCards();
-        currentProjectIndex = (currentProjectIndex + 1) % visible.length;
+        currentProjectIndex = (currentProjectIndex + 1) % PROJECTS.length;
         currentPhotoIndex = 0;
         renderLightbox();
       }
 
       document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', () => openLightbox(card));
+        card.addEventListener('click', () => openLightboxBySlug(card.dataset.slug));
+      });
+      document.querySelectorAll('.stack-card[data-slug]').forEach(card => {
+        card.addEventListener('click', () => openLightboxBySlug(card.dataset.slug));
       });
       lbClose.addEventListener('click', closeLightbox);
       lbNext.addEventListener('click', (e) => { e.stopPropagation(); nextPhoto(); });
