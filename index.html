@@ -1299,12 +1299,6 @@
       filter: grayscale(0.5) contrast(1.05);
     }
 
-    /* ---------- CHAR REVEAL ---------- */
-    .char-reveal span {
-      opacity: .18;
-      transition: opacity .3s linear;
-    }
-
     /* ---------- SERVICIOS ---------- */
     .services-list {
       max-width: 920px;
@@ -1551,7 +1545,7 @@
 
       <div class="about-grid">
         <div>
-          <p class="about-lead char-reveal" id="charLead">Trabajamos de forma holística, fusionando lo abstracto con lo
+          <p class="about-lead reveal" id="charLead">Trabajamos de forma holística, fusionando lo abstracto con lo
             intrínseco. Consideramos todos los aspectos y variables para llegar a un diseño conceptual único y total.
           </p>
           <div class="about-body">
@@ -2132,29 +2126,6 @@
         window.addEventListener('resize', () => bounds = el.getBoundingClientRect());
         window.addEventListener('scroll', () => bounds = null, { passive: true });
       });
-
-    } catch (e) { console.error('Error en un bloque de la pagina:', e); }
-
-    try {
-      /* ---------- CHAR REVEAL ---------- */
-      const charEl = document.getElementById('charLead');
-      if (charEl) {
-        const text = charEl.textContent;
-        charEl.innerHTML = text.split('').map(ch => ch === ' ' ? ' ' : `<span>${ch}</span>`).join('');
-        const chars = charEl.querySelectorAll('span');
-        const updateChars = () => {
-          const rect = charEl.getBoundingClientRect();
-          const vh = window.innerHeight;
-          const start = vh * 0.85, end = vh * 0.35;
-          let progress = (start - rect.top) / (start - end);
-          progress = Math.min(Math.max(progress, 0), 1);
-          const activeCount = Math.floor(progress * chars.length);
-          chars.forEach((c, i) => { c.style.opacity = i < activeCount ? '1' : '0.18'; });
-        };
-        window.addEventListener('scroll', updateChars, { passive: true });
-        window.addEventListener('resize', updateChars);
-        updateChars();
-      }
 
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
