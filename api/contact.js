@@ -1,4 +1,8 @@
-const TO_EMAIL = "hma@estudiohma.com";
+// TEMPORAL: mientras el dominio estudiohma.com no este verificado en Resend,
+// el sandbox (onboarding@resend.dev) solo puede enviar a la casilla dueña
+// de la cuenta de Resend. Volver a "hma@estudiohma.com" apenas se verifique
+// el dominio propio.
+const TO_EMAIL = "nacholanda08@gmail.com";
 const FROM_EMAIL = "HMA Web <onboarding@resend.dev>";
 
 const submissions = new Map();
