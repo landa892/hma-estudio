@@ -849,6 +849,96 @@
       padding-bottom: 4px;
     }
 
+    .contact-form {
+      grid-column: 1/-1;
+      margin-top: 20px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    .contact-form .field-full {
+      grid-column: 1/-1;
+    }
+
+    .contact-form label {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.3);
+      padding: 8px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: .98rem;
+      color: var(--black);
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--black);
+    }
+
+    .contact-form textarea {
+      min-height: 110px;
+    }
+
+    .contact-form .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .contact-form button[type="submit"] {
+      justify-self: start;
+      border: 1px solid var(--black);
+      background: transparent;
+      padding: 12px 28px;
+      font-family: 'Space Mono', monospace;
+      font-size: .8rem;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .contact-form button[type="submit"]:hover:not(:disabled) {
+      background: var(--black);
+      color: var(--paper);
+    }
+
+    .contact-form button[type="submit"]:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .contact-form .form-status {
+      font-size: .85rem;
+      margin-top: 4px;
+    }
+
+    .contact-form .form-status.ok {
+      color: #2d6a3e;
+    }
+
+    .contact-form .form-status.err {
+      color: #a3302a;
+    }
+
     .social-links {
       display: flex;
       gap: 20px;
@@ -1913,6 +2003,29 @@
           <p>2980 NE 207 St., Fl. 33180<br>Miami, Estados Unidos<br>+1 (305) 851 3565</p>
         </div>
 
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="field-full">
+            <label for="cf-name">Nombre</label>
+            <input type="text" id="cf-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field-full">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field-full">
+            <label for="cf-message">Contanos sobre tu proyecto</label>
+            <textarea id="cf-message" name="message" required></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-company">No completar</label>
+            <input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="field-full" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+            <button type="submit" id="cfSubmit">Enviar mensaje</button>
+            <span class="form-status" id="cfStatus" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+
         <div class="contact-cta reveal">
           <a href="mailto:hma@estudiohma.com" class="big-link magnet" data-magnet="80,4">hma@estudiohma.com</a>
           <div class="social-links">
@@ -2283,6 +2396,60 @@
       const mobileNav = document.getElementById('mobile-menu');
       const syncMenuAria = () => menuToggleBtn.setAttribute('aria-expanded', mobileNav.classList.contains('open') ? 'true' : 'false');
       new MutationObserver(syncMenuAria).observe(mobileNav, { attributes: true, attributeFilter: ['class'] });
+
+    } catch (e) { console.error('Error en un bloque de la pagina:', e); }
+
+    try {
+      /* ---------- FORMULARIO DE CONTACTO ---------- */
+      const contactForm = document.getElementById('contactForm');
+      const cfSubmit = document.getElementById('cfSubmit');
+      const cfStatus = document.getElementById('cfStatus');
+
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        cfStatus.textContent = '';
+        cfStatus.className = 'form-status';
+
+        const data = {
+          name: document.getElementById('cf-name').value.trim(),
+          email: document.getElementById('cf-email').value.trim(),
+          message: document.getElementById('cf-message').value.trim(),
+          company: document.getElementById('cf-company').value,
+        };
+
+        if (!data.name || !data.email || !data.message) {
+          cfStatus.textContent = 'Completá nombre, email y mensaje.';
+          cfStatus.classList.add('err');
+          return;
+        }
+
+        cfSubmit.disabled = true;
+        cfSubmit.textContent = 'Enviando…';
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const result = await res.json().catch(() => ({}));
+
+          if (res.ok && result.ok) {
+            contactForm.reset();
+            cfStatus.textContent = 'Gracias, te vamos a responder a la brevedad.';
+            cfStatus.classList.add('ok');
+          } else {
+            cfStatus.textContent = result.error || 'No se pudo enviar. Escribinos a hma@estudiohma.com.';
+            cfStatus.classList.add('err');
+          }
+        } catch (err) {
+          cfStatus.textContent = 'No se pudo enviar. Escribinos a hma@estudiohma.com.';
+          cfStatus.classList.add('err');
+        } finally {
+          cfSubmit.disabled = false;
+          cfSubmit.textContent = 'Enviar mensaje';
+        }
+      });
 
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
