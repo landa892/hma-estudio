@@ -7,11 +7,70 @@
   <title>Hitzig Militello Arquitectos — Arquitectura y diseño comercial</title>
   <meta name="description"
     content="Hitzig Militello Arquitectos. 20 años diseñando espacios de hotelería, gastronomía, oficinas y arquitectura residencial en Argentina y el mundo.">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://estudiohma.com/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hitzig Militello Arquitectos">
+  <meta property="og:title" content="Hitzig Militello Arquitectos — Arquitectura y diseño comercial">
+  <meta property="og:description"
+    content="20 años diseñando espacios de hotelería, gastronomía, oficinas y arquitectura residencial en América Latina, Europa, Medio Oriente y EE.UU.">
+  <meta property="og:image" content="assets/hero-crop.jpg">
+  <meta property="og:url" content="https://estudiohma.com/">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hitzig Militello Arquitectos — Arquitectura y diseño comercial">
+  <meta name="twitter:description"
+    content="20 años diseñando espacios de hotelería, gastronomía, oficinas y arquitectura residencial en Argentina y el mundo.">
+  <meta name="twitter:image" content="assets/hero-crop.jpg">
+
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' fill='%23FAFAF9' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
+  <link rel="preload" as="image" href="assets/hero-crop.jpg" fetchpriority="high">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Hitzig Militello Arquitectos",
+    "alternateName": "HMA",
+    "description": "Estudio de arquitectura y diseño comercial especializado en hotelería, gastronomía, oficinas y arquitectura residencial.",
+    "url": "https://estudiohma.com/",
+    "image": "https://estudiohma.com/assets/hero-crop.jpg",
+    "email": "hma@estudiohma.com",
+    "sameAs": ["https://instagram.com/hitzig.militello.arquitectos"],
+    "areaServed": ["Argentina", "América Latina", "Europa", "Medio Oriente", "Estados Unidos"],
+    "founder": [
+      { "@type": "Person", "name": "Fernando Hitzig" },
+      { "@type": "Person", "name": "Leonardo Militello" }
+    ],
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "Soler 5130, 1° B, Palermo",
+        "addressLocality": "Buenos Aires",
+        "postalCode": "C1425",
+        "addressCountry": "AR"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "2980 NE 207 St., Fl.",
+        "addressLocality": "Miami",
+        "postalCode": "33180",
+        "addressCountry": "US"
+      }
+    ],
+    "telephone": ["+54 11 4773 8658", "+1 305 851 3565"]
+  }
+  </script>
   <style>
     :root {
       --black: #0A0A0A;
@@ -47,6 +106,57 @@
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    .project-card:focus-visible,
+    .stack-card:focus-visible {
+      outline: 2px solid var(--black);
+      outline-offset: 3px;
+    }
+
+    .awards-section a:focus-visible,
+    .lightbox a:focus-visible,
+    .lightbox button:focus-visible {
+      outline-color: var(--paper);
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 12px;
+      z-index: 1000;
+      background: var(--black);
+      color: var(--paper);
+      padding: 12px 20px;
+      font-size: .85rem;
+      transition: top .2s ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    nav a.active::after {
+      width: 100%;
     }
 
     .eyebrow {
@@ -1289,13 +1399,15 @@
 
 <body>
 
+  <a href="#estudio" class="skip-link">Saltar al contenido</a>
+
   <div class="scroll-progress" id="scrollProgress"></div>
   <div class="cursor-follower" id="cursorFollower">VER<br>PROYECTO</div>
 
   <header>
     <div class="nav-inner">
       <a href="#" class="logo">HMA<span> — Hitzig Militello Arquitectos</span></a>
-      <nav>
+      <nav aria-label="Navegación principal">
         <ul>
           <li><a href="#estudio">Sobre el estudio</a></li>
           <li><a href="#servicios">Servicios</a></li>
@@ -1305,11 +1417,12 @@
         </ul>
       </nav>
       <a href="#contacto" class="nav-cta">Contacto</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
+        aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <div id="mobile-menu">
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
     <ul>
       <li><a href="#estudio">Sobre el estudio</a></li>
       <li><a href="#servicios">Servicios</a></li>
@@ -1459,20 +1572,32 @@
   <!-- MARQUEE -->
   <section class="marquee-section" aria-hidden="true">
     <div class="marquee-track" id="marqueeRow1">
-      <img src="assets/movistar-arena.jpg" alt=""><img src="assets/hyatt-ziva.jpg" alt=""><img src="assets/osten.jpg"
-        alt=""><img src="assets/araoz.jpg" alt=""><img src="assets/manduca.jpg" alt="">
-      <img src="assets/movistar-arena.jpg" alt=""><img src="assets/hyatt-ziva.jpg" alt=""><img src="assets/osten.jpg"
-        alt=""><img src="assets/araoz.jpg" alt=""><img src="assets/manduca.jpg" alt="">
-      <img src="assets/movistar-arena.jpg" alt=""><img src="assets/hyatt-ziva.jpg" alt=""><img src="assets/osten.jpg"
-        alt=""><img src="assets/araoz.jpg" alt=""><img src="assets/manduca.jpg" alt="">
+      <img src="assets/movistar-arena.jpg" alt="" loading="lazy" decoding="async"><img src="assets/hyatt-ziva.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/osten.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/araoz.jpg" alt="" loading="lazy" decoding="async"><img src="assets/manduca.jpg" alt=""
+        loading="lazy" decoding="async">
+      <img src="assets/movistar-arena.jpg" alt="" loading="lazy" decoding="async"><img src="assets/hyatt-ziva.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/osten.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/araoz.jpg" alt="" loading="lazy" decoding="async"><img src="assets/manduca.jpg" alt=""
+        loading="lazy" decoding="async">
+      <img src="assets/movistar-arena.jpg" alt="" loading="lazy" decoding="async"><img src="assets/hyatt-ziva.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/osten.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/araoz.jpg" alt="" loading="lazy" decoding="async"><img src="assets/manduca.jpg" alt=""
+        loading="lazy" decoding="async">
     </div>
     <div class="marquee-track" id="marqueeRow2">
-      <img src="assets/moshu.jpg" alt=""><img src="assets/cerveceria-austral.jpg" alt=""><img src="assets/malabia.jpg"
-        alt=""><img src="assets/uala-office.jpg" alt=""><img src="assets/dos-casas-conde.jpg" alt="">
-      <img src="assets/moshu.jpg" alt=""><img src="assets/cerveceria-austral.jpg" alt=""><img src="assets/malabia.jpg"
-        alt=""><img src="assets/uala-office.jpg" alt=""><img src="assets/dos-casas-conde.jpg" alt="">
-      <img src="assets/moshu.jpg" alt=""><img src="assets/cerveceria-austral.jpg" alt=""><img src="assets/malabia.jpg"
-        alt=""><img src="assets/uala-office.jpg" alt=""><img src="assets/dos-casas-conde.jpg" alt="">
+      <img src="assets/moshu.jpg" alt="" loading="lazy" decoding="async"><img src="assets/cerveceria-austral.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/malabia.jpg" alt="" loading="lazy"
+        decoding="async"><img src="assets/uala-office.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/dos-casas-conde.jpg" alt="" loading="lazy" decoding="async">
+      <img src="assets/moshu.jpg" alt="" loading="lazy" decoding="async"><img src="assets/cerveceria-austral.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/malabia.jpg" alt="" loading="lazy"
+        decoding="async"><img src="assets/uala-office.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/dos-casas-conde.jpg" alt="" loading="lazy" decoding="async">
+      <img src="assets/moshu.jpg" alt="" loading="lazy" decoding="async"><img src="assets/cerveceria-austral.jpg"
+        alt="" loading="lazy" decoding="async"><img src="assets/malabia.jpg" alt="" loading="lazy"
+        decoding="async"><img src="assets/uala-office.jpg" alt="" loading="lazy" decoding="async"><img
+        src="assets/dos-casas-conde.jpg" alt="" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -1488,7 +1613,8 @@
 
       <div class="stack-wrap" id="stackWrap">
         <div class="stack-item">
-          <div class="stack-card" data-slug="movistar-arena">
+          <div class="stack-card" data-slug="movistar-arena" tabindex="0" role="button"
+            aria-label="Ver galería de Movistar Arena">
             <div class="stack-top">
               <span class="stack-num">01</span>
               <div class="stack-info">
@@ -1498,16 +1624,19 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/gallery/movistar-arena/1.jpg" alt=""><img
-                  src="assets/gallery/movistar-arena/2.jpg" alt="">
+              <div class="col-left"><img src="assets/gallery/movistar-arena/1.jpg"
+                  alt="Movistar Arena – Área VIP, vista 1" decoding="async"><img
+                  src="assets/gallery/movistar-arena/2.jpg" alt="Movistar Arena – Área VIP, vista 2" loading="lazy"
+                  decoding="async">
               </div>
-              <div class="col-right"><img src="assets/gallery/movistar-arena/3.jpg" alt=""></div>
+              <div class="col-right"><img src="assets/gallery/movistar-arena/3.jpg"
+                  alt="Movistar Arena – Área VIP, vista 3" decoding="async"></div>
             </div>
           </div>
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" data-slug="osten">
+          <div class="stack-card" data-slug="osten" tabindex="0" role="button" aria-label="Ver galería de Osten">
             <div class="stack-top">
               <span class="stack-num">02</span>
               <div class="stack-info">
@@ -1517,15 +1646,17 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/gallery/osten/1.jpg" alt=""><img src="assets/gallery/osten/2.jpg"
-                  alt=""></div>
-              <div class="col-right"><img src="assets/gallery/osten/3.jpg" alt=""></div>
+              <div class="col-left"><img src="assets/gallery/osten/1.jpg" alt="Osten – Bar de cocktails, vista 1"
+                  loading="lazy" decoding="async"><img src="assets/gallery/osten/2.jpg"
+                  alt="Osten – Bar de cocktails, vista 2" loading="lazy" decoding="async"></div>
+              <div class="col-right"><img src="assets/gallery/osten/3.jpg" alt="Osten – Bar de cocktails, vista 3"
+                  loading="lazy" decoding="async"></div>
             </div>
           </div>
         </div>
 
         <div class="stack-item">
-          <div class="stack-card" data-slug="araoz">
+          <div class="stack-card" data-slug="araoz" tabindex="0" role="button" aria-label="Ver galería de Araoz">
             <div class="stack-top">
               <span class="stack-num">03</span>
               <div class="stack-info">
@@ -1535,9 +1666,11 @@
               </div>
             </div>
             <div class="stack-imgs">
-              <div class="col-left"><img src="assets/gallery/araoz/1.jpg" alt=""><img src="assets/gallery/araoz/2.jpg"
-                  alt=""></div>
-              <div class="col-right"><img src="assets/gallery/araoz/3.jpg" alt=""></div>
+              <div class="col-left"><img src="assets/gallery/araoz/1.jpg" alt="Araoz – Edificio multifamiliar, vista 1"
+                  loading="lazy" decoding="async"><img src="assets/gallery/araoz/2.jpg"
+                  alt="Araoz – Edificio multifamiliar, vista 2" loading="lazy" decoding="async"></div>
+              <div class="col-right"><img src="assets/gallery/araoz/3.jpg"
+                  alt="Araoz – Edificio multifamiliar, vista 3" loading="lazy" decoding="async"></div>
             </div>
           </div>
         </div>
@@ -1796,7 +1929,7 @@
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería del proyecto" tabindex="-1">
     <button class="lightbox-close" id="lbClose" aria-label="Cerrar">&times;</button>
     <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
     <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
@@ -2046,8 +2179,15 @@
         for (let i = 1; i <= 6; i++) {
           const t = document.createElement('img');
           t.src = `assets/gallery/${proj.slug}/${i}.jpg`;
+          t.alt = `${proj.name} — foto ${i}`;
+          t.loading = 'lazy';
+          t.decoding = 'async';
+          t.tabIndex = 0;
           t.className = (i - 1 === currentPhotoIndex) ? 'active' : '';
           t.addEventListener('click', () => { currentPhotoIndex = i - 1; renderLightbox(); });
+          t.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); currentPhotoIndex = i - 1; renderLightbox(); }
+          });
           lbThumbs.appendChild(t);
         }
       }
@@ -2063,23 +2203,84 @@
         renderLightbox();
       }
 
+      let lastFocused = null;
+      function openLightboxFromCard(card) {
+        lastFocused = document.activeElement;
+        openLightboxBySlug(card.dataset.slug);
+        lbClose.focus();
+      }
+
       document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', () => openLightboxBySlug(card.dataset.slug));
+        const name = card.querySelector('.p-name') ? card.querySelector('.p-name').textContent : '';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Ver galería de ${name}`);
+        card.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; img.decoding = 'async'; });
+        card.addEventListener('click', () => openLightboxFromCard(card));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFromCard(card); }
+        });
       });
       document.querySelectorAll('.stack-card[data-slug]').forEach(card => {
-        card.addEventListener('click', () => openLightboxBySlug(card.dataset.slug));
+        card.addEventListener('click', () => openLightboxFromCard(card));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFromCard(card); }
+        });
       });
       lbClose.addEventListener('click', closeLightbox);
       lbNext.addEventListener('click', (e) => { e.stopPropagation(); nextPhoto(); });
       lbPrev.addEventListener('click', (e) => { e.stopPropagation(); prevPhoto(); });
       lbNextProject.addEventListener('click', (e) => { e.stopPropagation(); nextProject(); });
       lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+      const origCloseLightbox = closeLightbox;
+      closeLightbox = function () {
+        origCloseLightbox();
+        if (lastFocused) { lastFocused.focus(); lastFocused = null; }
+      };
+
       document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('open')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') nextPhoto();
         if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'Tab') {
+          const focusables = lightbox.querySelectorAll('button, [href], img[tabindex]');
+          const list = Array.from(focusables);
+          if (!list.length) return;
+          const first = list[0], last = list[list.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
       });
+    } catch (e) { console.error('Error en un bloque de la pagina:', e); }
+
+    try {
+      /* ---------- SCROLLSPY (resalta el link activo del nav) ---------- */
+      const navLinks = document.querySelectorAll('header nav a[href^="#"]');
+      const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      function updateScrollspy() {
+        let current = sections[0];
+        const y = window.scrollY + 140;
+        sections.forEach(sec => { if (sec.offsetTop <= y) current = sec; });
+        navLinks.forEach(a => {
+          const isActive = a.getAttribute('href') === `#${current.id}`;
+          a.classList.toggle('active', isActive);
+          if (isActive) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+      }
+      window.addEventListener('scroll', () => requestAnimationFrame(updateScrollspy), { passive: true });
+      updateScrollspy();
+
+    } catch (e) { console.error('Error en un bloque de la pagina:', e); }
+
+    try {
+      /* ---------- MENU ARIA-EXPANDED SYNC ---------- */
+      const menuToggleBtn = document.getElementById('menuBtn');
+      const mobileNav = document.getElementById('mobile-menu');
+      const syncMenuAria = () => menuToggleBtn.setAttribute('aria-expanded', mobileNav.classList.contains('open') ? 'true' : 'false');
+      new MutationObserver(syncMenuAria).observe(mobileNav, { attributes: true, attributeFilter: ['class'] });
+
     } catch (e) { console.error('Error en un bloque de la pagina:', e); }
 
   </script>
