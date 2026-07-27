@@ -22,28 +22,34 @@
   <header class="site-header">
     <div class="container nav-inner">
       <a href="/" class="logo">HMA<span>Hitzig Militello Arquitectos</span></a>
-      <nav class="primary-nav" aria-label="Navegación principal">
-        <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/proyectos/">Proyectos</a></li>
-          <li><a href="/prensa/">Prensa</a></li>
-          <li><a href="/estudio/" aria-current="page">Estudio</a></li>
-        </ul>
-      </nav>
-      <a href="/contacto/" class="nav-cta">Contacto</a>
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
-        aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+        aria-controls="site-menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/proyectos/">Proyectos</a></li>
-      <li><a href="/prensa/">Prensa</a></li>
-      <li><a href="/estudio/">Estudio</a></li>
-      <li><a href="/contacto/">Contacto</a></li>
-    </ul>
+  <div id="site-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="site-menu__inner">
+      <ul class="site-menu__primary">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/proyectos/">Proyectos</a></li>
+        <li><a href="/prensa/">Prensa</a></li>
+        <li><a href="/estudio/" aria-current="page">Estudio</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+      </ul>
+      <ul class="site-menu__cats">
+        <li><a href="/proyectos/?cat=hoteleria">Hotelería &amp; Comercial</a></li>
+        <li><a href="/proyectos/?cat=gastronomico">Gastronómico</a></li>
+        <li><a href="/proyectos/?cat=residencial">Residencial</a></li>
+        <li><a href="/proyectos/?cat=oficinas">Oficinas</a></li>
+      </ul>
+      <div class="site-menu__footer">
+        <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+        <div class="social-links">
+          <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
+          <a href="tel:+541147738658">+54 11 4773 8658</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <main id="main">

@@ -67,28 +67,34 @@
   <header class="site-header">
     <div class="container nav-inner">
       <a href="/" class="logo">HMA<span>Hitzig Militello Arquitectos</span></a>
-      <nav class="primary-nav" aria-label="Navegación principal">
-        <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/proyectos/">Proyectos</a></li>
-          <li><a href="/prensa/">Prensa</a></li>
-          <li><a href="/estudio/">Estudio</a></li>
-        </ul>
-      </nav>
-      <a href="/contacto/" class="nav-cta">Contacto</a>
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
-        aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+        aria-controls="site-menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/proyectos/">Proyectos</a></li>
-      <li><a href="/prensa/">Prensa</a></li>
-      <li><a href="/estudio/">Estudio</a></li>
-      <li><a href="/contacto/">Contacto</a></li>
-    </ul>
+  <div id="site-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="site-menu__inner">
+      <ul class="site-menu__primary">
+        <li><a href="/" aria-current="page">Inicio</a></li>
+        <li><a href="/proyectos/">Proyectos</a></li>
+        <li><a href="/prensa/">Prensa</a></li>
+        <li><a href="/estudio/">Estudio</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+      </ul>
+      <ul class="site-menu__cats">
+        <li><a href="/proyectos/?cat=hoteleria">Hotelería &amp; Comercial</a></li>
+        <li><a href="/proyectos/?cat=gastronomico">Gastronómico</a></li>
+        <li><a href="/proyectos/?cat=residencial">Residencial</a></li>
+        <li><a href="/proyectos/?cat=oficinas">Oficinas</a></li>
+      </ul>
+      <div class="site-menu__footer">
+        <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+        <div class="social-links">
+          <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
+          <a href="tel:+541147738658">+54 11 4773 8658</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <main id="main">
@@ -110,6 +116,12 @@
           <p>Áreas VIP y comunes para el mayor arena de Buenos Aires — 640 m² de experiencia de marca.</p>
         </div>
       </a>
+
+      <div class="banner-interlude reveal">
+        <p>Del entretenimiento a la gastronomía: el mismo método aplicado a otra escala, en otro tipo de experiencia.
+          <a href="/estudio/">Así trabajamos</a>.</p>
+      </div>
+
       <a href="/proyectos/?cat=gastronomico" class="project-banner reveal">
         <img src="/assets/osten.webp" alt="Osten, bar de cocktails" loading="lazy" decoding="async">
         <div class="project-banner__content">
@@ -118,6 +130,12 @@
           <p>Bar de cocktails en Puerto Madero, 460 m² donde el minimalismo racionalista dialoga con la exaltación sensorial.</p>
         </div>
       </a>
+
+      <div class="banner-interlude reveal">
+        <p>Ese mismo lenguaje, un año después, en un formato más chico e igual de intencional. <a href="/prensa/">Lo
+            contó la prensa</a>.</p>
+      </div>
+
       <a href="/proyectos/#osten-foa" class="project-banner reveal">
         <img src="/assets/gallery/osten-foa/2.jpg" alt="Osten Coffee Shop, Casa FOA 2025" loading="lazy" decoding="async">
         <div class="project-banner__content">
@@ -126,6 +144,12 @@
           <p>Un territorio de dualidades: minimalismo racionalista y exaltación sensorial, en Madero Harbour.</p>
         </div>
       </a>
+
+      <div class="banner-interlude reveal">
+        <p>Fuera de la gastronomía, el mismo estudio también piensa cómo se vive: <a
+            href="/proyectos/?cat=residencial">arquitectura residencial</a> con la misma exigencia de detalle.</p>
+      </div>
+
       <a href="/proyectos/?cat=residencial" class="project-banner reveal">
         <img src="/assets/araoz.webp" alt="Araoz, edificio multifamiliar" loading="lazy" decoding="async">
         <div class="project-banner__content">
@@ -134,6 +158,12 @@
           <p>Edificio multifamiliar de 2.040 m² en Buenos Aires.</p>
         </div>
       </a>
+
+      <div class="banner-interlude reveal">
+        <p>Y cuando el proyecto cruza fronteras, la escala cambia pero el proceso no: 20 años trabajando también
+          <a href="/estudio/">fuera de Argentina</a>.</p>
+      </div>
+
       <a href="/proyectos/?cat=hoteleria" class="project-banner reveal">
         <img src="/assets/hyatt-ziva.webp" alt="Hyatt Ziva, hotel en Barbados" loading="lazy" decoding="async">
         <div class="project-banner__content">
@@ -142,6 +172,12 @@
           <p>50.000 m² de zonas comunes y locales comerciales en Barbados, Caribe.</p>
         </div>
       </a>
+
+      <div class="banner-interlude reveal">
+        <p>Y del hotel de 50.000 m² a una oficina de trabajo diario — la misma atención al detalle, en otra escala
+          completamente distinta.</p>
+      </div>
+
       <a href="/proyectos/?cat=oficinas" class="project-banner reveal">
         <img src="/assets/uala-office.webp" alt="Ualá, reforma de oficinas" loading="lazy" decoding="async">
         <div class="project-banner__content">

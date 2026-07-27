@@ -1,16 +1,25 @@
 try {
-  /* ---------- MENU MOBILE ---------- */
+  /* ---------- MENU (toggle unico, referencia mvrdv.com) ---------- */
   const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
+  const siteMenu = document.getElementById('site-menu');
+  if (menuBtn && siteMenu) {
+    const closeMenu = () => {
+      siteMenu.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
-    }));
+      document.body.style.overflow = '';
+    };
+    const openMenu = () => {
+      siteMenu.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    menuBtn.addEventListener('click', () => {
+      if (siteMenu.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    siteMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && siteMenu.classList.contains('open')) closeMenu();
+    });
   }
 } catch (e) { console.error('nav', e); }
 
@@ -192,8 +201,8 @@ try {
 } catch (e) { console.error('lightbox', e); }
 
 try {
-  /* ---------- SCROLLSPY ---------- */
-  const navLinks = document.querySelectorAll('nav.primary-nav a[href]');
+  /* ---------- PAGINA ACTIVA EN EL MENU ---------- */
+  const navLinks = document.querySelectorAll('.site-menu__primary a[href]');
   const path = window.location.pathname.replace(/\/index\.html$/, '/');
   navLinks.forEach(a => {
     const href = a.getAttribute('href');
@@ -201,7 +210,7 @@ try {
       a.setAttribute('aria-current', 'page');
     }
   });
-} catch (e) { console.error('scrollspy', e); }
+} catch (e) { console.error('active-page', e); }
 
 try {
   /* ---------- FORMULARIO DE CONTACTO ---------- */
