@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Hitzig Militello Arquitectos</title>
+  <meta name="description" content="Contactá a Hitzig Militello Arquitectos. Oficinas en Buenos Aires y Miami.">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <link rel="canonical" href="https://estudiohma.com/contacto/">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-weight='bold' font-size='58' fill='%23FFF' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="/" class="logo">HMA<span>Hitzig Militello Arquitectos</span></a>
+      <nav class="primary-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/proyectos/">Proyectos</a></li>
+          <li><a href="/prensa/">Prensa</a></li>
+          <li><a href="/estudio/">Estudio</a></li>
+        </ul>
+      </nav>
+      <a href="/contacto/" class="nav-cta" aria-current="page">Contacto</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
+        aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/proyectos/">Proyectos</a></li>
+      <li><a href="/prensa/">Prensa</a></li>
+      <li><a href="/estudio/">Estudio</a></li>
+      <li><a href="/contacto/">Contacto</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+    <section class="hero-home" style="padding-bottom:32px;">
+      <div class="container">
+        <span class="eyebrow">06 — Contacto</span>
+        <h1 class="display-2" style="margin-top:14px;">Hablemos de tu proyecto</h1>
+      </div>
+    </section>
+
+    <section class="section" style="border-bottom:none; padding-top:32px;">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="office-card">
+            <h3>Buenos Aires</h3>
+            <p>Soler 5130, 1° B — Palermo<br>C1425, Buenos Aires, Argentina<br>(+54) 11 4773 8658</p>
+          </div>
+          <div class="office-card">
+            <h3>Miami</h3>
+            <p>2980 NE 207 St., Fl. 33180<br>Wynwood, Miami, Estados Unidos<br>+1 (305) 851 3565</p>
+          </div>
+
+          <form class="contact-form field-full reveal" id="contactForm" novalidate style="grid-column:1/-1;">
+            <div class="field-full"><label for="cf-name">Nombre</label><input type="text" id="cf-name" name="name" autocomplete="name" required></div>
+            <div class="field-full"><label for="cf-email">Email</label><input type="email" id="cf-email" name="email" autocomplete="email" required></div>
+            <div class="field-full"><label for="cf-message">Contanos sobre tu proyecto</label><textarea id="cf-message" name="message" required></textarea></div>
+            <div class="hp-field" aria-hidden="true"><label for="cf-company">No completar</label><input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off"></div>
+            <div class="field-full" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+              <button type="submit" class="btn" id="cfSubmit">Enviar mensaje</button>
+              <span class="form-status" id="cfStatus" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+
+          <div class="contact-cta reveal" style="grid-column:1/-1;">
+            <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+            <div class="social-links">
+              <a href="https://estudiohma.com" target="_blank" rel="noopener">estudiohma.com</a>
+              <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© 2026 Hitzig Militello Arquitectos</span>
+      <span><a href="/contacto/">hma@estudiohma.com</a> — Buenos Aires · Miami</span>
+    </div>
+  </footer>
+
+  <script src="/scripts/main.js"></script>
+</body>
+
+</html>
