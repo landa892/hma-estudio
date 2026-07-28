@@ -394,11 +394,6 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
 
 .link-arrow:hover::after { transform: translate(2px, -2px); }
 
-.link-out::after {
-  content: "\279E";
-  margin-right: 8px;
-}
-
 /* ---------- REVEAL ---------- */
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
