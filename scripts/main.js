@@ -91,11 +91,27 @@ try {
       if (siteMenu.classList.contains('open')) closeMenu(); else openMenu();
     });
     siteMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    const closeBtn = document.getElementById('siteMenuClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && siteMenu.classList.contains('open')) closeMenu();
     });
   }
 } catch (e) { console.error('nav', e); }
+
+try {
+  /* ---------- BUSQUEDA (icono lupa dentro del menu, ref. mvrdv.com) ---------- */
+  const searchBtn = document.getElementById('siteMenuSearchBtn');
+  const searchForm = document.getElementById('siteMenuSearch');
+  if (searchBtn && searchForm) {
+    const searchInput = searchForm.querySelector('input');
+    searchBtn.addEventListener('click', () => {
+      const isOpen = searchForm.classList.toggle('open');
+      searchBtn.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen && searchInput) searchInput.focus();
+    });
+  }
+} catch (e) { console.error('search-toggle', e); }
 
 try {
   /* ---------- REVEAL ON SCROLL ---------- */
@@ -153,6 +169,13 @@ try {
     if (cat) {
       const btn = document.querySelector(`.filter-btn[data-filter="${CSS.escape(cat)}"]`);
       if (btn) btn.click();
+    }
+    const q = (params.get('q') || '').trim().toLowerCase();
+    if (q) {
+      document.querySelectorAll('[data-cat]').forEach(c => {
+        const name = (c.querySelector('.p-name, .plr-name')?.textContent || '').toLowerCase();
+        if (!name.includes(q)) c.classList.add('hidden');
+      });
     }
   }
 } catch (e) { console.error('filter', e); }
