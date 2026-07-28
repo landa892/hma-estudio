@@ -1,22 +1,34 @@
 try {
-  /* ---------- TITULO DEL HERO SE ACHICA HACIA ABAJO-IZQUIERDA AL SCROLLEAR
-     (referencia mvrdv.com: transform-origin left bottom, ligado al scroll
-     en vivo, no a una sola aparicion). ---------- */
+  /* ---------- TODOS LOS TEXTOS DEL HOME SE ACHICAN HACIA ABAJO-IZQUIERDA AL
+     SCROLLEAR (referencia mvrdv.com: transform-origin left bottom, ligado al
+     scroll en vivo dentro del rango de CADA seccion, no a una sola aparicion).
+     Aplica al hero y a los 6 project-banner. ---------- */
+  const shrinkTargets = [];
   const heroSection = document.querySelector('.hero-home--photo');
   const heroWrap = document.querySelector('.hero-content-wrap');
-  if (heroSection && heroWrap) {
+  if (heroSection && heroWrap) shrinkTargets.push({ section: heroSection, wrap: heroWrap, varName: '--hero-scale' });
+
+  document.querySelectorAll('.project-banner').forEach(banner => {
+    const content = banner.querySelector('.project-banner__content');
+    if (content) shrinkTargets.push({ section: banner, wrap: content, varName: '--pb-scale' });
+  });
+
+  if (shrinkTargets.length) {
     const MIN_SCALE = 0.55;
-    function updateHeroScale() {
-      const heroHeight = heroSection.offsetHeight || 1;
-      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
-      const scale = 1 - progress * (1 - MIN_SCALE);
-      heroWrap.style.setProperty('--hero-scale', scale.toFixed(3));
+    function updateShrink() {
+      shrinkTargets.forEach(({ section, wrap, varName }) => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight || 1;
+        const progress = Math.min(Math.max((window.scrollY - top) / height, 0), 1);
+        const scale = 1 - progress * (1 - MIN_SCALE);
+        wrap.style.setProperty(varName, scale.toFixed(3));
+      });
     }
-    window.addEventListener('scroll', () => requestAnimationFrame(updateHeroScale), { passive: true });
-    window.addEventListener('resize', updateHeroScale);
-    updateHeroScale();
+    window.addEventListener('scroll', () => requestAnimationFrame(updateShrink), { passive: true });
+    window.addEventListener('resize', updateShrink);
+    updateShrink();
   }
-} catch (e) { console.error('hero-scale', e); }
+} catch (e) { console.error('shrink-on-scroll', e); }
 
 try {
   /* ---------- HEADER TRANSPARENTE SOBRE EL HERO (referencia mvrdv.com) ---------- */

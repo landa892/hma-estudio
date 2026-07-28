@@ -492,12 +492,20 @@ footer.site-footer {
   width: 100%;
   padding: 56px 32px;
   color: var(--white);
+  transform-origin: left bottom;
+  transform: scale(var(--pb-scale, 1));
+  will-change: transform;
+}
+
+/* La entrada (fade + translate) vive en un wrapper interno, separado del
+   escalado por scroll de arriba, para que ambos transform no choquen. */
+.pb-content-inner {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .8s ease .2s, transform .8s ease .2s;
 }
 
-.project-banner.in .project-banner__content { opacity: 1; transform: translateY(0); }
+.project-banner.in .pb-content-inner { opacity: 1; transform: translateY(0); }
 
 /* Sin capa oscura sobre la foto: el texto resalta con sombra propia, igual
    que mvrdv.com (.post-teaser-banner__content__claim usa text-shadow). */
