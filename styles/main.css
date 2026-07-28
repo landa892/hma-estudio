@@ -414,6 +414,9 @@ footer.site-footer {
 .hero-content-wrap {
   width: 100%;
   padding: 0 32px;
+  transform-origin: left bottom;
+  transform: scale(var(--hero-scale, 1));
+  will-change: transform;
 }
 
 @media (max-width: 640px) { .hero-content-wrap { padding: 0 20px; } }

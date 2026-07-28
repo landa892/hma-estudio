@@ -1,4 +1,24 @@
 try {
+  /* ---------- TITULO DEL HERO SE ACHICA HACIA ABAJO-IZQUIERDA AL SCROLLEAR
+     (referencia mvrdv.com: transform-origin left bottom, ligado al scroll
+     en vivo, no a una sola aparicion). ---------- */
+  const heroSection = document.querySelector('.hero-home--photo');
+  const heroWrap = document.querySelector('.hero-content-wrap');
+  if (heroSection && heroWrap) {
+    const MIN_SCALE = 0.55;
+    function updateHeroScale() {
+      const heroHeight = heroSection.offsetHeight || 1;
+      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+      const scale = 1 - progress * (1 - MIN_SCALE);
+      heroWrap.style.setProperty('--hero-scale', scale.toFixed(3));
+    }
+    window.addEventListener('scroll', () => requestAnimationFrame(updateHeroScale), { passive: true });
+    window.addEventListener('resize', updateHeroScale);
+    updateHeroScale();
+  }
+} catch (e) { console.error('hero-scale', e); }
+
+try {
   /* ---------- HEADER TRANSPARENTE SOBRE EL HERO (referencia mvrdv.com) ---------- */
   const overlayHeader = document.querySelector('header.site-header.is-overlay');
   const heroPhoto = document.querySelector('.hero-home--photo');
