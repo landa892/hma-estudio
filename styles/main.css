@@ -113,12 +113,16 @@ header.site-header {
 }
 
 .nav-inner {
+  width: 100%;
+  padding: 0 32px;
   height: var(--nav-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
 }
+
+@media (max-width: 640px) { .nav-inner { padding: 0 20px; } }
 
 .logo {
   font-weight: 700;
@@ -407,25 +411,29 @@ footer.site-footer {
 
 .hero-home--photo.in img { transform: scale(1); }
 
-.hero-home--photo .container > * {
+.hero-content-wrap {
+  width: 100%;
+  padding: 0 32px;
+}
+
+@media (max-width: 640px) { .hero-content-wrap { padding: 0 20px; } }
+
+.hero-content-wrap > * {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .9s ease .3s, transform .9s ease .3s;
 }
 
-.hero-home--photo.in .container > * { opacity: 1; transform: translateY(0); }
+.hero-home--photo.in .hero-content-wrap > * { opacity: 1; transform: translateY(0); }
 
-.hero-home--photo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,.4) 100%);
-  z-index: -1;
+/* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com
+   (.post-teaser-banner__content__claim usa text-shadow, no un overlay). */
+.hero-home--photo .eyebrow,
+.hero-home--photo h1,
+.hero-home--photo .lede {
+  color: var(--white);
+  text-shadow: 0 1px 1px rgba(0,0,0,.9), 0 1px 2px rgba(0,0,0,.8), 0 2px 10px rgba(0,0,0,.6);
 }
-
-.hero-home--photo .eyebrow { color: rgba(255,255,255,.8); }
-.hero-home--photo h1 { color: var(--white); }
-.hero-home--photo .lede { color: rgba(255,255,255,.88); }
 
 @media (max-width: 640px) { .hero-home--photo { min-height: 76vh; } }
 
@@ -475,13 +483,6 @@ footer.site-footer {
 
 .project-banner:hover img { transform: scale(1.04); }
 
-.project-banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.35) 100%);
-}
-
 .project-banner__content {
   position: relative;
   z-index: 1;
@@ -495,17 +496,22 @@ footer.site-footer {
 
 .project-banner.in .project-banner__content { opacity: 1; transform: translateY(0); }
 
-.project-banner__content .eyebrow { color: rgba(255,255,255,.75); }
+/* Sin capa oscura sobre la foto: el texto resalta con sombra propia, igual
+   que mvrdv.com (.post-teaser-banner__content__claim usa text-shadow). */
+.project-banner__content .eyebrow,
+.project-banner__content h2,
+.project-banner__content p {
+  color: var(--white);
+  text-shadow: 0 1px 1px rgba(0,0,0,.9), 0 1px 2px rgba(0,0,0,.8), 0 2px 10px rgba(0,0,0,.6);
+}
 
 .project-banner__content h2 {
-  color: var(--white);
   font-size: clamp(2rem, 5.5vw, 4.2rem);
   max-width: 20ch;
   margin-top: 12px;
 }
 
 .project-banner__content p {
-  color: rgba(255,255,255,.85);
   max-width: 50ch;
   margin-top: 16px;
   font-size: 1rem;
