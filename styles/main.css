@@ -125,16 +125,24 @@ header.site-header {
 @media (max-width: 640px) { .nav-inner { padding: 0 20px; } }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
 }
 
-.logo span {
-  font-weight: 400;
-  color: var(--gray);
-  margin-left: 6px;
+.logo-mark {
+  height: 20px;
+  width: auto;
+  display: block;
+  transition: opacity .25s ease;
+}
+
+.logo-mark--light {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 
 /* El header muestra solo logo + toggle, siempre — la nav completa vive en el
@@ -153,13 +161,8 @@ header.site-header.is-overlay {
   transition: background .25s ease, border-color .25s ease;
 }
 
-header.site-header.is-overlay .logo,
-header.site-header.is-overlay .logo span {
-  color: var(--white);
-  transition: color .25s ease;
-}
-
-header.site-header.is-overlay .logo span { color: rgba(255,255,255,.75); }
+header.site-header.is-overlay .logo-mark--dark { opacity: 0; }
+header.site-header.is-overlay .logo-mark--light { opacity: 1; }
 
 header.site-header.is-overlay .menu-btn span { background: var(--white); transition: background .25s ease; }
 
@@ -168,8 +171,8 @@ header.site-header.is-overlay.scrolled {
   border-bottom-color: var(--black);
 }
 
-header.site-header.is-overlay.scrolled .logo { color: var(--black); }
-header.site-header.is-overlay.scrolled .logo span { color: var(--gray); }
+header.site-header.is-overlay.scrolled .logo-mark--dark { opacity: 1; }
+header.site-header.is-overlay.scrolled .logo-mark--light { opacity: 0; }
 header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black); }
 
 /* Puntos de navegacion a la derecha, uno por seccion a pantalla completa
