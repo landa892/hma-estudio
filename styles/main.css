@@ -676,12 +676,14 @@ footer.site-footer {
 .view-toggle button.active { color: var(--black); border-color: var(--black); }
 
 .project-grid {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--black);
 }
+
+.project-grid.active { display: grid; }
 
 @media (max-width: 900px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .project-grid { grid-template-columns: 1fr; } }
@@ -727,13 +729,11 @@ footer.site-footer {
   margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap;
 }
 
-.project-card.hidden { display: none; }
+.project-card.hidden, .project-list-row.hidden { display: none; }
 
 .project-list { display: none; }
 
 .project-list.active { display: block; }
-
-.project-grid.active { display: grid; }
 
 .project-list-row {
   display: grid;
