@@ -36,8 +36,8 @@ try {
 } catch (e) { console.error('reveal', e); }
 
 try {
-  /* ---------- COUNT-UP STATS ---------- */
-  const statEls = document.querySelectorAll('.stat-num[data-count]');
+  /* ---------- COUNT-UP STATS (tiles + numeros dentro de frases) ---------- */
+  const statEls = document.querySelectorAll('[data-count]');
   const statIo = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {

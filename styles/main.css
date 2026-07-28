@@ -427,24 +427,47 @@ footer.site-footer {
 }
 
 .banner-interlude {
-  padding: 72px 32px;
-  max-width: 620px;
+  padding: 140px 32px;
+  max-width: 680px;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 }
 
 .banner-interlude p {
-  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
   line-height: 1.5;
   font-weight: 400;
 }
 
-.banner-interlude a {
+.banner-interlude a:not(.interlude-btn) {
   border-bottom: 1.5px solid var(--black);
   font-weight: 700;
 }
 
-@media (max-width: 640px) { .banner-interlude { padding: 48px 20px; } }
+.banner-interlude .count-inline {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.interlude-btn {
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex: none;
+  transition: background .15s ease, color .15s ease;
+}
+
+.interlude-btn:hover { background: var(--black); color: var(--white); }
+
+@media (max-width: 640px) { .banner-interlude { padding: 88px 20px; gap: 24px; } }
 
 /* ========================================================================
    PROYECTOS
