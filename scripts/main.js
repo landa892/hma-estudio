@@ -1,4 +1,46 @@
 try {
+  /* ---------- HEADER TRANSPARENTE SOBRE EL HERO (referencia mvrdv.com) ---------- */
+  const overlayHeader = document.querySelector('header.site-header.is-overlay');
+  const heroPhoto = document.querySelector('.hero-home--photo');
+  if (overlayHeader && heroPhoto) {
+    const headerIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        overlayHeader.classList.toggle('scrolled', !entry.isIntersecting);
+      });
+    }, { rootMargin: `-${overlayHeader.offsetHeight}px 0px 0px 0px`, threshold: 0 });
+    headerIo.observe(heroPhoto);
+  }
+} catch (e) { console.error('overlay-header', e); }
+
+try {
+  /* ---------- PUNTOS DE NAVEGACION A LA DERECHA (referencia mvrdv.com) ---------- */
+  const dotsNav = document.getElementById('scrollDots');
+  if (dotsNav) {
+    const dots = Array.from(dotsNav.querySelectorAll('button'));
+    const sections = dots.map(d => document.getElementById(d.dataset.target)).filter(Boolean);
+
+    dots.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    const dotsIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = sections.indexOf(entry.target);
+          if (idx === -1) return;
+          dots.forEach(d => d.classList.remove('active'));
+          dots[idx].classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s => dotsIo.observe(s));
+  }
+} catch (e) { console.error('scroll-dots', e); }
+
+try {
   /* ---------- MENU (toggle unico, referencia mvrdv.com) ---------- */
   const menuBtn = document.getElementById('menuBtn');
   const siteMenu = document.getElementById('site-menu');

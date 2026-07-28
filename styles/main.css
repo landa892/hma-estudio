@@ -137,6 +137,66 @@ header.site-header {
    panel #site-menu, calcado del patron real de mvrdv.com (main-nav-toggle +
    nav.main-nav como overlay). */
 
+/* Header superpuesto sobre la foto del hero (solo home), transparente hasta
+   que se scrollea; ahi pasa a solido. Calcado del header real de mvrdv.com. */
+header.site-header.is-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-bottom-color: transparent;
+  transition: background .25s ease, border-color .25s ease;
+}
+
+header.site-header.is-overlay .logo,
+header.site-header.is-overlay .logo span {
+  color: var(--white);
+  transition: color .25s ease;
+}
+
+header.site-header.is-overlay .logo span { color: rgba(255,255,255,.75); }
+
+header.site-header.is-overlay .menu-btn span { background: var(--white); transition: background .25s ease; }
+
+header.site-header.is-overlay.scrolled {
+  background: var(--white);
+  border-bottom-color: var(--black);
+}
+
+header.site-header.is-overlay.scrolled .logo { color: var(--black); }
+header.site-header.is-overlay.scrolled .logo span { color: var(--gray); }
+header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black); }
+
+/* Puntos de navegacion a la derecha, uno por seccion a pantalla completa
+   (referencia mvrdv.com) */
+.scroll-dots {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.scroll-dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1.5px solid rgba(0,0,0,.45);
+  background: rgba(255,255,255,.7);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.scroll-dots button:hover { transform: scale(1.3); }
+
+.scroll-dots button.active { background: var(--black); border-color: var(--black); }
+
+@media (max-width: 760px) { .scroll-dots { display: none; } }
+
 .menu-btn {
   display: flex;
   flex-direction: column;
