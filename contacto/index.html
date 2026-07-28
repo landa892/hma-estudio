@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Hitzig Militello Arquitectos</title>
+  <meta name="description" content="Contactá a Hitzig Militello Arquitectos. Oficinas en Buenos Aires y Miami.">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <link rel="canonical" href="https://estudiohma.com/contacto/">
+  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="/" class="logo" aria-label="Hitzig Militello Arquitectos — Inicio">
+        <img src="/assets/logo-mark-black.png" alt="HMA" class="logo-mark logo-mark--dark">
+        <img src="/assets/logo-mark-white.png" alt="" class="logo-mark logo-mark--light" aria-hidden="true">
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
+        aria-controls="site-menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div id="site-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="site-menu__controls">
+      <button class="site-menu__icon-btn" id="siteMenuSearchBtn" aria-label="Buscar" aria-expanded="false" aria-controls="siteMenuSearch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="site-menu__icon-btn site-menu__close" id="siteMenuClose" aria-label="Cerrar menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+      </button>
+    </div>
+    <form class="site-menu__search" id="siteMenuSearch" role="search" action="/proyectos/" method="get">
+      <input type="text" name="q" placeholder="Buscar un proyecto…" aria-label="Buscar un proyecto" autocomplete="off">
+    </form>
+    <div class="site-menu__inner">
+      <ul class="site-menu__primary">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/proyectos/">Proyectos</a></li>
+        <li><a href="/prensa/">Prensa</a></li>
+        <li><a href="/estudio/">Estudio</a></li>
+        <li><a href="/contacto/" aria-current="page">Contacto</a></li>
+      </ul>
+      <div class="site-menu__footer">
+        <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+        <div class="social-links">
+          <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
+          <a href="tel:+541147738658">+54 11 4773 8658</a>
+        </div>
+      </div>
+      <ul class="site-menu__cats">
+        <li><a href="/proyectos/?cat=hoteleria">Hotelería &amp; Comercial</a></li>
+        <li><a href="/proyectos/?cat=gastronomico">Gastronómico</a></li>
+        <li><a href="/proyectos/?cat=residencial">Residencial</a></li>
+        <li><a href="/proyectos/?cat=oficinas">Oficinas</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero-home pb-32">
+      <div class="container">
+        <span class="eyebrow">06 — Contacto</span>
+        <h1 class="display-2 mt-14">Hablemos de tu proyecto</h1>
+      </div>
+    </section>
+
+    <section class="section no-border pt-32">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="office-card">
+            <h3>Buenos Aires</h3>
+            <p>Soler 5130, 1° B — Palermo<br>C1425, Buenos Aires, Argentina<br>(+54) 11 4773 8658</p>
+          </div>
+          <div class="office-card">
+            <h3>Miami</h3>
+            <p>2980 NE 207 St., Fl. 33180<br>Wynwood, Miami, Estados Unidos<br>+1 (305) 851 3565</p>
+          </div>
+
+          <form class="contact-form reveal span-all" id="contactForm" novalidate>
+            <div class="field-full"><label for="cf-name">Nombre</label><input type="text" id="cf-name" name="name" autocomplete="name" required></div>
+            <div class="field-full"><label for="cf-email">Email</label><input type="email" id="cf-email" name="email" autocomplete="email" required></div>
+            <div class="field-full"><label for="cf-message">Contanos sobre tu proyecto</label><textarea id="cf-message" name="message" required></textarea></div>
+            <div class="hp-field" aria-hidden="true"><label for="cf-company">No completar</label><input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off"></div>
+            <div class="field-full form-actions">
+              <button type="submit" class="btn" id="cfSubmit">Enviar mensaje</button>
+              <span class="form-status" id="cfStatus" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+
+          <div class="contact-cta reveal span-all">
+            <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+            <div class="social-links">
+              <a href="https://estudiohma.com" target="_blank" rel="noopener">estudiohma.com</a>
+              <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© 2026 Hitzig Militello Arquitectos</span>
+      <span><a href="/contacto/">hma@estudiohma.com</a> — Buenos Aires · Miami</span>
+    </div>
+  </footer>
+
+  <script src="/scripts/main.js"></script>
+</body>
+
+</html>
