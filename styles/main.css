@@ -261,21 +261,28 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
   transform: translateY(-100%);
   transition: transform .35s ease;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #site-menu.open { transform: translateY(0); }
 
+/* sticky y no absolute: el panel puede scrollear por dentro (pantallas bajas),
+   y en absolute la lupa y la cruz se iban con el scroll. Asi quedan siempre
+   visibles arriba a la derecha. */
 .site-menu__controls {
-  position: absolute;
+  position: sticky;
   top: 22px;
-  right: 32px;
+  align-self: flex-end;
+  margin-right: 32px;
+  flex: none;
   display: flex;
   align-items: center;
   gap: 18px;
   z-index: 2;
 }
 
-@media (max-width: 640px) { .site-menu__controls { top: 16px; right: 20px; gap: 10px; } }
+@media (max-width: 640px) { .site-menu__controls { top: 16px; margin-right: 20px; gap: 10px; } }
 
 .site-menu__icon-btn {
   display: flex;
@@ -292,10 +299,14 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
 
 .site-menu__icon-btn svg { width: 22px; height: 22px; }
 
+/* flex:none — como el panel es flex column y .site-menu__inner crece con
+   flex:1, sin esto el buscador se comprimia a altura 0 y no se veia al abrirlo. */
 .site-menu__search {
+  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   padding: 0 32px;
+  flex: none;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -305,7 +316,7 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
 .site-menu__search.open {
   max-height: 80px;
   opacity: 1;
-  margin: calc(var(--nav-h) + 8px) auto 0;
+  margin: 12px auto 0;
 }
 
 .site-menu__search-field {
@@ -348,9 +359,11 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
 
 .site-menu__search input:focus { outline: none; }
 
+/* flex:1 en vez de min-height:100%: sumado a la altura de los controles y del
+   buscador, el 100% hacia que el panel scrollee de gusto ~112px. */
 .site-menu__inner {
-  min-height: 100%;
-  padding: calc(var(--nav-h) + 40px) 32px 48px;
+  flex: 1;
+  padding: 24px 32px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -359,7 +372,7 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
   gap: 40px;
 }
 
-@media (max-width: 640px) { .site-menu__inner { padding: calc(var(--nav-h) + 24px) 20px 40px; gap: 32px; } }
+@media (max-width: 640px) { .site-menu__inner { padding: 16px 20px 40px; gap: 32px; } }
 
 .site-menu__primary { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
 
