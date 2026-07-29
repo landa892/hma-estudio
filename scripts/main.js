@@ -342,3 +342,83 @@ try {
     });
   }
 } catch (e) { console.error('contact-fab', e); }
+
+try {
+  /* ---------- BUSCADOR EN VIVO (/buscar/) ----------
+     Filtra sobre window.HMA_SEARCH_INDEX (scripts/search-index.js) a medida
+     que se escribe, sin recargar la pagina ni pegarle a ningun servidor. */
+  const spInput = document.getElementById('searchPageInput');
+  const spResults = document.getElementById('searchResults');
+  const spCount = document.getElementById('searchCount');
+  const spForm = document.getElementById('searchPageForm');
+
+  if (spInput && spResults && spCount) {
+    const INDEX = window.HMA_SEARCH_INDEX || [];
+
+    // Sin acentos y en minusculas, para que "uala" encuentre "Ualá".
+    const norm = (s) => (s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    const escapeHtml = (s) => (s || '').replace(/[&<>"]/g, c => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
+    ));
+
+    // Resalta el tramo que coincide, respetando el texto original con acentos.
+    function highlight(text, q) {
+      const safe = escapeHtml(text);
+      if (!q) return safe;
+      const i = norm(safe).indexOf(norm(q));
+      if (i === -1) return safe;
+      return safe.slice(0, i) + '<mark>' + safe.slice(i, i + q.length) + '</mark>' + safe.slice(i + q.length);
+    }
+
+    function render(q) {
+      const nq = norm(q).trim();
+
+      if (!nq) {
+        spResults.innerHTML = '';
+        spCount.textContent = '';
+        return;
+      }
+
+      const hits = INDEX.filter(item =>
+        norm(item.titulo).includes(nq) ||
+        norm(item.sub).includes(nq) ||
+        norm(item.desc).includes(nq) ||
+        norm(item.tipo).includes(nq)
+      );
+
+      spCount.innerHTML = hits.length === 1
+        ? '1 resultado para <b>' + escapeHtml(q) + '</b>'
+        : hits.length + ' resultados para <b>' + escapeHtml(q) + '</b>';
+
+      if (!hits.length) {
+        spResults.innerHTML = '<p class="search-empty">No encontramos nada con ese término. Probá con el nombre de un proyecto, una categoría o un medio.</p>';
+        return;
+      }
+
+      spResults.innerHTML = hits.map(item => {
+        const thumb = item.img
+          ? '<div class="search-result__thumb"><img src="' + item.img + '" alt="" loading="lazy" decoding="async"></div>'
+          : '<div class="search-result__thumb"></div>';
+        return '<a class="search-result" href="' + item.url + '">' +
+          thumb +
+          '<div>' +
+            '<div class="search-result__tipo">' + escapeHtml(item.tipo) + (item.sub ? ' · ' + highlight(item.sub, q) : '') + '</div>' +
+            '<div class="search-result__title">' + highlight(item.titulo, q) + '</div>' +
+            (item.desc ? '<div class="search-result__desc">' + highlight(item.desc, q) + '</div>' : '') +
+          '</div>' +
+        '</a>';
+      }).join('');
+    }
+
+    spInput.addEventListener('input', () => render(spInput.value));
+    if (spForm) spForm.addEventListener('submit', (e) => { e.preventDefault(); render(spInput.value); });
+
+    // Si se llega con ?q= (por ejemplo desde la lupa del menu), busca solo.
+    const initial = new URLSearchParams(window.location.search).get('q');
+    if (initial) { spInput.value = initial; render(initial); }
+  }
+} catch (e) { console.error('search-page', e); }
