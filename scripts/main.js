@@ -313,6 +313,17 @@ try {
       pop.classList.remove('open');
       fab.setAttribute('aria-expanded', 'false');
       fab.setAttribute('aria-label', 'Abrir opciones de contacto');
+
+      // Al cerrar vuelve a la lista, para no reabrir con el formulario a medio
+      // llenar de la vez anterior.
+      const list = document.getElementById('contactPopList');
+      const form = document.getElementById('waForm');
+      if (list && form) {
+        form.hidden = true;
+        list.hidden = false;
+        const st = document.getElementById('waStatus');
+        if (st) { st.textContent = ''; st.className = 'form-status'; }
+      }
     };
     fab.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -408,3 +419,83 @@ try {
     if (initial) { spInput.value = initial; render(initial); }
   }
 } catch (e) { console.error('search-page', e); }
+
+try {
+  /* ---------- WHATSAPP CON CAPTURA DE DATOS ----------
+     Antes del salto a WhatsApp se piden nombre y telefono y se mandan a
+     /api/lead, para que el estudio pueda contactar aunque la persona nunca
+     llegue a escribir el mensaje.
+
+     >>> UNICO LUGAR A EDITAR cuando este el numero de WhatsApp del estudio:
+     solo digitos, con codigo de pais y sin espacios ni signos.
+     Ejemplo: '5491122334455'. Vacio = todavia no configurado. */
+  const WHATSAPP_NUMBER = '';
+
+  const waStart = document.getElementById('waStart');
+  const waForm = document.getElementById('waForm');
+  const waList = document.getElementById('contactPopList');
+
+  if (waStart && waForm && waList) {
+    const waStatus = document.getElementById('waStatus');
+    const waSubmit = document.getElementById('waSubmit');
+    const nameEl = document.getElementById('wa-name');
+    const phoneEl = document.getElementById('wa-phone');
+    const consentEl = document.getElementById('wa-consent');
+    const companyEl = document.getElementById('wa-company');
+
+    waStart.addEventListener('click', () => {
+      waList.hidden = true;
+      waForm.hidden = false;
+      nameEl.focus();
+    });
+
+    waForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      waStatus.textContent = '';
+      waStatus.className = 'form-status';
+
+      const name = nameEl.value.trim();
+      const phone = phoneEl.value.trim();
+
+      if (!name || phone.replace(/\D/g, '').length < 6) {
+        waStatus.textContent = 'Completá tu nombre y un teléfono válido.';
+        waStatus.classList.add('err');
+        return;
+      }
+      if (!consentEl.checked) {
+        waStatus.textContent = 'Necesitamos tu confirmación para poder contactarte.';
+        waStatus.classList.add('err');
+        return;
+      }
+
+      waSubmit.disabled = true;
+      waSubmit.textContent = 'Abriendo…';
+
+      // El aviso al estudio no debe frenar a la persona: si falla, sigue igual.
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, company: companyEl ? companyEl.value : '' }),
+        });
+      } catch (err) {
+        console.error('lead', err);
+      }
+
+      if (WHATSAPP_NUMBER) {
+        const texto = encodeURIComponent('Hola, soy ' + name + '. Quiero consultar por un proyecto.');
+        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + texto, '_blank', 'noopener');
+        waStatus.textContent = 'Listo, te abrimos WhatsApp.';
+        waStatus.classList.add('ok');
+      } else {
+        // Sin numero cargado todavia: al menos quedan los datos guardados.
+        waStatus.textContent = 'Gracias, ' + name + '. Te vamos a contactar a la brevedad.';
+        waStatus.classList.add('ok');
+      }
+
+      waForm.reset();
+      waSubmit.disabled = false;
+      waSubmit.textContent = 'Iniciar conversación';
+    });
+  }
+} catch (e) { console.error('wa-lead', e); }
