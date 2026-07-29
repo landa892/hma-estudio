@@ -1337,3 +1337,30 @@ footer.site-footer {
 .contact-pop__form .btn { width: 100%; justify-content: center; }
 
 .contact-pop__form .form-status { font-size: .8rem; margin: 8px 0 0; }
+
+/* ---------- DOCUMENTO LEGAL (/privacidad/) ---------- */
+
+.legal-updated { margin-top: 18px; font-size: .8rem; color: var(--gray); }
+
+.legal-doc { max-width: 760px; }
+
+.legal-doc h2 {
+  font-size: 1.15rem;
+  margin: 40px 0 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.legal-doc h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+.legal-doc p { margin: 0 0 14px; color: var(--gray-dark); line-height: 1.65; }
+
+.legal-doc ul { margin: 0 0 14px; padding-left: 20px; color: var(--gray-dark); line-height: 1.65; }
+.legal-doc li { margin-bottom: 8px; }
+
+.legal-doc strong { color: var(--black); }
+
+.legal-doc a { text-decoration: underline; text-underline-offset: 3px; }
+
+.footer-inner a { text-decoration: none; }
+.footer-legal { margin-left: 18px; }
