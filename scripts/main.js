@@ -272,17 +272,19 @@ try {
 } catch (e) { console.error('press-filter', e); }
 
 try {
-  /* ---------- ULTIMOS VIDEOS DE YOUTUBE (home) ---------- */
+  /* ---------- ULTIMOS VIDEOS DE YOUTUBE (home) ----------
+     La seccion arranca oculta (atributo "hidden" en el HTML) y solo se
+     muestra si el feed devuelve videos reales — evita mostrar un cartel
+     vacio mientras no este configurada la YOUTUBE_API_KEY. */
+  const updatesSection = document.getElementById('updatesSection');
   const feedEl = document.getElementById('youtubeFeed');
-  if (feedEl) {
+  if (updatesSection && feedEl) {
     fetch('/api/youtube-latest')
       .then(r => r.json())
       .then(data => {
         const videos = data.videos || [];
-        if (!videos.length) {
-          feedEl.innerHTML = `<p>${feedEl.dataset.emptyText || 'Todavía no hay videos cargados.'}</p>`;
-          return;
-        }
+        if (!videos.length) return;
+
         const fmt = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
         feedEl.innerHTML = videos.map(v => `
           <a class="press-card" href="${v.url}" target="_blank" rel="noopener">
@@ -293,6 +295,7 @@ try {
             </div>
           </a>
         `).join('');
+        updatesSection.hidden = false;
       })
       .catch(e => console.error('youtube-feed', e));
   }
