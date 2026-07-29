@@ -2,64 +2,53 @@
 // tocar nada mas (el resto de la pagina se actualiza solo).
 const YOUTUBE_CHANNEL_ID = "UC1BfV3DzfGbaWfiMNHd0baw"; // HMA Estudio — youtube.com/@HMAEstudio
 
+// El feed RSS publico de YouTube (feeds/videos.xml) fue dado de baja por
+// Google — devuelve 404 incluso para canales conocidos. Se usa en su lugar
+// la YouTube Data API v3 oficial, gratuita y sin revision, via la playlist
+// de "subidos" del canal (se arma cambiando el prefijo UC por UU).
 const MAX_VIDEOS = 3;
-
-function extractAll(regex, xml) {
-  const out = [];
-  let m;
-  while ((m = regex.exec(xml)) !== null) out.push(m);
-  return out;
-}
-
-function decodeEntities(str) {
-  return str
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
-
-function parseFeed(xml) {
-  const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
-  const entries = extractAll(entryRegex, xml).map((m) => m[1]);
-
-  return entries.slice(0, MAX_VIDEOS).map((entry) => {
-    const videoId = (entry.match(/<yt:videoId>(.*?)<\/yt:videoId>/) || [, ""])[1];
-    const title = decodeEntities((entry.match(/<title>([\s\S]*?)<\/title>/) || [, ""])[1]);
-    const published = (entry.match(/<published>(.*?)<\/published>/) || [, ""])[1];
-    const thumbnail = (entry.match(/<media:thumbnail url="(.*?)"/) || [, ""])[1];
-
-    return {
-      id: videoId,
-      title,
-      url: `https://www.youtube.com/watch?v=${videoId}`,
-      thumbnail,
-      published,
-    };
-  });
-}
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://estudiohma.com");
   res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
 
-  if (YOUTUBE_CHANNEL_ID.startsWith("UC_REPLACE")) {
+  const apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) {
+    console.error("Falta configurar YOUTUBE_API_KEY en las variables de entorno de Vercel.");
     return res.status(200).json({ videos: [] });
   }
 
+  const uploadsPlaylistId = "UU" + YOUTUBE_CHANNEL_ID.slice(2);
+
   try {
-    const feedRes = await fetch(
-      `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(YOUTUBE_CHANNEL_ID)}`
-    );
-    if (!feedRes.ok) {
+    const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${MAX_VIDEOS}&playlistId=${uploadsPlaylistId}&key=${apiKey}`;
+    const ytRes = await fetch(apiUrl);
+
+    if (!ytRes.ok) {
+      const detail = await ytRes.text();
+      console.error("Error de YouTube Data API:", ytRes.status, detail);
       return res.status(502).json({ error: "No se pudo leer el canal de YouTube.", videos: [] });
     }
-    const xml = await feedRes.text();
-    const videos = parseFeed(xml);
+
+    const data = await ytRes.json();
+    const videos = (data.items || []).map((item) => {
+      const s = item.snippet || {};
+      const videoId = s.resourceId ? s.resourceId.videoId : "";
+      const thumb = s.thumbnails || {};
+      const thumbnail = (thumb.high || thumb.medium || thumb.default || {}).url || "";
+
+      return {
+        id: videoId,
+        title: s.title || "",
+        url: `https://www.youtube.com/watch?v=${videoId}`,
+        thumbnail,
+        published: s.publishedAt || "",
+      };
+    });
+
     return res.status(200).json({ videos });
   } catch (err) {
-    console.error("Error leyendo el feed de YouTube:", err);
+    console.error("Error leyendo YouTube:", err);
     return res.status(500).json({ error: "Error interno.", videos: [] });
   }
 };
