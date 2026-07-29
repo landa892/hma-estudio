@@ -117,20 +117,6 @@ try {
 } catch (e) { console.error('nav', e); }
 
 try {
-  /* ---------- BUSQUEDA (icono lupa dentro del menu, ref. mvrdv.com) ---------- */
-  const searchBtn = document.getElementById('siteMenuSearchBtn');
-  const searchForm = document.getElementById('siteMenuSearch');
-  if (searchBtn && searchForm) {
-    const searchInput = searchForm.querySelector('input');
-    searchBtn.addEventListener('click', () => {
-      const isOpen = searchForm.classList.toggle('open');
-      searchBtn.setAttribute('aria-expanded', String(isOpen));
-      if (isOpen && searchInput) searchInput.focus();
-    });
-  }
-} catch (e) { console.error('search-toggle', e); }
-
-try {
   /* ---------- REVEAL ON SCROLL ---------- */
   const revealEls = document.querySelectorAll('.reveal');
   revealEls.forEach((el, i) => { el.style.transitionDelay = (Math.min(i % 6, 5) * 60) + 'ms'; });

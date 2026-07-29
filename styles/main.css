@@ -19,8 +19,13 @@
 
 html { scroll-behavior: smooth; }
 
+/* flex column + main flex:1 = footer siempre abajo, aunque la pagina tenga
+   poco contenido (si no, en /buscar/ quedaba flotando a media pantalla). */
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--white);
   color: var(--black);
   font-family: Arial, Helvetica, sans-serif;
@@ -28,6 +33,8 @@ body {
   font-size: 15px;
   line-height: 1.5;
 }
+
+body > main { flex: 1 0 auto; }
 
 img { display: block; max-width: 100%; }
 
@@ -300,66 +307,6 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
 }
 
 .site-menu__icon-btn svg { width: 22px; height: 22px; }
-
-/* flex:none — como el panel es flex column y .site-menu__inner crece con
-   flex:1, sin esto el buscador se comprimia a altura 0 y no se veia al abrirlo. */
-.site-menu__search {
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 32px;
-  flex: none;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height .3s ease, opacity .25s ease, margin .3s ease;
-}
-
-.site-menu__search.open {
-  max-height: 80px;
-  opacity: 1;
-  margin: 12px auto 0;
-}
-
-.site-menu__search-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 2px solid var(--black);
-}
-
-.site-menu__search-go {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: var(--gray);
-  transition: color .15s ease;
-}
-
-.site-menu__search-go:hover { color: var(--black); }
-
-.site-menu__search-field svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-.site-menu__search input {
-  width: 100%;
-  border: none;
-  background: none;
-  font-size: 1.2rem;
-  padding: 8px 0;
-  font-family: inherit;
-  color: var(--black);
-}
-
-.site-menu__search input:focus { outline: none; }
 
 /* flex:1 en vez de min-height:100%: sumado a la altura de los controles y del
    buscador, el 100% hacia que el panel scrollee de gusto ~112px. */

@@ -76,21 +76,13 @@
 
   <div id="site-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
     <div class="site-menu__controls">
-      <button class="site-menu__icon-btn" id="siteMenuSearchBtn" aria-label="Buscar" aria-expanded="false" aria-controls="siteMenuSearch">
+      <a class="site-menu__icon-btn" href="/buscar/" aria-label="Ir al buscador">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      </button>
+      </a>
       <button class="site-menu__icon-btn site-menu__close" id="siteMenuClose" aria-label="Cerrar menú">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
       </button>
     </div>
-    <form class="site-menu__search" id="siteMenuSearch" role="search" action="/buscar/" method="get">
-      <div class="site-menu__search-field">
-        <button type="submit" class="site-menu__search-go" aria-label="Buscar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </button>
-        <input type="text" name="q" placeholder="Buscar un proyecto…" aria-label="Buscar un proyecto" autocomplete="off">
-      </div>
-    </form>
     <div class="site-menu__inner">
       <ul class="site-menu__primary">
         <li><a href="/" aria-current="page">Inicio</a></li>
