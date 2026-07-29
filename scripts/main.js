@@ -1,3 +1,85 @@
+/* ---------- GSAP + LENIS (smooth scroll), referencia Awwwards/mvrdv.com ----------
+   Cargados por CDN (script tags, sin build step). Si el CDN no responde, el sitio
+   sigue funcionando igual con las animaciones CSS de siempre — nunca se rompe por
+   esto. Lenis queda desactivado en touch (el scroll nativo del celular ya es
+   suave) y si el usuario pidio "reducir movimiento" en su sistema. */
+const gsapReady = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+let lenis = null;
+
+if (gsapReady) {
+  try {
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-active');
+
+    if (typeof window.Lenis !== 'undefined' && !prefersReducedMotion && !isTouchDevice) {
+      lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  } catch (e) { console.error('gsap-init', e); }
+}
+
+if (gsapReady && !prefersReducedMotion) {
+  try {
+    /* ---------- SCALE ON SCROLL: fotos de proyectos (hero, banners, galerias) ----------
+       En .project-banner el target es el wrapper (no la img) porque la img tiene
+       su propio scale al hover en CSS — si GSAP tocara la misma img, el transform
+       inline pisaria el :hover. Dos elementos, dos transforms, sin pelearse. */
+    const scaleImgs = document.querySelectorAll(
+      '.hero-home--photo img, .project-banner__img-wrap, .project-gallery__item img, .project-row__photo img'
+    );
+    scaleImgs.forEach((img) => {
+      const section = img.closest('.hero-home--photo, .project-banner, .project-gallery__item, .project-row');
+      if (!section) return;
+      gsap.fromTo(img,
+        { scale: 1.15 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1 },
+        }
+      );
+    });
+  } catch (e) { console.error('scale-on-scroll', e); }
+
+  try {
+    /* ---------- PARALLAX: textos que acompanan a las fotos ---------- */
+    const parallaxEls = document.querySelectorAll('.pb-content-inner p, .project-row__text p');
+    parallaxEls.forEach((el) => {
+      const section = el.closest('.project-banner, .project-row');
+      if (!section) return;
+      gsap.fromTo(el,
+        { yPercent: -12 },
+        {
+          yPercent: 12,
+          ease: 'none',
+          scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1 },
+        }
+      );
+    });
+  } catch (e) { console.error('parallax', e); }
+
+  try {
+    /* ---------- MARQUEE: banda de categorias en movimiento continuo (home) ---------- */
+    const track = document.querySelector('.marquee__track');
+    if (track) {
+      const marqueeTween = gsap.to(track, { xPercent: -50, ease: 'none', duration: 22, repeat: -1 });
+      const boost = () => {
+        gsap.to(marqueeTween, { timeScale: 2.2, duration: 0.3, overwrite: true });
+        clearTimeout(track._marqueeTimeout);
+        track._marqueeTimeout = setTimeout(() => {
+          gsap.to(marqueeTween, { timeScale: 1, duration: 0.6 });
+        }, 200);
+      };
+      if (lenis) lenis.on('scroll', boost);
+      else window.addEventListener('scroll', boost, { passive: true });
+    }
+  } catch (e) { console.error('marquee', e); }
+}
+
 try {
   /* ---------- TODOS LOS TEXTOS DEL HOME SE ACHICAN HACIA ABAJO-IZQUIERDA AL
      SCROLLEAR (referencia mvrdv.com: transform-origin left bottom, ligado al

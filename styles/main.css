@@ -529,17 +529,22 @@ footer.site-footer {
   border-bottom: 1px solid var(--black);
 }
 
-.project-banner img {
+.project-banner__img-wrap {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  overflow: hidden;
   transform: scale(1.1);
   transition: transform 1.4s cubic-bezier(.16,.6,.3,1);
 }
 
-.project-banner.in img { transform: scale(1); }
+.project-banner.in .project-banner__img-wrap { transform: scale(1); }
+
+.project-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
 
 .project-banner:hover img { transform: scale(1.04); }
 
@@ -847,6 +852,43 @@ footer.site-footer {
 }
 
 @media (max-width: 700px) { .related-projects { grid-template-columns: 1fr; } }
+
+/* Cuando GSAP+ScrollTrigger toman el control del escalado (scale-on-scroll,
+   ver main.js), se apaga la transition CSS para que no pelee cuadro a cuadro
+   contra los valores que va poniendo GSAP. Sin GSAP (CDN caido, reduced-motion,
+   etc.) esta clase nunca se agrega y el zoom-out de entrada de siempre sigue
+   funcionando igual que antes. */
+.gsap-active .hero-home--photo img,
+.gsap-active .project-banner__img-wrap,
+.gsap-active .project-gallery__item img,
+.gsap-active .project-row__photo img {
+  transition: none;
+}
+
+/* ---------- MARQUEE (franja de categorias en movimiento continuo, home) ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  padding: 20px 0;
+}
+
+.marquee__track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee__track span {
+  font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  padding: 0 28px;
+}
+
+.marquee__track span.sep { opacity: .35; padding: 0; }
 
 /* ========================================================================
    PRENSA
