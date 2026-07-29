@@ -69,6 +69,23 @@ try {
       });
     }, { threshold: 0.5 });
     sections.forEach(s => dotsIo.observe(s));
+
+    /* Los puntos van en negro sobre fondo blanco y en blanco cuando quedan
+       sobre una foto. rootMargin -50%/-50% deja una franja de altura cero
+       justo en el centro vertical de la pantalla, que es donde estan los
+       puntos: si ahi hay una foto, se activa .on-dark. */
+    const darkSections = document.querySelectorAll('.hero-home--photo, .project-banner');
+    if (darkSections.length) {
+      const overDark = new Set();
+      const darkIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) overDark.add(entry.target);
+          else overDark.delete(entry.target);
+        });
+        dotsNav.classList.toggle('on-dark', overDark.size > 0);
+      }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+      darkSections.forEach(s => darkIo.observe(s));
+    }
   }
 } catch (e) { console.error('scroll-dots', e); }
 

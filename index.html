@@ -15,7 +15,7 @@
   <meta name="robots" content="index, follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="canonical" href="https://estudiohma.com/">
 
   <meta property="og:type" content="website">
@@ -85,7 +85,9 @@
     </div>
     <form class="site-menu__search" id="siteMenuSearch" role="search" action="/proyectos/" method="get">
       <div class="site-menu__search-field">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <button type="submit" class="site-menu__search-go" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
         <input type="text" name="q" placeholder="Buscar un proyecto…" aria-label="Buscar un proyecto" autocomplete="off">
       </div>
     </form>
@@ -98,7 +100,7 @@
         <li><a href="/contacto/">Contacto</a></li>
       </ul>
       <div class="site-menu__footer">
-        <a href="mailto:hma@estudiohma.com" class="big-link">hma@estudiohma.com</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hma@estudiohma.com" target="_blank" rel="noopener" class="big-link">hma@estudiohma.com</a>
         <div class="social-links">
           <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram</a>
           <a href="tel:+541147738658">+54 11 4773 8658</a>
@@ -334,7 +336,7 @@
     <div class="contact-pop__title">Hablemos</div>
     <div class="contact-pop__list">
       <a href="/contacto/">Enviar un mensaje <span>Formulario</span></a>
-      <a href="mailto:hma@estudiohma.com">hma@estudiohma.com <span>Email</span></a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hma@estudiohma.com" target="_blank" rel="noopener">hma@estudiohma.com <span>Email</span></a>
       <a href="tel:+541147738658">+54 11 4773 8658 <span>Teléfono</span></a>
       <a href="https://instagram.com/hitzig.militello.arquitectos" target="_blank" rel="noopener">Instagram <span>@hitzig.militello</span></a>
     </div>
