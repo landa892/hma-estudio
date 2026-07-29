@@ -185,22 +185,45 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
   z-index: 90;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 14px;
 }
 
 .scroll-dots button {
+  position: relative;
   width: 9px;
   height: 9px;
   padding: 0;
   border: 1.5px solid rgba(0,0,0,.45);
   background: rgba(255,255,255,.7);
   cursor: pointer;
-  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  transition: background .2s ease, border-color .2s ease;
 }
 
-.scroll-dots button:hover { transform: scale(1.3); }
-
 .scroll-dots button.active { background: var(--black); border-color: var(--black); }
+
+/* Nombre de la seccion a la izquierda del punto, como en mvrdv.com: aparece
+   al pasar el mouse y se mantiene visible en el punto de la seccion actual. */
+.dot-label {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--black);
+  background: rgba(255,255,255,.85);
+  padding: 3px 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+.scroll-dots button:hover .dot-label,
+.scroll-dots button.active .dot-label { opacity: 1; }
 
 @media (max-width: 760px) { .scroll-dots { display: none; } }
 
@@ -275,10 +298,23 @@ header.site-header.is-overlay.scrolled .menu-btn span { background: var(--black)
   margin: calc(var(--nav-h) + 8px) auto 0;
 }
 
+.site-menu__search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--black);
+}
+
+.site-menu__search-field svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--gray);
+}
+
 .site-menu__search input {
   width: 100%;
   border: none;
-  border-bottom: 2px solid var(--black);
   background: none;
   font-size: 1.2rem;
   padding: 8px 0;
@@ -1081,16 +1117,58 @@ footer.site-footer {
 
 .plr-meta { display: none; }
 
-/* ---------- WHATSAPP ---------- */
+/* ---------- CONTACTO FLOTANTE ----------
+   Antes era un boton que saltaba directo a la pantalla intermedia de
+   api.whatsapp.com (poco prolija). Ahora abre un panel dentro de la
+   propia pagina con las vias de contacto reales del estudio. */
 
-.whatsapp-btn {
-  position: fixed; bottom: 24px; right: 24px; z-index: 90;
-  width: 56px; height: 56px; border-radius: 50%; background: #25D366;
+.contact-fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 91;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 14px rgba(0,0,0,.3);
   transition: transform .15s ease;
 }
 
-.whatsapp-btn:hover { transform: scale(1.06); }
+.contact-fab:hover { transform: scale(1.06); }
 
-.whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; }
+.contact-fab svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+.contact-fab .icon-close { display: none; }
+.contact-fab[aria-expanded="true"] .icon-chat { display: none; }
+.contact-fab[aria-expanded="true"] .icon-close { display: block; }
+
+.contact-pop {
+  position: fixed; bottom: 92px; right: 24px; z-index: 91;
+  width: min(300px, calc(100vw - 48px));
+  background: var(--white);
+  border: 1px solid var(--black);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  padding: 20px;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+
+.contact-pop.open {
+  opacity: 1; visibility: visible; transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.contact-pop__title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); }
+
+.contact-pop__list { display: flex; flex-direction: column; margin-top: 14px; }
+
+.contact-pop__list a {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: .95rem;
+  font-weight: 700;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  transition: opacity .15s ease;
+}
+
+.contact-pop__list a:hover { opacity: .55; }
+
+.contact-pop__list a span { font-weight: 400; font-size: .8rem; color: var(--gray); }

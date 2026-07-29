@@ -300,3 +300,28 @@ try {
       .catch(e => console.error('youtube-feed', e));
   }
 } catch (e) { console.error('youtube-feed-init', e); }
+
+try {
+  /* ---------- PANEL DE CONTACTO FLOTANTE ---------- */
+  const fab = document.getElementById('contactFab');
+  const pop = document.getElementById('contactPop');
+  if (fab && pop) {
+    const close = () => {
+      pop.classList.remove('open');
+      fab.setAttribute('aria-expanded', 'false');
+      fab.setAttribute('aria-label', 'Abrir opciones de contacto');
+    };
+    fab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = pop.classList.toggle('open');
+      fab.setAttribute('aria-expanded', String(isOpen));
+      fab.setAttribute('aria-label', isOpen ? 'Cerrar opciones de contacto' : 'Abrir opciones de contacto');
+    });
+    document.addEventListener('click', (e) => {
+      if (pop.classList.contains('open') && !pop.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pop.classList.contains('open')) close();
+    });
+  }
+} catch (e) { console.error('contact-fab', e); }
