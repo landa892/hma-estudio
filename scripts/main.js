@@ -280,6 +280,9 @@ try {
     lbNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
     lbPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+
+    const deepLinkSlug = new URLSearchParams(window.location.search).get('p');
+    if (deepLinkSlug) openBySlug(deepLinkSlug);
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') close();
