@@ -270,3 +270,30 @@ try {
     });
   }
 } catch (e) { console.error('press-filter', e); }
+
+try {
+  /* ---------- ULTIMOS VIDEOS DE YOUTUBE (home) ---------- */
+  const feedEl = document.getElementById('youtubeFeed');
+  if (feedEl) {
+    fetch('/api/youtube-latest')
+      .then(r => r.json())
+      .then(data => {
+        const videos = data.videos || [];
+        if (!videos.length) {
+          feedEl.innerHTML = `<p>${feedEl.dataset.emptyText || 'Todavía no hay videos cargados.'}</p>`;
+          return;
+        }
+        const fmt = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
+        feedEl.innerHTML = videos.map(v => `
+          <a class="press-card" href="${v.url}" target="_blank" rel="noopener">
+            <div class="press-img"><img src="${v.thumbnail}" alt="${v.title.replace(/"/g, '&quot;')}" loading="lazy" decoding="async"></div>
+            <div class="press-body">
+              <div class="press-outlet">YouTube — ${v.published ? fmt.format(new Date(v.published)) : ''}</div>
+              <div class="press-title">${v.title}</div>
+            </div>
+          </a>
+        `).join('');
+      })
+      .catch(e => console.error('youtube-feed', e));
+  }
+} catch (e) { console.error('youtube-feed-init', e); }
