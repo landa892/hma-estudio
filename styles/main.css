@@ -687,6 +687,7 @@ footer.site-footer {
 @media (max-width: 560px) { .project-grid { grid-template-columns: 1fr; } }
 
 .project-card {
+  display: block;
   background: var(--white);
   position: relative;
   aspect-ratio: 4/3;
@@ -761,70 +762,38 @@ footer.site-footer {
 
 @media (max-width: 700px) { .project-list-row .plr-cat, .project-list-row .plr-loc { display: none; } }
 
-/* ---------- LIGHTBOX (compartido) ---------- */
+/* ---------- FICHA DE PROYECTO (pagina individual /proyectos/<slug>/) ---------- */
 
-.lightbox {
-  position: fixed; inset: 0; z-index: 300;
-  background: rgba(0,0,0,.94);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden;
-  transition: opacity .3s ease, visibility 0s linear .3s;
+.project-meta-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  font-size: .82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--gray);
 }
 
-.lightbox.open { opacity: 1; visibility: visible; transition: opacity .3s ease; }
-
-.lightbox-inner {
-  max-width: min(940px, 88vw); max-height: 88vh; width: 100%;
-  display: flex; flex-direction: column; gap: 16px;
-  transform: scale(.92); opacity: 0;
-  transition: transform .3s ease, opacity .3s ease;
+.project-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--line);
 }
 
-.lightbox.open .lightbox-inner { transform: scale(1); opacity: 1; }
+.project-gallery__item { margin: 0; overflow: hidden; }
 
-.lightbox-img-wrap {
-  width: 100%; max-height: 68vh; overflow: hidden; background: #000;
-  display: flex; align-items: center; justify-content: center;
+.project-gallery__item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.06);
+  transition: transform 1s cubic-bezier(.16,.6,.3,1);
 }
 
-.lightbox-img-wrap img { width: 100%; height: 100%; object-fit: cover; max-height: 68vh; }
-
-.lightbox-info { display: flex; justify-content: space-between; align-items: flex-end; color: var(--white); flex-wrap: wrap; gap: 12px; }
-
-.lightbox-info h3 { color: var(--white); font-size: clamp(1.2rem, 3vw, 1.8rem); }
-
-.lightbox-info .lb-meta { font-size: .75rem; color: rgba(255,255,255,.7); margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap; text-transform: uppercase; letter-spacing: .03em; }
-
-.lightbox-close {
-  position: absolute; top: 22px; right: 26px; width: 42px; height: 42px;
-  border: 1px solid rgba(255,255,255,.5); background: transparent; color: var(--white);
-  font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .15s ease;
-}
-
-.lightbox-close:hover { background: rgba(255,255,255,.15); }
-
-.lightbox-nav {
-  position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px;
-  border: 1px solid rgba(255,255,255,.4); background: transparent; color: var(--white);
-  font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .15s ease;
-}
-
-.lightbox-nav:hover { background: rgba(255,255,255,.15); }
-
-.lightbox-prev { left: 18px; }
-.lightbox-next { right: 18px; }
-
-.lb-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-
-.lb-thumbs img {
-  width: 74px; height: 50px; object-fit: cover; flex: none; cursor: pointer;
-  opacity: .4; transition: opacity .15s ease, outline .15s ease; outline: 2px solid transparent;
-}
-
-.lb-thumbs img:hover { opacity: .75; }
-.lb-thumbs img.active { opacity: 1; outline-color: var(--white); }
+.project-gallery__item.in img { transform: scale(1); }
 
 /* ========================================================================
    PRENSA

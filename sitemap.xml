@@ -11,6 +11,61 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://estudiohma.com/proyectos/osten-foa/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/movistar-arena/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/hyatt-ziva/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/manduca/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/osten/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/moshu/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/cerveceria-austral/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/uala-office/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/araoz/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/malabia/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/dos-casas-conde/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://estudiohma.com/prensa/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
