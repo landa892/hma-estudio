@@ -1,6 +1,6 @@
 // Canal de YouTube del estudio. Cambiar aca si el canal cambia — no requiere
 // tocar nada mas (el resto de la pagina se actualiza solo).
-const YOUTUBE_CHANNEL_ID = "UC_REPLACE_WITH_REAL_CHANNEL_ID";
+const YOUTUBE_CHANNEL_ID = "UC1BfV3DzfGbaWfiMNHd0baw"; // HMA Estudio — youtube.com/@HMAEstudio
 
 const MAX_VIDEOS = 3;
 
