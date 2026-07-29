@@ -819,18 +819,6 @@ footer.site-footer {
   background: var(--line);
 }
 
-.project-gallery__item { margin: 0; overflow: hidden; }
-
-.project-gallery__item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transform: scale(1.06);
-  transition: transform 1s cubic-bezier(.16,.6,.3,1);
-}
-
-.project-gallery__item.in img { transform: scale(1); }
-
 .project-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -841,7 +829,9 @@ footer.site-footer {
 .project-row--reverse { grid-template-columns: 1fr 1fr; }
 .project-row--reverse .project-row__photo { order: -1; }
 
-.project-row__photo { overflow: hidden; }
+/* La altura de la fila la define el texto; sin un minimo, las frases cortas
+   dejaban la foto muy chata. */
+.project-row__photo { overflow: hidden; min-height: 62vh; }
 
 .project-row__photo img {
   width: 100%;
@@ -871,7 +861,7 @@ footer.site-footer {
   .project-row, .project-row--reverse { grid-template-columns: 1fr; }
   .project-row--reverse .project-row__photo { order: 0; }
   .project-row__text { padding: 32px 24px; }
-  .project-row__photo { aspect-ratio: 4/3; }
+  .project-row__photo { aspect-ratio: 4/3; min-height: 0; }
 }
 
 .related-projects {
