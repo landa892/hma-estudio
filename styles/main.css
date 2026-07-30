@@ -1705,3 +1705,17 @@ footer.site-footer {
 }
 
 .gallery-grid__item:hover img { transform: scale(1.04); }
+
+.founder-li {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 2px;
+  transition: opacity .15s ease;
+}
+
+.founder-li:hover { opacity: .55; }
