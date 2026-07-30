@@ -514,17 +514,63 @@ try {
 } catch (e) { console.error('wa-lead', e); }
 
 try {
-  /* ---------- SOLAPAS PRENSA / NEWS (/prensa/) ---------- */
+  /* ---------- PRENSA + NEWS: solapas y años combinados ----------
+     Una sola lista cronologica (mas nuevo primero). Las solapas filtran por
+     grupo y los botones por año; ambos filtros se aplican juntos. */
+  const feed = document.getElementById('pressFeed');
   const tabs = document.querySelectorAll('#pressTabs .press-tab');
-  const groups = document.querySelectorAll('.press-group');
-  if (tabs.length && groups.length) {
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const g = tab.dataset.group;
-        groups.forEach(group => { group.hidden = group.dataset.group !== g; });
+  const yearBtns = document.querySelectorAll('#pressYears .filter-btn');
+  const count = document.getElementById('pressCount');
+
+  if (feed && tabs.length && yearBtns.length) {
+    const rows = Array.from(feed.querySelectorAll('.press-row'));
+    let grupo = 'all';
+    let anio = 'all';
+
+    function aplicar() {
+      let visibles = 0;
+      rows.forEach(r => {
+        const ok = (grupo === 'all' || r.dataset.group === grupo) &&
+                   (anio === 'all' || r.dataset.year === anio);
+        r.hidden = !ok;
+        if (ok) visibles++;
       });
-    });
+
+      // los años sin resultados dentro del grupo elegido se desactivan
+      yearBtns.forEach(b => {
+        const y = b.dataset.year;
+        if (y === 'all') return;
+        const hay = rows.some(r => r.dataset.year === y && (grupo === 'all' || r.dataset.group === grupo));
+        b.disabled = !hay;
+      });
+
+      if (count) {
+        const que = grupo === 'news' ? 'novedades' : (grupo === 'prensa' ? 'publicaciones' : 'entradas');
+        count.textContent = visibles === 1 ? `1 ${que.replace(/s$/, '')}` : `${visibles} ${que}`;
+      }
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      tab.classList.add('active');
+      grupo = tab.dataset.group;
+      // si el año elegido no existe en el grupo nuevo, se vuelve a todos
+      const sigue = rows.some(r => r.dataset.year === anio && (grupo === 'all' || r.dataset.group === grupo));
+      if (anio !== 'all' && !sigue) {
+        anio = 'all';
+        yearBtns.forEach(b => b.classList.toggle('active', b.dataset.year === 'all'));
+      }
+      aplicar();
+    }));
+
+    yearBtns.forEach(btn => btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      yearBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      anio = btn.dataset.year;
+      aplicar();
+    }));
+
+    aplicar();
   }
-} catch (e) { console.error('press-tabs', e); }
+} catch (e) { console.error('press-filters', e); }

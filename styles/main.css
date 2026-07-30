@@ -5,6 +5,31 @@
   el color lo aportan las fotos de proyecto.
    ======================================================================== */
 
+/* Inter — la misma tipografia del portafolio del estudio ("Creando &
+   construyendo ideas" esta en Inter Bold). Es libre (SIL Open Font License)
+   y se sirve desde el propio dominio, sin depender de Google Fonts. */
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/inter-latin-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/inter-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/inter-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --black: #000000;
   --white: #ffffff;
@@ -28,7 +53,7 @@ body {
   flex-direction: column;
   background: var(--white);
   color: var(--black);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 15px;
   line-height: 1.5;
@@ -1479,27 +1504,42 @@ footer.site-footer {
 .footer-col a:hover { opacity: .6; }
 
 .footer-awards {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
   padding: 28px 32px;
   border-top: 1px solid rgba(255,255,255,.15);
 }
 
-@media (max-width: 640px) { .footer-awards { gap: 16px; padding: 20px; justify-content: center; } }
+@media (max-width: 640px) { .footer-awards { padding: 22px 20px; } }
 
-.footer-awards img {
-  height: 42px;
+.footer-awards__title {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(255,255,255,.55);
+  margin: 0 0 18px;
+}
+
+.footer-awards__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 30px;
+}
+
+@media (max-width: 640px) { .footer-awards__row { gap: 14px 20px; justify-content: flex-start; } }
+
+.footer-award { display: inline-flex; align-items: center; }
+
+.footer-award img {
+  height: 48px;
   width: auto;
   filter: brightness(0) invert(1);
-  opacity: .55;
+  opacity: .6;
   transition: opacity .2s ease;
 }
 
-.footer-awards img:hover { opacity: 1; }
+.footer-award:hover img { opacity: 1; }
 
-@media (max-width: 640px) { .footer-awards img { height: 34px; } }
+@media (max-width: 640px) { .footer-award img { height: 36px; } }
 
 /* ---------- ICONOS DE REDES (contacto) ---------- */
 
@@ -1508,16 +1548,17 @@ footer.site-footer {
 .social-icons a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: .8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  transition: opacity .15s ease;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
 
-.social-icons a:hover { opacity: .55; }
-.social-icons svg { width: 22px; height: 22px; flex: none; }
+.social-icons a:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+
+.social-icons svg { width: 20px; height: 20px; flex: none; }
 
 /* ---------- FICHA TECNICA DE PROYECTO (referencia mvrdv.com) ---------- */
 
@@ -1599,3 +1640,68 @@ footer.site-footer {
 
 .work-duo figure { margin: 0; }
 .work-duo img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; }
+
+/* ---------- BARRA DE PREMIOS DEL PROYECTO (franja negra, ref. mvrdv) ---------- */
+
+.award-bar { background: var(--black); color: var(--white); padding: 40px 0; }
+
+.award-bar__inner { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+
+.award-bar__title {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.6);
+  margin: 0;
+  flex: none;
+}
+
+.award-bar__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 36px; }
+
+.award-bar__item { display: inline-flex; align-items: center; gap: 12px; transition: opacity .2s ease; }
+.award-bar__item:hover { opacity: .65; }
+
+.award-bar__item img {
+  height: 56px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.award-bar__item span {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 760px) {
+  .award-bar { padding: 28px 0; }
+  .award-bar__inner { gap: 18px; }
+  .award-bar__item img { height: 44px; }
+  .award-bar__item span { font-size: .7rem; }
+}
+
+/* ---------- GALERIA COMPLETA DEL PROYECTO ---------- */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 28px;
+}
+
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+.gallery-grid__item { margin: 0; overflow: hidden; aspect-ratio: 4/3; }
+
+.gallery-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+
+.gallery-grid__item:hover img { transform: scale(1.04); }
