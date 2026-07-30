@@ -5,7 +5,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Cafetería · Puerto Madero, Buenos Aires · 325 m² · 2025",
   "url": "/proyectos/osten-foa/",
-  "img": "/assets/gallery/osten-foa/2.webp"
+  "img": "/assets/gallery/osten-foa/1.webp"
  },
  {
   "tipo": "Proyecto",
