@@ -66,6 +66,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://estudiohma.com/premios/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://estudiohma.com/prensa/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

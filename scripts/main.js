@@ -154,8 +154,11 @@ try {
 } catch (e) { console.error('stats', e); }
 
 try {
-  /* ---------- PROJECT FILTER (grilla y lista) ---------- */
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  /* ---------- PROJECT FILTER (grilla y lista) ----------
+     Acotado a #filters: los botones de año de /prensa/ y /premios/ usan la
+     misma clase .filter-btn, y sin acotar este bloque les sacaba el estado
+     activo al filtrar por categoria. */
+  const filterBtns = document.querySelectorAll('#filters .filter-btn');
   if (filterBtns.length) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -170,7 +173,7 @@ try {
     const params = new URLSearchParams(window.location.search);
     const cat = params.get('cat');
     if (cat) {
-      const btn = document.querySelector(`.filter-btn[data-filter="${CSS.escape(cat)}"]`);
+      const btn = document.querySelector(`#filters .filter-btn[data-filter="${CSS.escape(cat)}"]`);
       if (btn) btn.click();
     }
     const q = (params.get('q') || '').trim().toLowerCase();
@@ -258,21 +261,31 @@ try {
 } catch (e) { console.error('contact-form', e); }
 
 try {
-  /* ---------- FILTRO DE PRENSA POR AÑO ---------- */
-  const pressFilterBtns = document.querySelectorAll('.press-filter-bar button');
-  if (pressFilterBtns.length) {
-    pressFilterBtns.forEach(btn => {
+  /* ---------- FILTRO POR AÑO (prensa y premios) ----------
+     Cada barra filtra los bloques de su propia seccion, asi la misma logica
+     sirve para /prensa/ y /premios/ sin duplicar codigo. */
+  document.querySelectorAll('.press-filter-bar').forEach(bar => {
+    const btns = Array.from(bar.querySelectorAll('button'));
+    if (!btns.length) return;
+
+    // .press-group primero: en /prensa/ conviven dos barras (Prensa y News)
+    // dentro del mismo .container, y cada una debe filtrar solo lo suyo.
+    const scope = bar.closest('.press-group') || bar.closest('.container') || document;
+    const blocks = scope.querySelectorAll('.press-year-block, .award-year-block');
+    if (!blocks.length) return;
+
+    btns.forEach(btn => {
       btn.addEventListener('click', () => {
-        pressFilterBtns.forEach(b => b.classList.remove('active'));
+        btns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const y = btn.dataset.year;
-        document.querySelectorAll('.press-year-block').forEach(block => {
-          block.style.display = (y === 'all' || block.dataset.year === y) ? '' : 'none';
+        blocks.forEach(block => {
+          block.hidden = !(y === 'all' || block.dataset.year === y);
         });
       });
     });
-  }
-} catch (e) { console.error('press-filter', e); }
+  });
+} catch (e) { console.error('year-filter', e); }
 
 try {
   /* ---------- ULTIMOS VIDEOS DE YOUTUBE (home) ----------
@@ -499,3 +512,19 @@ try {
     });
   }
 } catch (e) { console.error('wa-lead', e); }
+
+try {
+  /* ---------- SOLAPAS PRENSA / NEWS (/prensa/) ---------- */
+  const tabs = document.querySelectorAll('#pressTabs .press-tab');
+  const groups = document.querySelectorAll('.press-group');
+  if (tabs.length && groups.length) {
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const g = tab.dataset.group;
+        groups.forEach(group => { group.hidden = group.dataset.group !== g; });
+      });
+    });
+  }
+} catch (e) { console.error('press-tabs', e); }

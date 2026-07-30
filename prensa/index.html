@@ -56,6 +56,7 @@
         <li><a href="/">Inicio</a></li>
         <li><a href="/proyectos/">Proyectos</a></li>
         <li><a href="/prensa/" aria-current="page">Prensa</a></li>
+        <li><a href="/premios/">Premios</a></li>
         <li><a href="/estudio/">Estudio</a></li>
         <li><a href="/contacto/">Contacto</a></li>
       </ul>
@@ -136,11 +137,16 @@
       </div>
     </section>
 
-    <section class="section no-border">
+    <section class="section no-border pt-32">
       <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Archivo completo</span>
-          <div class="press-filter-bar" id="pressFilterBar">
+
+        <div class="press-tabs" id="pressTabs">
+          <button class="press-tab active" data-group="prensa">Prensa</button>
+          <button class="press-tab" data-group="news">News</button>
+        </div>
+
+        <div class="press-group" data-group="prensa">
+          <div class="press-filter-bar">
             <button class="filter-btn active" data-year="all">Todos</button>
             <button class="filter-btn" data-year="2026">2026</button>
             <button class="filter-btn" data-year="2025">2025</button>
@@ -149,11 +155,9 @@
             <button class="filter-btn" data-year="2022">2022</button>
             <button class="filter-btn" data-year="2021">2021</button>
             <button class="filter-btn" data-year="2020">2020</button>
-            <button class="filter-btn" data-year="2003-2019">2003–2019</button>
+            <button class="filter-btn" data-year="2003-2019">2003-2019</button>
           </div>
-        </div>
-
-        <div class="press-feed">
+          <div class="press-feed">
 
           <div class="press-year-block" data-year="2026">
             <div class="press-year-head">2026</div>
@@ -237,7 +241,61 @@
             <div class="press-row"><div class="pr-date">2003</div><div class="pr-text">Primeras publicaciones del estudio</div><div class="pr-outlet">Diario Clarín Arquitectura · La Nación, Argentina</div></div>
           </div>
 
+          </div>
         </div>
+
+        <div class="press-group" data-group="news" hidden>
+          <div class="press-filter-bar">
+            <button class="filter-btn active" data-year="all">Todos</button>
+            <button class="filter-btn" data-year="2026">2026</button>
+            <button class="filter-btn" data-year="2025">2025</button>
+            <button class="filter-btn" data-year="2024">2024</button>
+            <button class="filter-btn" data-year="2023">2023</button>
+            <button class="filter-btn" data-year="2022">2022</button>
+            <button class="filter-btn" data-year="2019">2019</button>
+            <button class="filter-btn" data-year="2006–2008">2006–2008</button>
+          </div>
+          <div class="press-feed">
+          <div class="press-year-block" data-year="2026">
+            <div class="press-year-head">2026</div>
+            <div class="press-row"><div class="pr-date">Conferencia</div><div class="pr-text"><b>Ciclo de conferencias DINA, Auditorio Diego de Torres, UCC Córdoba</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>Leonardo Militello, profesor de Arquitectura Comercial Interior en La Haus</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2025">
+            <div class="press-year-head">2025</div>
+            <div class="press-row"><div class="pr-date">Charla</div><div class="pr-text"><b>TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2024">
+            <div class="press-year-head">2024</div>
+            <div class="press-row"><div class="pr-date">Charla</div><div class="pr-text"><b>TENDIEZ LAB Mar del Plata</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Mesa redonda</div><div class="pr-text"><b>Mesa redonda HOTELGA 2024</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Podcast</div><div class="pr-text"><b>Podcast Cerrame la Ocho</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>UADE FADI</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2023">
+            <div class="press-year-head">2023</div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>IED Barcelona — Master in Interior Design for Commercial Spaces and Retail</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Clase magistral</div><div class="pr-text"><b>Clase magistral FAD-UPC Córdoba</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>UADE FADI</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2022">
+            <div class="press-year-head">2022</div>
+            <div class="press-row"><div class="pr-date">Charla</div><div class="pr-text"><b>10ª TENDIEZ Experiences, Auditorio del Malba</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>IED Kunsthal Bilbao</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>UADE FADI, Proyecto 6</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2019">
+            <div class="press-year-head">2019</div>
+            <div class="press-row"><div class="pr-date">Festival</div><div class="pr-text"><b>International Architecture Festival ARQfestival, Guadalajara, México</b></div><div class="pr-outlet"></div></div>
+            <div class="press-row"><div class="pr-date">Congreso</div><div class="pr-text"><b>Congreso SCA — «Experiencias en arquitectura de interiores»</b></div><div class="pr-outlet"></div></div>
+          </div>
+          <div class="press-year-block" data-year="2006–2008">
+            <div class="press-year-head">2006–2008</div>
+            <div class="press-row"><div class="pr-date">Docencia</div><div class="pr-text"><b>Profesores de Diseño Arquitectónico I, Cátedra Lestard-Cajide-Janchez, FADU-UBA</b></div><div class="pr-outlet"></div></div>
+          </div>
+          </div>
+        </div>
+
       </div>
     </section>
   </main>

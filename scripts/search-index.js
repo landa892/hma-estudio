@@ -206,5 +206,13 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Buenos Aires y Miami.",
   "url": "/contacto/",
   "img": ""
+ },
+ {
+  "tipo": "Página",
+  "titulo": "Premios",
+  "sub": "Reconocimientos",
+  "desc": "Premios y distinciones internacionales desde 2008.",
+  "url": "/premios/",
+  "img": ""
  }
 ];

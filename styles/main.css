@@ -864,17 +864,19 @@ footer.site-footer {
    PRENSA
    ======================================================================== */
 
+/* 6 columnas en vez de 3: el cliente pidio las fotos de prensa a la mitad. */
 .press-featured {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--black);
   margin-bottom: 64px;
 }
 
-@media (max-width: 900px) { .press-featured { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .press-featured { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) { .press-featured { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 760px) { .press-featured { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .press-featured { grid-template-columns: repeat(2, 1fr); } }
 
 .press-card {
   background: var(--white);
@@ -887,13 +889,13 @@ footer.site-footer {
 
 .press-card:hover img { filter: grayscale(0); transform: scale(1.03); }
 
-.press-card .press-body { padding: 16px 18px 20px; }
+.press-card .press-body { padding: 10px 12px 14px; }
 
-.press-card .press-outlet { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); }
+.press-card .press-outlet { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); }
 
-.press-card .press-title { font-size: 1rem; font-weight: 700; margin-top: 6px; line-height: 1.3; }
+.press-card .press-title { font-size: .82rem; font-weight: 700; margin-top: 6px; line-height: 1.3; }
 
-.press-card .press-date { font-size: .72rem; color: var(--gray); margin-top: 8px; }
+.press-card .press-date { font-size: .66rem; color: var(--gray); margin-top: 8px; }
 
 .press-feed { border-top: 1px solid var(--black); }
 
@@ -1364,3 +1366,85 @@ footer.site-footer {
 
 .footer-inner a { text-decoration: none; }
 .footer-legal { margin-left: 18px; }
+
+/* ---------- PREMIOS (/premios/) ---------- */
+
+.award-feed { margin-top: 32px; }
+
+.award-year-block[hidden] { display: none; }
+
+.award-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 130px 160px;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.award-row__logo { width: 64px; height: 50px; display: flex; align-items: center; justify-content: center; }
+
+.award-row__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .75;
+  transition: filter .2s ease, opacity .2s ease;
+}
+
+.award-row:hover .award-row__logo img { filter: grayscale(0); opacity: 1; }
+
+.award-row__name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+
+.award-row__res {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--black);
+}
+
+.award-row__city {
+  font-size: .78rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+@media (max-width: 760px) {
+  .award-row { grid-template-columns: 48px 1fr; gap: 14px; }
+  .award-row__logo { width: 48px; height: 40px; }
+  .award-row__res { grid-column: 2; font-size: .68rem; color: var(--gray); }
+  .award-row__city { display: none; }
+}
+
+/* ---------- SOLAPAS PRENSA / NEWS ---------- */
+
+.press-tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid var(--black);
+  margin-bottom: 28px;
+}
+
+.press-tab {
+  background: none;
+  border: none;
+  padding: 0 0 12px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color .15s ease, border-color .15s ease;
+}
+
+.press-tab:hover { color: var(--black); }
+.press-tab.active { color: var(--black); border-bottom-color: var(--black); }
+
+.press-group[hidden] { display: none; }
