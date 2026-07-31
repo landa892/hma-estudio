@@ -1719,3 +1719,101 @@ footer.site-footer {
 }
 
 .founder-li:hover { opacity: .55; }
+
+/* ============================================================================
+   GSAP + SCROLLTRIGGER
+   ---------------------------------------------------------------------------
+   gsapConfig.js agrega .gsap-active al <html> solo si GSAP cargo de verdad.
+   Si no cargo (CSP, red caida, JS apagado) la clase no aparece y sigue
+   funcionando el reveal por CSS de mas arriba: nada queda invisible.
+
+   Con .gsap-active apagamos los estados iniciales y las transiciones del
+   sistema viejo, porque ahora los estados los fija GSAP con estilos inline y
+   dos motores animando el mismo transform se pelean.
+   ========================================================================= */
+
+.gsap-active .reveal,
+.gsap-active .reveal.in {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.gsap-active .hero-home--photo img,
+.gsap-active .project-banner img,
+.gsap-active .project-row__photo img {
+  transition: none;
+}
+
+.gsap-active .hero-content-wrap,
+.gsap-active .project-banner__content {
+  transform: none;
+}
+
+.gsap-active .hero-content-wrap > *,
+.gsap-active .pb-content-inner {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* El hover de la foto lo maneja GSAP con el transform inline; dejar la regla
+   vieja solo generaria un salto al sacar el mouse. */
+.gsap-active .project-banner:hover img { transform: none; }
+
+/* Palabras de un titulo escalonado. La capa de afuera recorta y la de adentro
+   se mueve, asi la palabra parece subir desde su propio renglon. El padding
+   negativo compensa el recorte para que no se coman las colas de g, j, p, y. */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.word > span { display: inline-block; }
+
+/* Con prefers-reduced-motion scroll.js no arma ninguna timeline, asi que en
+   la practica nunca se escriben estilos inline. Esta lista es la red de
+   seguridad: cubre exactamente los selectores que animan los modulos, para
+   que un estado a medio aplicar no pueda esconder contenido. Se limita a esos
+   selectores a proposito: un catch-all sobre main romperia los transform que
+   si hacen falta, como el del boton flotante de contacto. */
+.gsap-reduced .reveal,
+.gsap-reduced .word > span,
+.gsap-reduced .pb-content-inner,
+.gsap-reduced .hero-content-wrap,
+.gsap-reduced .hero-content-wrap > *,
+.gsap-reduced .project-banner__content,
+.gsap-reduced .banner-interlude p,
+.gsap-reduced .project-row__text,
+.gsap-reduced .section-head .eyebrow,
+.gsap-reduced .section-head h1,
+.gsap-reduced .section-head h2,
+.gsap-reduced .section-head h3,
+.gsap-reduced .section-head .btn,
+.gsap-reduced .hero-home .eyebrow,
+.gsap-reduced .hero-home h1,
+.gsap-reduced .lede,
+.gsap-reduced .project-meta-row,
+.gsap-reduced .spec-row,
+.gsap-reduced .project-card,
+.gsap-reduced .project-list-row,
+.gsap-reduced .gallery-grid__item,
+.gsap-reduced .press-card,
+.gsap-reduced .press-row,
+.gsap-reduced .award-row,
+.gsap-reduced .award-bar__item,
+.gsap-reduced .footer-award,
+.gsap-reduced .stat-cell {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+.gsap-reduced .hero-home--photo img,
+.gsap-reduced .project-banner img,
+.gsap-reduced .project-row__photo img {
+  transform: none !important;
+}

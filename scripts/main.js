@@ -3,30 +3,37 @@ try {
      SCROLLEAR (referencia mvrdv.com: transform-origin left bottom, ligado al
      scroll en vivo dentro del rango de CADA seccion, no a una sola aparicion).
      Aplica al hero y a los 6 project-banner. ---------- */
-  const shrinkTargets = [];
-  const heroSection = document.querySelector('.hero-home--photo');
-  const heroWrap = document.querySelector('.hero-content-wrap');
-  if (heroSection && heroWrap) shrinkTargets.push({ section: heroSection, wrap: heroWrap, varName: '--hero-scale' });
-
-  document.querySelectorAll('.project-banner').forEach(banner => {
-    const content = banner.querySelector('.project-banner__content');
-    if (content) shrinkTargets.push({ section: banner, wrap: content, varName: '--pb-scale' });
-  });
-
-  if (shrinkTargets.length) {
-    const MIN_SCALE = 0.55;
-    function updateShrink() {
-      shrinkTargets.forEach(({ section, wrap, varName }) => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight || 1;
-        const progress = Math.min(Math.max((window.scrollY - top) / height, 0), 1);
-        const scale = 1 - progress * (1 - MIN_SCALE);
-        wrap.style.setProperty(varName, scale.toFixed(3));
-      });
+  /* Este bloque es el respaldo para cuando GSAP no esta: si cargo, el mismo
+     efecto lo hace scroll.js con ScrollTrigger y scrub, que es mas preciso y
+     no compite con este rAF. */
+  if (!document.documentElement.classList.contains('gsap-active')) {
+    const shrinkTargets = [];
+    const heroSection = document.querySelector('.hero-home--photo');
+    const heroWrap = document.querySelector('.hero-content-wrap');
+    if (heroSection && heroWrap) {
+      shrinkTargets.push({ section: heroSection, wrap: heroWrap, varName: '--hero-scale' });
     }
-    window.addEventListener('scroll', () => requestAnimationFrame(updateShrink), { passive: true });
-    window.addEventListener('resize', updateShrink);
-    updateShrink();
+
+    document.querySelectorAll('.project-banner').forEach(banner => {
+      const content = banner.querySelector('.project-banner__content');
+      if (content) shrinkTargets.push({ section: banner, wrap: content, varName: '--pb-scale' });
+    });
+
+    if (shrinkTargets.length) {
+      const MIN_SCALE = 0.55;
+      const updateShrink = () => {
+        shrinkTargets.forEach(({ section, wrap, varName }) => {
+          const top = section.offsetTop;
+          const height = section.offsetHeight || 1;
+          const progress = Math.min(Math.max((window.scrollY - top) / height, 0), 1);
+          const scale = 1 - progress * (1 - MIN_SCALE);
+          wrap.style.setProperty(varName, scale.toFixed(3));
+        });
+      };
+      window.addEventListener('scroll', () => requestAnimationFrame(updateShrink), { passive: true });
+      window.addEventListener('resize', updateShrink);
+      updateShrink();
+    }
   }
 } catch (e) { console.error('shrink-on-scroll', e); }
 
@@ -118,7 +125,9 @@ try {
 
 try {
   /* ---------- REVEAL ON SCROLL ---------- */
-  const revealEls = document.querySelectorAll('.reveal');
+  /* Idem: si GSAP cargo, el reveal lo arma scroll.js con su propia timeline. */
+  const revealEls = document.documentElement.classList.contains('gsap-active')
+    ? [] : document.querySelectorAll('.reveal');
   revealEls.forEach((el, i) => { el.style.transitionDelay = (Math.min(i % 6, 5) * 60) + 'ms'; });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -299,8 +308,9 @@ try {
      la lista en vivo del canal. */
   if (updatesSection && feedEl) {
     fetch('/api/youtube-latest')
-      .then(r => r.json())
+      .then(r => (r.ok && (r.headers.get('content-type') || '').includes('json')) ? r.json() : null)
       .then(data => {
+        if (!data) return;              // sin API key configurada: quedan los del HTML
         const videos = data.videos || [];
         if (!videos.length) return;
 
