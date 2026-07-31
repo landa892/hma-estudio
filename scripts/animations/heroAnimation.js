@@ -271,8 +271,20 @@
          atras —esta arriba de todo— asi que ScrollTrigger no registra ninguna
          entrada que disparar. Con onEnter/onEnterBack y un arranque manual
          para lo que ya se ve, los dos casos quedan cubiertos. */
+      /* La obertura se reproduce una vez por visita a la seccion. La bandera
+         es imprescindible: ScrollTrigger vuelve a evaluar sus disparadores en
+         cada refresh, y el guion pide un refresh por cada imagen diferida que
+         termina de cargar. Sin la bandera, cada una de esas decenas de cargas
+         reiniciaba la obertura, y el titulo se quedaba emergiendo en un bucle
+         sin llegar nunca a viajar a su sitio.
+
+         Solo se rearma cuando el usuario abandona la seccion de verdad, es
+         decir cuando sale por arriba. */
+      var pendiente = true;
+
       var lanzar = function () {
-        if (entrada.progress() > 0 && entrada.progress() < 1) return;  // ya corriendo
+        if (!pendiente) return;
+        pendiente = false;
         entrada.restart(true);
       };
 
@@ -282,13 +294,16 @@
         end: 'bottom top',
         onEnter: lanzar,
         onEnterBack: lanzar,
-        onLeaveBack: function () { entrada.pause(0); }
+        onLeaveBack: function () {
+          pendiente = true;
+          entrada.pause(0);
+        }
       });
 
       /* Si la seccion ya esta a la vista cuando se arma el guion —siempre es
          el caso del hero— la obertura arranca sola. */
       if (seccion.getBoundingClientRect().top < window.innerHeight * 0.6) {
-        entrada.restart(true);
+        lanzar();
       } else {
         entrada.pause(0);
       }
