@@ -1721,9 +1721,9 @@ footer.site-footer {
 .founder-li:hover { opacity: .55; }
 
 /* ============================================================================
-   GSAP + SCROLLTRIGGER
+   GSAP + SCROLLTRIGGER + LENIS
    ---------------------------------------------------------------------------
-   gsapConfig.js agrega .gsap-active al <html> solo si GSAP cargo de verdad.
+   config/gsap.js agrega .gsap-active al <html> solo si GSAP cargo de verdad.
    Si no cargo (CSP, red caida, JS apagado) la clase no aparece y sigue
    funcionando el reveal por CSS de mas arriba: nada queda invisible.
 
@@ -1757,31 +1757,86 @@ footer.site-footer {
   transition: none;
 }
 
-/* El hover de la foto lo maneja GSAP con el transform inline; dejar la regla
-   vieja solo generaria un salto al sacar el mouse. */
 .gsap-active .project-banner:hover img { transform: none; }
 
-/* Palabras de un titulo escalonado. La capa de afuera recorta y la de adentro
-   se mueve, asi la palabra parece subir desde su propio renglon. El padding
-   negativo compensa el recorte para que no se coman las colas de g, j, p, y. */
-.word {
-  display: inline-block;
+/* ---------- PORTADA: PISTA DE SCROLL Y ESCENARIO ---------------------------
+   La seccion se estira mas alla de la pantalla para tener recorrido, y el
+   escenario queda pegado arriba mientras dura ese sobrante. Es lo que permite
+   que la secuencia del titulo ocurra a la vista en vez de irse hacia arriba a
+   mitad de camino. Sticky y no pin de ScrollTrigger: sticky lo resuelve el
+   compositor, sin espaciadores ni reescritura de posiciones. */
+
+.gsap-active .hero-home--photo {
+  --pista: 240vh;
+  min-height: var(--pista);
+  display: block;
+  padding: 0;
+  align-items: initial;
+  /* Imprescindible: un ancestro con overflow distinto de visible se convierte
+     en el contenedor del sticky y lo anula. El recorte de la foto pasa al
+     escenario, que es donde tiene que estar. */
+  overflow: visible;
+}
+
+@media (max-width: 1100px) { .gsap-active .hero-home--photo { --pista: 210vh; } }
+@media (max-width: 700px)  { .gsap-active .hero-home--photo { --pista: 185vh; } }
+
+.gsap-active .hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: flex-end;
   overflow: hidden;
-  vertical-align: top;
+  padding: 64px 0 56px;
+}
+
+.gsap-active .hero-home--photo img { z-index: 0; }
+.gsap-active .hero-content-wrap { position: relative; z-index: 1; }
+
+/* En la portada el tamaño de descanso es menor que el del resto del sitio: el
+   titulo llega a escala 1,4 en su pico, y de ahi sale el tamaño que se ve.
+   Si se dejara el clamp original, a 1,4 se saldria de pantalla y se cortaria. */
+.gsap-active .hero-home--photo h1 {
+  font-size: clamp(2.1rem, 7vw, 6.2rem);
+  /* El limite de caracteres por linea es lo que hace que el titulo entre a
+     escala 1,4. Sin el, en un telefono la linea completa se sale de pantalla
+     y el escenario la recorta: escalar no vuelve a partir el texto. De paso,
+     dos lineas apiladas dan mas escalonado en la aparicion. */
+  max-width: 13ch;
+  will-change: transform;
+}
+
+.gsap-active .hero-content-wrap { will-change: transform, opacity; }
+
+/* Mascara por linea: la de afuera recorta, la de adentro se mueve. El padding
+   negativo compensa el recorte para que no se coman las colas de g, j, p, y. */
+.line {
+  display: block;
+  overflow: hidden;
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
 }
 
-.word > span { display: inline-block; }
+.line > span { display: block; }
 
-/* Con prefers-reduced-motion scroll.js no arma ninguna timeline, asi que en
+/* ---------- LENIS ----------------------------------------------------------
+   Mientras Lenis maneja el scroll, el navegador no debe intentar suavizarlo
+   por su cuenta ni frenar en los anclas. */
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Con prefers-reduced-motion los modulos no arman ninguna timeline, asi que en
    la practica nunca se escriben estilos inline. Esta lista es la red de
    seguridad: cubre exactamente los selectores que animan los modulos, para
    que un estado a medio aplicar no pueda esconder contenido. Se limita a esos
    selectores a proposito: un catch-all sobre main romperia los transform que
    si hacen falta, como el del boton flotante de contacto. */
 .gsap-reduced .reveal,
-.gsap-reduced .word > span,
+.gsap-reduced .line > span,
 .gsap-reduced .pb-content-inner,
 .gsap-reduced .hero-content-wrap,
 .gsap-reduced .hero-content-wrap > *,
@@ -1817,3 +1872,12 @@ footer.site-footer {
 .gsap-reduced .project-row__photo img {
   transform: none !important;
 }
+
+/* Con reduced-motion la portada vuelve a ser una seccion normal de una
+   pantalla: sin pista de scroll no hay secuencia que recorrer. */
+.gsap-reduced .hero-home--photo { min-height: 88vh; display: flex; align-items: flex-end; padding: 64px 0 56px; }
+.gsap-reduced .hero-stage { position: static; height: auto; padding: 0; display: block; }
+.gsap-reduced .hero-home--photo h1 { font-size: clamp(2.6rem, 7vw, 6.4rem); }
+.gsap-reduced .lede,
+.gsap-reduced .hero-home--photo h1,
+.gsap-reduced .line > span { filter: none !important; }

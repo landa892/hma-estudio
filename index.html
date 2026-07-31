@@ -56,7 +56,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles/main.css?v=3">
+  <link rel="stylesheet" href="/styles/main.css?v=4">
   <link rel="preload" as="image" href="/assets/hero-crop.webp" fetchpriority="high">
 </head>
 
@@ -114,6 +114,10 @@
 
   <main id="main">
     <section class="hero-home--photo reveal" id="section-hero">
+      <!-- La seccion mide mas que la pantalla (la "pista" de scroll) y el
+           escenario queda sticky adentro: la secuencia de la portada ocurre a
+           la vista mientras la pista se recorre. Ver heroAnimation.js. -->
+      <div class="hero-stage">
       <img src="/assets/hero-crop.webp" width="1254" height="1190" alt="Interior de Hyatt Ziva, Barbados" loading="eager" decoding="async"
         fetchpriority="high">
       <div class="hero-content-wrap">
@@ -121,6 +125,7 @@
         <h1 class="display-1 mt-16">Construyendo ideas</h1>
         <p class="lede">Arquitectura y diseño de interiores para hotelería, gastronomía, oficinas y vivienda.
           Más de dos décadas creando identidades de marca en América Latina, Europa, Medio Oriente y EE.UU.</p>
+      </div>
       </div>
     </section>
 
@@ -264,7 +269,7 @@
               <div class="press-title">Casa FOA — despiece de elementos</div>
             </div>
           </a>
-          <a class="press-card" href="https://www.youtube.com/watch?v=3_SZkI9ch5g" target="_blank" rel="noopener">
+          <a class="press-card" href="https://www.youtube.com/watch?v=4_SZkI9ch5g" target="_blank" rel="noopener">
             <div class="press-img"><img src="https://i.ytimg.com/vi/3_SZkI9ch5g/hqdefault.jpg" width="480" height="360" alt="Goodsten — despiece de elementos" loading="lazy" decoding="async"></div>
             <div class="press-body">
               <div class="press-outlet">YouTube — 29 jul 2026</div>
@@ -554,10 +559,12 @@
   </div>
   <script src="/scripts/vendor/gsap.min.js"></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js"></script>
-  <script src="/scripts/gsapConfig.js?v=3"></script>
-  <script src="/scripts/animations.js?v=3"></script>
-  <script src="/scripts/scroll.js?v=3"></script>
-  <script src="/scripts/main.js?v=3"></script>
+  <script src="/scripts/vendor/lenis.min.js"></script>
+  <script src="/scripts/config/gsap.js?v=4"></script>
+  <script src="/scripts/animations/textReveal.js?v=4"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=4"></script>
+  <script src="/scripts/animations/scrollEffects.js?v=4"></script>
+  <script src="/scripts/main.js?v=4"></script>
 </body>
 
 </html>

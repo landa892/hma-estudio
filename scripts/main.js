@@ -61,7 +61,12 @@ try {
     dots.forEach(btn => {
       btn.addEventListener('click', () => {
         const target = document.getElementById(btn.dataset.target);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        /* Con Lenis manejando el scroll, scrollIntoView pelea con su
+           posicion interpolada: hay que pedirle el viaje a el. */
+        if (!target) return;
+        const lenis = window.HMA && window.HMA.config && window.HMA.config.lenis;
+        if (lenis) lenis.scrollTo(target, { duration: 1.2 });
+        else target.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
