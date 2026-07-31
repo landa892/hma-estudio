@@ -1387,12 +1387,13 @@ Arq. Luciano Cichanowski
 Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 ```
 
-## 4. Prensa y News (69 entradas)
+## 4. Prensa y News (70 entradas)
 
 | Año | Fecha | Tipo | Título | Medio | Link |
 |---|---|---|---|---|---|
 | 2026 | Mayo | prensa | Comer solo sin pedir perdón — nota sobre el estudio | Newsweek, Argentina | **falta** |
 | 2026 | Abril | prensa | Osten Coffee Shop, Casa FOA | Archello, Argentina | **falta** |
+| 2026 | Marzo | prensa | Tostado Café Club | Interior Design | https://www.youtube.com/watch?v=kW7Ck4Hm7tk |
 | 2026 | Conferencia | news | Ciclo de conferencias DINA, Auditorio Diego de Torres, UCC Córdoba | News | https://www.youtube.com/watch?v=_-nCkxIThi4 |
 | 2026 | Docencia | news | Leonardo Militello, profesor de Arquitectura Comercial Interior en La Haus | News | **falta** |
 | 2026 | Video | news | El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | YouTube | https://www.youtube.com/watch?v=9Z2Q4iS2Ip0 |
@@ -1503,7 +1504,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 
 00 Vicoria Brown, 00 Vilela, 01 Malabia ( M1918 ), 02 Bolivar ( B1763 ), 03 Oficina y Casa Luna (L250), 04 Dos Casas Conde ( C421 ), 05 Galería de Arte - Objeto A ( NV5181 ), 07 PH El Salvador ( ES4633 ), 23- Luccianos caballito, 24- Luccianos olivos, 25- Goodsten, 26-The Birra - Roca 63, 33-Fogon, 33-The Nim Bar, 34-Malita, 35 - Fresco, 36-Comedor Diario, 36-Uala, 37-Uala 2, 41-Mamba bar, 43-Hausscape, 44-Kavak Hub, 45-Kavak Oficinas, 46-Stella Artois, 48-Moshu, 49-Osten tower, 50-Manduca, 51-Burger 7167, 52-Plaza Mateo, 54-Araoz, 59-Cien, 60-People, 61-Fehgra, 62-Juan Valdez, 67-Edificio del Plata, 69-Sinapsis, 71-Ziva Hyatt, 72-Aire Libre, 73-El clásico de quilmes, 74-Elyaki, 75-Iguanafix, 76-Movistar arena, 77-PH Loft Arias, 78-Tostado
 
-### Entradas de prensa sin link (43 de 69)
+### Entradas de prensa sin link (43 de 70)
 
 - 2026 · Mayo · Newsweek, Argentina — Comer solo sin pedir perdón — nota sobre el estudio
 - 2026 · Abril · Archello, Argentina — Osten Coffee Shop, Casa FOA
