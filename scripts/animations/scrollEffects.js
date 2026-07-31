@@ -193,7 +193,9 @@
     q('.gallery-grid').forEach(function (el) { stagger(el, '.gallery-grid__item', { each: 0.05 }); });
     q('.press-featured').forEach(function (el) { stagger(el, '.press-card', { each: 0.04 }); });
     q('.related-projects').forEach(function (el) { stagger(el, '.project-card', { each: 0.08 }); });
-    q('.footer-awards__row').forEach(function (el) { stagger(el, '.footer-award', { each: 0.03, distance: 16 }); });
+    /* Los sellos del pie no se animan: estan al final de la pagina, donde el
+       disparador de entrada llega tarde, y encima el CSS los deja al 60% de
+       opacidad. Sumar una aparicion encima los volvia invisibles. */
     q('.award-bar__logos').forEach(function (el) { stagger(el, '.award-bar__item', { each: 0.06, distance: 18 }); });
     q('.press-feed').forEach(function (el) { stagger(el, '.press-row', { each: 0.02, distance: 16 }); });
     q('.award-feed').forEach(function (el) { stagger(el, '.award-row', { each: 0.03, distance: 16 }); });

@@ -1533,7 +1533,7 @@ footer.site-footer {
   height: 48px;
   width: auto;
   filter: brightness(0) invert(1);
-  opacity: .6;
+  opacity: .85;
   transition: opacity .2s ease;
 }
 
