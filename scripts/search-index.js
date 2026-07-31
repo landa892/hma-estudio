@@ -1,6 +1,230 @@
 window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
+  "titulo": "Benedetta",
+  "sub": "Gastronómico",
+  "desc": "Restaurante · Demaria 4709, Palermo, Buenos Aires · 307 m² · 2022",
+  "url": "/proyectos/benedetta/",
+  "img": "/assets/gallery/benedetta/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Bienal de Venecia",
+  "sub": "Cultural & Institucional",
+  "desc": "Pabellón de exposición temporal · Pabellón argentino, Bienal de Arquitectura de Venecia · 582 m² · 2025",
+  "url": "/proyectos/bienal-venecia/",
+  "img": "/assets/gallery/bienal-venecia/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Accor Hotels",
+  "sub": "Hotelería & Comercial",
+  "desc": "Hotel — concurso internacional · São Paulo · 6.500 m² · 2018",
+  "url": "/proyectos/accor-hotels/",
+  "img": "/assets/gallery/accor-hotels/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Aire Libre",
+  "sub": "Gastronómico",
+  "desc": "Restaurante · Av. del Libertador y Blanco Encalada, Buenos Aires",
+  "url": "/proyectos/aire-libre/",
+  "img": "/assets/gallery/aire-libre/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Parfumerie",
+  "sub": "Hotelería & Comercial",
+  "desc": "Retail · Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires · 131 m² · 2025",
+  "url": "/proyectos/parfumerie/",
+  "img": "/assets/gallery/parfumerie/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Indusparquet",
+  "sub": "Hotelería & Comercial",
+  "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
+  "url": "/proyectos/indusparquet/",
+  "img": "/assets/gallery/indusparquet/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Templo Mikdash",
+  "sub": "Cultural & Institucional",
+  "desc": "Templo · República Árabe Siria 3267, Buenos Aires · 600 m² · 2025",
+  "url": "/proyectos/templo-mikdash/",
+  "img": "/assets/gallery/templo-mikdash/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Café Artois",
+  "sub": "Gastronómico",
+  "desc": "Cafetería y restaurante · Campo Argentino de Polo, Buenos Aires · 242 m² cubiertos y 112 m² semicubiertos",
+  "url": "/proyectos/cafe-artois/",
+  "img": "/assets/gallery/cafe-artois/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Ualá Gigena",
+  "sub": "Oficinas",
+  "desc": "Oficinas · Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires · 9.002 m²",
+  "url": "/proyectos/uala-gigena/",
+  "img": "/assets/gallery/uala-gigena/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Williamsburg",
+  "sub": "Gastronómico",
+  "desc": "Restaurante exterior · Av. del Libertador 3883, Arco 1, Buenos Aires · 54 m²",
+  "url": "/proyectos/williamsburg/",
+  "img": "/assets/gallery/williamsburg/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "IOL — Invertir Online",
+  "sub": "Oficinas",
+  "desc": "Oficinas · Av. Juan Bautista Justo 1500, piso 23, Buenos Aires · 480 m² · 2025—2026",
+  "url": "/proyectos/iol/",
+  "img": "/assets/gallery/iol/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Novotel",
+  "sub": "Hotelería & Comercial",
+  "desc": "Hotel · Av. Corrientes 1334, Buenos Aires · 1.486 m² · 2024",
+  "url": "/proyectos/novotel/",
+  "img": "/assets/gallery/novotel/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Roket",
+  "sub": "Gastronómico",
+  "desc": "Club nocturno · Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro · 2.000 m² · 2023",
+  "url": "/proyectos/roket/",
+  "img": "/assets/gallery/roket/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "CCEBA",
+  "sub": "Cultural & Institucional",
+  "desc": "Centro cultural — concurso privado · Paraná 1159, Buenos Aires · 336 m² · 2025",
+  "url": "/proyectos/cceba/",
+  "img": "/assets/gallery/cceba/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Fresco",
+  "sub": "Gastronómico",
+  "desc": "Restaurante · Honduras 5670, Palermo, Buenos Aires · 312 m²",
+  "url": "/proyectos/fresco/",
+  "img": "/assets/gallery/fresco/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Kavak Hub",
+  "sub": "Hotelería & Comercial",
+  "desc": "Hub comercial y oficinas · Shopping Dot Baires, Buenos Aires · 300 m² cubiertos y 15.000 m² de playa de estacionamiento",
+  "url": "/proyectos/kavak-hub/",
+  "img": "/assets/gallery/kavak-hub/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Kavak Oficinas",
+  "sub": "Oficinas",
+  "desc": "Oficinas · Edificio Philips, Vedia 3892, Buenos Aires · 800 m²",
+  "url": "/proyectos/kavak-oficinas/",
+  "img": "/assets/gallery/kavak-oficinas/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Victoria Brown",
+  "sub": "Gastronómico",
+  "desc": "Bar y restaurante · Costa Rica 4827, Palermo, Buenos Aires · 377 m² cubiertos y 8 m² descubiertos · 2013",
+  "url": "/proyectos/victoria-brown/",
+  "img": "/assets/gallery/victoria-brown/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Atelier Vilela",
+  "sub": "Residencial",
+  "desc": "Atelier, artes y oficios · Vilela 2793, Buenos Aires · 60 m² cubiertos y 55 m² descubiertos",
+  "url": "/proyectos/atelier-vilela/",
+  "img": "/assets/gallery/atelier-vilela/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Antiche",
+  "sub": "Gastronómico",
+  "desc": "Heladería · Nueva York 4002, Villa Devoto, Buenos Aires · 90 m²",
+  "url": "/proyectos/antiche/",
+  "img": "/assets/gallery/antiche/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Goodsten",
+  "sub": "Gastronómico",
+  "desc": "Cremería · Av. del Libertador, Martínez, Buenos Aires · 330 m²",
+  "url": "/proyectos/goodsten/",
+  "img": "/assets/gallery/goodsten/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "The Nim Bar",
+  "sub": "Gastronómico",
+  "desc": "Restaurante y bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
+  "url": "/proyectos/nim-bar/",
+  "img": "/assets/gallery/nim-bar/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Mamba",
+  "sub": "Gastronómico",
+  "desc": "Restaurante y bar · Soler 5130, Palermo, Buenos Aires · 265 m²",
+  "url": "/proyectos/mamba-bar/",
+  "img": "/assets/gallery/mamba-bar/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Cien",
+  "sub": "Gastronómico",
+  "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores",
+  "url": "/proyectos/cien/",
+  "img": "/assets/gallery/cien/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Hausscape",
+  "sub": "Hotelería & Comercial",
+  "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m²",
+  "url": "/proyectos/hausscape/",
+  "img": "/assets/gallery/hausscape/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Bolívar",
+  "sub": "Residencial",
+  "desc": "Edificio multifamiliar · Bolívar 1761-63, San Telmo, Buenos Aires · 1.520 m²",
+  "url": "/proyectos/bolivar/",
+  "img": "/assets/gallery/bolivar/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "FEHGRA",
+  "sub": "Gastronómico",
+  "desc": "Centro de desarrollo gastronómico · Larrea 1250, Recoleta, Buenos Aires · 142 m²",
+  "url": "/proyectos/fehgra/",
+  "img": "/assets/gallery/fehgra/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "People",
+  "sub": "Residencial",
+  "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m²",
+  "url": "/proyectos/people/",
+  "img": "/assets/gallery/people/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Osten Coffee Shop — Casa FOA",
   "sub": "Gastronómico",
   "desc": "Cafetería · Puerto Madero, Buenos Aires · 325 m² · 2025",
