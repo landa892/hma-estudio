@@ -601,19 +601,28 @@ try {
 } catch (e) { console.error('press-filters', e); }
 
 try {
-  /* ---------- GALERIA: VER TODAS LAS FOTOS ----------
-     La ficha muestra seis y guarda el resto detras de un boton. Al abrirla hay
-     que avisarle a ScrollTrigger: aparecen decenas de figuras y todo lo que
-     viene despues se corre hacia abajo, asi que sus puntos de disparo quedan
-     viejos. */
+  /* ---------- VER TODO: GALERIAS DE OBRA Y GRILLA DE VIDEOS ----------
+     Las dos muestran unas pocas y guardan el resto detras de un boton. Al
+     abrirlas hay que avisarle a ScrollTrigger: aparecen decenas de figuras y
+     todo lo que viene despues se corre hacia abajo, asi que sus puntos de
+     disparo quedan viejos.
+
+     Los rotulos vienen del HTML (data-mas / data-menos) porque el boton dice
+     "fotos" en una ficha y "videos" en prensa. Las galerias viejas solo traen
+     data-total, asi que se les arma el rotulo como antes. */
   document.querySelectorAll('.gallery-more').forEach(btn => {
     const grid = btn.previousElementSibling;
-    if (!grid || !grid.classList.contains('gallery-grid')) return;
-    const total = btn.dataset.total;
+    if (!grid) return;
+    const esGaleria = grid.classList.contains('gallery-grid');
+    if (!esGaleria && !grid.classList.contains('press-featured')) return;
+
+    const rotuloMas = btn.dataset.mas || ('Ver las ' + btn.dataset.total + ' fotos');
+    const rotuloMenos = btn.dataset.menos || 'Ver menos fotos';
+
     btn.addEventListener('click', () => {
       const abierta = grid.classList.toggle('is-open');
       btn.setAttribute('aria-expanded', abierta ? 'true' : 'false');
-      btn.textContent = abierta ? 'Ver menos fotos' : ('Ver las ' + total + ' fotos');
+      btn.textContent = abierta ? rotuloMenos : rotuloMas;
       if (!abierta) grid.scrollIntoView({ block: 'start' });
       if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
     });

@@ -40,7 +40,11 @@
     }
     if (el.children.length) return null;
 
-    var palabras = el.textContent.trim().split(/\s+/);
+    /* Se parte por espacio comun y no por \s, que en JavaScript tambien
+       alcanza al espacio duro. Un &nbsp; en el marcado existe justamente para
+       que dos palabras no se separen nunca —"Creando &" en el home— y partir
+       ahi lo anularia: el & terminaba solo en su propio renglon. */
+    var palabras = el.textContent.trim().split(/[^\S\u00A0]+/);
     if (!palabras.length) return null;
 
     /* Paso 1: cada palabra en su span, para poder medir donde cae. */

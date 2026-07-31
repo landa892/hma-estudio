@@ -1941,8 +1941,12 @@ html.lenis, html.lenis body { height: auto; }
    ficha en un scroll interminable y hace que el visitante nunca llegue a
    "Mas proyectos". Se muestran seis y el resto queda a un clic. */
 
-.gallery-grid__item.is-extra { display: none; }
-.gallery-grid.is-open .gallery-grid__item.is-extra { display: block; }
+/* El mismo mecanismo sirve para las galerias de obra y para la grilla de
+   videos: se muestran las primeras y el resto espera detras del boton. */
+.gallery-grid__item.is-extra,
+.press-featured > .is-extra { display: none; }
+.gallery-grid.is-open .gallery-grid__item.is-extra,
+.press-featured.is-open > .is-extra { display: block; }
 
 .gallery-more {
   display: inline-block;
