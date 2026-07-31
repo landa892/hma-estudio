@@ -66,7 +66,8 @@
       inner: '.hero-content-wrap',
       titulo: 'h1',
       sub: '.lede',
-      pico: 1.4
+      pico: 1.4,
+      obertura: true
     },
     {
       seccion: '.project-banner',
@@ -85,6 +86,88 @@
     if (b.mobile) return { subeTitulo: 26, subeSub: 18, salida: 30, escalaSalida: 0.78 };
     if (b.tablet) return { subeTitulo: 40, subeSub: 24, salida: 44, escalaSalida: 0.72 };
     return { subeTitulo: 56, subeSub: 30, salida: 60, escalaSalida: 0.66 };
+  }
+
+  /* ==========================================================================
+     LA OBERTURA DEL HOME
+
+     Lo unico de todo el sitio que no depende del scroll. Al cargar, la
+     portada se presenta sola:
+
+       1. se ve la foto, nada mas
+       2. el titulo emerge desde su mascara, enorme y centrado en pantalla
+       3. sostiene ahi un par de segundos
+       4. viaja hasta abajo a la izquierda y se achica a su tamaño de lectura
+       5. recien entonces aparece la bajada, debajo del titulo
+
+     El viaje se calcula, no se hardcodea. Con transformOrigin en el centro del
+     propio titulo, llevarlo al centro de la pantalla es una traslacion que no
+     depende de la escala: basta la diferencia entre el centro del titulo en su
+     sitio final y el centro del escenario. Por eso el titulo aterriza exacto en
+     su lugar sin importar el ancho de la ventana ni cuantas lineas ocupe.
+
+     Se anima el titulo y no el bloque entero porque el bloque tambien contiene
+     la bajada, que tiene que quedarse abajo esperando su turno. */
+  function obertura(seccion, titulo, lineas, sub, eyebrow) {
+    var escenario = seccion.querySelector('.hero-stage');
+    var b = CFG.bp();
+    /* Medido: a 1,7 el titulo se salia 27 px por la izquierda en 1440. Estos
+       valores lo dejan ocupando cerca del 75% del ancho, sin tocar los bordes. */
+    var escala = b.mobile ? 1.3 : (b.tablet ? 1.45 : 1.58);
+
+    /* Medido con el titulo en su sitio final, antes de tocarlo. */
+    var rt = titulo.getBoundingClientRect();
+    var re = escenario.getBoundingClientRect();
+    var viajeX = (re.left + re.width / 2) - (rt.left + rt.width / 2);
+    var viajeY = (re.top + re.height / 2) - (rt.top + rt.height / 2);
+
+    var tl = gsap.timeline({ delay: 0.35 });
+
+    /* Red de seguridad: si la timeline no llega a correr —pestaña en segundo
+       plano, un error mas arriba— a los ocho segundos la portada queda en su
+       estado final. Nunca vale la pena que una animacion se coma el titulo. */
+    var guarda = setTimeout(function () { tl.progress(1); }, 8000);
+    tl.eventCallback('onComplete', function () {
+      clearTimeout(guarda);
+      gsap.set(titulo, { willChange: 'auto' });
+    });
+
+    gsap.set(titulo, {
+      x: viajeX, y: viajeY, scale: escala,
+      transformOrigin: 'center center',
+      willChange: 'transform'
+    });
+    if (sub) gsap.set(sub, { clipPath: 'inset(0 0 100% 0)', opacity: 0, y: 18 });
+    if (eyebrow) gsap.set(eyebrow, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
+
+    /* 2. el titulo emerge, ya centrado y grande */
+    if (lineas) {
+      var ap = TR.emerge(lineas, { blur: 10, stagger: 0.16 });
+      ap.duration(1.5);
+      tl.add(ap, 0);
+    } else {
+      gsap.set(titulo, { opacity: 0, filter: 'blur(10px)' });
+      tl.to(titulo, { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: EASE.reveal }, 0);
+    }
+
+    /* 3. sostiene: el hueco entre 1.5 y 2.9 es la espera */
+
+    /* 4. viaja a su sitio y se achica */
+    tl.to(titulo, {
+      x: 0, y: 0, scale: 1,
+      duration: 1.6,
+      ease: 'power3.inOut'
+    }, 2.9);
+
+    /* 5. la informacion secundaria, recien cuando el titulo ya llego */
+    if (eyebrow) {
+      tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, 4.2);
+    }
+    if (sub) {
+      tl.to(sub, { clipPath: 'inset(0 0 0% 0)', opacity: 1, y: 0, duration: 0.9, ease: EASE.settle }, 4.4);
+    }
+
+    return tl;
   }
 
   function construir(seccion, cfg) {
@@ -119,80 +202,98 @@
       }
     });
 
-    /* ---------------------------------------------------------- FASE 1 y 2 */
+    /* ------------------------------------------------------- que secuencia */
 
-    /* El titulo arranca en su tamaño maximo y ahi se queda hasta la fase 3: lo
-       que cambia durante la aparicion no es el tamaño sino la existencia. */
-    gsap.set(bloque, { scale: ESCALA_PICO, transformOrigin: 'left bottom' });
+    if (cfg.obertura) {
+      /* La portada del home se presenta sola al cargar. El scroll no revela
+         nada: para cuando el usuario lo mueve, el titulo ya conto su historia.
+         Lo unico que queda ligado al scroll es el parallax de la foto y la
+         salida, mas abajo. */
+      obertura(seccion, titulo, lineas, sub, eyebrow);
 
-    var aparicion;
-    if (lineas) {
-      aparicion = TR.emerge(lineas, { blur: 8, stagger: 0.14 });
+      if (foto) {
+        gsap.set(foto, { scale: 1.18, transformOrigin: 'center center' });
+        tl.to(foto, { scale: 1, yPercent: 6, duration: en(0.92), ease: EASE.linear }, 0);
+      }
+
     } else {
-      /* Titulo con marcado adentro: se anima el bloque, sin partirlo. */
-      gsap.set(titulo, { yPercent: 40, opacity: 0, filter: 'blur(8px)' });
-      aparicion = gsap.timeline().to(titulo,
-        { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1, ease: EASE.reveal });
-    }
+      /* Los banners de proyecto si van por scroll, con las cuatro fases. */
 
-    if (REVELAR_AL_CARGAR && cfg.pico === 1.4) {
-      /* Corre sola al cargar; el scroll arranca en la fase 2. */
-      aparicion.duration(1.6);
-    } else {
-      /* La fase 1 ocupa hasta 0.34 S. Se ajusta la duracion de la sub-timeline,
-         no la de la padre, para no reescalar las fases que vienen despues.
-         La fase 2 es el hueco que sigue, sin tweens: el titulo sostiene su
-         tamaño maximo mientras el usuario sigue bajando. */
-      aparicion.duration(en(0.34));
-      tl.add(aparicion, 0);
-    }
+      /* ---------------------------------------------------------- FASE 1 y 2 */
 
-    /* La foto arranca su propio alejamiento desde el primer pixel: es lo que
-       da la profundidad, porque se mueve a otra velocidad que el texto. */
-    if (foto) {
-      gsap.set(foto, { scale: 1.18, transformOrigin: 'center center' });
-      tl.to(foto, {
-        scale: 1,
-        yPercent: 6,
-        duration: en(0.92),
-        ease: EASE.linear
-      }, 0);
-    }
+      /* El titulo arranca en su tamaño maximo y ahi se queda hasta la fase 3: lo
+         que cambia durante la aparicion no es el tamaño sino la existencia. */
+      gsap.set(bloque, { scale: ESCALA_PICO, transformOrigin: 'left bottom' });
 
-    /* ------------------------------------------------------------- FASE 3 */
+      var aparicion;
+      if (lineas) {
+        aparicion = TR.emerge(lineas, { blur: 8, stagger: 0.14 });
+      } else {
+        /* Titulo con marcado adentro: se anima el bloque, sin partirlo. */
+        gsap.set(titulo, { yPercent: 40, opacity: 0, filter: 'blur(8px)' });
+        aparicion = gsap.timeline().to(titulo,
+          { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1, ease: EASE.reveal });
+      }
 
-    tl.to(bloque, {
-      scale: ESCALA_FIN,
-      y: -m.subeTitulo,
-      opacity: 0.92,
-      duration: en(0.92) - en(0.46),
-      ease: EASE.pull
-    }, en(0.46));
+      if (REVELAR_AL_CARGAR && cfg.pico === 1.4) {
+        /* Corre sola al cargar; el scroll arranca en la fase 2. */
+        aparicion.duration(1.6);
+      } else {
+        /* La fase 1 ocupa hasta 0.34 S. Se ajusta la duracion de la sub-timeline,
+           no la de la padre, para no reescalar las fases que vienen despues.
+           La fase 2 es el hueco que sigue, sin tweens: el titulo sostiene su
+           tamaño maximo mientras el usuario sigue bajando. */
+        aparicion.duration(en(0.34));
+        tl.add(aparicion, 0);
+      }
 
-    /* ------------------------------------------------------------- FASE 4 */
+      /* La foto arranca su propio alejamiento desde el primer pixel: es lo que
+         da la profundidad, porque se mueve a otra velocidad que el texto. */
+      if (foto) {
+        gsap.set(foto, { scale: 1.18, transformOrigin: 'center center' });
+        tl.to(foto, {
+          scale: 1,
+          yPercent: 6,
+          duration: en(0.92),
+          ease: EASE.linear
+        }, 0);
+      }
 
-    /* El subtitulo entra recien pasada la mitad del achique. Mascara propia:
-       el bloque se recorta y el texto sube desde adentro, mas corto que el del
-       titulo porque es informacion secundaria y no tiene que competir. */
-    if (sub) {
-      gsap.set(sub, { clipPath: 'inset(0 0 100% 0)', opacity: 0, y: m.subeSub });
-      tl.to(sub, {
-        clipPath: 'inset(0 0 0% 0)',
-        opacity: 1,
-        y: 0,
-        duration: en(0.90) - en(0.60),
-        ease: EASE.settle
-      }, en(0.60));
-    }
+      /* ------------------------------------------------------------- FASE 3 */
 
-    if (eyebrow) {
-      gsap.set(eyebrow, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
-      tl.to(eyebrow, {
-        clipPath: 'inset(0 0% 0 0)',
-        opacity: 1,
-        duration: en(0.72) - en(0.50),
-        ease: EASE.settle
-      }, en(0.50));
+      tl.to(bloque, {
+        scale: ESCALA_FIN,
+        y: -m.subeTitulo,
+        opacity: 0.92,
+        duration: en(0.92) - en(0.46),
+        ease: EASE.pull
+      }, en(0.46));
+
+      /* ------------------------------------------------------------- FASE 4 */
+
+      /* El subtitulo entra recien pasada la mitad del achique. Mascara propia:
+         el bloque se recorta y el texto sube desde adentro, mas corto que el del
+         titulo porque es informacion secundaria y no tiene que competir. */
+      if (sub) {
+        gsap.set(sub, { clipPath: 'inset(0 0 100% 0)', opacity: 0, y: m.subeSub });
+        tl.to(sub, {
+          clipPath: 'inset(0 0 0% 0)',
+          opacity: 1,
+          y: 0,
+          duration: en(0.90) - en(0.60),
+          ease: EASE.settle
+        }, en(0.60));
+      }
+
+      if (eyebrow) {
+        gsap.set(eyebrow, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
+        tl.to(eyebrow, {
+          clipPath: 'inset(0 0% 0 0)',
+          opacity: 1,
+          duration: en(0.72) - en(0.50),
+          ease: EASE.settle
+        }, en(0.50));
+      }
     }
 
     /* -------------------------------------------------------------- salida */
@@ -200,6 +301,10 @@
     /* Cuando el escenario se despega, el bloque se va achicando hacia abajo a
        la izquierda. Es el mismo gesto que usan los banners de proyecto mas
        abajo, asi que el recorrido de la home se lee como una sola pieza. */
+    /* La salida escala el bloque entero, no el titulo: en la portada el titulo
+       lleva su propio transform, puesto por la obertura, y pisarlo lo sacaria
+       de lugar. */
+    gsap.set(bloque, { transformOrigin: 'left bottom' });
     tl.to(bloque, {
       scale: m.escalaSalida,
       y: -m.salida,
@@ -239,5 +344,5 @@
     });
   });
 
-  window.HMA.hero = { construir: construir };
+  window.HMA.hero = { construir: construir, obertura: obertura };
 })(window, document);
