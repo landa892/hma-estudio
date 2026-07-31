@@ -91,7 +91,9 @@ try {
        sobre una foto. rootMargin -50%/-50% deja una franja de altura cero
        justo en el centro vertical de la pantalla, que es donde estan los
        puntos: si ahi hay una foto, se activa .on-dark. */
-    const darkSections = document.querySelectorAll('.hero-home--photo, .project-banner');
+    /* El pie tambien es fondo negro: si no entra en la cuenta, al llegar
+       abajo los puntos y su etiqueta quedan negros sobre negro. */
+    const darkSections = document.querySelectorAll('.hero-home--photo, .project-banner, .site-footer');
     if (darkSections.length) {
       const overDark = new Set();
       const darkIo = new IntersectionObserver((entries) => {
@@ -597,3 +599,23 @@ try {
     aplicar();
   }
 } catch (e) { console.error('press-filters', e); }
+
+try {
+  /* ---------- GALERIA: VER TODAS LAS FOTOS ----------
+     La ficha muestra seis y guarda el resto detras de un boton. Al abrirla hay
+     que avisarle a ScrollTrigger: aparecen decenas de figuras y todo lo que
+     viene despues se corre hacia abajo, asi que sus puntos de disparo quedan
+     viejos. */
+  document.querySelectorAll('.gallery-more').forEach(btn => {
+    const grid = btn.previousElementSibling;
+    if (!grid || !grid.classList.contains('gallery-grid')) return;
+    const total = btn.dataset.total;
+    btn.addEventListener('click', () => {
+      const abierta = grid.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', abierta ? 'true' : 'false');
+      btn.textContent = abierta ? 'Ver menos fotos' : ('Ver las ' + total + ' fotos');
+      if (!abierta) grid.scrollIntoView({ block: 'start' });
+      if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
+  });
+} catch (e) { console.error('galeria', e); }

@@ -1799,7 +1799,7 @@ footer.site-footer {
    titulo llega a escala 1,4 en su pico, y de ahi sale el tamaño que se ve.
    Si se dejara el clamp original, a 1,4 se saldria de pantalla y se cortaria. */
 .gsap-active .hero-home--photo h1 {
-  font-size: clamp(2.1rem, 7vw, 6.2rem);
+  font-size: clamp(1.9rem, 5.6vw, 5rem);
   /* El limite de caracteres por linea es lo que hace que el titulo entre a
      escala 1,4. Sin el, en un telefono la linea completa se sale de pantalla
      y el escenario la recorta: escalar no vuelve a partir el texto. De paso,
@@ -1935,3 +1935,24 @@ html.lenis, html.lenis body { height: auto; }
 .social-icons--menu { gap: 14px; flex-wrap: wrap; }
 .social-icons--menu a { width: 40px; height: 40px; }
 @media (max-width: 640px) { .social-icons--menu { gap: 10px; } }
+
+/* ---------- GALERIA: SEIS Y EL RESTO A PEDIDO ------------------------------
+   Una obra puede tener cien fotos. Mostrarlas todas de entrada convierte la
+   ficha en un scroll interminable y hace que el visitante nunca llegue a
+   "Mas proyectos". Se muestran seis y el resto queda a un clic. */
+
+.gallery-grid__item.is-extra { display: none; }
+.gallery-grid.is-open .gallery-grid__item.is-extra { display: block; }
+
+.gallery-more {
+  display: inline-block;
+  margin-top: 22px;
+}
+
+/* El filtro de prensa marca las filas con el atributo hidden, pero .press-row
+   declara display: grid, y una regla de display explicita le gana al
+   comportamiento por defecto de hidden: las filas seguian todas a la vista
+   aunque el contador dijera otra cosa. */
+.press-row[hidden],
+.award-row[hidden],
+.award-year-block[hidden] { display: none !important; }
