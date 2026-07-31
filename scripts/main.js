@@ -70,16 +70,21 @@ try {
       });
     });
 
+    /* Que seccion esta activa se decide por cual cruza el centro de la
+       pantalla, no por cuanta parte de ella se ve. Con threshold 0.5 el punto
+       quedaba pegado: las secciones del home miden dos pantallas y media, asi
+       que ninguna llega nunca a tener la mitad visible, y el indicador no se
+       movia al volver a subir. La franja de altura cero en el centro —igual
+       que la que decide el color de los puntos— resuelve las dos cosas. */
     const dotsIo = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const idx = sections.indexOf(entry.target);
-          if (idx === -1) return;
-          dots.forEach(d => d.classList.remove('active'));
-          dots[idx].classList.add('active');
-        }
+        if (!entry.isIntersecting) return;
+        const idx = sections.indexOf(entry.target);
+        if (idx === -1) return;
+        dots.forEach(d => d.classList.remove('active'));
+        dots[idx].classList.add('active');
       });
-    }, { threshold: 0.5 });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
     sections.forEach(s => dotsIo.observe(s));
 
     /* Los puntos van en negro sobre fondo blanco y en blanco cuando quedan

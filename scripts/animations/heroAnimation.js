@@ -67,7 +67,8 @@
       titulo: 'h1',
       sub: '.lede',
       pico: 1.4,
-      obertura: true
+      obertura: true,
+      escalaObertura: 1.58
     },
     {
       seccion: '.project-banner',
@@ -75,7 +76,9 @@
       inner: '.pb-content-inner',
       titulo: 'h2',
       sub: '.pb-content-inner p',
-      pico: 1.25
+      pico: 1.25,
+      obertura: true,
+      escalaObertura: 1.35
     }
   ];
 
@@ -108,25 +111,69 @@
 
      Se anima el titulo y no el bloque entero porque el bloque tambien contiene
      la bajada, que tiene que quedarse abajo esperando su turno. */
-  function obertura(seccion, titulo, lineas, sub, eyebrow) {
-    var escenario = seccion.querySelector('.hero-stage');
+  /* Extension real de los glifos, no de la caja del elemento. Un h1 de bloque
+     ocupa todo el ancho de su columna aunque el texto sea corto; para saber si
+     entra hay que medir el texto. */
+  function medirTexto(lineas, titulo) {
+    var nodos = (lineas && lineas.length) ? lineas : [titulo];
+    var l = Infinity, r = -Infinity, t = Infinity, b = -Infinity;
+    nodos.forEach(function (n) {
+      var rango = document.createRange();
+      rango.selectNodeContents(n);
+      var c = rango.getBoundingClientRect();
+      if (!c.width && !c.height) return;
+      l = Math.min(l, c.left); r = Math.max(r, c.right);
+      t = Math.min(t, c.top); b = Math.max(b, c.bottom);
+    });
+    if (l === Infinity) {
+      var f = titulo.getBoundingClientRect();
+      return { ancho: f.width, alto: f.height, cx: f.left + f.width / 2, cy: f.top + f.height / 2 };
+    }
+    return { ancho: r - l, alto: b - t, cx: (l + r) / 2, cy: (t + b) / 2 };
+  }
+
+  function obertura(seccion, titulo, lineas, sub, eyebrow, opts) {
+    opts = opts || {};
+    var escenario = seccion.querySelector('.hero-stage') || seccion.querySelector('.banner-stage');
     var b = CFG.bp();
-    /* Medido: a 1,7 el titulo se salia 27 px por la izquierda en 1440. Estos
-       valores lo dejan ocupando cerca del 75% del ancho, sin tocar los bordes. */
-    var escala = b.mobile ? 1.3 : (b.tablet ? 1.45 : 1.58);
+    /* Medido: a 1,7 el titulo se salia 27 px por la izquierda en 1440. El tope
+       de escritorio lo deja ocupando cerca del 75% del ancho, sin tocar los
+       bordes, y en pantallas chicas se achica proporcionalmente. */
+    var tope = opts.escala || 1.58;
+    var escala = b.mobile ? Math.min(tope, 1.3) : (b.tablet ? tope * 0.92 : tope);
 
-    /* Medido con el titulo en su sitio final, antes de tocarlo. */
-    var rt = titulo.getBoundingClientRect();
+    /* Y ademas se acota a lo que realmente entra. El tope de arriba es una
+       intencion de diseño; esto es la restriccion fisica: el texto no puede
+       salirse del escenario. Se mide el ancho y el alto reales de los glifos
+       —no la caja del elemento, que ocupa toda la columna— y se calcula la
+       escala maxima que los deja adentro con un margen del 14%. Asi cualquier
+       titulo, en cualquier ventana, entra siempre. */
+    /* Se mide con el titulo limpio. La obertura puede volver a lanzarse cuando
+       el usuario sube y baja, y si midieramos con el transform de la vuelta
+       anterior todavia puesto, la escala y el viaje irian acumulando error. */
+    gsap.set(titulo, { clearProps: 'transform,scale,x,y' });
+    var caja = medirTexto(lineas, titulo);
+    var re1 = escenario.getBoundingClientRect();
+    if (caja.ancho > 0 && caja.alto > 0) {
+      escala = Math.min(escala,
+        (re1.width * 0.86) / caja.ancho,
+        (re1.height * 0.82) / caja.alto);
+    }
+
+    /* Medido con el titulo en su sitio final, antes de tocarlo, y sobre los
+       glifos y no sobre la caja: un h1 es de bloque y ocupa todo el ancho de
+       su columna aunque el texto sea corto, asi que centrar la caja dejaba el
+       texto corrido a la izquierda y saliendose por ese lado. */
     var re = escenario.getBoundingClientRect();
-    var viajeX = (re.left + re.width / 2) - (rt.left + rt.width / 2);
-    var viajeY = (re.top + re.height / 2) - (rt.top + rt.height / 2);
+    var viajeX = (re.left + re.width / 2) - caja.cx;
+    var viajeY = (re.top + re.height / 2) - caja.cy;
 
-    var tl = gsap.timeline({ delay: 0.35 });
+    var tl = gsap.timeline({ delay: opts.delay === undefined ? 0.35 : opts.delay });
 
     /* Red de seguridad: si la timeline no llega a correr —pestaña en segundo
        plano, un error mas arriba— a los ocho segundos la portada queda en su
        estado final. Nunca vale la pena que una animacion se coma el titulo. */
-    var guarda = setTimeout(function () { tl.progress(1); }, 8000);
+    var guarda = setTimeout(function () { if (!tl.paused()) tl.progress(1); }, 9000);
     tl.eventCallback('onComplete', function () {
       clearTimeout(guarda);
       gsap.set(titulo, { willChange: 'auto' });
@@ -150,21 +197,21 @@
       tl.to(titulo, { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: EASE.reveal }, 0);
     }
 
-    /* 3. sostiene: el hueco entre 1.5 y 2.9 es la espera */
+    /* 3. sostiene: el hueco entre 1.5 y 2.6 es la espera */
 
     /* 4. viaja a su sitio y se achica */
     tl.to(titulo, {
       x: 0, y: 0, scale: 1,
-      duration: 1.6,
+      duration: 1.5,
       ease: 'power3.inOut'
-    }, 2.9);
+    }, 2.6);
 
     /* 5. la informacion secundaria, recien cuando el titulo ya llego */
     if (eyebrow) {
-      tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, 4.2);
+      tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, 3.7);
     }
     if (sub) {
-      tl.to(sub, { clipPath: 'inset(0 0 0% 0)', opacity: 1, y: 0, duration: 0.9, ease: EASE.settle }, 4.4);
+      tl.to(sub, { clipPath: 'inset(0 0 0% 0)', opacity: 1, y: 0, duration: 0.9, ease: EASE.settle }, 3.9);
     }
 
     return tl;
@@ -205,11 +252,46 @@
     /* ------------------------------------------------------- que secuencia */
 
     if (cfg.obertura) {
-      /* La portada del home se presenta sola al cargar. El scroll no revela
-         nada: para cuando el usuario lo mueve, el titulo ya conto su historia.
-         Lo unico que queda ligado al scroll es el parallax de la foto y la
-         salida, mas abajo. */
-      obertura(seccion, titulo, lineas, sub, eyebrow);
+      /* Las portadas del home se presentan solas: el titulo aparece grande y
+         centrado, sostiene, y recien despues viaja a su sitio. No es una
+         animacion ligada al scroll sino una entrada con su propio tiempo.
+
+         El disparador la lanza cuando la seccion toma la pantalla, y la vuelve
+         a lanzar si el usuario sube y baja de nuevo: la obertura es el momento
+         en que la obra se presenta, y tiene que volver a ocurrir cada vez que
+         se llega a ella. Al salir por arriba se rebobina, para que la proxima
+         vez arranque desde cero y no desde el final. */
+      var entrada = obertura(seccion, titulo, lineas, sub, eyebrow, {
+        escala: cfg.escalaObertura,
+        delay: 0.1
+      });
+
+      /* Callbacks explicitos en vez de toggleActions. Con toggleActions la
+         portada del home no arrancaba nunca: nace con su punto de disparo ya
+         atras —esta arriba de todo— asi que ScrollTrigger no registra ninguna
+         entrada que disparar. Con onEnter/onEnterBack y un arranque manual
+         para lo que ya se ve, los dos casos quedan cubiertos. */
+      var lanzar = function () {
+        if (entrada.progress() > 0 && entrada.progress() < 1) return;  // ya corriendo
+        entrada.restart(true);
+      };
+
+      ScrollTrigger.create({
+        trigger: seccion,
+        start: 'top 60%',
+        end: 'bottom top',
+        onEnter: lanzar,
+        onEnterBack: lanzar,
+        onLeaveBack: function () { entrada.pause(0); }
+      });
+
+      /* Si la seccion ya esta a la vista cuando se arma el guion —siempre es
+         el caso del hero— la obertura arranca sola. */
+      if (seccion.getBoundingClientRect().top < window.innerHeight * 0.6) {
+        entrada.restart(true);
+      } else {
+        entrada.pause(0);
+      }
 
       if (foto) {
         gsap.set(foto, { scale: 1.18, transformOrigin: 'center center' });

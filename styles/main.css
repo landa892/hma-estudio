@@ -1928,3 +1928,10 @@ html.lenis, html.lenis body { height: auto; }
 .gsap-reduced .project-banner { min-height: 92vh; display: flex; align-items: flex-end; }
 .gsap-reduced .banner-stage { position: static; height: auto; display: block; }
 .gsap-reduced .project-banner__content h2 { font-size: clamp(2rem, 5.5vw, 4.2rem); }
+
+/* Las seis redes en el menu, con los mismos iconos que en contacto. El menu
+   tiene fondo blanco y bastante aire, asi que solo hace falta ajustar el
+   tamaño y dejar que envuelvan en pantallas chicas. */
+.social-icons--menu { gap: 14px; flex-wrap: wrap; }
+.social-icons--menu a { width: 40px; height: 40px; }
+@media (max-width: 640px) { .social-icons--menu { gap: 10px; } }
