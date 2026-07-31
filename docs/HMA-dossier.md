@@ -1389,7 +1389,7 @@ Arq. Luciano Cichanowski
 Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 ```
 
-## 4. Prensa y News (74 entradas)
+## 4. Prensa y News (75 entradas)
 
 | Año | Fecha | Tipo | Título | Medio | Link |
 |---|---|---|---|---|---|
@@ -1408,6 +1408,9 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2025 | Febrero | prensa | Movistar Arena | La Nación, Argentina | https://www.lanacion.com.ar/lifestyle/movistar-arena-fue-premiado-como-el-mejor-espacio-para-eventos-del-ano-por-su-innovador-diseno-nid09042025/ |
 | 2025 | Febrero | prensa | Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas | La Nación, Argentina | https://www.lanacion.com.ar/revista-lugares/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno-de-plantas-que-sirve-raciones-y-platitos-nid14022025/ |
 | 2025 | Charla | news | TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires | News | **falta** |
+| 2024 | Nov. | prensa | Movistar Arena | Estilo Propio, Argentina | https://revistaestilopropio.com/obra/lounge-vip-movistar-arena/ |
+| 2024 | Oct. | prensa | Casa Linda | Casa Linda, Argentina | https://casalinda.com.ar/edicion-preview/2/titulo/9722 |
+| 2024 | Sept. | prensa | Fehgra | a2 · Cosentino · Arquimaster, USA/Argentina | https://www.arquimaster.com.ar/web/espacio-fehgra-hitzig-militello-arquitectos/ |
 | 2024 | Julio | prensa | People / Osten | Archidiaries, India | https://www.archidiaries.com/projects/people-hitzig-militello-arquitectos/ |
 | 2024 | Julio | prensa | Mercado Manduca | El Arqui - Flow, Argentina | **falta** |
 | 2024 | Junio | prensa | Burger 7167 / Moshu | Archidiaries, India | https://www.archidiaries.com/projects/burger-7167-hitzig-militello-arquitectos/ |
@@ -1417,9 +1420,6 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2024 | Abril | prensa | Cien, Osten, 7167 | Mas Arq, Argentina | **falta** |
 | 2024 | Marzo | prensa | Benedetta / Dos Casas Conde / Antiche Devoto | Archidiaries, India | https://www.archidiaries.com/projects/benedetta-hitzig-militello-arquitectos/ |
 | 2024 | Febrero | prensa | Hausscape / Manduca Market | Archidiaries, India | https://www.archidiaries.com/projects/hausscape-hitzig-militello-arquitectos/ |
-| 2024 | Sept. | prensa | Fehgra | a2 · Cosentino · Arquimaster, USA/Argentina | https://www.arquimaster.com.ar/web/espacio-fehgra-hitzig-militello-arquitectos/ |
-| 2024 | Oct. | prensa | Casa Linda | Casa Linda, Argentina | https://casalinda.com.ar/edicion-preview/2/titulo/9722 |
-| 2024 | Nov. | prensa | Movistar Arena | Estilo Propio, Argentina | https://revistaestilopropio.com/obra/lounge-vip-movistar-arena/ |
 | 2024 | Charla | news | TENDIEZ LAB Mar del Plata | News | **falta** |
 | 2024 | Mesa redonda | news | Mesa redonda HOTELGA 2024 | News | https://www.youtube.com/watch?v=pDUnbL_uq5E |
 | 2024 | Podcast | news | Podcast Cerrame la Ocho | News | **falta** |
@@ -1436,24 +1436,25 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2023 | Docencia | news | IED Barcelona — Master in Interior Design for Commercial Spaces and Retail | News | **falta** |
 | 2023 | Clase magistral | news | Clase magistral FAD-UPC Córdoba | News | **falta** |
 | 2023 | Docencia | news | UADE FADI | News | **falta** |
+| 2022 | Oct. | prensa | Manduca Market | ArchDaily, Argentina · Floornature, Italia · Wooooooow, China | https://www.archdaily.cl/cl/990113/mercado-manduca-hitzig-militello-arquitectos |
 | 2022 | Julio | prensa | Moshu | Dezeen, Reino Unido · Monocle, EE.UU. · Stir, India | https://www.dezeen.com/2022/07/10/hitzig-militello-restaurant-buenos-aires-home/ |
 | 2022 | Junio | prensa | Moshu / Osten | Glocal, México · SBID, Reino Unido · El Cronista, Argentina | **falta** |
 | 2022 | Mayo | prensa | Moshu | Floornature, Archipanic, G&G — Italia | https://www.archipanic.com/moshu-tree-house/ |
 | 2022 | Abril | prensa | Osten | La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido | **falta** |
-| 2022 | Oct. | prensa | Manduca Market | ArchDaily, Argentina · Floornature, Italia · Wooooooow, China | https://www.archdaily.cl/cl/990113/mercado-manduca-hitzig-militello-arquitectos |
 | 2022 | Charla | news | 10ª TENDIEZ Experiences, Auditorio del Malba | News | https://www.youtube.com/watch?v=7OKO4xfgjHI |
 | 2022 | Docencia | news | IED Kunsthal Bilbao | News | **falta** |
 | 2022 | Docencia | news | UADE FADI, Proyecto 6 | News | **falta** |
-| 2021 | Agosto | prensa | Entrevista al estudio | Summa+ 186, Argentina · Metalocus, España | https://www.metalocus.es/en/news/a-journey-art-deco-contemporaneity-osten-hitzig-militello-arquitectos |
-| 2021 | Mayo | prensa | The Birra | Rethinking The Future, India | **falta** |
 | 2021 | Dic. | prensa | Osten | Condé Nast Traveler, España · Revista 90+10, Argentina | **falta** |
 | 2021 | Oct. | prensa | Osten | La Nación, Infobae, Clarín, Ámbito Financiero — Argentina | **falta** |
+| 2021 | Agosto | prensa | Osten — un viaje del Art Déco a la contemporaneidad | Metalocus, España | https://www.metalocus.es/es/noticias/un-viaje-del-art-deco-a-la-contemporaneidad-osten-por-hitzig-militello-arquitectos |
+| 2021 | Agosto | prensa | Entrevista al estudio | Summa+ 186, Argentina | **falta** |
+| 2021 | Mayo | prensa | The Birra | Rethinking The Future, India | **falta** |
 | 2020 | Octubre | prensa | Williamsburg | Metalocus, España | https://www.metalocus.es/en/news/outside-venue-pandemic-context-williamsburg-hitzig-militello-arquitectos |
+| 2020 | Oct. | prensa | Williamsburg | Urdesign UK · Metalocus España · Designboom EE.UU. · Gooood China · Floornature Italia | https://www.gooood.cn/outside-dining-space-for-williamsburg-restaurant-by-hitzig-militello-architects.htm |
 | 2020 | Agosto | prensa | Fogón / Fresco | Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina | **falta** |
 | 2020 | Julio | prensa | Goodsten | Metalocus, España | https://www.metalocus.es/en/news/ice-creams-a-dreamlike-landscape-goodsten-hitzig-militello-architects |
 | 2020 | Marzo | prensa | Fresco / Fogón | ArchDaily UK · Hospitality Snapshots, EE.UU. · Plataforma de Arquitectura, Chile | https://boty.archdaily.com/us/2021/candidates/134171/fogon-restaurant-slash-hitzig-militello-arquitectos |
 | 2020 | Febrero | prensa | Fresco / Ualá / Malita | Hospitality Design NY · Baunetz Alemania · Floornature Italia | **falta** |
-| 2020 | Oct. | prensa | Williamsburg | Urdesign UK · Metalocus España · Designboom EE.UU. · Gooood China · Floornature Italia | https://www.gooood.cn/outside-dining-space-for-williamsburg-restaurant-by-hitzig-militello-architects.htm |
 | 2020 | Charla | news | FADU UBA — Taller Maldonado | YouTube | https://www.youtube.com/watch?v=2A59FXkzQXg |
 | 2019 | 2019 | prensa | Mamba ganador — Mejor bar de América | Restaurant & Bar Design Awards, Reino Unido | https://restaurantandbardesignawards.com/entry/8113 |
 | 2019 | Festival | news | International Architecture Festival ARQfestival, Guadalajara, México | News | **falta** |
@@ -1510,7 +1511,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 
 00 Vicoria Brown, 00 Vilela, 01 Malabia ( M1918 ), 02 Bolivar ( B1763 ), 03 Oficina y Casa Luna (L250), 04 Dos Casas Conde ( C421 ), 05 Galería de Arte - Objeto A ( NV5181 ), 07 PH El Salvador ( ES4633 ), 23- Luccianos caballito, 24- Luccianos olivos, 25- Goodsten, 26-The Birra - Roca 63, 33-Fogon, 33-The Nim Bar, 34-Malita, 35 - Fresco, 36-Comedor Diario, 36-Uala, 37-Uala 2, 41-Mamba bar, 43-Hausscape, 44-Kavak Hub, 45-Kavak Oficinas, 46-Stella Artois, 48-Moshu, 49-Osten tower, 50-Manduca, 51-Burger 7167, 52-Plaza Mateo, 54-Araoz, 59-Cien, 60-People, 61-Fehgra, 62-Juan Valdez, 67-Edificio del Plata, 69-Sinapsis, 71-Ziva Hyatt, 72-Aire Libre, 73-El clásico de quilmes, 74-Elyaki, 75-Iguanafix, 76-Movistar arena, 77-PH Loft Arias, 78-Tostado
 
-### Entradas de prensa sin link (37 de 74)
+### Entradas de prensa sin link (38 de 75)
 
 - 2026 · Mayo · Newsweek, Argentina — Comer solo sin pedir perdón — nota sobre el estudio
 - 2026 · Abril · Archello, Argentina — Osten Coffee Shop, Casa FOA
@@ -1536,9 +1537,10 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 - 2022 · Abril · La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido — Osten
 - 2022 · Docencia · News — IED Kunsthal Bilbao
 - 2022 · Docencia · News — UADE FADI, Proyecto 6
-- 2021 · Mayo · Rethinking The Future, India — The Birra
 - 2021 · Dic. · Condé Nast Traveler, España · Revista 90+10, Argentina — Osten
 - 2021 · Oct. · La Nación, Infobae, Clarín, Ámbito Financiero — Argentina — Osten
+- 2021 · Agosto · Summa+ 186, Argentina — Entrevista al estudio
+- 2021 · Mayo · Rethinking The Future, India — The Birra
 - 2020 · Agosto · Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina — Fogón / Fresco
 - 2020 · Febrero · Hospitality Design NY · Baunetz Alemania · Floornature Italia — Fresco / Ualá / Malita
 - 2019 · Festival · News — International Architecture Festival ARQfestival, Guadalajara, México
