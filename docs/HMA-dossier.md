@@ -3,7 +3,7 @@
 Reúne todo lo que hay disponible hoy: las dos carpetas de Drive, el portafolio en PDF y lo que ya está publicado en la web.
 
 
-## 1. Proyectos publicados en la web (45)
+## 1. Proyectos publicados en la web (47)
 
 | # | Proyecto | Categoría | Tipo | Ubicación | País | Superficie | Año | Foto (px) | Memoria |
 |---|---|---|---|---|---|---|---|---|---|
@@ -27,31 +27,33 @@ Reúne todo lo que hay disponible hoy: las dos carpetas de Drive, el portafolio 
 | 18 | Goodsten | Gastronómico | Cremería | Av. del Libertador, Martínez, Buenos Aires | Argentina | 330 m² | — | 1800 | no |
 | 19 | Hausscape | Hotelería & Comercial | Retail | 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida | Estados Unidos | 345 m² | — | 1349 | no |
 | 20 | Hyatt · Ziva | Hotelería & Comercial | Hotel — en progreso | Calle Bay, St Michael | Barbados | 50.000 m² | — | 1254 | no |
-| 21 | Indusparquet | Hotelería & Comercial | Showroom | Av. del Libertador 6366, Núñez, Buenos Aires | Argentina | 324 m² | — | 1536 | sí |
-| 22 | IOL — Invertir Online | Oficinas | Oficinas | Av. Juan Bautista Justo 1500, piso 23, Buenos Aires | Argentina | 480 m² | 2025—2026 | 1537 | sí |
-| 23 | Juan Valdez Café | Gastronómico | Cafetería | Av. Las Heras 2601, Buenos Aires | Argentina | — | — | 800 | no |
-| 24 | Kavak Hub | Hotelería & Comercial | Hub comercial y oficinas | Shopping Dot Baires, Buenos Aires | Argentina | 300 m² cubiertos y 15.000 m² de playa de estacionamiento | — | 2000 | no |
-| 25 | Kavak Oficinas | Oficinas | Oficinas | Edificio Philips, Vedia 3892, Buenos Aires | Argentina | 800 m² | — | 2000 | no |
-| 26 | Malabia | Residencial | Vivienda multifamiliar | Malabia 1918, Buenos Aires | Argentina | 2.405 m² | — | 1800 | no |
-| 27 | Mamba | Gastronómico | Restaurante y bar | Soler 5130, Palermo, Buenos Aires | Argentina | 265 m² | — | 1800 | no |
-| 28 | Manduca | Hotelería & Comercial | Mercado | Paseo La Plaza, Av. Corrientes 1660, Buenos Aires | Argentina | 1.525 m² | — | 1326 | no |
-| 29 | Moshu | Gastronómico | Restaurante y pastelería | Guatemala 4570, Buenos Aires | Argentina | 240 m² cubiertos · 90 m² descubiertos | — | 1327 | no |
-| 30 | Movistar Arena | Hotelería & Comercial | Áreas VIP | Humboldt 450, Buenos Aires | Argentina | 640 m² | — | 1331 | no |
-| 31 | Novotel | Hotelería & Comercial | Hotel | Av. Corrientes 1334, Buenos Aires | Argentina | 1.486 m² | 2024 | 1624 | no |
-| 32 | Osten | Gastronómico | Bar de cocktails | Juana Manso 1890, Puerto Madero, Buenos Aires | Argentina | 310 m² planta baja · 150 m² exterior | — | 1331 | sí |
-| 33 | Osten Coffee Shop — Casa FOA | Gastronómico | Cafetería — Casa FOA 2025 | Madero Harbour, Juana Manso 1980, Buenos Aires | Argentina | 325 m² | — | 2000 | sí |
-| 34 | Osten Tower | Residencial | Edificio residencial — en proceso | Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires | Argentina | Lobby 240 m² y rooftop 710 m² | — | 1024 | no |
-| 35 | Parfumerie | Hotelería & Comercial | Retail | Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires | Argentina | 131 m² | 2025 | 1536 | no |
-| 36 | People | Residencial | Co-work y co-living | Bernardo de Irigoyen 1140-52, Buenos Aires | Argentina | 5.290 m² | — | 1000 | no |
-| 37 | Plaza Mateo | Gastronómico | Sala de concierto, night club y restaurante — en proceso | Rambla Wilson y Av. Sarmiento, Montevideo | Uruguay | 950 m² de intervención general | — | 800 | no |
-| 38 | Roket | Gastronómico | Club nocturno | Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro | Argentina | 2.000 m² | 2023 | 1672 | sí |
-| 39 | Templo Mikdash | Cultural & Institucional | Templo | República Árabe Siria 3267, Buenos Aires | Argentina | 600 m² | 2025 | 2000 | no |
-| 40 | The Nim Bar | Gastronómico | Restaurante y bar | Defensa 880, San Telmo, Buenos Aires | Argentina | 430 m² | — | 1800 | no |
-| 41 | Tostado Café Club | Gastronómico | Comida rápida | Miami, Florida | Estados Unidos | 100 m² | — | 1024 | no |
-| 42 | Ualá | Oficinas | Oficina | Nicaragua 4677, Buenos Aires | Argentina | 480 m² | — | 2000 | no |
-| 43 | Ualá Gigena | Oficinas | Oficinas | Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires | Argentina | 9.002 m² | — | 2000 | no |
-| 44 | Victoria Brown | Gastronómico | Bar y restaurante | Costa Rica 4827, Palermo, Buenos Aires | Argentina | 377 m² cubiertos y 8 m² descubiertos | 2013 | 1800 | no |
-| 45 | Williamsburg | Gastronómico | Restaurante exterior | Av. del Libertador 3883, Arco 1, Buenos Aires | Argentina | 54 m² | — | 2000 | sí |
+| 21 | IguanaFix | Oficinas | Oficinas | Buenos Aires | Argentina | — | — | 900 | no |
+| 22 | Indusparquet | Hotelería & Comercial | Showroom | Av. del Libertador 6366, Núñez, Buenos Aires | Argentina | 324 m² | — | 1536 | sí |
+| 23 | IOL — Invertir Online | Oficinas | Oficinas | Av. Juan Bautista Justo 1500, piso 23, Buenos Aires | Argentina | 480 m² | 2025—2026 | 1537 | sí |
+| 24 | Juan Valdez Café | Gastronómico | Cafetería | Av. Las Heras 2601, Buenos Aires | Argentina | — | — | 800 | no |
+| 25 | Kavak Hub | Hotelería & Comercial | Hub comercial y oficinas | Shopping Dot Baires, Buenos Aires | Argentina | 300 m² cubiertos y 15.000 m² de playa de estacionamiento | — | 2000 | no |
+| 26 | Kavak Oficinas | Oficinas | Oficinas | Edificio Philips, Vedia 3892, Buenos Aires | Argentina | 800 m² | — | 2000 | no |
+| 27 | Lucciano’s Caballito | Gastronómico | Heladería | Caballito, Buenos Aires | Argentina | — | — | 1024 | no |
+| 28 | Malabia | Residencial | Vivienda multifamiliar | Malabia 1918, Buenos Aires | Argentina | 2.405 m² | — | 1800 | no |
+| 29 | Mamba | Gastronómico | Restaurante y bar | Soler 5130, Palermo, Buenos Aires | Argentina | 265 m² | — | 1800 | no |
+| 30 | Manduca | Hotelería & Comercial | Mercado | Paseo La Plaza, Av. Corrientes 1660, Buenos Aires | Argentina | 1.525 m² | — | 1326 | no |
+| 31 | Moshu | Gastronómico | Restaurante y pastelería | Guatemala 4570, Buenos Aires | Argentina | 240 m² cubiertos · 90 m² descubiertos | — | 1327 | no |
+| 32 | Movistar Arena | Hotelería & Comercial | Áreas VIP | Humboldt 450, Buenos Aires | Argentina | 640 m² | — | 1331 | no |
+| 33 | Novotel | Hotelería & Comercial | Hotel | Av. Corrientes 1334, Buenos Aires | Argentina | 1.486 m² | 2024 | 1624 | no |
+| 34 | Osten | Gastronómico | Bar de cocktails | Juana Manso 1890, Puerto Madero, Buenos Aires | Argentina | 310 m² planta baja · 150 m² exterior | — | 1331 | sí |
+| 35 | Osten Coffee Shop — Casa FOA | Gastronómico | Cafetería — Casa FOA 2025 | Madero Harbour, Juana Manso 1980, Buenos Aires | Argentina | 325 m² | — | 2000 | sí |
+| 36 | Osten Tower | Residencial | Edificio residencial — en proceso | Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires | Argentina | Lobby 240 m² y rooftop 710 m² | — | 1024 | no |
+| 37 | Parfumerie | Hotelería & Comercial | Retail | Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires | Argentina | 131 m² | 2025 | 1536 | no |
+| 38 | People | Residencial | Co-work y co-living | Bernardo de Irigoyen 1140-52, Buenos Aires | Argentina | 5.290 m² | — | 1000 | no |
+| 39 | Plaza Mateo | Gastronómico | Sala de concierto, night club y restaurante — en proceso | Rambla Wilson y Av. Sarmiento, Montevideo | Uruguay | 950 m² de intervención general | — | 800 | no |
+| 40 | Roket | Gastronómico | Club nocturno | Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro | Argentina | 2.000 m² | 2023 | 1672 | sí |
+| 41 | Templo Mikdash | Cultural & Institucional | Templo | República Árabe Siria 3267, Buenos Aires | Argentina | 600 m² | 2025 | 2000 | no |
+| 42 | The Nim Bar | Gastronómico | Restaurante y bar | Defensa 880, San Telmo, Buenos Aires | Argentina | 430 m² | — | 1800 | no |
+| 43 | Tostado Café Club | Gastronómico | Comida rápida | Miami, Florida | Estados Unidos | 100 m² | — | 1024 | no |
+| 44 | Ualá | Oficinas | Oficina | Nicaragua 4677, Buenos Aires | Argentina | 480 m² | — | 2000 | no |
+| 45 | Ualá Gigena | Oficinas | Oficinas | Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires | Argentina | 9.002 m² | — | 2000 | no |
+| 46 | Victoria Brown | Gastronómico | Bar y restaurante | Costa Rica 4827, Palermo, Buenos Aires | Argentina | 377 m² cubiertos y 8 m² descubiertos | 2013 | 1800 | no |
+| 47 | Williamsburg | Gastronómico | Restaurante exterior | Av. del Libertador 3883, Arco 1, Buenos Aires | Argentina | 54 m² | — | 2000 | sí |
 
 ## 2. Inventario de las carpetas de Drive (61 carpetas)
 
@@ -1387,7 +1389,7 @@ Arq. Luciano Cichanowski
 Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 ```
 
-## 4. Prensa y News (70 entradas)
+## 4. Prensa y News (74 entradas)
 
 | Año | Fecha | Tipo | Título | Medio | Link |
 |---|---|---|---|---|---|
@@ -1404,7 +1406,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2025 | Abril | prensa | Aire Libre | Espacio & Confort, Argentina | https://www.youtube.com/watch?v=PiL_a5fYK_U |
 | 2025 | Abril | prensa | Aire Libre | Gooood, Argentina | **falta** |
 | 2025 | Febrero | prensa | Movistar Arena | La Nación, Argentina | https://www.lanacion.com.ar/lifestyle/movistar-arena-fue-premiado-como-el-mejor-espacio-para-eventos-del-ano-por-su-innovador-diseno-nid09042025/ |
-| 2025 | Febrero | prensa | Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas | La Nación, Argentina | **falta** |
+| 2025 | Febrero | prensa | Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas | La Nación, Argentina | https://www.lanacion.com.ar/revista-lugares/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno-de-plantas-que-sirve-raciones-y-platitos-nid14022025/ |
 | 2025 | Charla | news | TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires | News | **falta** |
 | 2024 | Julio | prensa | People / Osten | Archidiaries, India | https://www.archidiaries.com/projects/people-hitzig-militello-arquitectos/ |
 | 2024 | Julio | prensa | Mercado Manduca | El Arqui - Flow, Argentina | **falta** |
@@ -1428,33 +1430,37 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2024 | Entrevista | news | «Los Destacados» — Hitzig Militello Arquitectos | YouTube | https://www.youtube.com/watch?v=Xv4dcHYOLkM |
 | 2024 | Entrevista | news | Galería de Arte Objeto A — Hitzig Militello Arquitectos | YouTube | https://www.youtube.com/watch?v=ZcC_m8EkeXY |
 | 2023 | Junio | prensa | Benedetta / Goodsten / Hausscape / Victoria Brown | Más Arq · El Planeta Urbano · Rethinking the Future · Ministerio de Diseño · El Cronista | **falta** |
+| 2023 | Marzo | prensa | Burger 7167 | Archipanic, Italia | https://www.archipanic.com/burger-7167-hitzig-militello/ |
 | 2023 | Febrero | prensa | Antiche | G&G, Italia | **falta** |
 | 2023 | Enero | prensa | Victoria Brown / Araoz 757 | Architizer, USA · PLOT, Estilo Propio, Floornature, Argentina/Italia | **falta** |
 | 2023 | Docencia | news | IED Barcelona — Master in Interior Design for Commercial Spaces and Retail | News | **falta** |
 | 2023 | Clase magistral | news | Clase magistral FAD-UPC Córdoba | News | **falta** |
 | 2023 | Docencia | news | UADE FADI | News | **falta** |
-| 2022 | Julio | prensa | Moshu | Dezeen, Reino Unido · Monocle, EE.UU. · Stir, India | **falta** |
+| 2022 | Julio | prensa | Moshu | Dezeen, Reino Unido · Monocle, EE.UU. · Stir, India | https://www.dezeen.com/2022/07/10/hitzig-militello-restaurant-buenos-aires-home/ |
 | 2022 | Junio | prensa | Moshu / Osten | Glocal, México · SBID, Reino Unido · El Cronista, Argentina | **falta** |
-| 2022 | Mayo | prensa | Moshu | Floornature, Archipanic, G&G — Italia | **falta** |
+| 2022 | Mayo | prensa | Moshu | Floornature, Archipanic, G&G — Italia | https://www.archipanic.com/moshu-tree-house/ |
 | 2022 | Abril | prensa | Osten | La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido | **falta** |
-| 2022 | Oct. | prensa | Manduca Market | ArchDaily, Argentina · Floornature, Italia · Wooooooow, China | **falta** |
+| 2022 | Oct. | prensa | Manduca Market | ArchDaily, Argentina · Floornature, Italia · Wooooooow, China | https://www.archdaily.cl/cl/990113/mercado-manduca-hitzig-militello-arquitectos |
 | 2022 | Charla | news | 10ª TENDIEZ Experiences, Auditorio del Malba | News | https://www.youtube.com/watch?v=7OKO4xfgjHI |
 | 2022 | Docencia | news | IED Kunsthal Bilbao | News | **falta** |
 | 2022 | Docencia | news | UADE FADI, Proyecto 6 | News | **falta** |
-| 2021 | Agosto | prensa | Entrevista al estudio | Summa+ 186, Argentina · Metalocus, España | **falta** |
+| 2021 | Agosto | prensa | Entrevista al estudio | Summa+ 186, Argentina · Metalocus, España | https://www.metalocus.es/en/news/a-journey-art-deco-contemporaneity-osten-hitzig-militello-arquitectos |
 | 2021 | Mayo | prensa | The Birra | Rethinking The Future, India | **falta** |
 | 2021 | Dic. | prensa | Osten | Condé Nast Traveler, España · Revista 90+10, Argentina | **falta** |
 | 2021 | Oct. | prensa | Osten | La Nación, Infobae, Clarín, Ámbito Financiero — Argentina | **falta** |
+| 2020 | Octubre | prensa | Williamsburg | Metalocus, España | https://www.metalocus.es/en/news/outside-venue-pandemic-context-williamsburg-hitzig-militello-arquitectos |
 | 2020 | Agosto | prensa | Fogón / Fresco | Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina | **falta** |
+| 2020 | Julio | prensa | Goodsten | Metalocus, España | https://www.metalocus.es/en/news/ice-creams-a-dreamlike-landscape-goodsten-hitzig-militello-architects |
 | 2020 | Marzo | prensa | Fresco / Fogón | ArchDaily UK · Hospitality Snapshots, EE.UU. · Plataforma de Arquitectura, Chile | https://boty.archdaily.com/us/2021/candidates/134171/fogon-restaurant-slash-hitzig-militello-arquitectos |
 | 2020 | Febrero | prensa | Fresco / Ualá / Malita | Hospitality Design NY · Baunetz Alemania · Floornature Italia | **falta** |
 | 2020 | Oct. | prensa | Williamsburg | Urdesign UK · Metalocus España · Designboom EE.UU. · Gooood China · Floornature Italia | https://www.gooood.cn/outside-dining-space-for-williamsburg-restaurant-by-hitzig-militello-architects.htm |
 | 2020 | Charla | news | FADU UBA — Taller Maldonado | YouTube | https://www.youtube.com/watch?v=2A59FXkzQXg |
-| 2019 | 2019 | prensa | Mamba ganador — Mejor bar de América | Restaurant & Bar Design Awards, Reino Unido | **falta** |
+| 2019 | 2019 | prensa | Mamba ganador — Mejor bar de América | Restaurant & Bar Design Awards, Reino Unido | https://restaurantandbardesignawards.com/entry/8113 |
 | 2019 | Festival | news | International Architecture Festival ARQfestival, Guadalajara, México | News | **falta** |
 | 2019 | Congreso | news | Congreso SCA — «Experiencias en arquitectura de interiores» | News | **falta** |
 | 2018 | 2018 | prensa | Goodsten | L'archi n°283, Francia · Interior Design, China | **falta** |
 | 2017 | 2017 | prensa | The Birra | Deco Journal, I-Plus — Corea del Sur | **falta** |
+| 2016 | Febrero | prensa | Tostado Café Club | Archipanic, Italia | https://www.archipanic.com/tostado-cafe-club/ |
 | 2016 | 2016 | prensa | Dos Casas Conde | Summa+ N°148, Argentina | **falta** |
 | 2015 | 2015 | prensa | Tostado Café Club | Wallpaper*, Reino Unido · ArchDaily, Reino Unido | https://www.archdaily.com/772525/tostado-cafe-club-hitzig-militello-arquitectos?ad_medium=office_landing&ad_name=article |
 | 2014 | 2014 | prensa | Dos Casas Conde / Atelier Vilela | Dezeen & Design Boom, Reino Unido/EE.UU. · Archdaily, Reino Unido | https://www.archdaily.com/530247/atelier-vilela-hm-arquitectos |
@@ -1504,7 +1510,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 
 00 Vicoria Brown, 00 Vilela, 01 Malabia ( M1918 ), 02 Bolivar ( B1763 ), 03 Oficina y Casa Luna (L250), 04 Dos Casas Conde ( C421 ), 05 Galería de Arte - Objeto A ( NV5181 ), 07 PH El Salvador ( ES4633 ), 23- Luccianos caballito, 24- Luccianos olivos, 25- Goodsten, 26-The Birra - Roca 63, 33-Fogon, 33-The Nim Bar, 34-Malita, 35 - Fresco, 36-Comedor Diario, 36-Uala, 37-Uala 2, 41-Mamba bar, 43-Hausscape, 44-Kavak Hub, 45-Kavak Oficinas, 46-Stella Artois, 48-Moshu, 49-Osten tower, 50-Manduca, 51-Burger 7167, 52-Plaza Mateo, 54-Araoz, 59-Cien, 60-People, 61-Fehgra, 62-Juan Valdez, 67-Edificio del Plata, 69-Sinapsis, 71-Ziva Hyatt, 72-Aire Libre, 73-El clásico de quilmes, 74-Elyaki, 75-Iguanafix, 76-Movistar arena, 77-PH Loft Arias, 78-Tostado
 
-### Entradas de prensa sin link (43 de 70)
+### Entradas de prensa sin link (37 de 74)
 
 - 2026 · Mayo · Newsweek, Argentina — Comer solo sin pedir perdón — nota sobre el estudio
 - 2026 · Abril · Archello, Argentina — Osten Coffee Shop, Casa FOA
@@ -1512,7 +1518,6 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 - 2025 · Mayo · Designverse, Argentina — Aire Libre
 - 2025 · Mayo · MAS ARQ, Argentina — Aire Libre
 - 2025 · Abril · Gooood, Argentina — Aire Libre
-- 2025 · Febrero · La Nación, Argentina — Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas
 - 2025 · Charla · News — TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires
 - 2024 · Julio · El Arqui - Flow, Argentina — Mercado Manduca
 - 2024 · Junio · ArchSight, Argentina — Mercado Manduca
@@ -1527,20 +1532,15 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 - 2023 · Docencia · News — IED Barcelona — Master in Interior Design for Commercial Spaces and Retail
 - 2023 · Clase magistral · News — Clase magistral FAD-UPC Córdoba
 - 2023 · Docencia · News — UADE FADI
-- 2022 · Julio · Dezeen, Reino Unido · Monocle, EE.UU. · Stir, India — Moshu
 - 2022 · Junio · Glocal, México · SBID, Reino Unido · El Cronista, Argentina — Moshu / Osten
-- 2022 · Mayo · Floornature, Archipanic, G&G — Italia — Moshu
 - 2022 · Abril · La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido — Osten
-- 2022 · Oct. · ArchDaily, Argentina · Floornature, Italia · Wooooooow, China — Manduca Market
 - 2022 · Docencia · News — IED Kunsthal Bilbao
 - 2022 · Docencia · News — UADE FADI, Proyecto 6
-- 2021 · Agosto · Summa+ 186, Argentina · Metalocus, España — Entrevista al estudio
 - 2021 · Mayo · Rethinking The Future, India — The Birra
 - 2021 · Dic. · Condé Nast Traveler, España · Revista 90+10, Argentina — Osten
 - 2021 · Oct. · La Nación, Infobae, Clarín, Ámbito Financiero — Argentina — Osten
 - 2020 · Agosto · Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina — Fogón / Fresco
 - 2020 · Febrero · Hospitality Design NY · Baunetz Alemania · Floornature Italia — Fresco / Ualá / Malita
-- 2019 · 2019 · Restaurant & Bar Design Awards, Reino Unido — Mamba ganador — Mejor bar de América
 - 2019 · Festival · News — International Architecture Festival ARQfestival, Guadalajara, México
 - 2019 · Congreso · News — Congreso SCA — «Experiencias en arquitectura de interiores»
 - 2018 · 2018 · L'archi n°283, Francia · Interior Design, China — Goodsten

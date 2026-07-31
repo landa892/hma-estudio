@@ -161,6 +161,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "IguanaFix",
+  "sub": "Oficinas",
+  "desc": "Oficinas · Buenos Aires",
+  "url": "/proyectos/iguanafix/",
+  "img": "/assets/gallery/iguanafix/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Indusparquet",
   "sub": "Hotelería & Comercial",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
@@ -198,6 +206,14 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Oficinas · Edificio Philips, Vedia 3892, Buenos Aires · 800 m²",
   "url": "/proyectos/kavak-oficinas/",
   "img": "/assets/gallery/kavak-oficinas/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Lucciano’s Caballito",
+  "sub": "Gastronómico",
+  "desc": "Heladería · Caballito, Buenos Aires",
+  "url": "/proyectos/luccianos-caballito/",
+  "img": "/assets/gallery/luccianos-caballito/1.webp"
  },
  {
   "tipo": "Proyecto",
