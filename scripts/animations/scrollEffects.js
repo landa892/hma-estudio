@@ -234,9 +234,22 @@
   window.addEventListener('load', function () { ScrollTrigger.refresh(); asentar(); });
   requestAnimationFrame(asentar);
 
+  /* Un refresh por imagen diferida es carisimo: la home tiene decenas y una
+     ficha de obra puede tener cien. Cada refresh recalcula todos los
+     disparadores de la pagina. Se agrupan: se espera a que dejen de llegar
+     cargas por un cuarto de segundo y recien ahi se recalcula una sola vez. */
+  var pendienteRefresco = null;
+  var refrescarAgrupado = function () {
+    clearTimeout(pendienteRefresco);
+    pendienteRefresco = setTimeout(function () {
+      ScrollTrigger.refresh();
+      asentar();
+    }, 250);
+  };
+
   q('img[loading="lazy"]').forEach(function (img) {
     if (img.complete) return;
-    img.addEventListener('load', ScrollTrigger.refresh, { once: true });
+    img.addEventListener('load', refrescarAgrupado, { once: true });
   });
 
   /* Filtros, cambio grilla/lista y buscador mueven todo lo que viene despues. */
