@@ -294,6 +294,9 @@ try {
      vacio mientras no este configurada la YOUTUBE_API_KEY. */
   const updatesSection = document.getElementById('updatesSection');
   const feedEl = document.getElementById('youtubeFeed');
+  /* Los videos ya vienen escritos en el HTML, asi que la seccion funciona sin
+     la YOUTUBE_API_KEY. Si la key esta configurada, el feed la reemplaza por
+     la lista en vivo del canal. */
   if (updatesSection && feedEl) {
     fetch('/api/youtube-latest')
       .then(r => r.json())
