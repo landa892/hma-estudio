@@ -1387,18 +1387,20 @@ Arq. Luciano Cichanowski
 Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 ```
 
-## 4. Prensa y News (61 entradas)
+## 4. Prensa y News (69 entradas)
 
 | Año | Fecha | Tipo | Título | Medio | Link |
 |---|---|---|---|---|---|
 | 2026 | Mayo | prensa | Comer solo sin pedir perdón — nota sobre el estudio | Newsweek, Argentina | **falta** |
 | 2026 | Abril | prensa | Osten Coffee Shop, Casa FOA | Archello, Argentina | **falta** |
-| 2026 | Conferencia | news | Ciclo de conferencias DINA, Auditorio Diego de Torres, UCC Córdoba | News | **falta** |
+| 2026 | Conferencia | news | Ciclo de conferencias DINA, Auditorio Diego de Torres, UCC Córdoba | News | https://www.youtube.com/watch?v=_-nCkxIThi4 |
 | 2026 | Docencia | news | Leonardo Militello, profesor de Arquitectura Comercial Interior en La Haus | News | **falta** |
+| 2026 | Video | news | El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | YouTube | https://www.youtube.com/watch?v=9Z2Q4iS2Ip0 |
+| 2026 | Video | news | Destino Miami — por qué es el mercado inmobiliario del que todos hablan | YouTube | https://www.youtube.com/watch?v=9z06HuZzhB4 |
 | 2025 | Mayo | prensa | Aire Libre | ArchDaily, Argentina | https://www.archdaily.cl/cl/1029524/aire-libre-hitzig-militello-arquitectos |
 | 2025 | Mayo | prensa | Aire Libre | Designverse, Argentina | **falta** |
 | 2025 | Mayo | prensa | Aire Libre | MAS ARQ, Argentina | **falta** |
-| 2025 | Abril | prensa | Aire Libre | Espacio & Confort, Argentina | **falta** |
+| 2025 | Abril | prensa | Aire Libre | Espacio & Confort, Argentina | https://www.youtube.com/watch?v=PiL_a5fYK_U |
 | 2025 | Abril | prensa | Aire Libre | Gooood, Argentina | **falta** |
 | 2025 | Febrero | prensa | Movistar Arena | La Nación, Argentina | https://www.lanacion.com.ar/lifestyle/movistar-arena-fue-premiado-como-el-mejor-espacio-para-eventos-del-ano-por-su-innovador-diseno-nid09042025/ |
 | 2025 | Febrero | prensa | Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas | La Nación, Argentina | **falta** |
@@ -1416,9 +1418,14 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2024 | Oct. | prensa | Casa Linda | Casa Linda, Argentina | https://casalinda.com.ar/edicion-preview/2/titulo/9722 |
 | 2024 | Nov. | prensa | Movistar Arena | Estilo Propio, Argentina | https://revistaestilopropio.com/obra/lounge-vip-movistar-arena/ |
 | 2024 | Charla | news | TENDIEZ LAB Mar del Plata | News | **falta** |
-| 2024 | Mesa redonda | news | Mesa redonda HOTELGA 2024 | News | **falta** |
+| 2024 | Mesa redonda | news | Mesa redonda HOTELGA 2024 | News | https://www.youtube.com/watch?v=pDUnbL_uq5E |
 | 2024 | Podcast | news | Podcast Cerrame la Ocho | News | **falta** |
 | 2024 | Docencia | news | UADE FADI | News | **falta** |
+| 2024 | Charla | news | Arquitectura interior e inmersión de la experiencia — Universidad de Morón | YouTube | https://www.youtube.com/watch?v=0sFr8XCyvJQ |
+| 2024 | Charla | news | «La creatividad en estado presente» — Leonardo Militello, Universidad de Palermo | YouTube | https://www.youtube.com/watch?v=rRYYjdBox2g |
+| 2024 | Charla | news | «Arquitectura e Interiorismo» — MARQ y SCA | YouTube | https://www.youtube.com/watch?v=p6GLj-XBTB4 |
+| 2024 | Entrevista | news | «Los Destacados» — Hitzig Militello Arquitectos | YouTube | https://www.youtube.com/watch?v=Xv4dcHYOLkM |
+| 2024 | Entrevista | news | Galería de Arte Objeto A — Hitzig Militello Arquitectos | YouTube | https://www.youtube.com/watch?v=ZcC_m8EkeXY |
 | 2023 | Junio | prensa | Benedetta / Goodsten / Hausscape / Victoria Brown | Más Arq · El Planeta Urbano · Rethinking the Future · Ministerio de Diseño · El Cronista | **falta** |
 | 2023 | Febrero | prensa | Antiche | G&G, Italia | **falta** |
 | 2023 | Enero | prensa | Victoria Brown / Araoz 757 | Architizer, USA · PLOT, Estilo Propio, Floornature, Argentina/Italia | **falta** |
@@ -1430,7 +1437,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2022 | Mayo | prensa | Moshu | Floornature, Archipanic, G&G — Italia | **falta** |
 | 2022 | Abril | prensa | Osten | La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido | **falta** |
 | 2022 | Oct. | prensa | Manduca Market | ArchDaily, Argentina · Floornature, Italia · Wooooooow, China | **falta** |
-| 2022 | Charla | news | 10ª TENDIEZ Experiences, Auditorio del Malba | News | **falta** |
+| 2022 | Charla | news | 10ª TENDIEZ Experiences, Auditorio del Malba | News | https://www.youtube.com/watch?v=7OKO4xfgjHI |
 | 2022 | Docencia | news | IED Kunsthal Bilbao | News | **falta** |
 | 2022 | Docencia | news | UADE FADI, Proyecto 6 | News | **falta** |
 | 2021 | Agosto | prensa | Entrevista al estudio | Summa+ 186, Argentina · Metalocus, España | **falta** |
@@ -1441,6 +1448,7 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 | 2020 | Marzo | prensa | Fresco / Fogón | ArchDaily UK · Hospitality Snapshots, EE.UU. · Plataforma de Arquitectura, Chile | https://boty.archdaily.com/us/2021/candidates/134171/fogon-restaurant-slash-hitzig-militello-arquitectos |
 | 2020 | Febrero | prensa | Fresco / Ualá / Malita | Hospitality Design NY · Baunetz Alemania · Floornature Italia | **falta** |
 | 2020 | Oct. | prensa | Williamsburg | Urdesign UK · Metalocus España · Designboom EE.UU. · Gooood China · Floornature Italia | https://www.gooood.cn/outside-dining-space-for-williamsburg-restaurant-by-hitzig-militello-architects.htm |
+| 2020 | Charla | news | FADU UBA — Taller Maldonado | YouTube | https://www.youtube.com/watch?v=2A59FXkzQXg |
 | 2019 | 2019 | prensa | Mamba ganador — Mejor bar de América | Restaurant & Bar Design Awards, Reino Unido | **falta** |
 | 2019 | Festival | news | International Architecture Festival ARQfestival, Guadalajara, México | News | **falta** |
 | 2019 | Congreso | news | Congreso SCA — «Experiencias en arquitectura de interiores» | News | **falta** |
@@ -1495,15 +1503,13 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 
 00 Vicoria Brown, 00 Vilela, 01 Malabia ( M1918 ), 02 Bolivar ( B1763 ), 03 Oficina y Casa Luna (L250), 04 Dos Casas Conde ( C421 ), 05 Galería de Arte - Objeto A ( NV5181 ), 07 PH El Salvador ( ES4633 ), 23- Luccianos caballito, 24- Luccianos olivos, 25- Goodsten, 26-The Birra - Roca 63, 33-Fogon, 33-The Nim Bar, 34-Malita, 35 - Fresco, 36-Comedor Diario, 36-Uala, 37-Uala 2, 41-Mamba bar, 43-Hausscape, 44-Kavak Hub, 45-Kavak Oficinas, 46-Stella Artois, 48-Moshu, 49-Osten tower, 50-Manduca, 51-Burger 7167, 52-Plaza Mateo, 54-Araoz, 59-Cien, 60-People, 61-Fehgra, 62-Juan Valdez, 67-Edificio del Plata, 69-Sinapsis, 71-Ziva Hyatt, 72-Aire Libre, 73-El clásico de quilmes, 74-Elyaki, 75-Iguanafix, 76-Movistar arena, 77-PH Loft Arias, 78-Tostado
 
-### Entradas de prensa sin link (47 de 61)
+### Entradas de prensa sin link (43 de 69)
 
 - 2026 · Mayo · Newsweek, Argentina — Comer solo sin pedir perdón — nota sobre el estudio
 - 2026 · Abril · Archello, Argentina — Osten Coffee Shop, Casa FOA
-- 2026 · Conferencia · News — Ciclo de conferencias DINA, Auditorio Diego de Torres, UCC Córdoba
 - 2026 · Docencia · News — Leonardo Militello, profesor de Arquitectura Comercial Interior en La Haus
 - 2025 · Mayo · Designverse, Argentina — Aire Libre
 - 2025 · Mayo · MAS ARQ, Argentina — Aire Libre
-- 2025 · Abril · Espacio & Confort, Argentina — Aire Libre
 - 2025 · Abril · Gooood, Argentina — Aire Libre
 - 2025 · Febrero · La Nación, Argentina — Aire Libre — el nuevo restaurante de Belgrano en un patio lleno de plantas
 - 2025 · Charla · News — TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires
@@ -1512,7 +1518,6 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 - 2024 · Abril · Crónicas Urbanas, Argentina — Entrevista al estudio
 - 2024 · Abril · Mas Arq, Argentina — Cien, Osten, 7167
 - 2024 · Charla · News — TENDIEZ LAB Mar del Plata
-- 2024 · Mesa redonda · News — Mesa redonda HOTELGA 2024
 - 2024 · Podcast · News — Podcast Cerrame la Ocho
 - 2024 · Docencia · News — UADE FADI
 - 2023 · Junio · Más Arq · El Planeta Urbano · Rethinking the Future · Ministerio de Diseño · El Cronista — Benedetta / Goodsten / Hausscape / Victoria Brown
@@ -1526,7 +1531,6 @@ Arq. Josue SolanoArea: 598sqmProgram: Bar and Restaurant
 - 2022 · Mayo · Floornature, Archipanic, G&G — Italia — Moshu
 - 2022 · Abril · La Nación online, Argentina · Restaurant & Bar Design Awards, Reino Unido — Osten
 - 2022 · Oct. · ArchDaily, Argentina · Floornature, Italia · Wooooooow, China — Manduca Market
-- 2022 · Charla · News — 10ª TENDIEZ Experiences, Auditorio del Malba
 - 2022 · Docencia · News — IED Kunsthal Bilbao
 - 2022 · Docencia · News — UADE FADI, Proyecto 6
 - 2021 · Agosto · Summa+ 186, Argentina · Metalocus, España — Entrevista al estudio
