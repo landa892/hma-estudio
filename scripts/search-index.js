@@ -77,7 +77,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Vivienda multifamiliar · Buenos Aires · 2.405 m²",
   "url": "/proyectos/malabia/",
-  "img": "/assets/gallery/malabia/5.webp"
+  "img": "/assets/gallery/malabia/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -85,7 +85,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Vivienda multifamiliar · Buenos Aires · 482 m²",
   "url": "/proyectos/dos-casas-conde/",
-  "img": "/assets/gallery/dos-casas-conde/5.webp"
+  "img": "/assets/gallery/dos-casas-conde/1.webp"
  },
  {
   "tipo": "Prensa",
