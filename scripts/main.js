@@ -1,3 +1,12 @@
+/* ---------- IDIOMA ----------
+   El sitio se sirve en dos idiomas desde archivos distintos, pero el
+   JavaScript es uno solo. Los textos que arma el script en caliente —estados
+   de formulario, resultados de busqueda, rotulos de botones— no pasan por el
+   generador del espejo, asi que salen de aca, elegidos por el lang del
+   documento. Si se agrega un texto nuevo al script, va con T(). */
+const HMA_EN = document.documentElement.lang === 'en';
+const T = (es, en) => (HMA_EN ? en : es);
+
 try {
   /* ---------- TODOS LOS TEXTOS DEL HOME SE ACHICAN HACIA ABAJO-IZQUIERDA AL
      SCROLLEAR (referencia mvrdv.com: transform-origin left bottom, ligado al
@@ -253,11 +262,11 @@ try {
         company: document.getElementById('cf-company').value,
       };
       if (!data.name || !data.email || !data.message) {
-        cfStatus.textContent = 'Completá nombre, email y mensaje.';
+        cfStatus.textContent = T('Completá nombre, email y mensaje.', 'Please fill in your name, email and message.');
         cfStatus.classList.add('err');
         return;
       }
-      cfSubmit.disabled = true; cfSubmit.textContent = 'Enviando…';
+      cfSubmit.disabled = true; cfSubmit.textContent = T('Enviando…', 'Sending…');
       try {
         const res = await fetch('/api/contact', {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
@@ -265,17 +274,17 @@ try {
         const result = await res.json().catch(() => ({}));
         if (res.ok && result.ok) {
           contactForm.reset();
-          cfStatus.textContent = 'Gracias, te vamos a responder a la brevedad.';
+          cfStatus.textContent = T('Gracias, te vamos a responder a la brevedad.', 'Thank you — we will get back to you shortly.');
           cfStatus.classList.add('ok');
         } else {
-          cfStatus.textContent = result.error || 'No se pudo enviar. Escribinos a hma@estudiohma.com.';
+          cfStatus.textContent = result.error || T('No se pudo enviar. Escribinos a hma@estudiohma.com.', 'We could not send it. Write to us at hma@estudiohma.com.');
           cfStatus.classList.add('err');
         }
       } catch (err) {
-        cfStatus.textContent = 'No se pudo enviar. Escribinos a hma@estudiohma.com.';
+        cfStatus.textContent = T('No se pudo enviar. Escribinos a hma@estudiohma.com.', 'We could not send it. Write to us at hma@estudiohma.com.');
         cfStatus.classList.add('err');
       } finally {
-        cfSubmit.disabled = false; cfSubmit.textContent = 'Enviar mensaje';
+        cfSubmit.disabled = false; cfSubmit.textContent = T('Enviar mensaje', 'Send message');
       }
     });
   }
@@ -426,11 +435,11 @@ try {
       );
 
       spCount.innerHTML = hits.length === 1
-        ? '1 resultado para <b>' + escapeHtml(q) + '</b>'
-        : hits.length + ' resultados para <b>' + escapeHtml(q) + '</b>';
+        ? T('1 resultado para <b>', '1 result for <b>') + escapeHtml(q) + '</b>'
+        : hits.length + T(' resultados para <b>', ' results for <b>') + escapeHtml(q) + '</b>';
 
       if (!hits.length) {
-        spResults.innerHTML = '<p class="search-empty">No encontramos nada con ese término. Probá con el nombre de un proyecto, una categoría o un medio.</p>';
+        spResults.innerHTML = '<p class="search-empty">' + T('No encontramos nada con ese término. Probá con el nombre de un proyecto, una categoría o un medio.', 'We found nothing for that term. Try the name of a project, a category or a publication.') + '</p>';
         return;
       }
 
@@ -496,18 +505,18 @@ try {
       const phone = phoneEl.value.trim();
 
       if (!name || phone.replace(/\D/g, '').length < 6) {
-        waStatus.textContent = 'Completá tu nombre y un teléfono válido.';
+        waStatus.textContent = T('Completá tu nombre y un teléfono válido.', 'Please enter your name and a valid phone number.');
         waStatus.classList.add('err');
         return;
       }
       if (!consentEl.checked) {
-        waStatus.textContent = 'Necesitamos tu confirmación para poder contactarte.';
+        waStatus.textContent = T('Necesitamos tu confirmación para poder contactarte.', 'We need your consent in order to contact you.');
         waStatus.classList.add('err');
         return;
       }
 
       waSubmit.disabled = true;
-      waSubmit.textContent = 'Abriendo…';
+      waSubmit.textContent = T('Abriendo…', 'Opening…');
 
       // El aviso al estudio no debe frenar a la persona: si falla, sigue igual.
       try {
@@ -523,17 +532,17 @@ try {
       if (WHATSAPP_NUMBER) {
         const texto = encodeURIComponent('Hola, soy ' + name + '. Quiero consultar por un proyecto.');
         window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + texto, '_blank', 'noopener');
-        waStatus.textContent = 'Listo, te abrimos WhatsApp.';
+        waStatus.textContent = T('Listo, te abrimos WhatsApp.', 'Done — opening WhatsApp.');
         waStatus.classList.add('ok');
       } else {
         // Sin numero cargado todavia: al menos quedan los datos guardados.
-        waStatus.textContent = 'Gracias, ' + name + '. Te vamos a contactar a la brevedad.';
+        waStatus.textContent = T('Gracias, ', 'Thank you, ') + name + T('. Te vamos a contactar a la brevedad.', '. We will be in touch shortly.');
         waStatus.classList.add('ok');
       }
 
       waForm.reset();
       waSubmit.disabled = false;
-      waSubmit.textContent = 'Iniciar conversación';
+      waSubmit.textContent = T('Iniciar conversación', 'Start a conversation');
     });
   }
 } catch (e) { console.error('wa-lead', e); }
@@ -616,8 +625,9 @@ try {
     const esGaleria = grid.classList.contains('gallery-grid');
     if (!esGaleria && !grid.classList.contains('press-featured')) return;
 
-    const rotuloMas = btn.dataset.mas || ('Ver las ' + btn.dataset.total + ' fotos');
-    const rotuloMenos = btn.dataset.menos || 'Ver menos fotos';
+    const rotuloMas = btn.dataset.mas ||
+      T('Ver las ' + btn.dataset.total + ' fotos', 'See all ' + btn.dataset.total + ' photos');
+    const rotuloMenos = btn.dataset.menos || T('Ver menos fotos', 'See fewer photos');
 
     btn.addEventListener('click', () => {
       const abierta = grid.classList.toggle('is-open');
