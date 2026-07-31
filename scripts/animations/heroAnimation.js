@@ -278,8 +278,13 @@
          reiniciaba la obertura, y el titulo se quedaba emergiendo en un bucle
          sin llegar nunca a viajar a su sitio.
 
-         Solo se rearma cuando el usuario abandona la seccion de verdad, es
-         decir cuando sale por arriba. */
+         Se rearma cuando el usuario abandona la seccion de verdad, y eso pasa
+         en las dos direcciones: por arriba al volver hacia el principio, y por
+         abajo al seguir de largo. El hero solo puede salir por arriba, pero un
+         banner en el medio de la pagina se deja atras bajando, y ahi el que
+         dispara es onLeave. Sin rearmar tambien en ese caso, la obertura de un
+         banner se veia una sola vez por carga: se bajaba, se seguia de largo y
+         al volver a subir ya no arrancaba nunca mas. */
       var pendiente = true;
 
       var lanzar = function () {
@@ -288,14 +293,21 @@
         entrada.restart(true);
       };
 
+      /* Rearmar no es lo mismo que rebobinar. Al salir por abajo la obertura
+         queda como estaba —nadie la ve— y se rebobina recien al volver a
+         entrar. Al salir por arriba se rebobina en el momento, porque la
+         seccion sigue camino a la vista mientras se sube. */
+      var rearmar = function () { pendiente = true; };
+
       ScrollTrigger.create({
         trigger: seccion,
         start: 'top 60%',
         end: 'bottom top',
         onEnter: lanzar,
         onEnterBack: lanzar,
+        onLeave: rearmar,
         onLeaveBack: function () {
-          pendiente = true;
+          rearmar();
           entrada.pause(0);
         }
       });
