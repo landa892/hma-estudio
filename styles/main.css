@@ -1821,6 +1821,48 @@ footer.site-footer {
 
 .line > span { display: block; }
 
+/* ---------- BANNERS DE PROYECTO: MISMA MECANICA QUE LA PORTADA -------------
+   Cada banner recibe su propia pista y su escenario sticky, para que el titulo
+   pueda emerger, sostener el pico y achicarse a la vista, igual que el hero.
+   La pista es mas corta (170vh) porque son seis seguidos: con 240vh cada uno,
+   recorrer la home serian catorce pantallas de scroll solo de portadas. */
+
+.gsap-active .project-banner {
+  --pista: 170vh;
+  min-height: var(--pista);
+  display: block;
+  align-items: initial;
+  /* Igual que en la portada: un ancestro con overflow distinto de visible se
+     convierte en el contenedor del sticky y lo anula. */
+  overflow: visible;
+}
+
+@media (max-width: 1100px) { .gsap-active .project-banner { --pista: 155vh; } }
+@media (max-width: 700px)  { .gsap-active .project-banner { --pista: 140vh; } }
+
+.gsap-active .banner-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.gsap-active .project-banner img { z-index: 0; }
+.gsap-active .project-banner__content { position: relative; z-index: 1; }
+
+/* Mismo criterio que en la portada: el tamaño de descanso baja para que el
+   pico entre en pantalla sin recortarse, y el limite de caracteres por linea
+   garantiza que escalar no saque el texto por el costado. */
+.gsap-active .project-banner__content h2 {
+  font-size: clamp(1.8rem, 4.6vw, 3.6rem);
+  max-width: 15ch;
+}
+
+.gsap-active .project-banner__content { will-change: transform, opacity; }
+
 /* ---------- LENIS ----------------------------------------------------------
    Mientras Lenis maneja el scroll, el navegador no debe intentar suavizarlo
    por su cuenta ni frenar en los anclas. */
@@ -1838,6 +1880,7 @@ html.lenis, html.lenis body { height: auto; }
 .gsap-reduced .reveal,
 .gsap-reduced .line > span,
 .gsap-reduced .pb-content-inner,
+.gsap-reduced .pb-content-inner > *,
 .gsap-reduced .hero-content-wrap,
 .gsap-reduced .hero-content-wrap > *,
 .gsap-reduced .project-banner__content,
@@ -1881,3 +1924,7 @@ html.lenis, html.lenis body { height: auto; }
 .gsap-reduced .lede,
 .gsap-reduced .hero-home--photo h1,
 .gsap-reduced .line > span { filter: none !important; }
+
+.gsap-reduced .project-banner { min-height: 92vh; display: flex; align-items: flex-end; }
+.gsap-reduced .banner-stage { position: static; height: auto; display: block; }
+.gsap-reduced .project-banner__content h2 { font-size: clamp(2rem, 5.5vw, 4.2rem); }

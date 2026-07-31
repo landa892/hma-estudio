@@ -1,13 +1,13 @@
 /* ============================================================================
    animations/scrollEffects.js — el resto de la pagina.
 
-   La portada tiene su modulo aparte porque es una secuencia de autor. Todo lo
-   demas responde a cuatro patrones repetidos, que es lo que hace que el sitio
-   se lea como una sola pieza:
+   Las portadas —el hero y los banners de proyecto— tienen su modulo aparte
+   porque son una secuencia de autor. Todo lo demas responde a cuatro patrones
+   repetidos, que es lo que hace que el sitio se lea como una sola pieza:
 
      block     un bloque aparece y despues deriva unos pixeles
+     heading   un titulo emerge por lineas desde una mascara
      stagger   una grilla se arma, cada pieza con su propio disparador
-     cover     los banners de proyecto: parallax de foto + achique del texto
      parallax  una foto que se mueve dentro de su marco
 
    Reparto de la ventana de scroll: el rango va de "top 80%" a "bottom 20%",
@@ -125,55 +125,6 @@
     });
   }
 
-  /* Banners de proyecto: la version corta de la coreografia de la portada.
-     La foto se acomoda mientras se recorre la seccion, el texto entra por
-     lineas y al salir se achica hacia abajo-izquierda. */
-  function cover(section, opts) {
-    opts = opts || {};
-    var foto = section.querySelector('img');
-    var wrap = section.querySelector(opts.wrap);
-    var inner = opts.inner ? section.querySelector(opts.inner) : wrap;
-
-    if (foto) {
-      gsap.set(foto, { scale: 1.12, transformOrigin: 'center center' });
-      gsap.timeline({ scrollTrigger: thruTrigger(section, THROUGH, { start: 'top bottom' }) })
-        .to(foto, { yPercent: 8, scale: 1, duration: 1, ease: EASE.linear }, 0);
-    }
-
-    if (inner) {
-      var h = inner.querySelector('h1, h2');
-      var lineas = h ? TR.splitLines(h) : null;
-      var resto = q('.eyebrow, p', inner);
-      var entra = gsap.timeline({
-        scrollTrigger: inTrigger(section, { start: 'top 85%', end: 'top 35%' })
-      });
-      if (lineas) {
-        var ap = TR.emerge(lineas, { blur: 6, stagger: 0.1 });
-        ap.duration(0.6);
-        entra.add(ap, 0);
-      } else if (h) {
-        entra.fromTo(h, { y: 44, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: EASE.settle }, 0);
-      }
-      if (resto.length) {
-        entra.fromTo(resto, { y: SUBE, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: EASE.settle }, 0.15);
-      }
-    }
-
-    if (wrap) {
-      gsap.timeline({ scrollTrigger: thruTrigger(section, THROUGH) })
-        .to(wrap, {
-          scale: opts.minScale || 0.6,
-          y: -26,
-          opacity: 0.14,
-          transformOrigin: 'left bottom',
-          duration: 1,
-          ease: EASE.linear
-        }, 0);
-    }
-  }
-
   function parallax(el, opts) {
     opts = opts || {};
     var amount = opts.amount || 70;
@@ -184,13 +135,26 @@
 
   /* --------------------------------------------------------------- el guion */
 
+  /* El partido en lineas mide donde cae cada palabra, asi que depende de la
+     fuente ya cargada: con la de reserva las metricas son mas anchas y el
+     titulo se parte en una linea por palabra. Se espera a document.fonts. */
+  function alEstarLista(fn) {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        fn();
+        ScrollTrigger.refresh();
+      });
+    } else {
+      fn();
+    }
+  }
+
   var mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', function () {
+    alEstarLista(function () {
 
-    /* La portada de la home la maneja heroAnimation.js. */
-    q('.project-banner').forEach(function (el) {
-      cover(el, { wrap: '.project-banner__content', inner: '.pb-content-inner', minScale: 0.58 });
-    });
+    /* Las portadas —el hero y los seis banners de proyecto— las maneja
+       heroAnimation.js con la secuencia de cuatro fases. */
 
     /* Portada de texto de las fichas de obra y paginas internas. */
     q('.hero-home').forEach(function (el) {
@@ -240,6 +204,7 @@
       if (el.closest('.hero-home--photo, .project-banner')) return;
       if (el.matches('.project-grid, .project-list, .gallery-grid, .press-featured, .related-projects, .stat-row, .banner-interlude, .project-row')) return;
       block(el);
+    });
     });
   });
 

@@ -53,8 +53,30 @@
      cambio que hay que hacer para tener las dos cosas. */
   var REVELAR_AL_CARGAR = false;
 
-  var ESCALA_PICO = 1.4;   // FASE 2
   var ESCALA_FIN = 1;      // FASE 3
+
+  /* Cada tipo de portada declara sus selectores y su escala de pico. La
+     secuencia es la misma; lo que cambia es que la del hero pega mas fuerte
+     (1,4) y la de los banners de proyecto un poco menos (1,25), porque se
+     repite seis veces seguidas y a 1,4 cansaria. */
+  var PORTADAS = [
+    {
+      seccion: '.hero-home--photo',
+      wrap: '.hero-content-wrap',
+      inner: '.hero-content-wrap',
+      titulo: 'h1',
+      sub: '.lede',
+      pico: 1.4
+    },
+    {
+      seccion: '.project-banner',
+      wrap: '.project-banner__content',
+      inner: '.pb-content-inner',
+      titulo: 'h2',
+      sub: '.pb-content-inner p',
+      pico: 1.25
+    }
+  ];
 
   /* Recorridos verticales por punto de corte. En una pantalla chica el mismo
      desplazamiento en pixeles se come media pantalla, asi que se achica. */
@@ -65,14 +87,15 @@
     return { subeTitulo: 56, subeSub: 30, salida: 60, escalaSalida: 0.66 };
   }
 
-  function construir(seccion) {
-    var escenario = seccion.querySelector('.hero-stage');
-    var bloque = seccion.querySelector('.hero-content-wrap');
-    var titulo = seccion.querySelector('h1');
+  function construir(seccion, cfg) {
+    var bloque = seccion.querySelector(cfg.wrap);
+    var interior = seccion.querySelector(cfg.inner);
+    var titulo = seccion.querySelector(cfg.titulo);
     var eyebrow = seccion.querySelector('.eyebrow');
-    var sub = seccion.querySelector('.lede');
+    var sub = seccion.querySelector(cfg.sub);
     var foto = seccion.querySelector('img');
     if (!bloque || !titulo) return;
+    var ESCALA_PICO = cfg.pico;
 
     var m = metrica();
     var lineas = TR.splitLines(titulo);
@@ -112,7 +135,7 @@
         { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1, ease: EASE.reveal });
     }
 
-    if (REVELAR_AL_CARGAR) {
+    if (REVELAR_AL_CARGAR && cfg.pico === 1.4) {
       /* Corre sola al cargar; el scroll arranca en la fase 2. */
       aparicion.duration(1.6);
     } else {
@@ -191,10 +214,29 @@
   /* matchMedia rearma la secuencia al cruzar un punto de corte y limpia sola
      las timelines viejas: sin esto, al rotar el telefono quedarian dos juegos
      de tweens peleando por el mismo transform. */
+  /* El partido en lineas mide donde cae cada palabra, asi que depende de la
+     fuente ya cargada: con la de reserva las metricas son mas anchas y el
+     titulo se parte en una linea por palabra. Se espera a document.fonts. */
+  function alEstarLista(fn) {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        fn();
+        ScrollTrigger.refresh();
+      });
+    } else {
+      fn();
+    }
+  }
+
   var mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', function () {
-    var seccion = document.querySelector('.hero-home--photo');
-    if (seccion) construir(seccion);
+    alEstarLista(function () {
+    PORTADAS.forEach(function (cfg) {
+      Array.prototype.forEach.call(document.querySelectorAll(cfg.seccion), function (sec) {
+        construir(sec, cfg);
+      });
+    });
+    });
   });
 
   window.HMA.hero = { construir: construir };
