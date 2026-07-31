@@ -69,7 +69,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Edificio multifamiliar · Buenos Aires · 2.040 m²",
   "url": "/proyectos/araoz/",
-  "img": "/assets/gallery/araoz/6.webp"
+  "img": "/assets/gallery/araoz/1.webp"
  },
  {
   "tipo": "Proyecto",
