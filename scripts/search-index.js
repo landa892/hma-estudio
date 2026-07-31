@@ -105,11 +105,27 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Edificio del Plata",
+  "sub": "Residencial",
+  "desc": "Residencias y restauración — concurso privado · Buenos Aires · 44.000 m²",
+  "url": "/proyectos/edificio-del-plata/",
+  "img": "/assets/gallery/edificio-del-plata/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "FEHGRA",
   "sub": "Gastronómico",
   "desc": "Centro de desarrollo gastronómico · Larrea 1250, Recoleta, Buenos Aires · 142 m²",
   "url": "/proyectos/fehgra/",
   "img": "/assets/gallery/fehgra/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Fogón",
+  "sub": "Gastronómico",
+  "desc": "Restaurante · Saedan Mall, Riad · 265 m²",
+  "url": "/proyectos/fogon/",
+  "img": "/assets/gallery/fogon/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -158,6 +174,14 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Oficinas · Av. Juan Bautista Justo 1500, piso 23, Buenos Aires · 480 m² · 2025—2026",
   "url": "/proyectos/iol/",
   "img": "/assets/gallery/iol/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Juan Valdez Café",
+  "sub": "Gastronómico",
+  "desc": "Cafetería · Av. Las Heras 2601, Buenos Aires",
+  "url": "/proyectos/juan-valdez/",
+  "img": "/assets/gallery/juan-valdez/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -249,6 +273,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Osten Tower",
+  "sub": "Residencial",
+  "desc": "Edificio residencial — en proceso · Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires · Lobby 240 m² y rooftop 710 m²",
+  "url": "/proyectos/osten-tower/",
+  "img": "/assets/gallery/osten-tower/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Parfumerie",
   "sub": "Hotelería & Comercial",
   "desc": "Retail · Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires · 131 m² · 2025",
@@ -265,6 +297,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Plaza Mateo",
+  "sub": "Gastronómico",
+  "desc": "Sala de concierto, night club y restaurante — en proceso · Rambla Wilson y Av. Sarmiento, Montevideo · 950 m² de intervención general",
+  "url": "/proyectos/plaza-mateo/",
+  "img": "/assets/gallery/plaza-mateo/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Roket",
   "sub": "Gastronómico",
   "desc": "Club nocturno · Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro · 2.000 m² · 2023",
@@ -278,6 +318,14 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Templo · República Árabe Siria 3267, Buenos Aires · 600 m² · 2025",
   "url": "/proyectos/templo-mikdash/",
   "img": "/assets/gallery/templo-mikdash/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Tostado Café Club",
+  "sub": "Gastronómico",
+  "desc": "Comida rápida · Miami, Florida · 100 m²",
+  "url": "/proyectos/tostado/",
+  "img": "/assets/gallery/tostado/1.webp"
  },
  {
   "tipo": "Proyecto",
