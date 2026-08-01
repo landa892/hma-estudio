@@ -1,100 +1,278 @@
-# Auditoría de seguridad, buenas prácticas y rendimiento — HMA Estudio
+# Auditoría de seguridad — sitio de HMA
 
-**Fecha:** 2026-07-26 · **Alcance analizado:** repositorio `landa892/hma-estudio`, configuración de GitHub, dependencias locales (MCP shadcn), código del sitio (`index.html`) y la máquina de desarrollo desde la que se opera.
+**Fecha:** 1 de agosto de 2026 · **Commit auditado:** `510262f` · **Repositorio:** `landa892/hma-estudio`
 
-## 0. Contexto real del proyecto (importante)
+> Este documento **no se publica**. Vive en `docs/`, que está excluido del despliegue
+> mediante `.vercelignore`. Ver el hallazgo **H1** para el motivo.
 
-Este proyecto **es un sitio estático de una sola página** (`index.html` + `/assets`), sin backend, sin base de datos, sin sistema de usuarios/contraseñas y sin servidor propio en el repo. Por eso varias categorías clásicas de un audit de infraestructura (servidores, APIs, auth, DB) **no aplican** — se documentan como "N/A" en vez de inventar riesgo donde no lo hay. Lo que sí es real y se auditó a fondo:
+---
 
-- El repositorio en GitHub (código fuente, historial, permisos).
-- Las dependencias de herramientas de desarrollo (MCP de shadcn).
-- El código del frontend (`index.html`, JS inline, recursos externos).
-- La máquina local desde donde se hacen los commits/push (puertos, firewall, credenciales de git).
-- El futuro hosting estático (no configurado todavía — se dejan cabeceras listas para cuando se elija).
+## 0. Qué se auditó, y por qué cambió el alcance
 
-## 1. Hallazgos por capa
+La auditoría anterior (26 de julio) describía un sitio estático de una sola página, sin
+backend. **Eso ya no es cierto.** Hoy el proyecto es:
 
-### 1.1 Infraestructura / cuenta de GitHub
-
-| # | Hallazgo | Severidad | Evidencia |
-|---|---|---|---|
-| G1 | Rama `main` **sin protección**: se puede pushear directo o forzar sin PR/revisión. | 🔴 Alta | `gh api repos/.../branches/main/protection` → 404 "Branch not protected" |
-| G2 | **Dependabot / alertas de vulnerabilidad desactivadas** en el repo. | 🟠 Media | `gh api .../vulnerability-alerts` → "disabled" |
-| G3 | Repo **público** — correcto para un sitio de marketing, pero implica que cualquier commit futuro con datos sensibles queda expuesto para siempre en el historial. | 🟡 Info | `visibility: PUBLIC` |
-| G4 | Autenticación de `git`/`gh` vía Git Credential Manager y Windows Credential Keyring (no hay tokens en texto plano en el repo ni en `.git/config`). | ✅ OK | revisado `credential.helper`, remotes, historial completo |
-
-### 1.2 Dependencias (toolchain local, no el sitio en sí)
-
-| # | Hallazgo | Severidad | Evidencia |
-|---|---|---|---|
-| D1 | 3 vulnerabilidades **moderadas** (path traversal vía backslash codificado en Windows) en `@hono/node-server`, dependencia transitiva del servidor MCP de `shadcn`. | 🟠 Media | `npm audit` → GHSA-frvp-7c67-39w9 |
-| D2 | Mitigante real: el servidor MCP usa `StdioServerTransport` (stdin/stdout), **no abre ningún puerto TCP/HTTP** — el path traversal de un servidor HTTP no aplica a este uso concreto. | ✅ Mitigado | grep en `node_modules/shadcn/dist` confirma stdio, no `createServer`/`listen` |
-| D3 | `node_modules/` nunca se commiteó (verificado en todo el historial); ya está en `.gitignore`. | ✅ OK | `git log --all --diff-filter=A` |
-
-### 1.3 Código del sitio (frontend — no hay backend)
-
-| # | Hallazgo | Severidad | Evidencia |
-|---|---|---|---|
-| C1 | **Sin cabeceras de seguridad** (CSP, X-Frame-Options, HSTS, etc.) porque no había config de hosting. | 🟠 Media | no existía `_headers`/`netlify.toml`/`vercel.json` |
-| C2 | Fuentes cargadas desde Google Fonts (`fonts.googleapis.com`) sin aviso de privacidad — transfiere la IP del visitante a Google en cada carga. | 🟡 Info | uso estándar, bajo riesgo, pero es un dato a declarar si hay política de privacidad |
-| C3 | Email de contacto en texto plano (`mailto:`) — expuesto a scraping de spam. | 🟢 Baja | aceptable para un sitio de contacto público |
-| C4 | Sin `usuarios/contraseñas`: no hay login, formularios que posteen datos, ni cookies — **superficie de ataque de auth = 0** porque no existe. | ✅ N/A | revisión de código completa |
-| C5 | Sin inputs de usuario ni `innerHTML` con datos externos — el único uso de `innerHTML`/`textContent` dinámico toma contenido ya presente en el propio HTML, no datos de terceros. Riesgo de XSS clásico: prácticamente nulo. | ✅ OK | revisión de `index.html` |
-
-### 1.4 Máquina local (desde donde se administra el repo)
-
-| # | Hallazgo | Severidad | Evidencia |
-|---|---|---|---|
-| M1 | **Puerto 445 (SMB)** y **139 (NetBIOS)** escuchando en la interfaz de red LAN (`0.0.0.0` / `192.168.1.8`), no solo en loopback. Riesgo real si se conecta a redes no confiables (wifi público, coworking). | 🟠 Media | `Get-NetTCPConnection -State Listen` |
-| M2 | `spacedeskService` (puerto 28252) y `EpicGamesLauncher` (24563) escuchando en **todas las interfaces** (`0.0.0.0`) en vez de solo loopback/LAN de confianza. | 🟡 Baja | idem |
-| M3 | Firewall de Windows **activo** en los 3 perfiles (Dominio/Privado/Público). | ✅ OK | `Get-NetFirewallProfile` |
-| M4 | Microsoft Defender **activo** con protección en tiempo real y firmas actualizadas. | ✅ OK | `Get-MpComputerStatus` |
-| M5 | Estado de **BitLocker no verificable** sin privilegios de administrador — no se pudo confirmar si el disco está cifrado. | ⚪ Pendiente | `manage-bde` requirió elevación |
-
-## 2. Plan de remediación (priorizado por sensibilidad real)
-
-### Prioridad 1 — Gobernanza del repo (más sensible: previene pérdida de código/histórico)
-1. **Proteger la rama `main`**: requerir PR antes de mergear, exigir que el status quede verde, prohibir force-push. *(Requiere tu OK porque cambia configuración de la cuenta de GitHub — decime y lo activo con `gh api`.)*
-2. **Activar Dependabot / vulnerability alerts** en el repo. *(Idem, requiere tu OK.)*
-
-### Prioridad 2 — Higiene de dependencias
-3. Ya identificado: `npm audit fix --force` resuelve D1 pero **desinstala la versión actual de `shadcn` a `3.8.3`** (cambio breaking). Como es una herramienta de desarrollo local (no corre en producción ni abre puertos), lo recomendable es *esperar* al próximo `shadcn@latest` que ya traiga el fix, en vez de forzar un downgrade. Si preferís forzarlo ahora, decímelo.
-
-### Prioridad 3 — Cabeceras de seguridad del sitio (ya aplicado)
-4. ✅ Agregado `/_headers` con CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security` y cache inmutable para `/assets/*`. Se activa automáticamente si el hosting es Netlify (u otro compatible); si eligen otro proveedor, hay que trasladar estas reglas a su formato (`vercel.json`, `.htaccess`, etc. — avisen qué hosting usan y lo adapto).
-5. ✅ Agregado el mismo CSP como `<meta http-equiv>` en el `<head>` — funciona como respaldo sin importar el hosting.
-6. ✅ Agregado `robots.txt` básico.
-
-### Prioridad 4 — Higiene de la máquina local
-7. Restringir el alcance de SMB/NetBIOS a la red privada de confianza (o desactivar "Compartir archivos e impresoras" si no se usa realmente entre dispositivos de la LAN).
-8. Revisar si `spacedesk` necesita estar accesible desde toda interfaz o puede limitarse a la LAN de confianza.
-9. Verificar cifrado de disco (BitLocker) con una sesión de administrador.
-
-### Prioridad 5 — Rendimiento (ver sección 3)
-10. Optimizar y comprimir imágenes (impacto más alto en performance real).
-
-## 3. Análisis de rendimiento (post-cambios)
-
-- **Peso de `/assets`: ~22 MB** en JPG sin variantes WebP/AVIF ni compresión agresiva — es, por lejos, el mayor cuello de botella de carga (ej. `manduca.jpg` 1.4 MB, `moshu.jpg` 1.3 MB).
-- Ya en la sesión anterior se agregó `loading="lazy"` + `decoding="async"` a toda imagen fuera del viewport inicial, `preload` con `fetchpriority="high"` para el hero, y ahora se suma `Cache-Control: immutable` de 1 año para `/assets/*` vía `_headers`.
-- **Recomendación de mayor impacto:** convertir las imágenes a WebP (o AVIF) con `<picture>`/fallback, apuntando a ~150–250 KB por foto de portfolio y ~80 KB para las del marquee. Esto podría bajar el peso total de 22 MB a ~4–5 MB sin pérdida visual perceptible.
-- El resto (fonts con `preconnect`, JS vanilla sin frameworks, CSS inline sin build step) ya es liviano — no hay más ganancia relevante ahí sin agregar un pipeline de build.
-
-## 4. Recomendaciones de mantenimiento (ágil, recurrente)
-
-| Frecuencia | Acción |
+| Pieza | Detalle |
 |---|---|
-| Cada PR | Revisar el diff antes de mergear (ya no se puede pushear directo a `main` una vez activada la protección). |
-| Mensual | `npm audit` sobre este repo y sobre cualquier tooling local nuevo. |
-| Mensual | Revisar `gh api repos/.../vulnerability-alerts` / tab "Security" de GitHub. |
-| Al agregar imágenes nuevas | Comprimir/convertir a WebP antes de subir (mantener el patrón de carpeta `assets/gallery/<slug>/1..6.jpg`). |
-| Al cambiar de hosting | Portar las reglas de `/_headers` al formato del nuevo proveedor. |
-| Semestral | Revisar si sigue sin haber BitLocker/cifrado de disco en la máquina de trabajo. |
-| Semestral | Repasar permisos de colaboradores del repo (`gh api repos/.../collaborators`). |
+| Páginas | 112 archivos HTML — 55 en castellano, 56 en inglés bajo `/en/`, más el 404 |
+| Funciones de servidor | 3: `api/contact.js`, `api/lead.js`, `api/youtube-latest.js` |
+| Servicios externos | Resend (envío de correo), YouTube Data API v3 |
+| JavaScript propio | `scripts/main.js` y 4 módulos de animación |
+| Librerías de terceros | GSAP 3.15.0, ScrollTrigger 3.15.0 y Lenis, **servidas desde el propio dominio** |
+| Hosting | Vercel |
+| Dominio y correo | `estudiohma.com` — DNS en DreamHost, correo en Google Workspace |
 
-## 5. Resumen ejecutivo
+Aparecieron por lo tanto categorías que antes no aplicaban: **entrada de datos de usuario,
+llamadas a APIs de terceros, secretos de servidor y datos personales**. Este documento se
+concentra ahí.
 
-- **No hay backend, base de datos ni login que proteger** — el "ataque de infraestructura" real hoy es mínimo porque la superficie es un sitio estático.
-- Los riesgos reales encontrados son de **gobernanza de repo** (rama sin protección) y de **higiene de red local** (SMB expuesto en LAN), no del código del sitio.
-- El código del sitio ya estaba razonablemente bien escrito (sin XSS evidente, sin inputs de usuario); se le sumaron cabeceras de seguridad como capa adicional preventiva de cara a un futuro hosting/CMS.
-- El cuello de botella de performance real es el **peso de las imágenes**, no el código.
+Lo que **no** entra en el alcance: la máquina local desde la que se trabaja. La auditoría
+anterior la incluía y ese fue justamente el problema del hallazgo H1.
+
+---
+
+## 1. Hallazgos
+
+### 🔴 H1 · La auditoría anterior se publicaba en el sitio — CORREGIDO
+
+Vercel sirve todo lo que hay en el repositorio, y no existía `.vercelignore`. La carpeta
+`docs/` quedaba accesible en `estudiohma.com/docs/`, y ahí vivía la auditoría previa, que
+enumeraba los puertos abiertos de la máquina de desarrollo, su IP de red local y el hecho
+de que la rama `main` no tenía protección.
+
+`robots.txt` incluía `Disallow: /docs/`, pero eso **sólo evita que un buscador lo indexe,
+no que alguien lo abra**. Es una señal para robots que se portan bien, no un control de
+acceso.
+
+**Corregido en `510262f`:** se agregó `.vercelignore` con `docs/`. Los archivos siguen
+versionados en git, que es donde corresponde.
+
+**Queda pendiente de tu lado:** el repositorio es público en GitHub, así que el documento
+viejo sigue siendo legible ahí y en el historial. Como no contiene claves, el riesgo es
+acotado, pero conviene decidir si el repositorio debe seguir siendo público.
+
+**Verificación:** abrir `estudiohma.com/docs/AUDITORIA-SEGURIDAD.md` tras el próximo
+despliegue. Debe responder 404.
+
+---
+
+### 🟠 H2 · El feed de YouTube escribía HTML sin escapar — CORREGIDO
+
+`scripts/main.js` construía las tarjetas de video interpolando directamente el título, la
+dirección y la miniatura que devuelve la API de YouTube:
+
+```js
+<div class="press-title">${v.title}</div>
+```
+
+Era **el único lugar del sitio donde un dato de origen externo llegaba al DOM sin
+escapar**. Un título con etiquetas HTML se habría insertado tal cual.
+
+El riesgo práctico era bajo —los títulos los escribe el propio estudio en su canal— y el
+código además está dormido, porque sin `YOUTUBE_API_KEY` esa rama nunca se ejecuta. Pero
+**está previsto activar esa clave**, y ahí dejaba de ser teórico.
+
+**Corregido:** ahora el título se escapa, y de la dirección y la miniatura sólo se aceptan
+direcciones `https` de `youtube.com`, `youtu.be`, `ytimg.com` y `ggpht.com`. Si la
+respuesta trae otra cosa, la tarjeta se descarta en vez de escribirla.
+
+---
+
+### 🟡 H3 · El límite de envíos del formulario es más débil de lo que aparenta
+
+`api/contact.js` y `api/lead.js` cuentan los envíos por IP en un `Map` en memoria, con un
+tope de 3 por minuto.
+
+En Vercel cada invocación puede correr en una instancia distinta, y las instancias se
+reciclan. **El contador no se comparte**, así que quien reparta sus pedidos esquiva el
+límite. Además el `Map` nunca purga entradas viejas: crece mientras la instancia viva.
+
+**Riesgo real: bajo.** Lo que de verdad frena el spam automatizado es el campo trampa, que
+sí funciona. El límite es una segunda barrera, no la principal.
+
+**Si algún día llega correo basura**, ese es el punto a reforzar: un contador compartido
+(Vercel KV o Upstash) en lugar de memoria local.
+
+---
+
+### 🟡 H4 · El buscador inserta direcciones de su índice sin escapar
+
+En `scripts/main.js`, el render de resultados hace:
+
+```js
+'<a class="search-result" href="' + item.url + '">'
+```
+
+`item.url` e `item.img` salen de `scripts/search-index.js`, un archivo que generamos
+nosotros. **Hoy no es explotable**: no hay forma de que un visitante meta datos ahí.
+
+Queda anotado como deuda: si alguna vez ese índice pasa a generarse desde una fuente
+externa —un gestor de contenidos, la base del WordPress viejo— habría que escapar esos dos
+campos. El texto visible ya se escapa correctamente vía `escapeHtml` y `highlight`.
+
+---
+
+### 🟡 H5 · El correo sale desde el remitente de prueba de Resend
+
+`FROM_EMAIL` es `onboarding@resend.dev`, el remitente de prueba. Dos consecuencias:
+
+1. **Sólo entrega a la casilla dueña de la cuenta de Resend.** Cualquier otro destino se
+   descarta en silencio. Por eso `TO_EMAIL` sigue apuntando a una casilla personal y no a
+   la del estudio.
+2. Los correos salen desde un dominio ajeno, lo que aumenta la probabilidad de que caigan
+   en la carpeta de no deseados.
+
+**Se resuelve verificando `estudiohma.com` en Resend**, que a su vez depende de apuntar el
+dominio a Vercel. Está anotado en la lista de pendientes.
+
+---
+
+### 🟡 H6 · Los formularios llegan hoy a una casilla personal
+
+`TO_EMAIL = "nacholanda08@gmail.com"`. Consultas de personas reales dirigidas al estudio
+terminan en la casilla personal de quien desarrolla el sitio.
+
+No es una falla técnica sino una situación provisoria, pero **es un tratamiento de datos
+personales que la política de privacidad publicada no contempla**. Conviene resolverlo
+pronto.
+
+El destino definitivo está anotado en el código (`DESTINO_FINAL`) y el cambio es de una
+línea, una vez que exista la casilla y el dominio esté verificado.
+
+---
+
+## 2. Lo que se revisó y está bien
+
+### Secretos
+
+- **Ninguna clave en el código ni en el historial de git.** Se buscaron los formatos de
+  Resend (`re_…`) y de Google (`AIza…`) en todos los commits: cero coincidencias.
+- `RESEND_API_KEY` y `YOUTUBE_API_KEY` se leen de variables de entorno.
+- Ningún archivo `.env`, `.pem` o `.key` versionado. Se agregaron al `.gitignore` como
+  resguardo.
+
+### Entrada de datos en las funciones de servidor
+
+Ambos formularios validan antes de hacer nada:
+
+| Control | `contact.js` | `lead.js` |
+|---|---|---|
+| Método restringido a POST | sí | sí |
+| Campo trampa para bots | sí | sí |
+| Verificación de tipo | sí | sí |
+| Tope de longitud | 120 / 200 / 4000 | 120 / 40 |
+| Formato de correo | sí | — |
+| Escape de HTML antes de armar el mail | sí | sí |
+| CORS restringido | sí | sí |
+
+No hay base de datos, así que **no existe superficie de inyección SQL**. El cuerpo del
+correo se arma con los datos ya escapados. Como Resend recibe JSON y la expresión que
+valida el correo rechaza espacios, **tampoco hay inyección de cabeceras**.
+
+Los mensajes de error que ve el visitante no revelan nada: el detalle que devuelve Resend
+va al registro del servidor, no a la respuesta.
+
+### En el navegador
+
+- **Cero scripts en línea** y **cero scripts de terceros**. GSAP y Lenis se sirven desde
+  el propio dominio, así que la política de seguridad puede mantener `script-src 'self'`
+  sin excepciones.
+- **Cero iframes.**
+- Sin `eval`, sin `new Function`, sin `document.write`.
+- **Sin cookies, sin `localStorage`, sin `sessionStorage`.** El sitio no guarda nada en el
+  navegador de quien lo visita.
+- Los 51 enlaces externos de la página de prensa llevan `rel="noopener"`.
+
+### Inyección en el buscador — probado, no teórico
+
+Se intentó inyectar código de dos maneras: escribiéndolo en el campo, y armando una
+dirección con el ataque en el parámetro `?q=`, que es el vector realista porque se puede
+enviar por mensaje. En ambos casos el contenido se escapa y se muestra como texto. **No
+ejecuta nada.**
+
+### Cabeceras
+
+`vercel.json` aplica a todas las rutas:
+
+```
+Content-Security-Policy      default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';
+                             img-src 'self' data: https://i.ytimg.com; connect-src 'self';
+                             object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+Strict-Transport-Security    max-age=31536000; includeSubDomains; preload
+X-Frame-Options              DENY
+X-Content-Type-Options       nosniff
+Referrer-Policy              strict-origin-when-cross-origin
+Permissions-Policy           geolocation=(), microphone=(), camera=(), payment=()
+```
+
+La misma política está declarada en un `<meta>` de cada página, salvo `frame-ancestors`,
+que los navegadores ignoran en un `meta` y sólo respetan como cabecera. **La diferencia es
+correcta, no un descuido.**
+
+`style-src` admite `'unsafe-inline'` porque algunas animaciones escriben estilos en
+caliente. Es la única concesión y no permite ejecutar código.
+
+### Dependencias
+
+`npm audit` → **0 vulnerabilidades**. La alerta moderada anterior venía de una dependencia
+transitiva de `shadcn`, herramienta de desarrollo que no corre en producción, y se cerró
+actualizando `package-lock.json`.
+
+### Integridad del sitio
+
+Sobre las 112 páginas: **0** etiquetas desbalanceadas, **0** imágenes inexistentes, **0**
+enlaces internos rotos, **0** imágenes sin texto alternativo y **0** medidas declaradas que
+no coincidan con el archivo real.
+
+---
+
+## 3. Datos personales
+
+| Qué se recoge | Dónde va | Base |
+|---|---|---|
+| Nombre, correo y mensaje | Resend → casilla de destino | Consentimiento al enviar |
+| Nombre y teléfono (previo a WhatsApp) | Resend → casilla de destino | Consentimiento al enviar |
+| IP de quien envía | Sólo en memoria, para el límite de envíos | Interés legítimo |
+
+No hay analítica, ni píxeles de seguimiento, ni perfiles publicitarios. La política de
+privacidad publicada lo declara así y **coincide con lo que hace el código**, con la única
+salvedad del hallazgo H6.
+
+Las miniaturas de YouTube se cargan desde servidores de Google, lo que transfiere la
+dirección IP del visitante a Google. Está declarado en la política.
+
+---
+
+## 4. Gobernanza del repositorio
+
+- La rama `main` **tiene una regla que exige pull request**, pero el usuario que publica
+  puede saltearla. Cada push lo informa: `Bypassed rule violations for refs/heads/main`.
+  Funciona, pero queda registrado cada vez. Decidir si se quiere trabajar con ramas o
+  quitar la regla.
+- **Dependabot está activo** y no reporta alertas abiertas.
+- El repositorio es **público**. Correcto para un sitio de marketing, con la salvedad de H1.
+
+---
+
+## 5. Qué hacer, en orden
+
+| | Acción | Quién | Estado |
+|---|---|---|---|
+| 1 | Sacar `docs/` del despliegue | — | hecho |
+| 2 | Escapar los datos del feed de YouTube | — | hecho |
+| 3 | Verificar que `/docs/` responda 404 tras el despliegue | vos | pendiente |
+| 4 | Apuntar el dominio a Vercel y verificarlo en Resend | vos | pendiente |
+| 5 | Mover el destino de los formularios a la casilla del estudio | — | espera el 4 |
+| 6 | Decidir si el repositorio sigue público | vos | pendiente |
+| 7 | Contador de envíos compartido | — | sólo si aparece spam |
+
+---
+
+## 6. Revisión periódica
+
+| Cada | Qué mirar |
+|---|---|
+| Al agregar una función de servidor | Que valide tipos, tope de longitud y escape antes de armar HTML o correo |
+| Al mostrar datos que vengan de afuera | Escapar y validar el origen de las direcciones, como se hizo en H2 |
+| Mensual | `npm audit` y la pestaña Security de GitHub |
+| Al tocar el DNS | **No modificar los registros MX**: el correo del estudio vive en Google Workspace y se cae si se pierden |

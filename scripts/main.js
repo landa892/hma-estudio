@@ -365,16 +365,42 @@ try {
         const videos = data.videos || [];
         if (!videos.length) return;
 
-        const fmt = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
-        feedEl.innerHTML = videos.map(v => `
-          <a class="press-card" href="${v.url}" target="_blank" rel="noopener">
-            <div class="press-img"><img src="${v.thumbnail}" alt="${v.title.replace(/"/g, '&quot;')}" loading="lazy" decoding="async"></div>
+        const fmt = new Intl.DateTimeFormat(HMA_EN ? 'en-GB' : 'es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        /* Este es el unico lugar del sitio donde un dato de afuera —el titulo
+           que devuelve la API de YouTube— termina dentro del HTML. Se escapa,
+           y de las direcciones solo se aceptan las de YouTube: si manana la
+           respuesta trae otra cosa, la tarjeta se descarta en vez de escribir
+           en la pagina lo que venga. */
+        const esc = (t) => String(t == null ? '' : t)
+          .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+        const urlSegura = (u, dominios) => {
+          try {
+            const x = new URL(u, location.origin);
+            return x.protocol === 'https:' && dominios.some(d => x.hostname === d || x.hostname.endsWith('.' + d))
+              ? x.href : null;
+          } catch (e) { return null; }
+        };
+
+        const tarjetas = videos.map(v => {
+          const url = urlSegura(v.url, ['youtube.com', 'youtu.be']);
+          const img = urlSegura(v.thumbnail, ['ytimg.com', 'ggpht.com']);
+          if (!url || !img) return '';
+          const titulo = esc(v.title);
+          const fecha = v.published ? esc(fmt.format(new Date(v.published))) : '';
+          return `
+          <a class="press-card" href="${esc(url)}" target="_blank" rel="noopener">
+            <div class="press-img"><img src="${esc(img)}" alt="${titulo}" loading="lazy" decoding="async"></div>
             <div class="press-body">
-              <div class="press-outlet">YouTube — ${v.published ? fmt.format(new Date(v.published)) : ''}</div>
-              <div class="press-title">${v.title}</div>
+              <div class="press-outlet">YouTube${fecha ? ' — ' + fecha : ''}</div>
+              <div class="press-title">${titulo}</div>
             </div>
-          </a>
-        `).join('');
+          </a>`;
+        }).filter(Boolean);
+
+        if (!tarjetas.length) return;
+        feedEl.innerHTML = tarjetas.join('');
         updatesSection.hidden = false;
       })
       .catch(e => console.error('youtube-feed', e));
