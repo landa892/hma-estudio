@@ -1,0 +1,19 @@
+# Nada de esto es parte del sitio: son notas y herramientas de trabajo que
+# hasta ahora se publicaban junto con las paginas, porque Vercel sirve todo lo
+# que hay en el repositorio.
+#
+# El caso mas claro era docs/AUDITORIA-SEGURIDAD.md, que quedaba accesible en
+# estudiohma.com/docs/ y describe con nombre y apellido los puntos flojos del
+# proyecto y de la maquina desde la que se trabaja. robots.txt pedia no
+# indexarlo, pero eso no impide que alguien lo abra: solo evita que Google lo
+# muestre.
+docs/
+
+# El generador del espejo en ingles y sus diccionarios viven en docs/, asi que
+# ya quedan fuera por la linea de arriba. Se siguen versionando en git, que es
+# donde tienen que estar.
+
+node_modules/
+package.json
+package-lock.json
+.gitignore

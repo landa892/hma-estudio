@@ -2,3 +2,10 @@ node_modules/
 .agents/
 .claude/skills/
 skills-lock.json
+
+# Nunca deben entrar al repositorio: hoy no hay ninguno, y esto es para que
+# siga siendo asi. Las claves van en las variables de entorno de Vercel.
+.env
+.env.*
+*.pem
+*.key

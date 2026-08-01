@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /docs/
 
 Sitemap: https://estudiohma.com/sitemap.xml
