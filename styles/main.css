@@ -2143,11 +2143,13 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* Una foto no se muestra mas grande que su archivo. Esta mide 444 px de
-   ancho, asi que ese es su tope y al lado va una frase que ocupa el resto. */
+   ancho, asi que ese es su tope y la frase ocupa el resto. La foto va a la
+   derecha: el bloque de arriba la tiene a la izquierda, y asi la pagina
+   alterna en vez de bajar siempre por el mismo carril. */
 .estudio-nota {
   margin-top: 44px;
   display: grid;
-  grid-template-columns: minmax(0, 444px) 1fr;
+  grid-template-columns: 1fr minmax(0, 444px);
   gap: 36px;
   align-items: center;
 }
