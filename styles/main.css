@@ -1982,3 +1982,80 @@ html.lenis, html.lenis body { height: auto; }
 .office-tels { margin-top: 10px; }
 .office-tels a { color: inherit; transition: opacity .15s ease; }
 .office-tels a:hover { opacity: .6; }
+
+
+/* ---------- PRENSA Y NOVEDADES, A DOS COLUMNAS ----------
+   El estudio pidio partir la pagina al medio: lo que publican otros sobre
+   ellos de un lado, lo que ellos hacen —charlas, clases, entrevistas— del
+   otro. Cada columna crece por su cuenta. */
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+@media (max-width: 1000px) { .dos-columnas { grid-template-columns: 1fr; gap: 40px; } }
+
+.col-medios { min-width: 0; }
+
+/* Tres tarjetas por fila dentro de media pantalla, en vez de las seis que
+   ocupaban el ancho completo. */
+.press-featured--col { grid-template-columns: repeat(3, 1fr); margin-bottom: 22px; }
+
+@media (max-width: 640px) { .press-featured--col { grid-template-columns: repeat(2, 1fr); } }
+
+.col-sub {
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 700;
+  margin: 28px 0 12px;
+}
+
+.col-medios .mt-32 { margin-top: 40px; }
+
+/* En media pantalla la fila de tres columnas no entra: fecha arriba, titulo
+   debajo y el medio al pie, mas compacto, que es lo que pidio el estudio
+   cuando dijo que habia demasiada distancia entre una cosa y la otra. */
+.press-feed--col .press-row,
+.col-medios .timeline-row {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 12px 0;
+}
+
+.press-feed--col .pr-date,
+.col-medios .tl-year { font-size: .7rem; letter-spacing: .06em; }
+
+.press-feed--col .pr-text { font-size: .9rem; line-height: 1.45; }
+.press-feed--col .pr-outlet { font-size: .74rem; white-space: normal; }
+.col-medios .tl-text { font-size: .9rem; line-height: 1.45; }
+
+
+/* ---------- MIEMBROS DE ----------
+   Cierra la pagina de estudio. Van los nombres mientras no lleguen los sellos
+   que pidio el cliente: los logos los tiene Victoria. Cuando esten, cada li
+   suma su <img> y el texto pasa a ser el pie. */
+.asociaciones {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.asociaciones li {
+  background: var(--white);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aso-nombre { font-weight: 700; font-size: 1.05rem; }
+.aso-detalle { font-size: .84rem; color: var(--gray); line-height: 1.45; }
