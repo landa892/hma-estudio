@@ -862,14 +862,22 @@ footer.site-footer {
   display: flex;
   align-items: center;
   background: var(--white);
-  padding: 56px;
+  padding: 56px 6%;
 }
 
+/* El texto tenia un tope de 40 caracteres por linea y quedaba como una
+   columnita angosta en el medio de media pantalla. Las memorias de obra son
+   largas: se les da hasta 56 y el bloque crece con el ancho disponible, para
+   que el parrafo llene su mitad en vez de flotar. */
 .project-row__text p {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  max-width: 40ch;
+  font-size: clamp(1.02rem, 1.15vw, 1.2rem);
+  line-height: 1.62;
+  max-width: 56ch;
 }
+
+/* Cuando la memoria es larga, el texto manda sobre la altura de la fila y
+   conviene achicarlo un punto antes que dejar que empuje la foto. */
+.project-row__text p.es-larga { font-size: clamp(.95rem, 1.02vw, 1.06rem); line-height: 1.58; }
 
 @media (max-width: 760px) {
   .project-row, .project-row--reverse { grid-template-columns: 1fr; }
@@ -1481,7 +1489,9 @@ footer.site-footer {
 
 .footer-top {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* Dos columnas desde que salio "Navegacion", que repetia el menu principal:
+     contacto a la izquierda y redes a la derecha, como pidio el estudio. */
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   padding: 56px 32px 40px;
 }
@@ -1684,15 +1694,19 @@ footer.site-footer {
 
 /* ---------- GALERIA COMPLETA DEL PROYECTO ---------- */
 
+/* Seis columnas en vez de tres: el estudio pidio las fotos "a la mitad, por
+   lo menos", para que la galeria muestre mas de una vez. Con la mitad de
+   ancho entra el doble de material en la misma altura de pantalla. */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 2px;
   margin-top: 28px;
 }
 
-@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1200px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 520px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .gallery-grid__item { margin: 0; overflow: hidden; aspect-ratio: 4/3; }
 
@@ -1960,3 +1974,11 @@ html.lenis, html.lenis body { height: auto; }
 .press-row[hidden],
 .award-row[hidden],
 .award-year-block[hidden] { display: none !important; }
+
+
+/* Los dos telefonos del estudio, juntos bajo la unica oficina. Miami dejo de
+   figurar como sede: quedo el numero, que es lo unico que el estudio quiere
+   mantener de ahi. */
+.office-tels { margin-top: 10px; }
+.office-tels a { color: inherit; transition: opacity .15s ease; }
+.office-tels a:hover { opacity: .6; }
