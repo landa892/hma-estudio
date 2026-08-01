@@ -2142,8 +2142,30 @@ html.lenis, html.lenis body { height: auto; }
   .work-split--reverse .work-split__photo { order: 0; }
 }
 
-.banda-foto { margin: 40px 0 0; }
-.banda-foto img { width: 100%; height: auto; display: block; }
+/* Una foto no se muestra mas grande que su archivo. Esta mide 444 px de
+   ancho, asi que ese es su tope y al lado va una frase que ocupa el resto. */
+.estudio-nota {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 444px) 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.estudio-nota__foto { margin: 0; }
+.estudio-nota__foto img { width: 100%; height: auto; display: block; }
+
+.estudio-nota__texto {
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--gray-dark);
+  max-width: 34ch;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .estudio-nota { grid-template-columns: 1fr; gap: 20px; }
+}
 
 
 /* ---------- PIE: LOGO Y REDES ---------- */
@@ -2200,3 +2222,8 @@ html.lenis, html.lenis body { height: auto; }
   .socios-texto { grid-template-columns: 1fr; gap: 16px; }
   .socios-texto > .eyebrow, .socios-texto > h2, .socios-texto > p { grid-column: 1; }
 }
+
+
+/* Corte dentro de una columna: cuando arranca un tema nuevo debajo del
+   anterior, como los videos debajo de las notas de prensa. */
+.col-corte { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--line); }
