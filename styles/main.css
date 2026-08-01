@@ -2149,11 +2149,11 @@ html.lenis, html.lenis body { height: auto; }
 .estudio-nota {
   margin-top: 44px;
   display: grid;
-  /* Las dos columnas se miden por su contenido y arrancan pegadas al margen
-     izquierdo. Con 1fr la de texto estiraba hasta el borde y dejaba casi mil
-     pixeles de nada entre la frase y la foto. */
+  /* Las dos columnas se miden por su contenido y el par va centrado, con el
+     mismo aire de los dos lados. Con 1fr la de texto estiraba hasta el borde
+     y dejaba casi mil pixeles de nada entre la frase y la foto. */
   grid-template-columns: minmax(0, 24rem) minmax(0, 444px);
-  justify-content: start;
+  justify-content: center;
   gap: 48px;
   align-items: center;
 }
