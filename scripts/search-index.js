@@ -11,7 +11,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Aire Libre",
   "sub": "Gastronómico",
-  "desc": "Restaurante · Av. del Libertador y Blanco Encalada, Buenos Aires",
+  "desc": "Restaurante · Av. del Libertador y Blanco Encalada, Buenos Aires · 2024",
   "url": "/proyectos/aire-libre/",
   "img": "/assets/gallery/aire-libre/1.webp"
  },
@@ -35,7 +35,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Atelier Vilela",
   "sub": "Residencial",
-  "desc": "Atelier, artes y oficios · Vilela 2793, Buenos Aires · 60 m² cubiertos y 55 m² descubiertos",
+  "desc": "Atelier, artes y oficios · Vilela 2793, Buenos Aires · 60 m² cubiertos y 55 m² descubiertos · 2013–2014",
   "url": "/proyectos/atelier-vilela/",
   "img": "/assets/gallery/atelier-vilela/1.webp"
  },
@@ -83,7 +83,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Cervecería Austral",
   "sub": "Gastronómico",
-  "desc": "Restaurante & bar · Santiago de Chile · 598 m²",
+  "desc": "Restaurante & bar · Santiago de Chile · 598 m² · 2026",
   "url": "/proyectos/cerveceria-austral/",
   "img": "/assets/gallery/cerveceria-austral/1.webp"
  },
@@ -91,7 +91,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Cien",
   "sub": "Gastronómico",
-  "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores",
+  "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores · 2023",
   "url": "/proyectos/cien/",
   "img": "/assets/gallery/cien/1.webp"
  },
@@ -123,7 +123,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Fogón",
   "sub": "Gastronómico",
-  "desc": "Restaurante · Saedan Mall, Riad · 265 m²",
+  "desc": "Restaurante · Saedan Mall, Riad · 265 m² · 2019",
   "url": "/proyectos/fogon/",
   "img": "/assets/gallery/fogon/1.webp"
  },
@@ -131,7 +131,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Fresco",
   "sub": "Gastronómico",
-  "desc": "Restaurante · Honduras 5670, Palermo, Buenos Aires · 312 m²",
+  "desc": "Restaurante · Honduras 5670, Palermo, Buenos Aires · 312 m² · 2019",
   "url": "/proyectos/fresco/",
   "img": "/assets/gallery/fresco/1.webp"
  },
@@ -139,7 +139,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Goodsten",
   "sub": "Gastronómico",
-  "desc": "Cremería · Av. del Libertador, Martínez, Buenos Aires · 330 m²",
+  "desc": "Cremería · Av. del Libertador, Martínez, Buenos Aires · 330 m² · 2017",
   "url": "/proyectos/goodsten/",
   "img": "/assets/gallery/goodsten/1.webp"
  },
@@ -147,7 +147,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Hausscape",
   "sub": "Hotelería & Comercial",
-  "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m²",
+  "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m² · 2022",
   "url": "/proyectos/hausscape/",
   "img": "/assets/gallery/hausscape/1.webp"
  },
@@ -155,7 +155,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Hyatt · Ziva",
   "sub": "Hotelería & Comercial",
-  "desc": "Hotel · Barbados · 50.000 m²",
+  "desc": "Hotel · Barbados · 50.000 m² · 2026",
   "url": "/proyectos/hyatt-ziva/",
   "img": "/assets/gallery/hyatt-ziva/2.webp"
  },
@@ -195,7 +195,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Kavak Hub",
   "sub": "Hotelería & Comercial",
-  "desc": "Hub comercial y oficinas · Shopping Dot Baires, Buenos Aires · 300 m² cubiertos y 15.000 m² de playa de estacionamiento",
+  "desc": "Hub comercial y oficinas · Shopping Dot Baires, Buenos Aires · 300 m² cubiertos y 15.000 m² de playa de estacionamiento · 2020",
   "url": "/proyectos/kavak-hub/",
   "img": "/assets/gallery/kavak-hub/1.webp"
  },
@@ -227,7 +227,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Mamba",
   "sub": "Gastronómico",
-  "desc": "Restaurante y bar · Soler 5130, Palermo, Buenos Aires · 265 m²",
+  "desc": "Restaurante y bar · Soler 5130, Palermo, Buenos Aires · 265 m² · 2018",
   "url": "/proyectos/mamba-bar/",
   "img": "/assets/gallery/mamba-bar/1.webp"
  },
@@ -235,7 +235,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Manduca",
   "sub": "Hotelería & Comercial",
-  "desc": "Mercado · Paseo La Plaza · Buenos Aires · 1.525 m²",
+  "desc": "Mercado · Paseo La Plaza · Buenos Aires · 1.525 m² · 2022",
   "url": "/proyectos/manduca/",
   "img": "/assets/gallery/manduca/3.webp"
  },
@@ -243,7 +243,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Moshu",
   "sub": "Gastronómico",
-  "desc": "Restaurante & pastelería · Buenos Aires · 330 m²",
+  "desc": "Restaurante & pastelería · Buenos Aires · 330 m² · 2020",
   "url": "/proyectos/moshu/",
   "img": "/assets/gallery/moshu/3.webp"
  },
@@ -251,7 +251,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Movistar Arena",
   "sub": "Hotelería & Comercial",
-  "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m²",
+  "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/proyectos/movistar-arena/",
   "img": "/assets/gallery/movistar-arena/2.webp"
  },
@@ -275,7 +275,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Osten",
   "sub": "Gastronómico",
-  "desc": "Bar de cocktails · Puerto Madero · 460 m²",
+  "desc": "Bar de cocktails · Puerto Madero · 460 m² · 2022",
   "url": "/proyectos/osten/",
   "img": "/assets/gallery/osten/2.webp"
  },
@@ -291,7 +291,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Osten Tower",
   "sub": "Residencial",
-  "desc": "Edificio residencial — en proceso · Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires · Lobby 240 m² y rooftop 710 m²",
+  "desc": "Edificio residencial — en proceso · Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires · Lobby 240 m² y rooftop 710 m² · 2027",
   "url": "/proyectos/osten-tower/",
   "img": "/assets/gallery/osten-tower/1.webp"
  },
@@ -307,7 +307,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "People",
   "sub": "Residencial",
-  "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m²",
+  "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m² · 2025",
   "url": "/proyectos/people/",
   "img": "/assets/gallery/people/1.webp"
  },
@@ -347,7 +347,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Ualá",
   "sub": "Oficinas",
-  "desc": "Reforma de oficinas · Buenos Aires",
+  "desc": "Reforma de oficinas · Buenos Aires · 2017",
   "url": "/proyectos/uala-office/",
   "img": "/assets/gallery/uala-office/1.webp"
  },
@@ -371,7 +371,7 @@ window.HMA_SEARCH_INDEX = [
   "tipo": "Proyecto",
   "titulo": "Williamsburg",
   "sub": "Gastronómico",
-  "desc": "Restaurante exterior · Av. del Libertador 3883, Arco 1, Buenos Aires · 54 m²",
+  "desc": "Restaurante exterior · Av. del Libertador 3883, Arco 1, Buenos Aires · 54 m² · 2020",
   "url": "/proyectos/williamsburg/",
   "img": "/assets/gallery/williamsburg/1.webp"
  },
