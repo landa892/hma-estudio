@@ -1519,16 +1519,18 @@ footer.site-footer {
 
 /* ---------- FOOTER AMPLIADO ---------- */
 
+/* Tres columnas: contacto a la izquierda, el logo al medio y las redes en
+   iconos a la derecha. El estudio pidio "un zocalo mucho mas chico", asi que
+   ademas baja el aire de arriba y de abajo. */
 .footer-top {
   display: grid;
-  /* Dos columnas desde que salio "Navegacion", que repetia el menu principal:
-     contacto a la izquierda y redes a la derecha, como pidio el estudio. */
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr auto 1fr;
   gap: 40px;
-  padding: 56px 32px 40px;
+  align-items: center;
+  padding: 34px 32px 26px;
 }
 
-@media (max-width: 760px) { .footer-top { grid-template-columns: 1fr; gap: 28px; padding: 40px 20px 28px; } }
+@media (max-width: 860px) { .footer-top { grid-template-columns: 1fr; gap: 24px; padding: 32px 20px 24px; text-align: left; } }
 
 .footer-col { display: flex; flex-direction: column; gap: 8px; }
 
@@ -2125,3 +2127,32 @@ html.lenis, html.lenis body { height: auto; }
 
 .banda-foto { margin: 40px 0 0; }
 .banda-foto img { width: 100%; height: auto; display: block; }
+
+
+/* ---------- PIE: LOGO Y REDES ---------- */
+.footer-marca { display: flex; justify-content: center; }
+.footer-marca img { height: 26px; width: auto; opacity: .9; }
+
+@media (max-width: 860px) { .footer-marca { justify-content: flex-start; } }
+
+/* Los telefonos van debajo de la direccion, el de Estados Unidos debajo del
+   de Argentina. Sin rotulo de ciudad: el estudio pidio que Miami no figure
+   como sede, solo el numero. */
+.footer-col a[href^="tel:"] { color: rgba(255,255,255,.85); }
+
+.footer-col--redes { align-items: flex-end; }
+
+@media (max-width: 860px) { .footer-col--redes { align-items: flex-start; } }
+
+.social-icons--pie { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2px; }
+
+.social-icons--pie a {
+  width: 20px;
+  height: 20px;
+  color: var(--white);
+  opacity: .8;
+  transition: opacity .15s ease;
+}
+
+.social-icons--pie a:hover { opacity: 1; }
+.social-icons--pie svg { width: 100%; height: 100%; display: block; }
