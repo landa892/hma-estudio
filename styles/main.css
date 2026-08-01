@@ -2149,8 +2149,12 @@ html.lenis, html.lenis body { height: auto; }
 .estudio-nota {
   margin-top: 44px;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 444px);
-  gap: 36px;
+  /* Las dos columnas se miden por su contenido y arrancan pegadas al margen
+     izquierdo. Con 1fr la de texto estiraba hasta el borde y dejaba casi mil
+     pixeles de nada entre la frase y la foto. */
+  grid-template-columns: minmax(0, 24rem) minmax(0, 444px);
+  justify-content: start;
+  gap: 48px;
   align-items: center;
 }
 
