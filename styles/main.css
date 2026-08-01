@@ -1081,7 +1081,7 @@ footer.site-footer {
 
 .contact-form input, .contact-form textarea {
   width: 100%; background: transparent; border: none; border-bottom: 1.5px solid var(--black);
-  padding: 8px 0; font-family: Arial, Helvetica, sans-serif; font-size: .98rem; color: var(--black); resize: vertical;
+  padding: 8px 0; font-family: inherit; font-size: .98rem; color: var(--black); resize: vertical;
 }
 
 .contact-form input:focus, .contact-form textarea:focus { outline: none; }
@@ -2036,8 +2036,8 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- MIEMBROS DE ----------
    Cierra la pagina de estudio. Van los nombres mientras no lleguen los sellos
-   que pidio el cliente: los logos los tiene Victoria. Cuando esten, cada li
-   suma su <img> y el texto pasa a ser el pie. */
+   que pidio el cliente: los logos los tiene Victoria. Cuando lleguen, cada
+   fila suma su logo arriba y el texto pasa a ser el pie. */
 .asociaciones {
   list-style: none;
   margin: 24px 0 0;
