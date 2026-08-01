@@ -723,6 +723,38 @@ footer.site-footer {
 
 .view-toggle button.active { color: var(--black); border-color: var(--black); }
 
+/* Obras y proyectos. El estudio los nombra distinto —"obra" es lo
+   construido, "proyecto" es un concurso o algo todavia en curso— y hasta
+   ahora el sitio los mezclaba. Va al lado del conmutador de vista, separado
+   por una linea, porque filtra otra cosa que las categorias de la izquierda. */
+.filtros-derecha {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.estado-toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-right: 18px;
+  border-right: 1px solid var(--line);
+}
+
+.estado-toggle button {
+  background: none; border: none; cursor: pointer;
+  font-size: .78rem; font-weight: 700; text-transform: uppercase;
+  color: var(--gray); padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.estado-toggle button.active { color: var(--black); border-color: var(--black); }
+
+@media (max-width: 640px) {
+  .estado-toggle { padding-right: 0; border-right: 0; }
+}
+
 .project-grid {
   display: none;
   grid-template-columns: repeat(3, 1fr);
@@ -2059,3 +2091,37 @@ html.lenis, html.lenis body { height: auto; }
 
 .aso-nombre { font-weight: 700; font-size: 1.05rem; }
 .aso-detalle { font-size: .84rem; color: var(--gray); line-height: 1.45; }
+
+
+/* ---------- ESTUDIO: TEXTO EMPAREJADO CON LA FOTO ----------
+   Los pilares y los pasos dejaron la grilla de tarjetas y pasan a leerse al
+   lado de la imagen, en parrafos separados. El pedido fue literal: que no
+   quedara "un todo entero" sino agrupado en parrafitos, y que cada foto
+   tuviera su texto al lado en vez de bandas sueltas sin leer. */
+.work-split__text .bloque-texto + .bloque-texto { margin-top: 26px; }
+
+.work-split__text .bloque-texto h4 {
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.work-split__text .bloque-texto p {
+  font-size: .98rem;
+  line-height: 1.6;
+  color: var(--gray-dark);
+  margin: 0;
+}
+
+/* Alterna el lado: una seccion con la foto a la izquierda y la siguiente a la
+   derecha, para que la pagina no baje siempre por el mismo carril. */
+.work-split--reverse .work-split__photo { order: 2; }
+
+@media (max-width: 760px) {
+  .work-split--reverse .work-split__photo { order: 0; }
+}
+
+.banda-foto { margin: 40px 0 0; }
+.banda-foto img { width: 100%; height: auto; display: block; }

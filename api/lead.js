@@ -2,8 +2,23 @@
 // telefono), para que el estudio pueda contactarla aunque nunca llegue a
 // escribir el mensaje.
 //
-// TEMPORAL: mismo destino que el formulario de contacto mientras el dominio
-// estudiohma.com no este verificado en Resend.
+// A donde va lo que manda el formulario.
+//
+// El destino definitivo es hitzig.militello@gmail.com, que pidio el cliente.
+// Todavia no esta activo, y por dos razones distintas:
+//
+//   1. La cuenta todavia no es del estudio. Hasta que no la creen, esa
+//      direccion puede ser de cualquiera, y ahi irian a parar las consultas
+//      de gente real.
+//   2. Aunque se activara, no llegaria: mientras el dominio estudiohma.com no
+//      este verificado en Resend, se envia desde el sandbox
+//      (onboarding@resend.dev), que solo entrega a la casilla dueña de la
+//      cuenta de Resend. Cualquier otro destino se descarta en silencio.
+//
+// Asi que hasta que existan la cuenta y el dominio verificado, sigue yendo a
+// la casilla que hoy funciona. Cambiar TO_EMAIL por DESTINO_FINAL es todo lo
+// que hay que hacer el dia que esten las dos cosas.
+const DESTINO_FINAL = "hitzig.militello@gmail.com";
 const TO_EMAIL = "nacholanda08@gmail.com";
 const FROM_EMAIL = "HMA Web <onboarding@resend.dev>";
 

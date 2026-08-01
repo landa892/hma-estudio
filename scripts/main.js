@@ -189,21 +189,51 @@ try {
      misma clase .filter-btn, y sin acotar este bloque les sacaba el estado
      activo al filtrar por categoria. */
   const filterBtns = document.querySelectorAll('#filters .filter-btn');
+  const estadoBtns = document.querySelectorAll('#estadoToggle button');
   if (filterBtns.length) {
+    /* Dos filtros que se combinan, no uno que pisa al otro: el estudio
+       distingue "obras" —construidas— de "proyectos" —concursos y obra en
+       curso—, y eso es independiente del programa. Elegir Gastronómico y
+       Obras tiene que dejar las gastronómicas construidas, no una u otra
+       cosa. Por eso se aplican juntos en una sola pasada. */
+    let cat = 'all';
+    let estado = 'all';
+
+    const aplicar = () => {
+      document.querySelectorAll('[data-cat]').forEach(c => {
+        const fueraDeCat = cat !== 'all' && c.dataset.cat !== cat;
+        const fueraDeEstado = estado !== 'all' && c.dataset.estado !== estado;
+        c.classList.toggle('hidden', fueraDeCat || fueraDeEstado);
+      });
+    };
+
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const f = btn.dataset.filter;
-        document.querySelectorAll('[data-cat]').forEach(c => {
-          c.classList.toggle('hidden', f !== 'all' && c.dataset.cat !== f);
-        });
+        cat = btn.dataset.filter;
+        aplicar();
       });
     });
+
+    estadoBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        estadoBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        estado = btn.dataset.estadoFiltro;
+        aplicar();
+      });
+    });
+
     const params = new URLSearchParams(window.location.search);
-    const cat = params.get('cat');
-    if (cat) {
-      const btn = document.querySelector(`#filters .filter-btn[data-filter="${CSS.escape(cat)}"]`);
+    const catParam = params.get('cat');
+    if (catParam) {
+      const btn = document.querySelector(`#filters .filter-btn[data-filter="${CSS.escape(catParam)}"]`);
+      if (btn) btn.click();
+    }
+    const estadoParam = params.get('estado');
+    if (estadoParam) {
+      const btn = document.querySelector(`#estadoToggle button[data-estado-filtro="${CSS.escape(estadoParam)}"]`);
       if (btn) btn.click();
     }
     const q = (params.get('q') || '').trim().toLowerCase();
