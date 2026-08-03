@@ -2021,6 +2021,35 @@ html.lenis, html.lenis body { height: auto; }
   margin-top: 22px;
 }
 
+/* --- memoria descriptiva de la obra -------------------------------------
+   El texto lo escribio el estudio y son ocho o nueve parrafos: se muestran
+   los dos primeros y el resto queda plegado, con el mismo boton que usan
+   las galerias y la prensa. La columna se corta en 62 caracteres, que es
+   el ancho donde el ojo no pierde el renglon al volver. */
+.project-memoria {
+  padding: 0 0 clamp(48px, 7vw, 96px);
+}
+
+.memoria-cuerpo > p {
+  /* 55ch da unos 66 caracteres por renglon, dentro del rango donde el ojo
+     no pierde la linea al volver. Con 62ch se iban a 74, ya al limite. */
+  max-width: 55ch;
+  margin: 0 0 1.15em;
+  font-size: clamp(1rem, .4vw + .95rem, 1.1rem);
+  line-height: 1.72;
+  color: #4a4a4a;   /* el mismo gris que usa .lede */
+}
+
+/* Del tercer parrafo en adelante, solo con la memoria abierta. */
+.memoria-cuerpo > p:nth-of-type(n+3) { display: none; }
+.memoria-cuerpo.is-open > p:nth-of-type(n+3) { display: block; }
+
+.memoria-cuerpo:not(.is-open) > p:nth-of-type(2) {
+  /* Desvanecido al pie del corte: avisa que el texto sigue. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
 /* El filtro de prensa marca las filas con el atributo hidden, pero .press-row
    declara display: grid, y una regla de display explicita le gana al
    comportamiento por defecto de hidden: las filas seguian todas a la vista

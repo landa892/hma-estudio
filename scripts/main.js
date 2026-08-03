@@ -679,7 +679,8 @@ try {
     const grid = btn.previousElementSibling;
     if (!grid) return;
     const esGaleria = grid.classList.contains('gallery-grid');
-    if (!esGaleria && !grid.classList.contains('press-featured')) return;
+    if (!esGaleria && !grid.classList.contains('press-featured')
+        && !grid.classList.contains('memoria-cuerpo')) return;
 
     const rotuloMas = btn.dataset.mas ||
       T('Ver las ' + btn.dataset.total + ' fotos', 'See all ' + btn.dataset.total + ' photos');

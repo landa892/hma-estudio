@@ -119,6 +119,60 @@ def ruta_de(p):
     return r.replace('/index.html', '/') if r.endswith('index.html') else r
 
 
+# La memoria descriptiva no se traduce palabra por palabra: el estudio la
+# escribio en los dos idiomas por separado, y los parrafos no se
+# corresponden uno a uno. Asi que el bloque entero se reemplaza por la
+# version inglesa cuando existe. Las obras que no tienen memoria inglesa
+# pierden el bloque en el espejo: es preferible a dejar castellano en una
+# pagina en ingles, y quedan listadas al final para que el estudio las mande.
+MEMORIAS_EN = {}
+_ruta_mem = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'en_memorias.json')
+if os.path.isfile(_ruta_mem):
+    import json as _json
+    MEMORIAS_EN = _json.load(io.open(_ruta_mem, encoding='utf-8'))
+
+sin_memoria_en = []
+BLOQUE_MEM = re.compile(
+    r'(?s)\n    <section class="project-memoria">.*?\n    </section>\n')
+
+
+MARCA_MEM = '<!--MEMORIA-EN-->'
+
+
+def sacar_memoria(html_es):
+    """Deja un marcador en lugar de la memoria, antes de traducir.
+
+    Si el bloque llegara al traductor, sus parrafos apareceerian en el
+    reporte de faltantes aunque despues se descarten.
+    """
+    return BLOQUE_MEM.sub('\n' + MARCA_MEM + '\n', html_es, count=1)
+
+
+def poner_memoria_en(html_en, ruta_archivo):
+    if MARCA_MEM not in html_en:
+        return html_en
+    partes = ruta_archivo.replace(chr(92), '/').split('/')
+    slug = partes[1] if len(partes) > 2 and partes[0] == 'proyectos' else ''
+    parrafos = MEMORIAS_EN.get(slug)
+    if not parrafos:
+        sin_memoria_en.append(slug or ruta_archivo)
+        return html_en.replace('\n' + MARCA_MEM + '\n', '\n', 1)
+    plegable = len(parrafos) > 2
+    cuerpo = '\n'.join('          <p>%s</p>' % p.replace('&', '&amp;').replace('<', '&lt;')
+                       for p in parrafos)
+    boton = ''
+    if plegable:
+        boton = ('\n        <button class="btn-line gallery-more" type="button"\n'
+                 '          data-mas="Keep reading" data-menos="Read less"\n'
+                 '          aria-expanded="false">Keep reading</button>')
+    nuevo = ('\n    <section class="project-memoria">\n'
+             '      <div class="container">\n'
+             '        <div class="memoria-cuerpo%s reveal">\n%s\n        </div>%s\n'
+             '      </div>\n'
+             '    </section>\n' % ('' if plegable else ' is-open', cuerpo, boton))
+    return html_en.replace('\n' + MARCA_MEM + '\n', nuevo, 1)
+
+
 def main():
     os.chdir(ROOT)
     if os.path.isdir('en'):
@@ -135,7 +189,7 @@ def main():
         ruta_en = a_ingles(ruta_es)
 
         # --- version en ingles ---
-        en = traducir_html(sacar_boton(s))
+        en = poner_memoria_en(traducir_html(sacar_memoria(sacar_boton(s))), p)
         en = reescribir_enlaces(en)
         en = en.replace('<html lang="es"', '<html lang="en"', 1)
         en = re.sub(r'(<meta property="og:locale" content=")[^"]*(")', r'\1en_US\2', en)
@@ -173,6 +227,10 @@ def main():
             json.dumps([t for t, _ in c.most_common()], ensure_ascii=False, indent=1))
     else:
         print('sin faltantes: todo el texto visible quedo traducido')
+    if sin_memoria_en:
+        print('\nOBRAS SIN MEMORIA EN INGLES (%d) — el espejo va sin ese bloque:'
+              % len(sin_memoria_en))
+        print('  ' + ', '.join(sorted(sin_memoria_en)))
     return hechas
 
 
