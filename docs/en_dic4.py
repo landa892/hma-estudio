@@ -125,6 +125,16 @@ DIC.update({
     'Edificio del Plata — concurso de interiorismo 2024':
         'Edificio del Plata — 2024 interior design competition',
 
+    # obras enlazadas desde la lista de premios
+    'Mercado Manduca': 'Mercado Manduca',
+    'Dos casas Conde': 'Dos casas Conde',
+
+    # charlas y conferencias
+    'Espacio DAR, masterclass de Arquitectura Interior Experiencial, San Miguel de Tucumán · TENDIEZ LAB — "Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia", Buenos Aires.':
+        'Espacio DAR, masterclass on Experiential Interior Architecture, San Miguel de Tucumán · TENDIEZ LAB — "Gastronomic and Hospitality Architecture: Business, Design, Experience", Buenos Aires.',
+    'TENDIEZ LAB Mar del Plata (CAPBA 9) · TENDIEZ LAB, Universidad de Palermo · UADE FADI · Mesa redonda HOTELGA 2024, podcast Cerrame la Ocho.':
+        'TENDIEZ LAB Mar del Plata (CAPBA 9) · TENDIEZ LAB, Universidad de Palermo · UADE FADI · HOTELGA 2024 round table, Cerrame la Ocho podcast.',
+
     # filtros de la grilla de obras
     'Todas': 'All',
     'Obras': 'Built work',

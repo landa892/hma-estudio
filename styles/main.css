@@ -1483,6 +1483,27 @@ footer.site-footer {
 
 .award-row__name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
 
+/* La obra premiada va como segunda linea dentro de la misma celda, para no
+   sumar una columna a la grilla ni romper el corte de la version angosta. */
+.award-row__obra {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: .82rem;
+  color: var(--gray);
+}
+
+.award-row__obra a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(0, 0, 0, .25);
+}
+
+.award-row__obra a:hover,
+.award-row__obra a:focus-visible { color: #000; text-decoration-color: currentColor; }
+
 .award-row__res {
   font-size: .72rem;
   font-weight: 700;
