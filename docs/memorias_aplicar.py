@@ -59,6 +59,9 @@ ERRATAS = [
     ('los ladrillos muto', 'los ladrillos mutó'),
     ('nos conformo', 'nos conformó'),
     ('para al modelo', 'para el modelo'),
+    ('Se realizo una', 'Se realizó una'),
+    ('se logro una', 'se logró una'),
+    ('resulto un complejo', 'resultó un complejo'),
     ('  ', ' '),
 ]
 
