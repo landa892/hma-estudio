@@ -56,8 +56,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles/main.css?v=41">
-  <link rel="preload" as="image" href="/assets/hero-crop.webp" fetchpriority="high">
+  <link rel="stylesheet" href="/styles/main.css?v=42">
+  <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/">
@@ -139,8 +139,13 @@
            escenario queda sticky adentro: la secuencia de la portada ocurre a
            la vista mientras la pista se recorre. Ver heroAnimation.js. -->
       <div class="hero-stage">
-      <img src="/assets/hero-crop.webp" width="1254" height="1190" alt="Interior of Hyatt Ziva, Barbados" loading="eager" decoding="async"
-        fetchpriority="high">
+      <!-- El poster se ve mientras el video carga y es lo unico que queda si
+           el navegador no reproduce solo o si se pidio menos movimiento. -->
+      <video class="hero-video" poster="/assets/video/estudio-hero-poster.webp" width="1280" height="720"
+        autoplay muted loop playsinline preload="metadata"
+        aria-label="The Hitzig Militello team at work in the studio">
+        <source src="/assets/video/estudio-hero.mp4" type="video/mp4">
+      </video>
       <div class="hero-content-wrap">
         <h1 class="display-1 mt-16">Creating&nbsp;&amp; building ideas</h1>
         <p class="lede">Architecture and interior design for hotels, restaurants, offices and homes. More than two decades creating brand identities across Latin America, Europe, the Middle East and the US.</p>
@@ -366,11 +371,11 @@
   <script src="/scripts/vendor/gsap.min.js"></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js"></script>
   <script src="/scripts/vendor/lenis.min.js"></script>
-  <script src="/scripts/config/gsap.js?v=41"></script>
-  <script src="/scripts/animations/textReveal.js?v=41"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=41"></script>
-  <script src="/scripts/animations/scrollEffects.js?v=41"></script>
-  <script src="/scripts/main.js?v=41"></script>
+  <script src="/scripts/config/gsap.js?v=42"></script>
+  <script src="/scripts/animations/textReveal.js?v=42"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=42"></script>
+  <script src="/scripts/animations/scrollEffects.js?v=42"></script>
+  <script src="/scripts/main.js?v=42"></script>
 </body>
 
 </html>

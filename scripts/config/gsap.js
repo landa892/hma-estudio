@@ -30,7 +30,17 @@
   var reduced = mq.matches;
 
   root.classList.add('gsap-active');
-  if (reduced) root.classList.add('gsap-reduced');
+  if (reduced) {
+    root.classList.add('gsap-reduced');
+    /* Un video que arranca solo es movimiento igual que una animacion. Si se
+       pidio menos movimiento se frena y queda el poster, que es un cuadro
+       del mismo video. El atributo autoplay se saca para que no rearranque. */
+    Array.prototype.forEach.call(document.querySelectorAll('video[autoplay]'), function (v) {
+      v.removeAttribute('autoplay');
+      v.removeAttribute('loop');
+      v.pause();
+    });
+  }
 
   var onPrefChange = function () {
     if (mq.matches !== reduced) window.location.reload();

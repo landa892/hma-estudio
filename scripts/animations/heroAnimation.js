@@ -223,7 +223,9 @@
     var titulo = seccion.querySelector(cfg.titulo);
     var eyebrow = seccion.querySelector('.eyebrow');
     var sub = seccion.querySelector(cfg.sub);
-    var foto = seccion.querySelector('img');
+    /* En la portada el fondo pasa a ser un video; en los banners sigue siendo
+       una foto. La secuencia los trata igual: solo escala el elemento. */
+    var foto = seccion.querySelector('img, video');
     if (!bloque || !titulo) return;
     var ESCALA_PICO = cfg.pico;
 

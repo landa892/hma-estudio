@@ -505,7 +505,8 @@ footer.site-footer {
   color: var(--white);
 }
 
-.hero-home--photo img {
+.hero-home--photo img,
+.hero-home--photo .hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -516,7 +517,22 @@ footer.site-footer {
   transition: transform 1.6s cubic-bezier(.16,.6,.3,1);
 }
 
-.hero-home--photo.in img { transform: scale(1); }
+.hero-home--photo.in img,
+.hero-home--photo.in .hero-video { transform: scale(1); }
+
+/* El video del estudio es en blanco y negro y muy claro: sin este velo el
+   titulo blanco se pierde contra las paredes y las ventanas a contraluz.
+   Carga sobre el escenario y no sobre la seccion, porque con GSAP activo el
+   escenario es el que queda sticky y recorta. */
+.hero-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 34%, rgba(0,0,0,.12) 62%, rgba(0,0,0,0) 100%);
+}
 
 .hero-content-wrap {
   width: 100%;
@@ -1840,7 +1856,10 @@ footer.site-footer {
   padding: 64px 0 56px;
 }
 
-.gsap-active .hero-home--photo img { z-index: 0; }
+.gsap-active .hero-home--photo img,
+.gsap-active .hero-home--photo .hero-video { z-index: 0; }
+/* El velo queda entre el video y el texto: por encima de 0, por debajo de 1. */
+.gsap-active .hero-stage::after { z-index: 0; }
 .gsap-active .hero-content-wrap { position: relative; z-index: 1; }
 
 /* En la portada el tamaño de descanso es menor que el del resto del sitio: el
@@ -1959,6 +1978,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .gsap-reduced .hero-home--photo img,
+.gsap-reduced .hero-home--photo .hero-video,
 .gsap-reduced .project-banner img,
 .gsap-reduced .project-row__photo img {
   transform: none !important;

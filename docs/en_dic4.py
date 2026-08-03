@@ -66,6 +66,8 @@ DIC.update({
         'Fernando Hitzig and Leonardo Militello, founding partners, at the studio',
     'El equipo trabajando sobre un proyecto en el estudio':
         'The team working on a project at the studio',
+    'El equipo de Hitzig Militello trabajando en el estudio':
+        'The Hitzig Militello team at work in the studio',
 
     # sellos de asociaciones
     '04 — Miembros de': '04 — Members of',
