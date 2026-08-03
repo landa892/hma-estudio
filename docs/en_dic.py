@@ -196,8 +196,8 @@ DIC = {
         'The team working on a project on screen',
     'Arquitecto, FADU — Universidad de Buenos Aires, 2002.':
         'Architect, FADU — University of Buenos Aires, 2002.',
-    'Desde 2002 — Buenos Aires': 'Since 2002 — Buenos Aires',
-    'Desde 2002 — obra construida en': 'Since 2002 — built work in',
+    'Desde 2006 — Buenos Aires': 'Since 2006 — Buenos Aires',
+    'Desde 2006 — obra construida en': 'Since 2006 — built work in',
     'Más de': 'More than',
     'proyectos construidos en Argentina y el mundo — este es uno de ellos.':
         'projects built in Argentina and around the world — this is one of them.',
@@ -263,11 +263,13 @@ def traducir(t):
     """Devuelve la traduccion, o None si nadie la cubre."""
     if t in DIC:
         return DIC[t]
-    if pasa(t):
-        return t
+    # Los meses van ANTES de pasa(): "Junio 2023" cumple el patron de
+    # direcciones (palabras + numero) y salia intacto, en castellano.
     m = re.match(r'^(%s) (\d{4})$' % '|'.join(MESES_LARGOS), t)
     if m:
         return '%s %s' % (MESES_LARGOS[m.group(1)], m.group(2))
+    if pasa(t):
+        return t
     for pat, fn in REGLAS:
         mm = pat.match(t)
         if mm:

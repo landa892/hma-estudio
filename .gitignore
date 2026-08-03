@@ -9,3 +9,8 @@ skills-lock.json
 .env.*
 *.pem
 *.key
+
+# Basura de Python y notas de trabajo del generador del espejo.
+__pycache__/
+docs/en_faltantes.json
+.claude/
