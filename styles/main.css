@@ -891,6 +891,12 @@ footer.site-footer {
 .project-row--reverse { grid-template-columns: 1fr 1fr; }
 .project-row--reverse .project-row__photo { order: -1; }
 
+/* Fila sin texto: la foto toma el ancho completo. Se usa donde el texto que
+   acompañaba a la foto repetia palabra por palabra un parrafo de la memoria
+   descriptiva, que ahora esta arriba y completo. */
+.project-row--sola { grid-template-columns: 1fr; }
+.project-row--sola .project-row__photo { min-height: 74vh; }
+
 /* La altura de la fila la define el texto; sin un minimo, las frases cortas
    dejaban la foto muy chata. */
 .project-row__photo { overflow: hidden; min-height: 62vh; }
