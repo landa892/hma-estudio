@@ -383,7 +383,10 @@ try {
           } catch (e) { return null; }
         };
 
-        const tarjetas = videos.map(v => {
+        /* En la portada entra un solo video —la ultima novedad— y en prensa
+           entran todos. El HTML lo dice con data-max. */
+        const tope = parseInt(feedEl.dataset.max, 10);
+        const tarjetas = (tope > 0 ? videos.slice(0, tope) : videos).map(v => {
           const url = urlSegura(v.url, ['youtube.com', 'youtu.be']);
           const img = urlSegura(v.thumbnail, ['ytimg.com', 'ggpht.com']);
           if (!url || !img) return '';

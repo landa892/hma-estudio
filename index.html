@@ -56,7 +56,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles/main.css?v=51">
+  <link rel="stylesheet" href="/styles/main.css?v=53">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
@@ -167,6 +167,7 @@
           decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
+            <span class="banner-estado banner-estado--obra">Obra concluida</span>
             <h2>Osten Coffee Shop — Casa FOA</h2>
             <p>Un territorio de dualidades: minimalismo racionalista y exaltación sensorial, en Madero Harbour.</p>
           </div>
@@ -184,6 +185,7 @@
         <img src="/assets/gallery/kavak-hub/1.webp" width="2000" height="1333" alt="Kavak Hub" loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
+            <span class="banner-estado banner-estado--obra">Obra concluida</span>
             <h2>Kavak Hub</h2>
             <p>El hub de Kavak dentro del Dot Baires: showroom, oficinas y 15.000 m² de playa.</p>
           </div>
@@ -201,6 +203,7 @@
         <img src="/assets/gallery/benedetta/1.webp" width="2000" height="1458" alt="Benedetta" loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
+            <span class="banner-estado banner-estado--obra">Obra concluida</span>
             <h2>Benedetta</h2>
             <p>Un restaurante mediterráneo en Palermo, donde las olas del mar se construyen con listones de madera.</p>
           </div>
@@ -218,6 +221,7 @@
         <img src="/assets/gallery/cerveceria-austral/1.webp" width="2000" height="1334" alt="Cervecería Austral" loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
+            <span class="banner-estado banner-estado--obra">Obra concluida</span>
             <h2>Cervecería Austral</h2>
             <p>Trasladar la esencia del sur del mundo al corazón de Santiago de Chile.</p>
           </div>
@@ -230,13 +234,14 @@
         <a href="/premios/" class="interlude-btn" aria-label="Ver premios">→</a>
       </div>
 
-      <a href="/proyectos/aire-libre/" class="project-banner reveal" id="section-5">
+      <a href="/proyectos/iol/" class="project-banner reveal" id="section-5">
         <div class="banner-stage">
-        <img src="/assets/gallery/aire-libre/1.webp" width="2000" height="1184" alt="Aire Libre" loading="lazy" decoding="async">
+        <img src="/assets/gallery/iol/1.webp" width="1533" height="1026" alt="IOL — Invertir Online" loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
-            <h2>Aire Libre</h2>
-            <p>Un restaurante que crece alrededor de los arboles que ya estaban en el terreno.</p>
+            <span class="banner-estado banner-estado--obra">Obra concluida</span>
+            <h2>IOL — Invertir Online</h2>
+            <p>Oficinas de una fintech en el piso 23: un núcleo compacto libera todo el perímetro vidriado.</p>
           </div>
         </div>
       </div>
@@ -251,17 +256,77 @@
         <a href="/prensa/" class="interlude-btn" aria-label="Ver la prensa">→</a>
       </div>
 
-      <a href="/proyectos/fresco/" class="project-banner reveal" id="section-6">
+      <a href="/proyectos/osten-tower/" class="project-banner reveal" id="section-6">
         <div class="banner-stage">
-        <img src="/assets/gallery/fresco/1.webp" width="2000" height="1646" alt="Fresco" loading="lazy" decoding="async">
+        <img src="/assets/gallery/osten-tower/1.webp" width="1024" height="682" alt="Osten Tower" loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
-            <h2>Fresco</h2>
-            <p>Un restaurante bajo cerchas blancas, con columnas vegetales que atraviesan las dos plantas.</p>
+            <span class="banner-estado banner-estado--proyecto">Proyecto en proceso</span>
+            <h2>Osten Tower</h2>
+            <p>Lobby y rooftop de una torre residencial en Madero Harbour.</p>
           </div>
         </div>
       </div>
       </a>
+    </section>
+
+    <!-- Dos mitades: la ultima novedad del canal y los premios. El video se
+         actualiza solo si esta la YOUTUBE_API_KEY; si no, queda el que esta
+         escrito aca. Los sellos salen de assets/awards. -->
+    <section class="section no-border" id="homeMedios">
+      <div class="container">
+        <div class="dos-mitades">
+          <div class="mitad">
+            <div class="section-head"><div><span class="eyebrow">Actualidad</span><h2 class="display-3 mt-10">Lo último</h2></div></div>
+            <div class="press-featured press-featured--col reveal" id="youtubeFeed" data-max="1">
+              <a class="press-card" href="https://www.youtube.com/watch?v=1Uas_ix_XZ0" target="_blank" rel="noopener">
+            <div class="press-img"><img src="https://i.ytimg.com/vi/1Uas_ix_XZ0/hqdefault.jpg" width="480" height="360" alt="Casa FOA — despiece de elementos" loading="lazy" decoding="async"></div>
+            <div class="press-body">
+              <div class="press-outlet">YouTube — jul 2026</div>
+              <div class="press-title">Casa FOA — despiece de elementos</div>
+            </div>
+          </a>
+            </div>
+            <a href="/prensa/" class="btn link-arrow mt-14">Ver todas las novedades</a>
+          </div>
+
+          <div class="mitad">
+            <div class="section-head"><div><span class="eyebrow">Premios</span><h2 class="display-3 mt-10">Distinciones</h2></div></div>
+            <a href="/premios/" class="premio-ultimo reveal">
+              <img src="/assets/awards/architizer.png" width="400" height="300" alt="" loading="lazy" decoding="async">
+              <div>
+                <div class="premio-ultimo__anio">2026</div>
+                <div class="premio-ultimo__nombre">A+ Awards — Architizer</div>
+                <div class="premio-ultimo__res">Mención especial · Nueva York</div>
+              </div>
+            </a>
+            <ul class="sellos-premios reveal">
+            <li><img src="/assets/awards/accor.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/archilovers.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/architecture-masterprize.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/architizer-afirm.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/architizer.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/arqadia.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/biar.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/bienal-sca.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/casa-foa.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/clarin-arq.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/fadea.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/gda-2023.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/german-design-awards.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/hospitality-design.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/iida.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/liv-2025.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/next-landmark.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/prix-versailles.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/rbda-2023.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/sbid.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            <li><img src="/assets/awards/surface-design.png" width="400" height="300" alt="" loading="lazy" decoding="async"></li>
+            </ul>
+            <a href="/premios/" class="btn link-arrow mt-14">Ver todos los premios</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section pt-0">
@@ -374,11 +439,11 @@
   <script src="/scripts/vendor/gsap.min.js"></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js"></script>
   <script src="/scripts/vendor/lenis.min.js"></script>
-  <script src="/scripts/config/gsap.js?v=51"></script>
-  <script src="/scripts/animations/textReveal.js?v=51"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=51"></script>
-  <script src="/scripts/animations/scrollEffects.js?v=51"></script>
-  <script src="/scripts/main.js?v=51"></script>
+  <script src="/scripts/config/gsap.js?v=53"></script>
+  <script src="/scripts/animations/textReveal.js?v=53"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=53"></script>
+  <script src="/scripts/animations/scrollEffects.js?v=53"></script>
+  <script src="/scripts/main.js?v=53"></script>
 </body>
 
 </html>

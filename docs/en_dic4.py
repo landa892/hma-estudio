@@ -184,6 +184,11 @@ DIC.update({
     'Un almacén de bebidas en dos niveles en el centro de Ushuaia.':
         'A two-storey bottle shop in central Ushuaia.',
 
+    # portada: mitad de novedades y mitad de premios
+    'Distinciones': 'Awards',
+    'Mención especial · Nueva York': 'Special mention · New York',
+    'Ver todas las novedades': 'See all the news',
+
     # estado del trabajo: construido o todavia en proceso
     'Estado': 'Status',
     'Obra concluida': 'Completed',
