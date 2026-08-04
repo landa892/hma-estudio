@@ -184,6 +184,15 @@ DIC.update({
     'Un almacén de bebidas en dos niveles en el centro de Ushuaia.':
         'A two-storey bottle shop in central Ushuaia.',
 
+    # estado del trabajo: construido o todavia en proceso
+    'Estado': 'Status',
+    'Obra concluida': 'Completed',
+    'Proyecto en proceso': 'In progress',
+    'Concluida': 'Completed',
+    'En proceso': 'In progress',
+    'Sala de concierto, night club y restaurante':
+        'Concert hall, night club and restaurant',
+
     # filtros de la grilla de obras
     'Todas': 'All',
     'Obras': 'Built work',

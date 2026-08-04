@@ -862,6 +862,36 @@ footer.site-footer {
 
 /* ---------- FICHA DE PROYECTO (pagina individual /proyectos/<slug>/) ---------- */
 
+/* Sello de estado en la tarjeta. El cliente pidio que se vea de entrada si
+   el trabajo esta construido o todavia en proceso, sin tener que abrirlo.
+   Va arriba a la derecha, del lado opuesto a la categoria. */
+.card-estado {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 5px 10px;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(0, 0, 0, .58);
+  backdrop-filter: blur(6px);
+}
+
+/* En proceso lleva un punto que lo distingue de un vistazo. */
+.card-estado--proyecto::before {
+  content: '';
+  display: inline-block;
+  width: .42em;
+  height: .42em;
+  margin-right: .6em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: .06em;
+}
+
 .project-meta-row {
   display: flex;
   gap: 20px;
@@ -1650,7 +1680,10 @@ footer.site-footer {
 /* ---------- FICHA TECNICA DE PROYECTO (referencia mvrdv.com) ---------- */
 
 .project-specs {
-  margin: 28px 0 0;
+  /* La linea de arriba quedaba pegada al renglon de datos que va encima
+     ("EDIFICIO RESIDENCIAL - EN PROCESO / BUENOS AIRES / ..."): 28 px de
+     separacion no alcanzan cuando ese renglon se parte en dos lineas. */
+  margin: 52px 0 0;
   border-top: 1px solid var(--line);
   max-width: 720px;
 }
@@ -1659,7 +1692,8 @@ footer.site-footer {
   display: grid;
   grid-template-columns: 190px 1fr;
   gap: 20px;
-  padding: 12px 0;
+  /* El texto respiraba poco contra las lineas de arriba y de abajo. */
+  padding: 17px 0;
   border-bottom: 1px solid var(--line);
 }
 
