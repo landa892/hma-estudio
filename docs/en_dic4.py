@@ -33,6 +33,8 @@ PASA_EXACTO.update({
     'Worldcob', 'Manduca Market', 'Antiche Tentazioni', 'Antiche Devoto',
     'Archello', 'ArchDaily', 'Ministerio de Diseño', 'Hausscape, Miami',
     'Archidiaries — India', 'Rethinking the Future — India',
+    'Ushuaia', 'Olivos', 'Elyaki', 'Casa Olmo', 'The Birra',
+    'Stella Artois Mercat', '7167 Burger',
     'STIR World — India', 'El Cronista — Argentina',
     'World Confederation of Businesses member',
     'Business trust certificate WorldCOB trust seal',
@@ -134,6 +136,53 @@ DIC.update({
         'Espacio DAR, masterclass on Experiential Interior Architecture, San Miguel de Tucumán · TENDIEZ LAB — "Gastronomic and Hospitality Architecture: Business, Design, Experience", Buenos Aires.',
     'TENDIEZ LAB Mar del Plata (CAPBA 9) · TENDIEZ LAB, Universidad de Palermo · UADE FADI · Mesa redonda HOTELGA 2024, podcast Cerrame la Ocho.':
         'TENDIEZ LAB Mar del Plata (CAPBA 9) · TENDIEZ LAB, Universidad de Palermo · UADE FADI · HOTELGA 2024 round table, Cerrame la Ocho podcast.',
+
+    # --- obras dadas de alta desde el WordPress viejo ---
+    # nombres propios
+    'Patio de Comidas Abasto': 'Abasto Food Court',
+    'El Clásico de Quilmes': 'El Clásico de Quilmes',
+    "Lucciano's Olivos": "Lucciano's Olivos",
+
+    # programa
+    'Bar': 'Bar',
+    'Patio de comidas': 'Food court',
+    'Hamburguesería': 'Burger restaurant',
+    'Parrilla y bar': 'Grill and bar',
+    'Heladería y cafetería': 'Ice cream and coffee shop',
+    'Barra': 'Bar counter',
+    'Almacén de bebidas': 'Bottle shop',
+
+    # superficies
+    '294 m² (Patio Zorzal)': '294 m² (Patio Zorzal)',
+    '294 m² (Patio Zorzal) · 1.300 m² (Patio Central)':
+        '294 m² (Patio Zorzal) · 1,300 m² (Patio Central)',
+    '75 m² cubiertos': '75 m² covered',
+    '60 m² planta baja': '60 m² ground floor',
+    '60 m² planta baja · 71 m² subsuelo': '60 m² ground floor · 71 m² basement',
+    '90 m² planta baja': '90 m² ground floor',
+    '38 m² planta baja': '38 m² ground floor',
+    '38 m² planta baja · 53 m² primer piso': '38 m² ground floor · 53 m² first floor',
+    'Esmeralda 574 , Buenos Aires': 'Esmeralda 574, Buenos Aires',
+
+    # bajadas
+    'Los dos patios de comidas del Abasto Shopping, 1.594 m² de reforma integral en Buenos Aires.':
+        'Both food courts at Abasto Shopping — a 1,594 m² full refurbishment in Buenos Aires.',
+    'Una hamburguesería de 70 m² en Scalabrini Ortiz, Buenos Aires.':
+        'A 70 m² burger restaurant on Scalabrini Ortiz, Buenos Aires.',
+    'Un bar de 75 m² con patio en el centro de Ushuaia.':
+        'A 75 m² bar with a courtyard in central Ushuaia.',
+    'Un bar en dos niveles sobre Esmeralda, en el centro de Buenos Aires.':
+        'A two-storey bar on Esmeralda, in central Buenos Aires.',
+    'Una parrilla japonesa de 57 m² en Palermo, Buenos Aires.':
+        'A 57 m² Japanese grill in Palermo, Buenos Aires.',
+    'Una heladería y cafetería de 100 m² sobre Libertador, en Olivos.':
+        'A 100 m² ice cream and coffee shop on Libertador, in Olivos.',
+    'Un bar con patio en el Paseo de la Buena Vista, sobre Libertador.':
+        'A bar with a courtyard at Paseo de la Buena Vista, on Libertador.',
+    'Una barra de 15 m² para Stella Artois en el Mercat de Villa Crespo.':
+        'A 15 m² Stella Artois bar counter at Mercat, Villa Crespo.',
+    'Un almacén de bebidas en dos niveles en el centro de Ushuaia.':
+        'A two-storey bottle shop in central Ushuaia.',
 
     # filtros de la grilla de obras
     'Todas': 'All',

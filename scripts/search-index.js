@@ -1,6 +1,14 @@
 window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
+  "titulo": "7167 Burger",
+  "sub": "Gastronómico",
+  "desc": "Hamburguesería · Scalabrini Ortiz 3110, Buenos Aires · 70 m² · 2021",
+  "url": "/proyectos/burger-7167/",
+  "img": "/assets/gallery/burger-7167/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Accor Hotels",
   "sub": "Hotelería & Comercial",
   "desc": "Hotel — concurso internacional · São Paulo · 6.500 m² · 2018",
@@ -73,6 +81,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Casa Olmo",
+  "sub": "Gastronómico",
+  "desc": "Bar · Av. San Martín 86, Ushuaia · 75 m² cubiertos · 87 m² descubiertos · 2017",
+  "url": "/proyectos/casa-olmo/",
+  "img": "/assets/gallery/casa-olmo/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "CCEBA",
   "sub": "Cultural & Institucional",
   "desc": "Centro cultural — concurso privado · Paraná 1159, Buenos Aires · 336 m² · 2025",
@@ -110,6 +126,22 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Residencias y restauración — concurso privado · Buenos Aires · 44.000 m²",
   "url": "/proyectos/edificio-del-plata/",
   "img": "/assets/gallery/edificio-del-plata/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "El Clásico de Quilmes",
+  "sub": "Gastronómico",
+  "desc": "Bar · Esmeralda 574 , Buenos Aires · 60 m² planta baja · 71 m² subsuelo · 2018–19",
+  "url": "/proyectos/clasico-quilmes/",
+  "img": "/assets/gallery/clasico-quilmes/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Elyaki",
+  "sub": "Gastronómico",
+  "desc": "Parrilla y bar · Costa Rica 4827, Buenos Aires · 57 m² · 2018–19",
+  "url": "/proyectos/elyaki/",
+  "img": "/assets/gallery/elyaki/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -209,6 +241,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Lucciano's Olivos",
+  "sub": "Gastronómico",
+  "desc": "Heladería y cafetería · Av. del Libertador, Olivos, Buenos Aires · 100 m² · 2016",
+  "url": "/proyectos/luccianos-olivos/",
+  "img": "/assets/gallery/luccianos-olivos/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Lucciano’s Caballito",
   "sub": "Gastronómico",
   "desc": "Heladería · Caballito, Buenos Aires",
@@ -222,6 +262,14 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Vivienda multifamiliar · Buenos Aires · 2.405 m²",
   "url": "/proyectos/malabia/",
   "img": "/assets/gallery/malabia/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "Malita",
+  "sub": "Gastronómico",
+  "desc": "Bar · Av. del Libertador 3883, Paseo de la Infanta, Buenos Aires · 90 m² planta baja · 136 m² exterior · 2019",
+  "url": "/proyectos/malita/",
+  "img": "/assets/gallery/malita/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -254,14 +302,6 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/proyectos/movistar-arena/",
   "img": "/assets/gallery/movistar-arena/2.webp"
- },
- {
-  "tipo": "Proyecto",
-  "titulo": "The Nim Bar",
-  "sub": "Gastronómico",
-  "desc": "Restaurante y bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
-  "url": "/proyectos/nim-bar/",
-  "img": "/assets/gallery/nim-bar/1.webp"
  },
  {
   "tipo": "Proyecto",
@@ -305,6 +345,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Patio de Comidas Abasto",
+  "sub": "Gastronómico",
+  "desc": "Patio de comidas · Av. Corrientes 3247, Buenos Aires · 294 m² (Patio Zorzal) · 1.300 m² (Patio Central) · 2020",
+  "url": "/proyectos/abasto-patio-comidas/",
+  "img": "/assets/gallery/abasto-patio-comidas/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "People",
   "sub": "Residencial",
   "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m² · 2025",
@@ -329,11 +377,35 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Stella Artois Mercat",
+  "sub": "Gastronómico",
+  "desc": "Barra · Thames 747, Buenos Aires · 15 m² · 2020",
+  "url": "/proyectos/stella-artois-mercat/",
+  "img": "/assets/gallery/stella-artois-mercat/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Templo Mikdash",
   "sub": "Cultural & Institucional",
   "desc": "Templo · República Árabe Siria 3267, Buenos Aires · 600 m² · 2025",
   "url": "/proyectos/templo-mikdash/",
   "img": "/assets/gallery/templo-mikdash/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "The Birra",
+  "sub": "Gastronómico",
+  "desc": "Almacén de bebidas · Roca 63, Ushuaia · 38 m² planta baja · 53 m² primer piso · 2017",
+  "url": "/proyectos/the-birra/",
+  "img": "/assets/gallery/the-birra/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "The Nim Bar",
+  "sub": "Gastronómico",
+  "desc": "Restaurante y bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
+  "url": "/proyectos/nim-bar/",
+  "img": "/assets/gallery/nim-bar/1.webp"
  },
  {
   "tipo": "Proyecto",
