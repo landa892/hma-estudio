@@ -14,3 +14,7 @@ skills-lock.json
 __pycache__/
 docs/en_faltantes.json
 .claude/
+
+# Configuracion de herramientas locales. Trae claves de API en texto plano
+# y no tiene que salir nunca del equipo.
+.codex/
