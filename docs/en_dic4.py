@@ -184,6 +184,35 @@ DIC.update({
     'Un almacén de bebidas en dos niveles en el centro de Ushuaia.':
         'A two-storey bottle shop in central Ushuaia.',
 
+    # que se premio en cada distincion
+    'Diseño arquitectónico en espacios para eventos.':
+        'Architectural design for event spaces.',
+    '2do puesto en la categoría diseño interior.':
+        '2nd place in the interior design category.',
+    'Finalista entre 925 candidaturas.':
+        'Finalist among 925 entries.',
+    '3er puesto en la etapa regional CABA, categoría obra privada de escala media.':
+        '3rd place in the CABA regional stage, mid-scale private work category.',
+    'Mención especial en excelencia de arquitectura y diseño interior.':
+        'Special mention for excellence in architecture and interior design.',
+    'Finalista en la categoría Américas.':
+        'Finalist in the Americas category.',
+    'Ganadores en edificio comercial interior, estructura temporal y paisaje y espacio público.':
+        'Winners in commercial interior building, temporary structure, and landscape and public realm.',
+    'Seleccionados en la categoría interiorismo.':
+        'Selected in the interior design category.',
+    'Mención en la categoría restaurante, premio especial exterior de Centroamérica y Sudamérica.':
+        'Mention in the restaurant category, special exterior award for Central and South America.',
+    'Mejor firma en la especialidad comercial e industrial de diseño interior.':
+        'Best firm in the commercial and industrial interior design specialty.',
+    'Primer premio del concurso internacional, entre más de 50 estudios de América Latina.':
+        'First prize in the international competition, among more than 50 Latin American studios.',
+    'Mención en interiorismo de hotelería y en Landmark of the Year.':
+        'Mention in hospitality interior design and in Landmark of the Year.',
+    'Mención en Landmark of the Year.': 'Mention in Landmark of the Year.',
+    'Preseleccionada como mejor bar de América.':
+        'Shortlisted as best bar in the Americas.',
+
     # portada: mitad de novedades y mitad de premios
     'Distinciones': 'Awards',
     'Mención especial · Nueva York': 'Special mention · New York',
