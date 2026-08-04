@@ -14,6 +14,8 @@ un premio atribuido a la obra equivocada.
 import io, re
 
 # (año, fragmento del nombre del premio) -> [(slug, titulo visible), ...]
+# El slug puede ser None: son obras que el estudio premio pero que todavia
+# no estan en el sitio (les faltan fotos), asi que se nombran sin enlazar.
 MAPA = {
     ('2025', 'LIV Hospitality'):      [('movistar-arena', 'Movistar Arena')],
     ('2024', 'Hospitality Design'):   [('manduca', 'Mercado Manduca')],
@@ -24,10 +26,29 @@ MAPA = {
     ('2022', 'Prix Versailles'):      [('moshu', 'Moshu')],
     ('2018', 'Accor Hotels'):         [('novotel', 'Novotel')],
     ('2018', 'Next Landmark'):        [('goodsten', 'Goodsten')],
-    ('2014', 'Next Landmark'):        [('dos-casas-conde', 'Dos casas Conde')],
+    ('2014', 'Next Landmark'):        [('dos-casas-conde', 'Dos casas Conde'),
+                                       (None, 'PH Loft Arias')],
     ('2014', 'Restaurant & Bar'):     [('victoria-brown', 'Victoria Brown')],
     ('2023', 'German Design'):        [('osten', 'Osten')],
     ('2023', 'Restaurant & Bar'):     [('benedetta', 'Benedetta')],
+
+    # Del CV extendido que mando el estudio, que nombra la obra de cada uno.
+    ('2026', 'A+ Awards'):            [('movistar-arena', 'Movistar Arena')],
+    ('2025', 'ARCH FADEA'):           [('manduca', 'Mercado Manduca')],
+    ('2023', 'A+ Awards'):            [('manduca', 'Mercado Manduca')],
+    ('2022', 'Bienal SCA'):           [('fogon', 'Fogón'), ('mamba-bar', 'Mamba Bar')],
+    ('2021', 'Restaurant & Bar'):     [('osten', 'Osten')],
+    ('2020', 'IIDA'):                 [('goodsten', 'Goodsten')],
+    ('2020', 'Restaurant & Bar'):     [('fogon', 'Fogón')],
+    ('2020', 'Society of British'):   [('mamba-bar', 'Mamba Bar')],
+    ('2019', 'Prix Versailles'):      [('nim-bar', 'The Nim Bar')],
+    # Ese año hay dos filas del mismo premio y el CV las distingue: Mamba
+    # gano mejor bar de America y Nim quedo finalista.
+    ('2019', 'Restaurant & Bar', 'Ganador'):   [('mamba-bar', 'Mamba Bar')],
+    ('2019', 'Restaurant & Bar', 'Finalista'): [('nim-bar', 'The Nim Bar')],
+    ('2014', 'Premios BIAR'):         [('atelier-vilela', 'Atelier Vilela')],
+    ('2010', 'Bienal SCA'):           [(None, 'PH El Salvador')],
+    ('2008', 'Bienal SCA'):           [(None, 'Galería de arte Objeto A')],
 }
 
 # Que se premio, en una linea. Sale del texto que el estudio publico en la
@@ -82,6 +103,11 @@ def main():
 
         def por_nombre(mn):
             nom = mn.group(2)
+            # El resultado (Ganador / Finalista) desempata cuando el mismo
+            # premio aparece dos veces en el mismo año.
+            mres = re.search(r'award-row__res">(.*?)</div>',
+                             mb.group(1)[mn.end(3):])
+            res = mres.group(1).strip() if mres else ''
             if 'award-row__obra' in nom or 'award-row__desc' in nom:
                 return mn.group(0)
             extra = ''
@@ -89,11 +115,15 @@ def main():
                 if a == anio and frag.lower() in nom.lower():
                     extra += '<span class="award-row__desc">%s</span>' % texto
                     break
-            for (a, frag), obras in MAPA.items():
+            for clave, obras in MAPA.items():
+                a, frag = clave[0], clave[1]
                 if a != anio or frag.lower() not in nom.lower():
                     continue
+                if len(clave) == 3 and clave[2].lower() not in res.lower():
+                    continue
                 enlaces = ' · '.join(
-                    '<a href="/proyectos/%s/">%s</a>' % (s, t) for s, t in obras)
+                    ('<a href="/proyectos/%s/">%s</a>' % (s, t) if s else t)
+                    for s, t in obras)
                 extra += '<span class="award-row__obra">%s</span>' % enlaces
                 puestos.append((anio, nom[:34], ', '.join(t for _, t in obras)))
                 break

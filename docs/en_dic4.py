@@ -34,6 +34,8 @@ PASA_EXACTO.update({
     'Archello', 'ArchDaily', 'Ministerio de Diseño', 'Hausscape, Miami',
     'Archidiaries — India', 'Rethinking the Future — India',
     'Ushuaia', 'Olivos', 'Elyaki', 'Casa Olmo', 'The Birra',
+    'Mamba Bar', 'PH Loft Arias', '· PH Loft Arias', 'PH El Salvador',
+    'Galería de arte Objeto A',
     'Stella Artois Mercat', '7167 Burger',
     'STIR World — India', 'El Cronista — Argentina',
     'World Confederation of Businesses member',
