@@ -2051,24 +2051,90 @@ html.lenis, html.lenis body { height: auto; }
   padding: 0 0 clamp(48px, 7vw, 96px);
 }
 
+/* El texto va a dos columnas: la ficha ocupa el ancho completo y debajo
+   quedaba media pagina vacia a la derecha. Con dos columnas cada renglon
+   se acorta solo, sin necesidad de limitarlo a mano. */
+.memoria-cuerpo {
+  columns: 2;
+  column-gap: clamp(32px, 4.5vw, 76px);
+}
+
 .memoria-cuerpo > p {
-  /* 55ch da unos 66 caracteres por renglon, dentro del rango donde el ojo
-     no pierde la linea al volver. Con 62ch se iban a 74, ya al limite. */
-  max-width: 55ch;
   margin: 0 0 1.15em;
   font-size: clamp(1rem, .4vw + .95rem, 1.1rem);
   line-height: 1.72;
   color: #4a4a4a;   /* el mismo gris que usa .lede */
 }
 
+/* Un parrafo no puede empezar en el ultimo renglon de una columna ni
+   terminar en el primero de la siguiente. */
+.memoria-cuerpo > p { orphans: 3; widows: 3; }
+
 /* Del tercer parrafo en adelante, solo con la memoria abierta. */
 .memoria-cuerpo > p:nth-of-type(n+3) { display: none; }
 .memoria-cuerpo.is-open > p:nth-of-type(n+3) { display: block; }
 
-.memoria-cuerpo:not(.is-open) > p:nth-of-type(2) {
-  /* Desvanecido al pie del corte: avisa que el texto sigue. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+/* Angosto: una sola columna, y ahi si conviene topear el renglon. */
+@media (max-width: 900px) {
+  .memoria-cuerpo { columns: 1; }
+  .memoria-cuerpo > p { max-width: 55ch; }
+}
+
+/* --- boton de "seguir leyendo" ------------------------------------------
+   No es un boton de accion como los demas del sitio: es una continuacion
+   de la lectura. Por eso va sin recuadro, con una linea fina que se
+   completa al pasar por encima, y un signo que gira al abrir. */
+.memoria-more {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  margin-top: 26px;
+  padding: 0 0 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--black);
+  font: inherit;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.memoria-more::before {
+  /* La linea: arranca al 34% y se completa al pasar por encima. */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 34%;
+  height: 1px;
+  background: currentColor;
+  transition: width .45s cubic-bezier(.16,.7,.3,1);
+}
+
+.memoria-more:hover::before,
+.memoria-more:focus-visible::before { width: 100%; }
+
+.memoria-more::after {
+  content: '';
+  width: .5em;
+  height: .5em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-.16em) rotate(45deg);
+  transition: transform .35s cubic-bezier(.16,.7,.3,1);
+}
+
+.memoria-more[aria-expanded="true"]::after {
+  transform: translateY(.06em) rotate(-135deg);
+}
+
+.memoria-more:focus-visible { outline: 2px solid var(--black); outline-offset: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .memoria-more::before, .memoria-more::after { transition: none; }
 }
 
 /* El filtro de prensa marca las filas con el atributo hidden, pero .press-row

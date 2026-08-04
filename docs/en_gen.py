@@ -162,7 +162,7 @@ def poner_memoria_en(html_en, ruta_archivo):
                        for p in parrafos)
     boton = ''
     if plegable:
-        boton = ('\n        <button class="btn-line gallery-more" type="button"\n'
+        boton = ('\n        <button class="memoria-more gallery-more" type="button"\n'
                  '          data-mas="Keep reading" data-menos="Read less"\n'
                  '          aria-expanded="false">Keep reading</button>')
     nuevo = ('\n    <section class="project-memoria">\n'

@@ -95,7 +95,7 @@ def bloque(parrafos):
     abierta = '' if plegable else ' is-open'
     boton = ''
     if plegable:
-        boton = ('\n        <button class="btn-line gallery-more" type="button"\n'
+        boton = ('\n        <button class="memoria-more gallery-more" type="button"\n'
                  '          data-mas="Seguir leyendo" data-menos="Leer menos"\n'
                  '          aria-expanded="false">Seguir leyendo</button>')
     return ('\n    <section class="project-memoria">\n'
