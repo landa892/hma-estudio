@@ -2752,15 +2752,49 @@ footer.site-footer {
   letter-spacing: .02em;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .award-row {
-    gap: 14px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 5px;
+    padding: 18px 0;
   }
 
   .award-row__logo {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    align-self: start;
     width: 48px;
     height: 40px;
     flex: 0 0 48px;
+  }
+
+  .award-row__name {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .award-row__obra {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .award-row__desc {
+    grid-column: 2;
+    grid-row: 3;
+    align-self: start;
+    max-width: none;
+    margin-top: 3px;
+  }
+
+  .award-row__res {
+    grid-column: 2;
+    grid-row: 4;
+    align-self: start;
+    margin-top: 4px;
+    white-space: normal;
   }
 
   .award-row__city {
