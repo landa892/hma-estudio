@@ -266,6 +266,10 @@ DIC.update({
     'Novedades en YouTube': 'News on YouTube',
     'Nuestro canal': 'Our channel',
     'Novedades del estudio': 'Studio news',
+    'Leonardo Militello y Fernando Hitzig en el podcast Ladrillo':
+        'Leonardo Militello and Fernando Hitzig on the Ladrillo podcast',
+    'Leonardo Militello y Fernando Hitzig cuentan en el podcast Ladrillo cómo diseñan espacios que generan experiencia: el VIP del Movistar Arena, hoteles y restaurantes.':
+        'Leonardo Militello and Fernando Hitzig talk on the Ladrillo podcast about how they design spaces that create experience: the Movistar Arena VIP area, hotels and restaurants.',
     'Reviví nuestra última conferencia y las más recientes charlas sobre arquitectura comercial en nuestro canal oficial. Suscribite para enterarte de todas nuestras novedades.':
         'Watch our latest lecture and the most recent talks on commercial architecture on our official channel. Subscribe to keep up with everything we do.',
     'Preview del canal de YouTube de HMA': 'Preview of the HMA YouTube channel',
