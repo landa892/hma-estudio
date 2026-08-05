@@ -1,9 +1,14 @@
 {
-  "ignore": [
-    {
-      "rule": "overused-font",
-      "value": "Inter",
-      "reason": "Inter viene de la identidad del estudio, no es un default: el sitio entero esta construido sobre su escala tipografica."
-    }
-  ]
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-08-05T13:24:37.774Z",
+        "reason": "Inter viene de la identidad del estudio, no es un default: toda la escala tipografica del sitio esta construida sobre ella."
+      }
+    ]
+  }
 }
