@@ -21,7 +21,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Ice cream shop · Nueva York 4002, Villa Devoto, Buenos Aires · 90 m²",
   "url": "/en/projects/antiche/",
-  "img": "/assets/gallery/antiche/1.webp"
+  "img": "/assets/gallery/antiche/33.webp"
  },
  {
   "tipo": "Project",
@@ -29,7 +29,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Multi-family building · Buenos Aires · 2.040 m²",
   "url": "/en/projects/araoz/",
-  "img": "/assets/gallery/araoz/1.webp"
+  "img": "/assets/gallery/araoz/11.webp"
  },
  {
   "tipo": "Project",
@@ -37,7 +37,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Atelier, arts and crafts · Vilela 2793, Buenos Aires · 60 m² indoor and 55 m² outdoor · 2013–2014",
   "url": "/en/projects/atelier-vilela/",
-  "img": "/assets/gallery/atelier-vilela/1.webp"
+  "img": "/assets/gallery/atelier-vilela/2.webp"
  },
  {
   "tipo": "Project",
@@ -61,7 +61,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Multi-family building · Bolívar 1761-63, San Telmo, Buenos Aires · 1.520 m²",
   "url": "/en/projects/bolivar/",
-  "img": "/assets/gallery/bolivar/1.webp"
+  "img": "/assets/gallery/bolivar/19.webp"
  },
  {
   "tipo": "Project",
@@ -117,7 +117,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Hospitality development centre · Larrea 1250, Recoleta, Buenos Aires · 142 m²",
   "url": "/en/projects/fehgra/",
-  "img": "/assets/gallery/fehgra/1.webp"
+  "img": "/assets/gallery/fehgra/3.webp"
  },
  {
   "tipo": "Project",
@@ -125,7 +125,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant · Saedan Mall, Riad · 265 m² · 2019",
   "url": "/en/projects/fogon/",
-  "img": "/assets/gallery/fogon/1.webp"
+  "img": "/assets/gallery/fogon/25.webp"
  },
  {
   "tipo": "Project",
@@ -133,7 +133,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant · Honduras 5670, Palermo, Buenos Aires · 312 m² · 2019",
   "url": "/en/projects/fresco/",
-  "img": "/assets/gallery/fresco/1.webp"
+  "img": "/assets/gallery/fresco/34.webp"
  },
  {
   "tipo": "Project",
@@ -141,7 +141,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Creamery · Av. del Libertador, Martínez, Buenos Aires · 330 m² · 2017",
   "url": "/en/projects/goodsten/",
-  "img": "/assets/gallery/goodsten/1.webp"
+  "img": "/assets/gallery/goodsten/15.webp"
  },
  {
   "tipo": "Project",
@@ -149,7 +149,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m² · 2022",
   "url": "/en/projects/hausscape/",
-  "img": "/assets/gallery/hausscape/1.webp"
+  "img": "/assets/gallery/hausscape/2.webp"
  },
  {
   "tipo": "Project",
@@ -157,7 +157,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Hotel · Barbados · 50.000 m² · 2026",
   "url": "/en/projects/hyatt-ziva/",
-  "img": "/assets/gallery/hyatt-ziva/2.webp"
+  "img": "/assets/covers/hyatt-ziva.webp"
  },
  {
   "tipo": "Project",
@@ -189,7 +189,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Coffee shop · Av. Las Heras 2601, Buenos Aires",
   "url": "/en/projects/juan-valdez/",
-  "img": "/assets/gallery/juan-valdez/1.webp"
+  "img": "/assets/gallery/juan-valdez/21.webp"
  },
  {
   "tipo": "Project",
@@ -197,7 +197,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Retail hub and offices · Dot Baires Shopping, Buenos Aires · 300 m² indoor and 15,000 m² of parking · 2020",
   "url": "/en/projects/kavak-hub/",
-  "img": "/assets/gallery/kavak-hub/1.webp"
+  "img": "/assets/gallery/kavak-hub/2.webp"
  },
  {
   "tipo": "Project",
@@ -205,7 +205,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Offices",
   "desc": "Offices · Edificio Philips, Vedia 3892, Buenos Aires · 800 m²",
   "url": "/en/projects/kavak-oficinas/",
-  "img": "/assets/gallery/kavak-oficinas/1.webp"
+  "img": "/assets/gallery/kavak-oficinas/14.webp"
  },
  {
   "tipo": "Project",
@@ -213,7 +213,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Ice cream shop · Caballito, Buenos Aires",
   "url": "/en/projects/luccianos-caballito/",
-  "img": "/assets/gallery/luccianos-caballito/1.webp"
+  "img": "/assets/gallery/luccianos-caballito/12.webp"
  },
  {
   "tipo": "Project",
@@ -229,7 +229,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant and bar · Soler 5130, Palermo, Buenos Aires · 265 m² · 2018",
   "url": "/en/projects/mamba-bar/",
-  "img": "/assets/gallery/mamba-bar/1.webp"
+  "img": "/assets/gallery/mamba-bar/12.webp"
  },
  {
   "tipo": "Project",
@@ -253,7 +253,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/en/projects/movistar-arena/",
-  "img": "/assets/gallery/movistar-arena/2.webp"
+  "img": "/assets/covers/movistar-arena.webp"
  },
  {
   "tipo": "Project",
@@ -261,7 +261,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant and bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
   "url": "/en/projects/nim-bar/",
-  "img": "/assets/gallery/nim-bar/1.webp"
+  "img": "/assets/gallery/nim-bar/27.webp"
  },
  {
   "tipo": "Project",
@@ -309,7 +309,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Co-working and co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m² · 2025",
   "url": "/en/projects/people/",
-  "img": "/assets/gallery/people/1.webp"
+  "img": "/assets/gallery/people/13.webp"
  },
  {
   "tipo": "Project",
@@ -341,7 +341,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Fast food · Miami, Florida · 100 m²",
   "url": "/en/projects/tostado/",
-  "img": "/assets/gallery/tostado/1.webp"
+  "img": "/assets/gallery/tostado/28.webp"
  },
  {
   "tipo": "Project",
@@ -349,7 +349,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Offices",
   "desc": "Office refurbishment · Buenos Aires · 2017",
   "url": "/en/projects/uala-office/",
-  "img": "/assets/gallery/uala-office/1.webp"
+  "img": "/assets/gallery/uala-office/34.webp"
  },
  {
   "tipo": "Project",
@@ -365,7 +365,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Bar and restaurant · Costa Rica 4827, Palermo, Buenos Aires · 377 m² indoor and 8 m² outdoor · 2013",
   "url": "/en/projects/victoria-brown/",
-  "img": "/assets/gallery/victoria-brown/1.webp"
+  "img": "/assets/gallery/victoria-brown/14.webp"
  },
  {
   "tipo": "Project",
@@ -373,7 +373,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Outdoor restaurant · Av. del Libertador 3883, Arco 1, Buenos Aires · 54 m² · 2020",
   "url": "/en/projects/williamsburg/",
-  "img": "/assets/gallery/williamsburg/1.webp"
+  "img": "/assets/gallery/williamsburg/17.webp"
  },
  {
   "tipo": "Press",
