@@ -35,7 +35,9 @@ PASA_EXACTO.update({
     'Archidiaries — India', 'Rethinking the Future — India',
     'Ushuaia', 'Olivos', 'Elyaki', 'Casa Olmo', 'The Birra',
     'Mamba Bar', 'PH Loft Arias', '· PH Loft Arias', 'PH El Salvador',
-    'Galería de arte Objeto A',
+    'Galería de arte Objeto A', 'Commercial Interiors',
+    'YouTube — 2019', 'YouTube — 2020', 'YouTube — 2023',
+    'YouTube — 2025', 'YouTube — 2026',
     'Stella Artois Mercat', '7167 Burger',
     'STIR World — India', 'El Cronista — Argentina',
     'World Confederation of Businesses member',
@@ -228,6 +230,81 @@ DIC.update({
     'En proceso': 'In progress',
     'Sala de concierto, night club y restaurante':
         'Concert hall, night club and restaurant',
+
+    # --- portada y estudio rehechos: sellos, banners y video ---
+    # Ojo: en_gen colapsa los espacios antes de buscar, asi que las frases
+    # que en el HTML ocupan varias lineas van aca en una sola.
+    'Obra': 'Built',
+    'Trabajos': 'Works',
+    'Fundadores': 'Founders',
+    'Miembros de': 'Members of',
+    'Obra Galardonada': 'Award-winning work',
+    'Nuestro proyecto': 'Our project',
+    'fue distinguido con una Mención Especial en la categoría':
+        'received a Special Mention in the category',
+    'Este programa promueve la mejor arquitectura a nivel global, destacando el diseño significativo que impacta positivamente en la vida cotidiana. Ser evaluados por un jurado internacional de primer nivel refuerza el inmenso valor de esta distinción.':
+        'The programme champions the best architecture worldwide, highlighting meaningful design that improves everyday life. Being judged by a top-tier international jury underlines how much this distinction is worth.',
+    'Agradecemos a @Architizer y a todos los colaboradores que hicieron posible este proyecto.':
+        'Our thanks to @Architizer and to everyone who made this project possible.',
+    'Propuesta para el pabellón argentino de la Bienal de Venecia':
+        'Proposal for the Argentine pavilion at the Venice Biennale',
+    'VIP Lounge Movistar Arena': 'Movistar Arena VIP Lounge',
+
+    # banner de YouTube
+    'Novedades en YouTube': 'News on YouTube',
+    'Reviví nuestra última conferencia y las más recientes charlas sobre arquitectura comercial en nuestro canal oficial. Suscribite para enterarte de todas nuestras novedades.':
+        'Watch our latest lecture and the most recent talks on commercial architecture on our official channel. Subscribe to keep up with everything we do.',
+    'Preview del canal de YouTube de HMA': 'Preview of the HMA YouTube channel',
+    'Lo último en video': 'Latest on video',
+    'Ir al canal': 'Go to the channel',
+    'Entrevistas': 'Interviews',
+    'Charlas y Conferencias': 'Talks and lectures',
+    'Entrevista exclusiva sobre arquitectura comercial':
+        'Exclusive interview on commercial architecture',
+    'Conversación sobre diseño y gastronomía':
+        'A conversation on design and gastronomy',
+    'Entrevista internacional en Italia': 'International interview in Italy',
+    'Conferencia magistral en vivo': 'Live keynote lecture',
+    'Presentación de proyectos y tendencias': 'Projects and trends presentation',
+    'Oratoria y congreso de arquitectura': 'Speaking at an architecture congress',
+
+    # docencia y conferencias del estudio
+    'Profesor de Arquitectura Comercial Interior en La Haus':
+        'Professor of Commercial Interior Architecture at La Haus',
+    'Profesor de Interior Creative Architecture en Haus':
+        'Professor of Interior Creative Architecture at Haus',
+    '(Leonardo Militello). Buenos Aires, Argentina.':
+        '(Leonardo Militello). Buenos Aires, Argentina.',
+    ': Leonardo Militello. Buenos Aires, Argentina.':
+        ': Leonardo Militello. Buenos Aires, Argentina.',
+    '- Ciclo de conferencias 2026: impartido en DINA (Asociación Nacional de Diseñadores). Parte del ”Ciclo de conferencias presenciales 2026” —evento presencial en el Auditorio Diego de Torres, UCC Córdoba, Argentina.':
+        '- 2026 lecture series: given at DINA (National Association of Designers). Part of the "2026 in-person lecture series" — held at the Diego de Torres Auditorium, UCC Córdoba, Argentina.',
+    '- Conferencia en TENDIEZ LAB: «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia». Buenos Aires, Argentina.':
+        '- Lecture at TENDIEZ LAB: "Gastronomic and Hospitality Architecture: Business, Design, Experience". Buenos Aires, Argentina.',
+    '- Conferencia TENDIEZ LAB: “Gastronómica: Diseño, Negocio, Experiencia y Patrimonio”. Mar del Plata, Argentina.':
+        '- TENDIEZ LAB lecture: "Gastronomy: Design, Business, Experience and Heritage". Mar del Plata, Argentina.',
+    # Estas dos las traducia a medias una regla generica, asi que no salian
+    # en el reporte de faltantes: las encontro en_control.py sobre el
+    # resultado ya generado.
+    'Ver mas notas': 'See more articles',
+    '- Conferencia en la UADE – FADI. Buenos Aires, Argentina.':
+        '- Lecture at UADE – FADI. Buenos Aires, Argentina.',
+    '- Conferencia: Invitados por la UADE FADI – Clase de la arq. Lucía López. Buenos Aires, Argentina.':
+        '- Lecture: invited by UADE FADI – class of Arch. Lucía López. Buenos Aires, Argentina.',
+
+    '- Clase magistral impartida en el FAD - UPC. Córdoba, Argentina.':
+        '- Masterclass at FAD - UPC. Córdoba, Argentina.',
+    '- Clase magistral impartida en el IED Barcelona. Barcelona, España.':
+        '- Masterclass at IED Barcelona. Barcelona, Spain.',
+    '- Clase magistral impartida en el IED Kunsthal. Bilbao, España.':
+        '- Masterclass at IED Kunsthal. Bilbao, Spain.',
+    '- Ciclo de conferencias 10.ª TENDIEZ Experiences. Buenos Aires, Argentina.':
+        '- 10th TENDIEZ Experiences lecture series. Buenos Aires, Argentina.',
+    '- Orador: Lecture at the International architecture festival':
+        '- Speaker: lecture at the International Architecture Festival',
+    '. Guadalajara, México.': '. Guadalajara, Mexico.',
+    '- Orador: Invitado por TENDIEZ (Tendencias de Diseño) to lecture on its trajectory at the architectural congress de la Sociedad Central de Arquitectos (SCA). “Experiencias en arquitectura de interiores”. Buenos Aires, Argentina.':
+        '- Speaker: invited by TENDIEZ (Design Trends) to lecture on the studio\'s trajectory at the architecture congress of the Sociedad Central de Arquitectos (SCA). "Experiences in interior architecture". Buenos Aires, Argentina.',
 
     # filtros de la grilla de obras
     'Todas': 'All',
