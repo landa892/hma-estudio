@@ -6,7 +6,10 @@ const YOUTUBE_CHANNEL_ID = "UC1BfV3DzfGbaWfiMNHd0baw"; // HMA Estudio — youtub
 // Google — devuelve 404 incluso para canales conocidos. Se usa en su lugar
 // la YouTube Data API v3 oficial, gratuita y sin revision, via la playlist
 // de "subidos" del canal (se arma cambiando el prefijo UC por UU).
-const MAX_VIDEOS = 3;
+// La pagina reparte los videos en dos secciones (entrevistas y charlas),
+// asi que pedir tres dejaba una de las dos vacia o repetida. Con doce hay
+// material para las dos y sigue entrando de sobra en la cuota gratuita.
+const MAX_VIDEOS = 12;
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://estudiohma.com");
@@ -35,7 +38,11 @@ module.exports = async function handler(req, res) {
       const s = item.snippet || {};
       const videoId = s.resourceId ? s.resourceId.videoId : "";
       const thumb = s.thumbnails || {};
-      const thumbnail = (thumb.high || thumb.medium || thumb.default || {}).url || "";
+      // Varios videos del canal son verticales, y para esos "high"
+      // (hqdefault) viene con bandas negras que ocupan dos tercios del
+      // cuadro. "maxres" trae la imagen completa cuando existe.
+      const thumbnail = (thumb.maxres || thumb.standard || thumb.high ||
+        thumb.medium || thumb.default || {}).url || "";
 
       return {
         id: videoId,

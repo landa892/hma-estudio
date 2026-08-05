@@ -415,8 +415,11 @@ try {
           </a>`;
         }).filter(Boolean).join('');
 
-        if (feedEntrevistas) feedEntrevistas.innerHTML = armarTarjetas(vEntrevistas.length ? vEntrevistas : videos);
-        if (feedCharlas) feedCharlas.innerHTML = armarTarjetas(vCharlas);
+        /* Si no hay entrevistas, la seccion se queda con las tarjetas que ya
+           trae el HTML en vez de mostrar las charlas de nuevo: antes ambas
+           secciones terminaban repitiendo la misma lista. */
+        if (feedEntrevistas && vEntrevistas.length) feedEntrevistas.innerHTML = armarTarjetas(vEntrevistas);
+        if (feedCharlas && vCharlas.length) feedCharlas.innerHTML = armarTarjetas(vCharlas);
       })
       .catch(e => console.error('youtube-feed-categories', e));
   }
