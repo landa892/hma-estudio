@@ -266,6 +266,11 @@ DIC.update({
     'Novedades en YouTube': 'News on YouTube',
     'Nuestro canal': 'Our channel',
     'Novedades del estudio': 'Studio news',
+    'Entrevista con @LadrilloInfo': 'Interview with @LadrilloInfo',
+    'Leonardo Militello y Fernando Hitzig, arquitectos y fundadores de HMA Estudio, cuentan cómo diseñan espacios que generan experiencia: desde el VIP del Movistar Arena hasta restaurantes, hoteles y oficinas. Hablan de su método de storytelling, los costos de construcción en Argentina y por qué una oficina no tiene que ser un pelotero infantil.':
+        'Leonardo Militello and Fernando Hitzig, architects and founders of HMA Estudio, explain how they design spaces that create experience: from the Movistar Arena VIP area to restaurants, hotels and offices. They talk about their storytelling method, construction costs in Argentina, and why an office does not have to be a children\'s ball pit.',
+    'Mejor firma de diseño interior comercial e industrial, por la cartera completa del estudio. La ceremonia fue en el Museo Guggenheim de Bilbao.':
+        'Best commercial and industrial interior design firm, for the studio\'s full portfolio. The ceremony was held at the Guggenheim Museum Bilbao.',
     'Leonardo Militello y Fernando Hitzig en el podcast Ladrillo':
         'Leonardo Militello and Fernando Hitzig on the Ladrillo podcast',
     'Leonardo Militello y Fernando Hitzig cuentan en el podcast Ladrillo cómo diseñan espacios que generan experiencia: el VIP del Movistar Arena, hoteles y restaurantes.':
