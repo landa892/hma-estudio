@@ -348,32 +348,22 @@ try {
 } catch (e) { console.error('year-filter', e); }
 
 try {
-  /* ---------- ULTIMOS VIDEOS DE YOUTUBE (home) ----------
-     La seccion arranca oculta (atributo "hidden" en el HTML) y solo se
-     muestra si el feed devuelve videos reales — evita mostrar un cartel
-     vacio mientras no este configurada la YOUTUBE_API_KEY. */
-  const updatesSection = document.getElementById('updatesSection');
-  const feedEl = document.getElementById('youtubeFeed');
-  /* Los videos ya vienen escritos en el HTML, asi que la seccion funciona sin
-     la YOUTUBE_API_KEY. Si la key esta configurada, el feed la reemplaza por
-     la lista en vivo del canal. */
-  if (updatesSection && feedEl) {
+  /* ---------- VIDEOS DE YOUTUBE SEPARADOS POR CATEGORIA (Entrevistas y Charlas) ---------- */
+  const feedEntrevistas = document.getElementById('youtubeEntrevistas');
+  const feedCharlas = document.getElementById('youtubeCharlas');
+
+  if (feedEntrevistas || feedCharlas) {
     fetch('/api/youtube-latest')
       .then(r => (r.ok && (r.headers.get('content-type') || '').includes('json')) ? r.json() : null)
       .then(data => {
-        if (!data) return;              // sin API key configurada: quedan los del HTML
+        if (!data) return;
         const videos = data.videos || [];
         if (!videos.length) return;
 
         const fmt = new Intl.DateTimeFormat(HMA_EN ? 'en-GB' : 'es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
 
-        /* Este es el unico lugar del sitio donde un dato de afuera —el titulo
-           que devuelve la API de YouTube— termina dentro del HTML. Se escapa,
-           y de las direcciones solo se aceptan las de YouTube: si manana la
-           respuesta trae otra cosa, la tarjeta se descarta en vez de escribir
-           en la pagina lo que venga. */
         const esc = (t) => String(t == null ? '' : t)
-          .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+          .replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
         const urlSegura = (u, dominios) => {
           try {
@@ -383,10 +373,10 @@ try {
           } catch (e) { return null; }
         };
 
-        /* En la portada entra un solo video —la ultima novedad— y en prensa
-           entran todos. El HTML lo dice con data-max. */
-        const tope = parseInt(feedEl.dataset.max, 10);
-        const tarjetas = (tope > 0 ? videos.slice(0, tope) : videos).map(v => {
+        const vEntrevistas = videos.filter(v => /entrevista|conversación|podcast/i.test(v.title));
+        const vCharlas = videos.filter(v => !/entrevista|conversación|podcast/i.test(v.title));
+
+        const armarTarjetas = (lista) => lista.map(v => {
           const url = urlSegura(v.url, ['youtube.com', 'youtu.be']);
           const img = urlSegura(v.thumbnail, ['ytimg.com', 'ggpht.com']);
           if (!url || !img) return '';
@@ -400,13 +390,12 @@ try {
               <div class="press-title">${titulo}</div>
             </div>
           </a>`;
-        }).filter(Boolean);
+        }).filter(Boolean).join('');
 
-        if (!tarjetas.length) return;
-        feedEl.innerHTML = tarjetas.join('');
-        updatesSection.hidden = false;
+        if (feedEntrevistas) feedEntrevistas.innerHTML = armarTarjetas(vEntrevistas.length ? vEntrevistas : videos);
+        if (feedCharlas) feedCharlas.innerHTML = armarTarjetas(vCharlas);
       })
-      .catch(e => console.error('youtube-feed', e));
+      .catch(e => console.error('youtube-feed-categories', e));
   }
 } catch (e) { console.error('youtube-feed-init', e); }
 
@@ -509,11 +498,11 @@ try {
         return '<a class="search-result" href="' + item.url + '">' +
           thumb +
           '<div>' +
-            '<div class="search-result__tipo">' + escapeHtml(item.tipo) + (item.sub ? ' · ' + highlight(item.sub, q) : '') + '</div>' +
-            '<div class="search-result__title">' + highlight(item.titulo, q) + '</div>' +
-            (item.desc ? '<div class="search-result__desc">' + highlight(item.desc, q) + '</div>' : '') +
+          '<div class="search-result__tipo">' + escapeHtml(item.tipo) + (item.sub ? ' · ' + highlight(item.sub, q) : '') + '</div>' +
+          '<div class="search-result__title">' + highlight(item.titulo, q) + '</div>' +
+          (item.desc ? '<div class="search-result__desc">' + highlight(item.desc, q) + '</div>' : '') +
           '</div>' +
-        '</a>';
+          '</a>';
       }).join('');
     }
 
@@ -624,7 +613,7 @@ try {
       let visibles = 0;
       rows.forEach(r => {
         const ok = (grupo === 'all' || r.dataset.group === grupo) &&
-                   (anio === 'all' || r.dataset.year === anio);
+          (anio === 'all' || r.dataset.year === anio);
         r.hidden = !ok;
         if (ok) visibles++;
       });
@@ -683,7 +672,7 @@ try {
     if (!grid) return;
     const esGaleria = grid.classList.contains('gallery-grid');
     if (!esGaleria && !grid.classList.contains('press-featured')
-        && !grid.classList.contains('memoria-cuerpo')) return;
+      && !grid.classList.contains('memoria-cuerpo')) return;
 
     const rotuloMas = btn.dataset.mas ||
       T('Ver las ' + btn.dataset.total + ' fotos', 'See all ' + btn.dataset.total + ' photos');
