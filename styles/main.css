@@ -920,7 +920,7 @@ footer.site-footer {
 }
 
 .project-banner--youtube__image {
-  width: min(84%, 620px);
+  width: min(92%, 760px);
   height: auto;
   max-height: 62vh;
   aspect-ratio: 16 / 9;
