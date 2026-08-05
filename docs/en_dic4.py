@@ -265,6 +265,7 @@ DIC.update({
     # banner de YouTube
     'Novedades en YouTube': 'News on YouTube',
     'Nuestro canal': 'Our channel',
+    'Novedades del estudio': 'Studio news',
     'Reviví nuestra última conferencia y las más recientes charlas sobre arquitectura comercial en nuestro canal oficial. Suscribite para enterarte de todas nuestras novedades.':
         'Watch our latest lecture and the most recent talks on commercial architecture on our official channel. Subscribe to keep up with everything we do.',
     'Preview del canal de YouTube de HMA': 'Preview of the HMA YouTube channel',
