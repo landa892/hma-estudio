@@ -71,7 +71,7 @@
       escalaObertura: 1.58
     },
     {
-      seccion: '.project-banner',
+      seccion: '.project-banner:not(.project-banner--split)',
       wrap: '.project-banner__content',
       inner: '.pb-content-inner',
       titulo: 'h2',

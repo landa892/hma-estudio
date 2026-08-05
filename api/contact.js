@@ -24,6 +24,11 @@ const RATE_LIMIT_MAX = 3;
 
 function isRateLimited(ip) {
   const now = Date.now();
+  for (const [key, value] of submissions) {
+    const recent = value.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+    if (recent.length) submissions.set(key, recent);
+    else submissions.delete(key);
+  }
   const hits = (submissions.get(ip) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
   hits.push(now);
   submissions.set(ip, hits);

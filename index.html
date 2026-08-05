@@ -56,7 +56,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles/main.css?v=55">
+  <link rel="stylesheet" href="/styles/main.css?v=58">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
@@ -205,41 +205,56 @@
     </div>
 
     <!-- CUADRADITO 2: OBRA 1 (MOVISTAR ARENA - LAYOUT 50/50 INSTAGRAM) -->
-    <div class="project-banner reveal" id="section-1"
-      style="display: flex; flex-direction: row; height: 100vh; width: 100%; border-top: 1px solid #e0e0e0; box-sizing: border-box; overflow: hidden; background: var(--bg);">
+    <div class="project-banner project-banner--split reveal" id="section-1">
 
-      <!-- Mitad Izquierda: Mantiene el centrado y tamaño exacto, con hitbox restringida solo a la foto -->
-      <div
-        style="width: 50%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box; flex-shrink: 0; background: var(--bg);">
+      <!-- Columna izquierda -->
+      <div class="project-banner--split__media">
+
         <a href="https://www.instagram.com/p/DYANnd0CXnT/?igsh=MWZ3emhvd3dzZW9nbw==" target="_blank" rel="noopener"
-          style="display: inline-block; line-height: 0; text-decoration: none; pointer-events: none;">
+          class="project-banner--split__link">
+
           <img src="/assets/gallery/movistar-arena/foto-instagram.jpeg" alt="VIP Lounge Movistar Arena"
-            style="max-width: 100%; max-height: 75vh; object-fit: contain; display: block; border-radius: 4px; pointer-events: auto; cursor: pointer;">
+            class="project-banner--split__image">
         </a>
+
       </div>
 
-      <!-- Mitad Derecha: Texto del premio -->
-      <div
-        style="width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 6% 8%; color: var(--text); overflow-y: auto; box-sizing: border-box; background: var(--bg);">
-        <span class="eyebrow" style="margin-bottom: 10px;">Obra Galardonada</span>
-        <h2 class="display-3" style="margin-bottom: 6px;">Movistar Arena</h2>
-        <h3
-          style="font-size: 1rem; font-weight: 600; margin-bottom: 20px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em;">
-          Architizer A+ Awards 2026 – Special Mention</h3>
+      <!-- Columna derecha -->
+      <div class="project-banner--split__copy">
 
-        <div class="lede" style="font-size: 1rem; line-height: 1.5;">
-          <p>Nuestro proyecto <strong>VIP Lounge Movistar Arena</strong> fue distinguido con una Mención Especial en la
-            categoría <em>Commercial Interiors</em>.</p>
-          <p style="margin-top: 14px;">Este programa promueve la mejor arquitectura a nivel global, destacando el diseño
-            significativo que impacta positivamente en la vida cotidiana. Ser evaluados por un jurado internacional de
-            primer nivel refuerza el inmenso valor de esta distinción.</p>
-          <p style="margin-top: 14px;">Agradecemos a @Architizer y a todos los colaboradores que hicieron posible este
-            proyecto.</p>
+        <span class="eyebrow">Obra Galardonada</span>
+
+        <h2 class="display-3">
+          Movistar Arena
+        </h2>
+
+        <h3 class="project-banner--split__award">
+          Architizer A+ Awards 2026 – Special Mention
+        </h3>
+
+        <div class="lede project-banner--split__lede">
+
+          <p>
+            Nuestro proyecto <strong>VIP Lounge Movistar Arena</strong> fue distinguido con una
+            Mención Especial en la categoría <em>Commercial Interiors</em>.
+          </p>
+
+          <p style="margin-top:14px;">
+            Este programa promueve la mejor arquitectura a nivel global, destacando el diseño
+            significativo que impacta positivamente en la vida cotidiana. Ser evaluados por un
+            jurado internacional de primer nivel refuerza el inmenso valor de esta distinción.
+          </p>
+
+          <p style="margin-top:14px;">
+            Agradecemos a @Architizer y a todos los colaboradores que hicieron posible este
+            proyecto.
+          </p>
+
         </div>
+
       </div>
+
     </div>
-
-
     <!-- SEPARADOR 1 -->
     <div class="banner-interlude reveal">
       <p>Desde el 2006, más de <span class="count-inline" data-count="20" data-suffix="">0</span> años de trayectoria
@@ -250,7 +265,7 @@
     <!-- CUADRADITO 3: OBRA 2 (CERVECERÍA AUSTRAL - 2026 - DISEÑO ORIGINAL) -->
     <a href="/proyectos/cerveceria-austral/" class="project-banner reveal" id="section-2">
       <div class="banner-stage">
-        <img src="/assets/gallery/cerveceria-austral/1.webp" width="2000" height="1334" alt="Cervecería Austral"
+        <img src="/assets/gallery/cerveceria-austral/2.webp" width="2000" height="1334" alt="Cervecería Austral"
           loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
@@ -271,7 +286,7 @@
     <!-- CUADRADITO 4: PROYECTO 1 (BIENAL DE VENECIA - 2025 - DISEÑO ORIGINAL) -->
     <a href="/proyectos/bienal-venecia/" class="project-banner reveal" id="section-3">
       <div class="banner-stage">
-        <img src="/assets/gallery/bienal-venecia/1.webp" width="1491" height="1055" alt="Bienal de Venecia"
+        <img src="/assets/gallery/bienal-venecia/5.webp" width="1492" height="1054" alt="Bienal de Venecia"
           loading="lazy" decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
@@ -291,7 +306,7 @@
     <!-- CUADRADITO 5: PROYECTO 2 (OSTEN TOWER - 2025 - DISEÑO ORIGINAL) -->
     <a href="/proyectos/osten-tower/" class="project-banner reveal" id="section-4">
       <div class="banner-stage">
-        <img src="/assets/gallery/osten-tower/1.webp" width="1024" height="682" alt="Osten Tower" loading="lazy"
+        <img src="/assets/gallery/osten-tower/6.webp" width="1024" height="682" alt="Osten Tower" loading="lazy"
           decoding="async">
         <div class="project-banner__content">
           <div class="pb-content-inner">
@@ -310,26 +325,20 @@
     </div>
 
     <!-- CUADRADITO 6: NOVEDADES YOUTUBE (LAYOUT 50/50) -->
-    <div class="project-banner reveal" id="section-5"
-      style="display: flex; flex-direction: row; height: 100vh; width: 100%;">
-      <!-- Mitad Izquierda: Foto linkeada a YouTube con icono play -->
+    <div class="project-banner project-banner--split project-banner--youtube reveal" id="section-5">
       <a href="https://www.youtube.com/@HMAEstudio" target="_blank" rel="noopener"
-        style="width: 50%; height: 100%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #000;">
-        <!-- Miniatura genérica, cambiala por la del video real -->
-        <img src="/assets/youtube-latest.webp" alt="Último video YouTube"
-          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
-        <svg style="position: absolute; width: 80px; height: 80px; color: #fff;" viewBox="0 0 24 24"
-          fill="currentColor">
+        class="project-banner--split__media project-banner--youtube__media" aria-label="Ver el canal de HMA en YouTube">
+        <img src="/assets/video/youtube-preview.webp" width="1600" height="900" alt="Preview del canal de YouTube de HMA"
+          class="project-banner--youtube__image" loading="lazy" decoding="async">
+        <svg class="project-banner--youtube__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path
             d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
         </svg>
       </a>
-      <!-- Mitad Derecha: Texto del video -->
-      <div
-        style="width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 8%; background: var(--bg); color: var(--text);">
-        <span class="eyebrow" style="margin-bottom: 16px;">Novedades en YouTube</span>
-        <h2 class="display-3" style="margin-bottom: 24px;">El estudio afuera</h2>
-        <p class="lede" style="font-size: 1.2rem; line-height: 1.6;">Reviví nuestra última conferencia y las más
+      <div class="project-banner--split__copy">
+        <span class="eyebrow">Novedades en YouTube</span>
+        <h2 class="display-3">El estudio afuera</h2>
+        <p class="lede project-banner--split__lede">Reviví nuestra última conferencia y las más
           recientes charlas sobre arquitectura comercial en nuestro canal oficial. Suscribite para enterarte de todas
           nuestras novedades.</p>
       </div>
@@ -558,9 +567,9 @@
   <script src="/scripts/vendor/lenis.min.js"></script>
   <script src="/scripts/config/gsap.js?v=55"></script>
   <script src="/scripts/animations/textReveal.js?v=55"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=55"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=57"></script>
   <script src="/scripts/animations/scrollEffects.js?v=55"></script>
-  <script src="/scripts/main.js?v=55"></script>
+  <script src="/scripts/main.js?v=57"></script>
 </body>
 
 </html>

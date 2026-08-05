@@ -23,7 +23,7 @@ try {
       shrinkTargets.push({ section: heroSection, wrap: heroWrap, varName: '--hero-scale' });
     }
 
-    document.querySelectorAll('.project-banner').forEach(banner => {
+    document.querySelectorAll('.project-banner:not(.project-banner--split)').forEach(banner => {
       const content = banner.querySelector('.project-banner__content');
       if (content) shrinkTargets.push({ section: banner, wrap: content, varName: '--pb-scale' });
     });
@@ -65,7 +65,41 @@ try {
   const dotsNav = document.getElementById('scrollDots');
   if (dotsNav) {
     const dots = Array.from(dotsNav.querySelectorAll('button'));
-    const sections = dots.map(d => document.getElementById(d.dataset.target)).filter(Boolean);
+    const targets = dots.map(btn => ({ btn, el: document.getElementById(btn.dataset.target) }))
+      .filter(item => item.el);
+
+    const setActive = (btn) => {
+      dots.forEach(d => d.classList.toggle('active', d === btn));
+    };
+
+    const updateActiveDot = () => {
+      if (!targets.length) return;
+      const centerY = window.innerHeight / 2;
+      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+
+      let active = nearBottom ? targets[targets.length - 1] : targets[0];
+      let best = Infinity;
+      targets.forEach(item => {
+        const r = item.el.getBoundingClientRect();
+        const sectionCenter = r.top + r.height / 2;
+        const crossesCenter = r.top <= centerY && r.bottom >= centerY;
+        const distance = crossesCenter ? 0 : Math.abs(sectionCenter - centerY);
+        if (distance < best) {
+          best = distance;
+          active = item;
+        }
+      });
+      setActive(active.btn);
+    };
+
+    let raf = 0;
+    const requestDotUpdate = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        updateActiveDot();
+      });
+    };
 
     dots.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -73,28 +107,17 @@ try {
         /* Con Lenis manejando el scroll, scrollIntoView pelea con su
            posicion interpolada: hay que pedirle el viaje a el. */
         if (!target) return;
+        setActive(btn);
         const lenis = window.HMA && window.HMA.config && window.HMA.config.lenis;
         if (lenis) lenis.scrollTo(target, { duration: 1.2 });
         else target.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
-    /* Que seccion esta activa se decide por cual cruza el centro de la
-       pantalla, no por cuanta parte de ella se ve. Con threshold 0.5 el punto
-       quedaba pegado: las secciones del home miden dos pantallas y media, asi
-       que ninguna llega nunca a tener la mitad visible, y el indicador no se
-       movia al volver a subir. La franja de altura cero en el centro —igual
-       que la que decide el color de los puntos— resuelve las dos cosas. */
-    const dotsIo = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const idx = sections.indexOf(entry.target);
-        if (idx === -1) return;
-        dots.forEach(d => d.classList.remove('active'));
-        dots[idx].classList.add('active');
-      });
-    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-    sections.forEach(s => dotsIo.observe(s));
+    updateActiveDot();
+    window.addEventListener('scroll', requestDotUpdate, { passive: true });
+    window.addEventListener('resize', requestDotUpdate);
+    window.addEventListener('load', requestDotUpdate);
 
     /* Los puntos van en negro sobre fondo blanco y en blanco cuando quedan
        sobre una foto. rootMargin -50%/-50% deja una franja de altura cero
@@ -102,7 +125,7 @@ try {
        puntos: si ahi hay una foto, se activa .on-dark. */
     /* El pie tambien es fondo negro: si no entra en la cuenta, al llegar
        abajo los puntos y su etiqueta quedan negros sobre negro. */
-    const darkSections = document.querySelectorAll('.hero-home--photo, .project-banner, .site-footer');
+    const darkSections = document.querySelectorAll('.hero-home--photo, .project-banner:not(.project-banner--split), .site-footer');
     if (darkSections.length) {
       const overDark = new Set();
       const darkIo = new IntersectionObserver((entries) => {

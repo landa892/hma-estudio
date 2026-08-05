@@ -768,7 +768,7 @@ footer.site-footer {
   border-bottom: 1px solid var(--black);
 }
 
-.project-banner img {
+.project-banner:not(.project-banner--split) img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -778,11 +778,11 @@ footer.site-footer {
   transition: transform 1.4s cubic-bezier(.16, .6, .3, 1);
 }
 
-.project-banner.in img {
+.project-banner:not(.project-banner--split).in img {
   transform: scale(1);
 }
 
-.project-banner:hover img {
+.project-banner:not(.project-banner--split):hover img {
   transform: scale(1.04);
 }
 
@@ -831,6 +831,121 @@ footer.site-footer {
   font-size: 1rem;
 }
 
+.project-banner--split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  border-top: 1px solid var(--line);
+  background: var(--white);
+  color: var(--black);
+}
+
+.project-banner--split__media,
+.project-banner--split__copy {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.project-banner--split__media {
+  justify-content: center;
+  padding: clamp(28px, 5vw, 72px);
+}
+
+.project-banner--split__link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-banner--split__image {
+  position: static;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 680px);
+  max-height: min(76vh, 760px);
+  object-fit: contain;
+  transform: none;
+  transition: none;
+}
+
+.project-banner--split__copy {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(40px, 7vw, 112px) clamp(28px, 8vw, 128px);
+}
+
+.project-banner--split__copy .eyebrow {
+  margin-bottom: 10px;
+}
+
+.project-banner--split__copy h2 {
+  margin-bottom: 6px;
+}
+
+.project-banner--split__award {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  line-height: 1.25;
+}
+
+.project-banner--split__lede {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.project-banner--split__lede p + p {
+  margin-top: 14px;
+}
+
+.project-banner--youtube__media {
+  position: relative;
+  min-height: 100vh;
+  justify-content: center;
+  padding: clamp(28px, 5vw, 72px);
+  overflow: visible;
+  background: var(--white);
+}
+
+.project-banner--youtube__media::after {
+  display: none;
+}
+
+.project-banner--youtube__image {
+  width: min(78%, 560px);
+  height: auto;
+  max-height: 62vh;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: grayscale(.2) contrast(1.04);
+  transition: transform .5s ease, filter .3s ease;
+}
+
+.project-banner--youtube__media:hover .project-banner--youtube__image {
+  transform: scale(1.03);
+  filter: grayscale(0) contrast(1.04);
+}
+
+.project-banner--youtube__play {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: clamp(68px, 7vw, 92px);
+  height: clamp(68px, 7vw, 92px);
+  color: var(--white);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .38));
+}
+
 @media (max-width: 640px) {
   .project-banner {
     min-height: 72vh;
@@ -838,6 +953,38 @@ footer.site-footer {
 
   .project-banner__content {
     padding: 32px 20px;
+  }
+
+  .project-banner--split {
+    grid-template-columns: 1fr;
+  }
+
+  .project-banner--split__media,
+  .project-banner--split__copy {
+    min-height: auto;
+  }
+
+  .project-banner--split__media {
+    min-height: 54vh;
+    padding: 28px 20px;
+  }
+
+  .project-banner--split__image {
+    max-height: 48vh;
+  }
+
+  .project-banner--split__copy {
+    padding: 40px 20px 56px;
+  }
+
+  .project-banner--youtube__media {
+    min-height: 54vh;
+    padding: 28px 20px;
+  }
+
+  .project-banner--youtube__image {
+    width: 100%;
+    max-height: 42vh;
   }
 }
 
@@ -3038,7 +3185,7 @@ footer.site-footer {
 }
 
 .gsap-active .hero-home--photo img,
-.gsap-active .project-banner img,
+.gsap-active .project-banner:not(.project-banner--split) img,
 .gsap-active .project-row__photo img {
   transition: none;
 }
@@ -3055,7 +3202,7 @@ footer.site-footer {
   transition: none;
 }
 
-.gsap-active .project-banner:hover img {
+.gsap-active .project-banner:not(.project-banner--split):hover img {
   transform: none;
 }
 
@@ -3152,7 +3299,7 @@ footer.site-footer {
    La pista es mas corta (170vh) porque son seis seguidos: con 240vh cada uno,
    recorrer la home serian catorce pantallas de scroll solo de portadas. */
 
-.gsap-active .project-banner {
+.gsap-active .project-banner:not(.project-banner--split) {
   --pista: 170vh;
   min-height: var(--pista);
   display: block;
@@ -3163,13 +3310,13 @@ footer.site-footer {
 }
 
 @media (max-width: 1100px) {
-  .gsap-active .project-banner {
+  .gsap-active .project-banner:not(.project-banner--split) {
     --pista: 155vh;
   }
 }
 
 @media (max-width: 700px) {
-  .gsap-active .project-banner {
+  .gsap-active .project-banner:not(.project-banner--split) {
     --pista: 140vh;
   }
 }
@@ -3184,7 +3331,7 @@ footer.site-footer {
   overflow: hidden;
 }
 
-.gsap-active .project-banner img {
+.gsap-active .project-banner:not(.project-banner--split) img {
   z-index: 0;
 }
 
@@ -3294,7 +3441,7 @@ html.lenis body {
   filter: none !important;
 }
 
-.gsap-reduced .project-banner {
+.gsap-reduced .project-banner:not(.project-banner--split) {
   min-height: 92vh;
   display: flex;
   align-items: flex-end;
@@ -3311,7 +3458,7 @@ html.lenis body {
 }
 
 /* Las seis redes en el menu, con los mismos iconos que en contacto. El menu
-   tiene fondo blanco y bastante aire, asi que solo hace falta ajustar el
+  tiene fondo blanco y bastante aire, asi que solo hace falta ajustar el
    tamaño y dejar que envuelvan en pantallas chicas. */
 .social-icons--menu {
   gap: 14px;
