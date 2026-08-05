@@ -1,0 +1,9 @@
+{
+  "ignore": [
+    {
+      "rule": "overused-font",
+      "value": "Inter",
+      "reason": "Inter viene de la identidad del estudio, no es un default: el sitio entero esta construido sobre su escala tipografica."
+    }
+  ]
+}
