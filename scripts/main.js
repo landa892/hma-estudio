@@ -690,12 +690,13 @@ try {
      Los rotulos vienen del HTML (data-mas / data-menos) porque el boton dice
      "fotos" en una ficha y "videos" en prensa. Las galerias viejas solo traen
      data-total, asi que se les arma el rotulo como antes. */
-  document.querySelectorAll('.gallery-more').forEach(btn => {
+  document.querySelectorAll('.gallery-more, .pub-more').forEach(btn => {
     const grid = btn.previousElementSibling;
     if (!grid) return;
     const esGaleria = grid.classList.contains('gallery-grid');
     if (!esGaleria && !grid.classList.contains('press-featured')
-      && !grid.classList.contains('memoria-cuerpo')) return;
+      && !grid.classList.contains('memoria-cuerpo')
+      && !grid.classList.contains('pub-lista')) return;
 
     const rotuloMas = btn.dataset.mas ||
       T('Ver las ' + btn.dataset.total + ' fotos', 'See all ' + btn.dataset.total + ' photos');

@@ -23,6 +23,13 @@ PAISES = {
     'Francia': 'France', 'Países Bajos': 'Netherlands', 'Brasil': 'Brazil',
     'Argentina': 'Argentina', 'India': 'India', 'China': 'China',
     'Emiratos Árabes Unidos': 'United Arab Emirates', 'Chile': 'Chile',
+    # Paises que aparecen en el archivo de publicaciones.
+    'Uruguay': 'Uruguay', 'Colombia': 'Colombia', 'Canadá': 'Canada',
+    'Corea del Sur': 'South Korea', 'República Checa': 'Czech Republic',
+    'Hungría': 'Hungary', 'Grecia': 'Greece', 'Sudáfrica': 'South Africa',
+    'Australia': 'Australia', 'Arabia Saudita': 'Saudi Arabia',
+    'Portugal': 'Portugal', 'Polonia': 'Poland', 'Turquía': 'Türkiye',
+    'Japón': 'Japan', 'Perú': 'Peru', 'Rusia': 'Russia',
 }
 PAT_PAIS = re.compile(r'^(.+?) — (%s)$'
                       % '|'.join(re.escape(p) for p in PAISES))
@@ -38,6 +45,11 @@ PASA_EXACTO.update({
     'Galería de arte Objeto A', 'Commercial Interiors',
     'YouTube — 2019', 'YouTube — 2020', 'YouTube — 2023',
     'YouTube — 2025', 'YouTube — 2026',
+    # Nombres de medios y de obras que viajan igual en los dos idiomas.
+    'Areatres', 'Tostado Callao', 'Tostado Tribunales', 'Kavak', 'Casa Linda',
+    "Lucciano´s", 'Pacheco de Melo', 'Ambiance Matters', 'Cien, Osten, 7167',
+    'Ministerio de diseño', 'Ministerio de Diseño', 'Office &amp; House Luna',
+    'A Critical Approach to Communication', 'Award Habitar y producir',
     'Stella Artois Mercat', '7167 Burger',
     'STIR World — India', 'El Cronista — Argentina',
     'World Confederation of Businesses member',
@@ -305,6 +317,28 @@ DIC.update({
     '. Guadalajara, México.': '. Guadalajara, Mexico.',
     '- Orador: Invitado por TENDIEZ (Tendencias de Diseño) to lecture on its trajectory at the architectural congress de la Sociedad Central de Arquitectos (SCA). “Experiencias en arquitectura de interiores”. Buenos Aires, Argentina.':
         '- Speaker: invited by TENDIEZ (Design Trends) to lecture on the studio\'s trajectory at the architecture congress of the Sociedad Central de Arquitectos (SCA). "Experiences in interior architecture". Buenos Aires, Argentina.',
+
+    # --- archivo de publicaciones ---
+    'Archivo': 'Archive',
+    'Todas las publicaciones': 'All publications',
+    'Entrevista': 'Interview',
+    'Interview': 'Interview',
+    'Concurso': 'Competition',
+    # obras nombradas en la prensa que todavia no estan en el sitio
+    'Galería de arte objeto A': 'Objeto A art gallery',
+    'Oficina + casa Luna': 'Luna office + house',
+    'Oficina + Casa Luna': 'Luna office + house',
+    'PH El salvador': 'PH El Salvador',
+    'PH el salvador': 'PH El Salvador',
+    'PH loft Arias': 'PH Loft Arias',
+    'Casa PH': 'PH house',
+    'Dossier de Arquitectos e Interioristas': 'Architects and interior designers dossier',
+    'Art Gallery Objeto A + Two Houses Conde + Office + house luna + PH loft Arias':
+        'Objeto A art gallery + Two Houses Conde + Luna office + house + PH Loft Arias',
+    'The Nim Bar y Mamba Bar': 'The Nim Bar and Mamba Bar',
+    'Mamba Bar y The Nim Bar': 'Mamba Bar and The Nim Bar',
+    'Premio Knauf Haus': 'Knauf Haus award',
+    'De contemporaneo: text': 'On the contemporary: text',
 
     # filtros de la grilla de obras
     'Todas': 'All',

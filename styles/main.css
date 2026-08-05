@@ -1704,6 +1704,39 @@ footer.site-footer {
   border-bottom: 1px solid var(--line);
 }
 
+/* --- archivo completo de publicaciones ---------------------------------
+   Son 255 notas desde 2003. Se muestran los tres años mas recientes y el
+   resto entra con el boton, igual que las galerias y la prensa. */
+.pub-anio.is-extra { display: none; }
+.pub-lista.is-open .pub-anio.is-extra { display: block; }
+
+/* Una celda de grilla no se encoge por debajo de su contenido salvo que se
+   le diga. Sin esto, un nombre largo sin espacios donde cortar —"Society of
+   British and International Interior Design"— estiraba la fila y con ella
+   toda la pagina: en pantalla angosta aparecian 101 px de scroll lateral. */
+.press-row > * { min-width: 0; overflow-wrap: anywhere; }
+
+/* Con la lista desplegada aparecian 101 px de scroll lateral en pantalla
+   angosta, sin que ninguna caja de la seccion se saliera: algo pinta unos
+   pixeles mas alla de su caja. Se recorta aca. clip y no hidden a proposito:
+   hidden crea un contenedor de scroll y anula el sticky de los años. */
+#todasLasPublicaciones { overflow-x: clip; }
+
+.pub-lista .press-row a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(0, 0, 0, .25);
+}
+
+.pub-lista .press-row a:hover,
+.pub-lista .press-row a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.pub-more { margin-top: 26px; }
+
 @media (max-width: 700px) {
   .press-row {
     grid-template-columns: 1fr;
