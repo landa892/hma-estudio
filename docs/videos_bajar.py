@@ -14,7 +14,7 @@ import io, json, re, urllib.request
 from datetime import date
 
 HOY = date(2026, 8, 5)          # fecha del sistema al generar esto
-CUANTOS = 6
+CUANTOS = 7
 
 # Los que muestran a la gente hablando. Se listan por id para no depender de
 # adivinar por titulo: "Movistar Arena VIP Lounge" tambien tiene gente, pero

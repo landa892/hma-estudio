@@ -275,6 +275,8 @@ DIC.update({
         'DESTINO MIAMI: Por qué es el mercado inmobiliario del que todos hablan',
     '10 Mandamientos para NO FRACASAR en la Industria Gastronómica | ESPECIAL HOTELGA 2024 |':
         '10 Mandamientos para NO FRACASAR en la Industria Gastronómica | ESPECIAL HOTELGA 2024 |',
+    'Entrevista: Hitzig Militello Arquitectos — Galería de Arte Objeto A':
+        'Entrevista: Hitzig Militello Arquitectos — Galería de Arte Objeto A',
     # El generador ve el titulo ya escapado, asi que la clave lleva &amp;.
     'Charla “Arquitectura e Interiorismo” organizada por MARQ &amp; SCA':
         'Charla “Arquitectura e Interiorismo” organizada por MARQ &amp; SCA',

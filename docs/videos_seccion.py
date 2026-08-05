@@ -56,7 +56,9 @@ def main():
         # rotulo "Entrevistas", se muestran los ultimos videos en una sola
         # lista y se saca el otro subtitulo. Cuando el estudio suba una
         # entrevista, este script vuelve a partirla en dos solo.
-        secciones = [('youtubeEntrevistas', vs[:POR_SECCION * 2]),
+        # El archivo de datos ya viene con los videos elegidos, asi que
+        # se muestran todos en vez de recortar de nuevo aca.
+        secciones = [('youtubeEntrevistas', vs),
                      ('youtubeCharlas', [])]
         h = h.replace('<h3 class="col-sub">Entrevistas</h3>',
                       '<h3 class="col-sub">Últimos videos del canal</h3>', 1)
@@ -82,9 +84,8 @@ def main():
     if entrev:
         print('entrevistas: %d   charlas: %d' % (len(entrev[:POR_SECCION]), len(charlas[:POR_SECCION])))
     else:
-        print('el canal no tiene entrevistas por titulo: una sola lista con %d videos'
-              % len(vs[:POR_SECCION * 2]))
-    for v in vs[:POR_SECCION * 2]:
+        print('una sola lista con %d videos' % len(vs))
+    for v in vs:
         print('   %s' % v['titulo'][:60])
 
 
