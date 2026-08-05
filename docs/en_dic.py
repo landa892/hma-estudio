@@ -234,6 +234,10 @@ REGLAS = [
     # alt de galeria: "moshu — foto 7"
     (re.compile(r'^(.*?) — foto (\d+)$'),
      lambda m, tr: '%s — photo %s' % (tr(m.group(1)), m.group(2))),
+
+    # alt de los planos: "Moshu — plano 3"
+    (re.compile(r'^(.*?) — plano (\d+)$'),
+     lambda m, tr: '%s — plan %s' % (tr(m.group(1)), m.group(2))),
     # "Ir a Benedetta"
     (re.compile(r'^Ir a (.+)$'),
      lambda m, tr: 'Go to %s' % tr(m.group(1))),

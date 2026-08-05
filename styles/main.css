@@ -3160,6 +3160,7 @@ footer.site-footer {
   margin-top: 28px;
 }
 
+
 @media (max-width: 1200px) {
   .gallery-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -3191,6 +3192,24 @@ footer.site-footer {
   display: block;
   transition: transform .5s ease;
 }
+/* Los planos cierran la tanda que se ve de entrada. Son dibujos sobre
+   blanco: se muestran enteros y no recortados como las fotos, porque
+   recortar un plano es cortarle la planta. */
+/* Un plano ocupa dos columnas. En una sola mide 199 px de ancho y a ese
+   tamaño las lineas del dibujo no se distinguen: queda una mancha gris.
+   Con dos ronda los 400 y al menos se lee la planta. */
+.gallery-grid__item--plano {
+  grid-column: span 2;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.gallery-grid__item--plano img {
+  object-fit: contain;
+  padding: 8px;
+  filter: none;
+}
+
 
 .gallery-grid__item:hover img {
   transform: scale(1.04);
