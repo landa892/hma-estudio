@@ -66,7 +66,11 @@ def main():
     for idd, lista in secciones:
         pat = re.compile(r'(?s)(<div id="%s"[^>]*>).*?(\n        </div>)' % idd)
         if not pat.search(h):
-            raise SystemExit('no se encontro el contenedor %s' % idd)
+            # Puede no estar: una corrida anterior lo saco porque el canal no
+            # tenia videos de esa categoria. No es un error.
+            if lista:
+                raise SystemExit('falta el contenedor %s y hay videos para el' % idd)
+            continue
         if not lista:
             h = pat.sub('', h, count=1)
             continue

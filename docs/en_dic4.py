@@ -271,6 +271,17 @@ DIC.update({
     'Últimos videos del canal': 'Latest videos from the channel',
     # Los titulos de los videos son como el estudio los publico en YouTube:
     # se dejan igual para que coincidan con lo que se ve al abrirlos.
+    'DESTINO MIAMI: Por qué es el mercado inmobiliario del que todos hablan':
+        'DESTINO MIAMI: Por qué es el mercado inmobiliario del que todos hablan',
+    '10 Mandamientos para NO FRACASAR en la Industria Gastronómica | ESPECIAL HOTELGA 2024 |':
+        '10 Mandamientos para NO FRACASAR en la Industria Gastronómica | ESPECIAL HOTELGA 2024 |',
+    # El generador ve el titulo ya escapado, asi que la clave lleva &amp;.
+    'Charla “Arquitectura e Interiorismo” organizada por MARQ &amp; SCA':
+        'Charla “Arquitectura e Interiorismo” organizada por MARQ &amp; SCA',
+    '“La creatividad en estado presente” — Orador: Leonardo Militello l Universidad de Palermo':
+        '“La creatividad en estado presente” — Orador: Leonardo Militello l Universidad de Palermo',
+    'Hitzig Militello Arquitectos en DINA — Diseñadores Nacionales Asociados':
+        'Hitzig Militello Arquitectos en DINA — Diseñadores Nacionales Asociados',
     'Roket - Despiece de elementos': 'Roket - Despiece de elementos',
     'MAMBA - Despiece de elementos': 'MAMBA - Despiece de elementos',
     'Goodsten - Despiece de elementos': 'Goodsten - Despiece de elementos',
