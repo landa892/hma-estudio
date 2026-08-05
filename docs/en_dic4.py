@@ -268,6 +268,16 @@ DIC.update({
         'Watch our latest lecture and the most recent talks on commercial architecture on our official channel. Subscribe to keep up with everything we do.',
     'Preview del canal de YouTube de HMA': 'Preview of the HMA YouTube channel',
     'Lo último en video': 'Latest on video',
+    'Últimos videos del canal': 'Latest videos from the channel',
+    # Los titulos de los videos son como el estudio los publico en YouTube:
+    # se dejan igual para que coincidan con lo que se ve al abrirlos.
+    'Roket - Despiece de elementos': 'Roket - Despiece de elementos',
+    'MAMBA - Despiece de elementos': 'MAMBA - Despiece de elementos',
+    'Goodsten - Despiece de elementos': 'Goodsten - Despiece de elementos',
+    'ACCOR Hotels - Despiece de elementos': 'ACCOR Hotels - Despiece de elementos',
+    'Casa FOA - Despiece de elementos': 'Casa FOA - Despiece de elementos',
+    'El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | HMA Estudio':
+        'El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | HMA Estudio',
     'Ir al canal': 'Go to the channel',
     'Entrevistas': 'Interviews',
     'Charlas y Conferencias': 'Talks and lectures',
@@ -348,15 +358,25 @@ DIC.update({
 _base = en_dic3.traducir
 
 
-def traducir(t):
-    """Igual que la capa anterior, con el rotulo de medios adelantado.
+# Las tarjetas de video se rotulan "YouTube — Mes Año". Enumerar cada mes de
+# cada año no escala, y el rotulo cambia solo cada vez que el estudio sube
+# un video, asi que va por regla.
+PAT_YT = re.compile(r'^(YouTube) — (.+)$')
 
-    La regla del pais tiene que correr antes que pasa(), porque "Medio —
-    Pais" cumple el patron de nombre propio y salia intacto.
+
+def traducir(t):
+    """Igual que la capa anterior, con dos rotulos adelantados.
+
+    Las dos reglas tienen que correr antes que pasa(), porque "Medio — Pais"
+    y "YouTube — Mes Año" cumplen el patron de nombre propio y salian
+    intactos.
     """
     if t in DIC:
         return DIC[t]
     m = PAT_PAIS.match(t)
     if m:
         return '%s — %s' % (_base(m.group(1)) or m.group(1), PAISES[m.group(2)])
+    m = PAT_YT.match(t)
+    if m:
+        return 'YouTube — %s' % (_base(m.group(2)) or m.group(2))
     return _base(t)
