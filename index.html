@@ -166,14 +166,15 @@
   <nav class="scroll-dots" id="scrollDots" aria-label="Navegación por sección">
     <button data-target="section-hero" class="active" aria-label="Ir a inicio"><span
         class="dot-label">Inicio</span></button>
-    <button data-target="section-1" aria-label="Ir a Osten Coffee Shop"><span class="dot-label">Osten Coffee
-        Shop</span></button>
-    <button data-target="section-2" aria-label="Ir a Kavak Hub"><span class="dot-label">Kavak Hub</span></button>
-    <button data-target="section-3" aria-label="Ir a Benedetta"><span class="dot-label">Benedetta</span></button>
-    <button data-target="section-4" aria-label="Ir a Cervecería Austral"><span class="dot-label">Cervecería
+    <button data-target="section-1" aria-label="Ir a Movistar Arena"><span class="dot-label">Movistar
+        Arena</span></button>
+    <button data-target="section-2" aria-label="Ir a Cervecería Austral"><span class="dot-label">Cervecería
         Austral</span></button>
-    <button data-target="section-5" aria-label="Ir a Aire Libre"><span class="dot-label">Aire Libre</span></button>
-    <button data-target="section-6" aria-label="Ir a Fresco"><span class="dot-label">Fresco</span></button>
+    <button data-target="section-3" aria-label="Ir a Bienal de Venecia"><span class="dot-label">Bienal de
+        Venecia</span></button>
+    <button data-target="section-4" aria-label="Ir a Osten Tower"><span class="dot-label">Osten Tower</span></button>
+    <button data-target="section-5" aria-label="Ir a YouTube"><span class="dot-label">Novedades</span></button>
+    <button data-target="homeMedios" aria-label="Ir a premios"><span class="dot-label">Premios</span></button>
     <button data-target="section-contacto" aria-label="Ir a contacto"><span class="dot-label">Hablemos</span></button>
   </nav>
 
@@ -203,118 +204,137 @@
       <a href="/proyectos/" class="interlude-btn" aria-label="Ver todos los proyectos">→</a>
     </div>
 
-    <section class="banner-stack">
-      <a href="/proyectos/osten-foa/" class="project-banner reveal" id="section-1">
-        <div class="banner-stage">
-          <img src="/assets/gallery/osten-foa/1.webp" width="2000" height="1333" alt="Osten Coffee Shop, Casa FOA 2025"
-            loading="lazy" decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Osten Coffee Shop — Casa FOA</h2>
-              <p>Un territorio de dualidades: minimalismo racionalista y exaltación sensorial, en Madero Harbour.</p>
-            </div>
-          </div>
-        </div>
-      </a>
+    <!-- CUADRADITO 2: OBRA 1 (MOVISTAR ARENA - LAYOUT 50/50 INSTAGRAM) -->
+    <div class="project-banner reveal" id="section-1"
+      style="display: flex; flex-direction: row; height: 100vh; width: 100%; border-top: 1px solid #e0e0e0; box-sizing: border-box; overflow: hidden; background: var(--bg);">
 
-      <div class="banner-interlude reveal">
-        <p>Desde el 2006, más de <span class="count-inline" data-count="20" data-suffix="">0</span> años de trayectoria
-          creando espacios experienciales.</p>
-        <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
+      <!-- Mitad Izquierda: Mantiene el centrado y tamaño exacto, con hitbox restringida solo a la foto -->
+      <div
+        style="width: 50%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box; flex-shrink: 0; background: var(--bg);">
+        <a href="https://www.instagram.com/p/DYANnd0CXnT/?igsh=MWZ3emhvd3dzZW9nbw==" target="_blank" rel="noopener"
+          style="display: inline-block; line-height: 0; text-decoration: none; pointer-events: none;">
+          <img src="/assets/gallery/movistar-arena/foto-instagram.jpeg" alt="VIP Lounge Movistar Arena"
+            style="max-width: 100%; max-height: 75vh; object-fit: contain; display: block; border-radius: 4px; pointer-events: auto; cursor: pointer;">
+        </a>
       </div>
 
-      <a href="/proyectos/kavak-hub/" class="project-banner reveal" id="section-2">
-        <div class="banner-stage">
-          <img src="/assets/gallery/kavak-hub/1.webp" width="2000" height="1333" alt="Kavak Hub" loading="lazy"
-            decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Kavak Hub</h2>
-              <p>El hub de Kavak dentro del Dot Baires: showroom, oficinas y 15.000 m² de playa.</p>
-            </div>
-          </div>
-        </div>
-      </a>
+      <!-- Mitad Derecha: Texto del premio -->
+      <div
+        style="width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 6% 8%; color: var(--text); overflow-y: auto; box-sizing: border-box; background: var(--bg);">
+        <span class="eyebrow" style="margin-bottom: 10px;">Obra Galardonada</span>
+        <h2 class="display-3" style="margin-bottom: 6px;">Movistar Arena</h2>
+        <h3
+          style="font-size: 1rem; font-weight: 600; margin-bottom: 20px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em;">
+          Architizer A+ Awards 2026 – Special Mention</h3>
 
-      <div class="banner-interlude reveal">
-        <p>Más de <span class="count-inline" data-count="80000" data-suffix="+">0</span> m² proyectados en hotelería y
-          espacios comerciales.</p>
-        <a href="/proyectos/?cat=hoteleria" class="interlude-btn" aria-label="Ver hotelería y comercial">→</a>
+        <div class="lede" style="font-size: 1rem; line-height: 1.5;">
+          <p>Nuestro proyecto <strong>VIP Lounge Movistar Arena</strong> fue distinguido con una Mención Especial en la
+            categoría <em>Commercial Interiors</em>.</p>
+          <p style="margin-top: 14px;">Este programa promueve la mejor arquitectura a nivel global, destacando el diseño
+            significativo que impacta positivamente en la vida cotidiana. Ser evaluados por un jurado internacional de
+            primer nivel refuerza el inmenso valor de esta distinción.</p>
+          <p style="margin-top: 14px;">Agradecemos a @Architizer y a todos los colaboradores que hicieron posible este
+            proyecto.</p>
+        </div>
       </div>
+    </div>
 
-      <a href="/proyectos/benedetta/" class="project-banner reveal" id="section-3">
-        <div class="banner-stage">
-          <img src="/assets/gallery/benedetta/1.webp" width="2000" height="1458" alt="Benedetta" loading="lazy"
-            decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Benedetta</h2>
-              <p>Un restaurante mediterráneo en Palermo, donde las olas del mar se construyen con listones de madera.
-              </p>
-            </div>
+
+    <!-- SEPARADOR 1 -->
+    <div class="banner-interlude reveal">
+      <p>Desde el 2006, más de <span class="count-inline" data-count="20" data-suffix="">0</span> años de trayectoria
+        creando espacios experienciales.</p>
+      <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
+    </div>
+
+    <!-- CUADRADITO 3: OBRA 2 (CERVECERÍA AUSTRAL - 2026 - DISEÑO ORIGINAL) -->
+    <a href="/proyectos/cerveceria-austral/" class="project-banner reveal" id="section-2">
+      <div class="banner-stage">
+        <img src="/assets/gallery/cerveceria-austral/1.webp" width="2000" height="1334" alt="Cervecería Austral"
+          loading="lazy" decoding="async">
+        <div class="project-banner__content">
+          <div class="pb-content-inner">
+            <h2>Cervecería Austral</h2>
+            <p>Trasladar la esencia del sur del mundo al corazón de Santiago de Chile.</p>
           </div>
         </div>
-      </a>
-
-      <div class="banner-interlude reveal">
-        <p>Somos un equipo de arquitectos que trabaja integrando oficios y disciplinas creativas.</p>
-        <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
       </div>
+    </a>
 
-      <a href="/proyectos/cerveceria-austral/" class="project-banner reveal" id="section-4">
-        <div class="banner-stage">
-          <img src="/assets/gallery/cerveceria-austral/1.webp" width="2000" height="1334" alt="Cervecería Austral"
-            loading="lazy" decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Cervecería Austral</h2>
-              <p>Trasladar la esencia del sur del mundo al corazón de Santiago de Chile.</p>
-            </div>
+    <!-- SEPARADOR 2 -->
+    <div class="banner-interlude reveal">
+      <p>Más de <span class="count-inline" data-count="80000" data-suffix="+">0</span> m² proyectados en hotelería y
+        espacios comerciales.</p>
+      <a href="/proyectos/?cat=hoteleria" class="interlude-btn" aria-label="Ver hotelería y comercial">→</a>
+    </div>
+
+    <!-- CUADRADITO 4: PROYECTO 1 (BIENAL DE VENECIA - 2025 - DISEÑO ORIGINAL) -->
+    <a href="/proyectos/bienal-venecia/" class="project-banner reveal" id="section-3">
+      <div class="banner-stage">
+        <img src="/assets/gallery/bienal-venecia/1.webp" width="1491" height="1055" alt="Bienal de Venecia"
+          loading="lazy" decoding="async">
+        <div class="project-banner__content">
+          <div class="pb-content-inner">
+            <h2>Bienal de Venecia</h2>
+            <p>Propuesta para el pabellón argentino de la Bienal de Venecia</p>
           </div>
         </div>
-      </a>
-
-      <div class="banner-interlude reveal">
-        <p>Más de <span class="count-inline" data-count="30" data-suffix="+">0</span> premios y distinciones nacionales
-          e internacionales desde 2008.</p>
-        <a href="/premios/" class="interlude-btn" aria-label="Ver premios">→</a>
       </div>
+    </a>
 
-      <a href="/proyectos/bienal-venecia/" class="project-banner reveal" id="section-5">
-        <div class="banner-stage">
-          <img src="/assets/gallery/bienal-venecia/1.webp" width="1491" height="1055" alt="Bienal de Venecia"
-            loading="lazy" decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Bienal de Venecia</h2>
-              <p>Propuesta para el pabellón argentino de la Bienal de Venecia 2025: seis inteligencias, cinco sinapsis.
-              </p>
-            </div>
+    <!-- SEPARADOR 3 -->
+    <div class="banner-interlude reveal">
+      <p>Somos un equipo de arquitectos que trabaja integrando oficios y disciplinas creativas.</p>
+      <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
+    </div>
+
+    <!-- CUADRADITO 5: PROYECTO 2 (OSTEN TOWER - 2025 - DISEÑO ORIGINAL) -->
+    <a href="/proyectos/osten-tower/" class="project-banner reveal" id="section-4">
+      <div class="banner-stage">
+        <img src="/assets/gallery/osten-tower/1.webp" width="1024" height="682" alt="Osten Tower" loading="lazy"
+          decoding="async">
+        <div class="project-banner__content">
+          <div class="pb-content-inner">
+            <h2>Osten Tower</h2>
+            <p>Lobby y rooftop de una torre residencial en Madero Harbour.</p>
           </div>
         </div>
-      </a>
-
-      <!-- Ninguno de los otros bloques llevaba a prensa, y quedaba la unica
-          seccion del sitio sin puerta desde el home. Los medios son reales y
-          cada nota esta enlazada y verificada en /prensa/. -->
-      <div class="banner-interlude reveal">
-        <p>Dezeen, ArchDaily, Wallpaper* y Architectural Digest: más de dos décadas
-          de prensa internacional.</p>
-        <a href="/prensa/" class="interlude-btn" aria-label="Ver la prensa">→</a>
       </div>
+    </a>
 
-      <a href="/proyectos/osten-tower/" class="project-banner reveal" id="section-6">
-        <div class="banner-stage">
-          <img src="/assets/gallery/osten-tower/1.webp" width="1024" height="682" alt="Osten Tower" loading="lazy"
-            decoding="async">
-          <div class="project-banner__content">
-            <div class="pb-content-inner">
-              <h2>Osten Tower</h2>
-              <p>Lobby y rooftop de una torre residencial en Madero Harbour.</p>
-            </div>
-          </div>
-        </div>
+    <!-- SEPARADOR 4 -->
+    <div class="banner-interlude reveal">
+      <p>Más de <span class="count-inline" data-count="50" data-suffix="+">0</span> premios y distinciones nacionales
+        e internacionales desde 2008.</p>
+      <a href="/premios/" class="interlude-btn" aria-label="Ver premios">→</a>
+    </div>
+
+    <!-- CUADRADITO 6: NOVEDADES YOUTUBE (LAYOUT 50/50) -->
+    <div class="project-banner reveal" id="section-5"
+      style="display: flex; flex-direction: row; height: 100vh; width: 100%;">
+      <!-- Mitad Izquierda: Foto linkeada a YouTube con icono play -->
+      <a href="https://www.youtube.com/@HMAEstudio" target="_blank" rel="noopener"
+        style="width: 50%; height: 100%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #000;">
+        <!-- Miniatura genérica, cambiala por la del video real -->
+        <img src="/assets/youtube-latest.webp" alt="Último video YouTube"
+          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+        <svg style="position: absolute; width: 80px; height: 80px; color: #fff;" viewBox="0 0 24 24"
+          fill="currentColor">
+          <path
+            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+        </svg>
       </a>
+      <!-- Mitad Derecha: Texto del video -->
+      <div
+        style="width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 8%; background: var(--bg); color: var(--text);">
+        <span class="eyebrow" style="margin-bottom: 16px;">Novedades en YouTube</span>
+        <h2 class="display-3" style="margin-bottom: 24px;">El estudio afuera</h2>
+        <p class="lede" style="font-size: 1.2rem; line-height: 1.6;">Reviví nuestra última conferencia y las más
+          recientes charlas sobre arquitectura comercial en nuestro canal oficial. Suscribite para enterarte de todas
+          nuestras novedades.</p>
+      </div>
+    </div>
+
     </section>
 
     <!-- Sección solo de premios (se borró "Lo último" por pedido del cliente) -->
