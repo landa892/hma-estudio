@@ -14,7 +14,7 @@ import io, json, re, urllib.request
 from datetime import date
 
 HOY = date(2026, 8, 5)          # fecha del sistema al generar esto
-CUANTOS = 7
+CUANTOS = 5
 
 # Los que muestran a la gente hablando. Se listan por id para no depender de
 # adivinar por titulo: "Movistar Arena VIP Lounge" tambien tiene gente, pero
@@ -24,9 +24,11 @@ CHARLAS = [
     '9z06HuZzhB4',   # DESTINO MIAMI
     'pDUnbL_uq5E',   # 10 Mandamientos industria gastronomica
     '_-nCkxIThi4',   # HMA en DINA
+    'ZcC_m8EkeXY',   # Entrevista Galeria de Arte Objeto A
+    # De aca para abajo no entran: la seccion muestra cinco. Quedan a mano
+    # por si se quiere cambiar alguna de las de arriba.
     'p6GLj-XBTB4',   # Charla Arquitectura e Interiorismo, MARQ & SCA
     'rRYYjdBox2g',   # La creatividad en estado presente
-    'ZcC_m8EkeXY',   # Entrevista Galeria de Arte Objeto A
     'XgXUthNLQco',   # Charla FADU UBA
     '0sFr8XCyvJQ',   # Arquitectura interior e inmersion
     '7OKO4xfgjHI',   # Oradores Tendiez, MALBA

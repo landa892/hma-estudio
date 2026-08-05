@@ -1615,6 +1615,20 @@ footer.site-footer {
   margin-bottom: 64px;
 }
 
+/* La grilla es de seis, y la seccion de videos muestra cinco: con seis
+   columnas quedaba una celda vacia al final de la fila. Se ajusta a la
+   cantidad que haya, sin tocar el resto de las grillas de prensa. */
+#youtubeEntrevistas { grid-template-columns: repeat(5, 1fr); }
+
+/* Rotulo de seccion como los de la pagina Estudio ("Fundadores", "Que
+   hacemos", "Enfoque creativo"). Estaba repetido como estilo en linea en
+   cinco lugares; aca queda en un solo sitio. */
+.eyebrow--seccion {
+  font-size: 1rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 1100px) {
   .press-featured {
     grid-template-columns: repeat(4, 1fr);
