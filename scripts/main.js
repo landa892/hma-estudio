@@ -8,6 +8,31 @@ const HMA_EN = document.documentElement.lang === 'en';
 const T = (es, en) => (HMA_EN ? en : es);
 
 try {
+  /* Algunos navegadores móviles dejan el video pausado al restaurar la pestaña
+     aunque cumpla las reglas de autoplay. Reafirmar sus propiedades y volver
+     a pedir play cubre ese caso sin interferir con reduced-motion. */
+  const heroVideo = document.querySelector('.hero-video[autoplay]');
+  if (heroVideo) {
+    const startHeroVideo = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      heroVideo.playsInline = true;
+      const playback = heroVideo.play();
+      if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+    };
+
+    if (heroVideo.readyState >= 2) startHeroVideo();
+    else heroVideo.addEventListener('canplay', startHeroVideo, { once: true });
+
+    window.addEventListener('pageshow', startHeroVideo);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) startHeroVideo();
+    });
+  }
+} catch (e) { console.error('hero-video-autoplay', e); }
+
+try {
   /* ---------- TODOS LOS TEXTOS DEL HOME SE ACHICAN HACIA ABAJO-IZQUIERDA AL
      SCROLLEAR (referencia mvrdv.com: transform-origin left bottom, ligado al
      scroll en vivo dentro del rango de CADA seccion, no a una sola aparicion).
