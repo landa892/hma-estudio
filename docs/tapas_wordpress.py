@@ -4,6 +4,11 @@
 Las tarjetas, las filas, el buscador y el Open Graph de cada ficha usan la
 misma portada. El orden de las fotos dentro de las galerias no se modifica.
 
+Las que salen de assets/covers vienen de las carpetas "03 - Carátula" del
+Drive del estudio: ahi el estudio marca que foto es la portada de cada obra.
+Se guardan aparte en vez de reordenar la galeria porque la foto elegida no
+siempre esta entre las que publica el sitio.  Ver docs/caratulas.py.
+
     python docs/tapas_wordpress.py
 """
 
@@ -14,27 +19,38 @@ import re
 
 # slug: (ruta de portada, ancho, alto)
 PORTADAS = {
+    'accor-hotels': ('/assets/covers/accor-hotels.webp', 800, 450),
     'antiche': ('/assets/gallery/antiche/33.webp', 1000, 868),
     'araoz': ('/assets/gallery/araoz/11.webp', 533, 800),
-    'atelier-vilela': ('/assets/gallery/atelier-vilela/2.webp', 1200, 788),
-    'bolivar': ('/assets/gallery/bolivar/19.webp', 1348, 899),
+    'atelier-vilela': ('/assets/covers/atelier-vilela.webp', 1200, 788),
+    'bolivar': ('/assets/covers/bolivar.webp', 1200, 800),
+    'burger-7167': ('/assets/covers/burger-7167.webp', 800, 533),
+    'cafe-artois': ('/assets/covers/cafe-artois.webp', 1200, 375),
+    'casa-olmo': ('/assets/covers/casa-olmo.webp', 1024, 684),
+    'clasico-quilmes': ('/assets/covers/clasico-quilmes.webp', 1200, 800),
+    'dos-casas-conde': ('/assets/covers/dos-casas-conde.webp', 800, 1200),
+    'elyaki': ('/assets/covers/elyaki.webp', 1200, 800),
     'fehgra': ('/assets/gallery/fehgra/3.webp', 800, 520),
     'fogon': ('/assets/gallery/fogon/25.webp', 1024, 683),
-    'fresco': ('/assets/gallery/fresco/34.webp', 2000, 1333),
-    'goodsten': ('/assets/gallery/goodsten/15.webp', 1800, 1200),
+    'fresco': ('/assets/covers/fresco.webp', 1200, 800),
+    'goodsten': ('/assets/covers/goodsten.webp', 1200, 800),
     'hausscape': ('/assets/gallery/hausscape/2.webp', 818, 545),
     'hyatt-ziva': ('/assets/covers/hyatt-ziva.webp', 800, 450),
+    'iguanafix': ('/assets/covers/iguanafix.webp', 900, 600),
     'juan-valdez': ('/assets/gallery/juan-valdez/21.webp', 800, 533),
     'kavak-hub': ('/assets/gallery/kavak-hub/2.webp', 2000, 1125),
     'kavak-oficinas': ('/assets/gallery/kavak-oficinas/14.webp', 2000, 1333),
-    'luccianos-caballito': ('/assets/gallery/luccianos-caballito/12.webp', 1024, 682),
-    'mamba-bar': ('/assets/gallery/mamba-bar/12.webp', 1800, 1200),
+    'luccianos-caballito': ('/assets/covers/luccianos-caballito.webp', 1024, 576),
+    'luccianos-olivos': ('/assets/covers/luccianos-olivos.webp', 1200, 800),
+    'malabia': ('/assets/covers/malabia.webp', 800, 1200),
+    'mamba-bar': ('/assets/covers/mamba-bar.webp', 1200, 800),
     'movistar-arena': ('/assets/covers/movistar-arena.webp', 800, 533),
-    'nim-bar': ('/assets/gallery/nim-bar/27.webp', 1800, 1200),
+    'nim-bar': ('/assets/covers/nim-bar.webp', 1200, 1100),
     'people': ('/assets/gallery/people/13.webp', 801, 1000),
+    'the-birra': ('/assets/covers/the-birra.webp', 1200, 801),
     'tostado': ('/assets/gallery/tostado/28.webp', 1000, 667),
-    'uala-office': ('/assets/gallery/uala-office/34.webp', 2000, 1333),
-    'victoria-brown': ('/assets/gallery/victoria-brown/14.webp', 1800, 1200),
+    'uala-office': ('/assets/covers/uala-office.webp', 1200, 800),
+    'victoria-brown': ('/assets/covers/victoria-brown.webp', 1200, 800),
     'williamsburg': ('/assets/gallery/williamsburg/17.webp', 2000, 1333),
 }
 

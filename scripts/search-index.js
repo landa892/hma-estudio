@@ -5,7 +5,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Hamburguesería · Scalabrini Ortiz 3110, Buenos Aires · 70 m² · 2021",
   "url": "/proyectos/burger-7167/",
-  "img": "/assets/gallery/burger-7167/1.webp"
+  "img": "/assets/covers/burger-7167.webp"
  },
  {
   "tipo": "Proyecto",
@@ -13,7 +13,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Hotel — concurso internacional · São Paulo · 6.500 m² · 2018",
   "url": "/proyectos/accor-hotels/",
-  "img": "/assets/gallery/accor-hotels/1.webp"
+  "img": "/assets/covers/accor-hotels.webp"
  },
  {
   "tipo": "Proyecto",
@@ -45,7 +45,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Atelier, artes y oficios · Vilela 2793, Buenos Aires · 60 m² cubiertos y 55 m² descubiertos · 2013–2014",
   "url": "/proyectos/atelier-vilela/",
-  "img": "/assets/gallery/atelier-vilela/2.webp"
+  "img": "/assets/covers/atelier-vilela.webp"
  },
  {
   "tipo": "Proyecto",
@@ -69,7 +69,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Edificio multifamiliar · Bolívar 1761-63, San Telmo, Buenos Aires · 1.520 m²",
   "url": "/proyectos/bolivar/",
-  "img": "/assets/gallery/bolivar/19.webp"
+  "img": "/assets/covers/bolivar.webp"
  },
  {
   "tipo": "Proyecto",
@@ -77,7 +77,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Cafetería y restaurante · Campo Argentino de Polo, Buenos Aires · 242 m² cubiertos y 112 m² semicubiertos",
   "url": "/proyectos/cafe-artois/",
-  "img": "/assets/gallery/cafe-artois/1.webp"
+  "img": "/assets/covers/cafe-artois.webp"
  },
  {
   "tipo": "Proyecto",
@@ -85,7 +85,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Bar · Av. San Martín 86, Ushuaia · 75 m² cubiertos · 87 m² descubiertos · 2017",
   "url": "/proyectos/casa-olmo/",
-  "img": "/assets/gallery/casa-olmo/1.webp"
+  "img": "/assets/covers/casa-olmo.webp"
  },
  {
   "tipo": "Proyecto",
@@ -117,7 +117,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Vivienda multifamiliar · Buenos Aires · 482 m²",
   "url": "/proyectos/dos-casas-conde/",
-  "img": "/assets/gallery/dos-casas-conde/1.webp"
+  "img": "/assets/covers/dos-casas-conde.webp"
  },
  {
   "tipo": "Proyecto",
@@ -133,7 +133,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Bar · Esmeralda 574 , Buenos Aires · 60 m² planta baja · 71 m² subsuelo · 2018–19",
   "url": "/proyectos/clasico-quilmes/",
-  "img": "/assets/gallery/clasico-quilmes/1.webp"
+  "img": "/assets/covers/clasico-quilmes.webp"
  },
  {
   "tipo": "Proyecto",
@@ -141,7 +141,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Parrilla y bar · Costa Rica 4827, Buenos Aires · 57 m² · 2018–19",
   "url": "/proyectos/elyaki/",
-  "img": "/assets/gallery/elyaki/1.webp"
+  "img": "/assets/covers/elyaki.webp"
  },
  {
   "tipo": "Proyecto",
@@ -165,7 +165,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante · Honduras 5670, Palermo, Buenos Aires · 312 m² · 2019",
   "url": "/proyectos/fresco/",
-  "img": "/assets/gallery/fresco/34.webp"
+  "img": "/assets/covers/fresco.webp"
  },
  {
   "tipo": "Proyecto",
@@ -173,7 +173,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Cremería · Av. del Libertador, Martínez, Buenos Aires · 330 m² · 2017",
   "url": "/proyectos/goodsten/",
-  "img": "/assets/gallery/goodsten/15.webp"
+  "img": "/assets/covers/goodsten.webp"
  },
  {
   "tipo": "Proyecto",
@@ -197,7 +197,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Oficinas",
   "desc": "Oficinas · Buenos Aires",
   "url": "/proyectos/iguanafix/",
-  "img": "/assets/gallery/iguanafix/1.webp"
+  "img": "/assets/covers/iguanafix.webp"
  },
  {
   "tipo": "Proyecto",
@@ -245,7 +245,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Heladería y cafetería · Av. del Libertador, Olivos, Buenos Aires · 100 m² · 2016",
   "url": "/proyectos/luccianos-olivos/",
-  "img": "/assets/gallery/luccianos-olivos/1.webp"
+  "img": "/assets/covers/luccianos-olivos.webp"
  },
  {
   "tipo": "Proyecto",
@@ -253,7 +253,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Heladería · Caballito, Buenos Aires",
   "url": "/proyectos/luccianos-caballito/",
-  "img": "/assets/gallery/luccianos-caballito/12.webp"
+  "img": "/assets/covers/luccianos-caballito.webp"
  },
  {
   "tipo": "Proyecto",
@@ -261,7 +261,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Vivienda multifamiliar · Buenos Aires · 2.405 m²",
   "url": "/proyectos/malabia/",
-  "img": "/assets/gallery/malabia/1.webp"
+  "img": "/assets/covers/malabia.webp"
  },
  {
   "tipo": "Proyecto",
@@ -277,7 +277,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante y bar · Soler 5130, Palermo, Buenos Aires · 265 m² · 2018",
   "url": "/proyectos/mamba-bar/",
-  "img": "/assets/gallery/mamba-bar/12.webp"
+  "img": "/assets/covers/mamba-bar.webp"
  },
  {
   "tipo": "Proyecto",
@@ -397,7 +397,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Almacén de bebidas · Roca 63, Ushuaia · 38 m² planta baja · 53 m² primer piso · 2017",
   "url": "/proyectos/the-birra/",
-  "img": "/assets/gallery/the-birra/1.webp"
+  "img": "/assets/covers/the-birra.webp"
  },
  {
   "tipo": "Proyecto",
@@ -405,7 +405,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante y bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
   "url": "/proyectos/nim-bar/",
-  "img": "/assets/gallery/nim-bar/27.webp"
+  "img": "/assets/covers/nim-bar.webp"
  },
  {
   "tipo": "Proyecto",
@@ -421,7 +421,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Oficinas",
   "desc": "Reforma de oficinas · Buenos Aires · 2017",
   "url": "/proyectos/uala-office/",
-  "img": "/assets/gallery/uala-office/34.webp"
+  "img": "/assets/covers/uala-office.webp"
  },
  {
   "tipo": "Proyecto",
@@ -437,7 +437,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Bar y restaurante · Costa Rica 4827, Palermo, Buenos Aires · 377 m² cubiertos y 8 m² descubiertos · 2013",
   "url": "/proyectos/victoria-brown/",
-  "img": "/assets/gallery/victoria-brown/14.webp"
+  "img": "/assets/covers/victoria-brown.webp"
  },
  {
   "tipo": "Proyecto",

@@ -5,7 +5,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Hotel — international competition · São Paulo · 6.500 m² · 2018",
   "url": "/en/projects/accor-hotels/",
-  "img": "/assets/gallery/accor-hotels/1.webp"
+  "img": "/assets/covers/accor-hotels.webp"
  },
  {
   "tipo": "Project",
@@ -37,7 +37,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Atelier, arts and crafts · Vilela 2793, Buenos Aires · 60 m² indoor and 55 m² outdoor · 2013–2014",
   "url": "/en/projects/atelier-vilela/",
-  "img": "/assets/gallery/atelier-vilela/2.webp"
+  "img": "/assets/covers/atelier-vilela.webp"
  },
  {
   "tipo": "Project",
@@ -61,7 +61,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Multi-family building · Bolívar 1761-63, San Telmo, Buenos Aires · 1.520 m²",
   "url": "/en/projects/bolivar/",
-  "img": "/assets/gallery/bolivar/19.webp"
+  "img": "/assets/covers/bolivar.webp"
  },
  {
   "tipo": "Project",
@@ -69,7 +69,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Coffee shop and restaurant · Campo Argentino de Polo, Buenos Aires · 242 m² indoor and 112 m² semi-covered",
   "url": "/en/projects/cafe-artois/",
-  "img": "/assets/gallery/cafe-artois/1.webp"
+  "img": "/assets/covers/cafe-artois.webp"
  },
  {
   "tipo": "Project",
@@ -101,7 +101,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Multi-family housing · Buenos Aires · 482 m²",
   "url": "/en/projects/dos-casas-conde/",
-  "img": "/assets/gallery/dos-casas-conde/1.webp"
+  "img": "/assets/covers/dos-casas-conde.webp"
  },
  {
   "tipo": "Project",
@@ -133,7 +133,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant · Honduras 5670, Palermo, Buenos Aires · 312 m² · 2019",
   "url": "/en/projects/fresco/",
-  "img": "/assets/gallery/fresco/34.webp"
+  "img": "/assets/covers/fresco.webp"
  },
  {
   "tipo": "Project",
@@ -141,7 +141,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Creamery · Av. del Libertador, Martínez, Buenos Aires · 330 m² · 2017",
   "url": "/en/projects/goodsten/",
-  "img": "/assets/gallery/goodsten/15.webp"
+  "img": "/assets/covers/goodsten.webp"
  },
  {
   "tipo": "Project",
@@ -165,7 +165,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Offices",
   "desc": "Offices · Buenos Aires",
   "url": "/en/projects/iguanafix/",
-  "img": "/assets/gallery/iguanafix/1.webp"
+  "img": "/assets/covers/iguanafix.webp"
  },
  {
   "tipo": "Project",
@@ -213,7 +213,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Ice cream shop · Caballito, Buenos Aires",
   "url": "/en/projects/luccianos-caballito/",
-  "img": "/assets/gallery/luccianos-caballito/12.webp"
+  "img": "/assets/covers/luccianos-caballito.webp"
  },
  {
   "tipo": "Project",
@@ -221,7 +221,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Multi-family housing · Buenos Aires · 2.405 m²",
   "url": "/en/projects/malabia/",
-  "img": "/assets/gallery/malabia/1.webp"
+  "img": "/assets/covers/malabia.webp"
  },
  {
   "tipo": "Project",
@@ -229,7 +229,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant and bar · Soler 5130, Palermo, Buenos Aires · 265 m² · 2018",
   "url": "/en/projects/mamba-bar/",
-  "img": "/assets/gallery/mamba-bar/12.webp"
+  "img": "/assets/covers/mamba-bar.webp"
  },
  {
   "tipo": "Project",
@@ -261,7 +261,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant and bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
   "url": "/en/projects/nim-bar/",
-  "img": "/assets/gallery/nim-bar/27.webp"
+  "img": "/assets/covers/nim-bar.webp"
  },
  {
   "tipo": "Project",
@@ -349,7 +349,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Offices",
   "desc": "Office refurbishment · Buenos Aires · 2017",
   "url": "/en/projects/uala-office/",
-  "img": "/assets/gallery/uala-office/34.webp"
+  "img": "/assets/covers/uala-office.webp"
  },
  {
   "tipo": "Project",
@@ -365,7 +365,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Bar and restaurant · Costa Rica 4827, Palermo, Buenos Aires · 377 m² indoor and 8 m² outdoor · 2013",
   "url": "/en/projects/victoria-brown/",
-  "img": "/assets/gallery/victoria-brown/14.webp"
+  "img": "/assets/covers/victoria-brown.webp"
  },
  {
   "tipo": "Project",
