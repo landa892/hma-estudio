@@ -11,7 +11,9 @@ import io, json, os, re, html
 
 NUEVAS = ['abasto-patio-comidas', 'burger-7167', 'casa-olmo', 'clasico-quilmes',
           'elyaki', 'luccianos-olivos', 'malita', 'stella-artois-mercat',
-          'the-birra']
+          'the-birra',
+          # segunda tanda: las tres que esperaban las fotos del Drive
+          'oficina-casa-luna', 'ph-el-salvador', 'ph-loft-arias']
 ARCHIVO = 'scripts/search-index.js'
 CABEZA = 'window.HMA_SEARCH_INDEX = '
 

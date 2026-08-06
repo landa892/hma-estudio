@@ -313,6 +313,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Oficina + casa Luna",
+  "sub": "Oficinas",
+  "desc": "Oficina y vivienda · Luna 250, Buenos Aires · 250 m² cubiertos · 100 m² descubiertos · 2012–13",
+  "url": "/proyectos/oficina-casa-luna/",
+  "img": "/assets/gallery/oficina-casa-luna/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Osten",
   "sub": "Gastronómico",
   "desc": "Bar de cocktails · Puerto Madero · 460 m² · 2022",
@@ -358,6 +366,22 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m² · 2025",
   "url": "/proyectos/people/",
   "img": "/assets/gallery/people/13.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "PH El Salvador",
+  "sub": "Residencial",
+  "desc": "Vivienda · El salvador 4633, Buenos Aires · 126 m² cubiertos · 63 m² descubiertos · 2009",
+  "url": "/proyectos/ph-el-salvador/",
+  "img": "/assets/gallery/ph-el-salvador/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
+  "titulo": "PH Loft Arias",
+  "sub": "Residencial",
+  "desc": "Vivienda · Arias 2553, Buenos Aires · 150 m² cubiertos · 100 m² descubiertos · 2011",
+  "url": "/proyectos/ph-loft-arias/",
+  "img": "/assets/gallery/ph-loft-arias/1.webp"
  },
  {
   "tipo": "Proyecto",

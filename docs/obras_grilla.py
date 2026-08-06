@@ -10,7 +10,10 @@ import io, os, re, html
 
 NUEVAS = ['abasto-patio-comidas', 'burger-7167', 'casa-olmo', 'clasico-quilmes',
           'elyaki', 'luccianos-olivos', 'malita', 'stella-artois-mercat',
-          'the-birra']
+          'the-birra',
+          # segunda tanda: estaban escritas desde el WordPress viejo y
+          # esperaban las fotos, que el estudio subio al Drive
+          'oficina-casa-luna', 'ph-el-salvador', 'ph-loft-arias']
 
 
 def leer(slug):

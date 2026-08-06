@@ -237,6 +237,11 @@ def main():
             print('  %-22s SIN FOTOS, no se crea' % slug)
             continue
         dest = os.path.join('proyectos', slug)
+        # Una obra ya publicada no se vuelve a generar: despues del alta la
+        # pagina recibe planos, portada del Drive y correcciones de ficha que
+        # el molde no conoce, y rehacerla las borraria sin avisar.
+        if os.path.isfile(os.path.join(dest, 'index.html')):
+            print('  %-22s ya publicada, no se toca' % slug); continue
         os.makedirs(dest, exist_ok=True)
         h = pagina(molde, slug, FICHAS[slug], o['campos'], o['es'], fotos)
         io.open(os.path.join(dest, 'index.html'), 'w', encoding='utf-8').write(h)
