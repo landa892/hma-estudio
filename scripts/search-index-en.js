@@ -1,11 +1,19 @@
 window.HMA_SEARCH_INDEX = [
  {
+ "tipo": "Project",
+ "titulo": "Ualá II",
+ "sub": "Offices",
+ "desc": "Office interior design · Buenos Aires · 757 m² · 2019–2020",
+ "url": "/en/projects/uala-ii/",
+ "img": "/assets/covers/uala-ii.webp"
+},
+ {
   "tipo": "Project",
   "titulo": "7167 Burger",
   "sub": "Hospitality",
   "desc": "Burger restaurant · Scalabrini Ortiz 3110, Buenos Aires · 70 m² · 2021",
   "url": "/en/projects/burger-7167/",
-  "img": "/assets/gallery/burger-7167/1.webp"
+  "img": "/assets/covers/burger-7167.webp"
  },
  {
   "tipo": "Project",
@@ -61,7 +69,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Restaurant · Demaria 4709, Palermo, Buenos Aires · 307 m² · 2022",
   "url": "/en/projects/benedetta/",
-  "img": "/assets/gallery/benedetta/1.webp"
+  "img": "/assets/covers/benedetta.webp"
  },
  {
   "tipo": "Project",
@@ -93,7 +101,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Bar · Av. San Martín 86, Ushuaia · 75 m² indoor · 87 m² outdoor · 2017",
   "url": "/en/projects/casa-olmo/",
-  "img": "/assets/gallery/casa-olmo/1.webp"
+  "img": "/assets/covers/casa-olmo.webp"
  },
  {
   "tipo": "Project",
@@ -141,7 +149,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Bar · Esmeralda 574, Buenos Aires · 60 m² ground floor · 71 m² basement · 2018–19",
   "url": "/en/projects/clasico-quilmes/",
-  "img": "/assets/gallery/clasico-quilmes/1.webp"
+  "img": "/assets/covers/clasico-quilmes.webp"
  },
  {
   "tipo": "Project",
@@ -149,7 +157,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Grill and bar · Costa Rica 4827, Buenos Aires · 57 m² · 2018–19",
   "url": "/en/projects/elyaki/",
-  "img": "/assets/gallery/elyaki/1.webp"
+  "img": "/assets/covers/elyaki.webp"
  },
  {
   "tipo": "Project",
@@ -253,7 +261,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Ice cream and coffee shop · Av. del Libertador, Olivos, Buenos Aires · 100 m² · 2016",
   "url": "/en/projects/luccianos-olivos/",
-  "img": "/assets/gallery/luccianos-olivos/1.webp"
+  "img": "/assets/covers/luccianos-olivos.webp"
  },
  {
   "tipo": "Project",
@@ -429,7 +437,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Bottle shop · Roca 63, Ushuaia · 38 m² ground floor · 53 m² first floor · 2017",
   "url": "/en/projects/the-birra/",
-  "img": "/assets/gallery/the-birra/1.webp"
+  "img": "/assets/covers/the-birra.webp"
  },
  {
   "tipo": "Project",

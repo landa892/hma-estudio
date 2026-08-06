@@ -23,6 +23,7 @@ PORTADAS = {
     'antiche': ('/assets/gallery/antiche/33.webp', 1000, 868),
     'araoz': ('/assets/gallery/araoz/11.webp', 533, 800),
     'atelier-vilela': ('/assets/covers/atelier-vilela.webp', 1200, 788),
+    'benedetta': ('/assets/covers/benedetta.webp', 2000, 1168),
     'bolivar': ('/assets/covers/bolivar.webp', 1200, 800),
     'burger-7167': ('/assets/covers/burger-7167.webp', 800, 533),
     'cafe-artois': ('/assets/covers/cafe-artois.webp', 1200, 375),

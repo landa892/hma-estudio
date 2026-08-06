@@ -1,5 +1,13 @@
 window.HMA_SEARCH_INDEX = [
  {
+ "tipo": "Proyecto",
+ "titulo": "Ualá II",
+ "sub": "Oficinas",
+ "desc": "Diseño interior de oficinas · Buenos Aires · 757 m² · 2019–2020",
+ "url": "/proyectos/uala-ii/",
+ "img": "/assets/covers/uala-ii.webp"
+},
+ {
   "tipo": "Proyecto",
   "titulo": "7167 Burger",
   "sub": "Gastronómico",
@@ -53,7 +61,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante · Demaria 4709, Palermo, Buenos Aires · 307 m² · 2022",
   "url": "/proyectos/benedetta/",
-  "img": "/assets/gallery/benedetta/1.webp"
+  "img": "/assets/covers/benedetta.webp"
  },
  {
   "tipo": "Proyecto",

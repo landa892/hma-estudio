@@ -1228,7 +1228,18 @@ footer.site-footer {
   margin-top: 6px;
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card-plate .p-meta span {
+  flex: 0 0 auto;
+}
+
+.card-plate .p-meta span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-card.hidden,
@@ -1511,15 +1522,15 @@ footer.site-footer {
   order: -1;
 }
 
-/* Fila sin texto: la foto toma el ancho completo. Se usa donde el texto que
-   acompañaba a la foto repetia palabra por palabra un parrafo de la memoria
-   descriptiva, que ahora esta arriba y completo. */
+/* Fila sin texto: la foto toma el ancho completo. Mantiene la misma altura
+   que las filas con texto para que ninguna imagen se vea accidentalmente
+   mas importante que la siguiente. */
 .project-row--sola {
   grid-template-columns: 1fr;
 }
 
 .project-row--sola .project-row__photo {
-  min-height: 74vh;
+  min-height: 62vh;
 }
 
 /* La altura de la fila la define el texto; sin un minimo, las frases cortas
@@ -1583,6 +1594,12 @@ footer.site-footer {
 
   .project-row__photo {
     aspect-ratio: 4/3;
+    min-height: 0;
+  }
+
+  .project-row--sola .project-row__photo {
+    width: 100%;
+    min-width: 0;
     min-height: 0;
   }
 }
@@ -2699,6 +2716,10 @@ footer.site-footer {
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.3;
+}
+
+.spec-row--team dd {
+  line-height: 1.55;
 }
 
 .award-row__name a {

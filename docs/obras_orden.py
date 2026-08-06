@@ -15,12 +15,15 @@ import io, re, html
 # La sangria del listado es despareja: parte de las tarjetas arranca en la
 # columna cero y parte con diez espacios. El patron la acepta como venga y
 # la salida se normaliza a diez.
-BLOQUE = {
-    'project-card': re.compile(
-        r'(?s)[ \t]*<a href="/proyectos/[^"]+/" class="project-card".*?</a>\n'),
-    'project-list-row': re.compile(
-        r'(?s)[ \t]*<a href="/proyectos/[^"]+/" class="project-list-row".*?</a>\n'),
-}
+def patrones_de(route):
+    return {
+        'project-card': re.compile(
+            r'(?s)[ \t]*<a href="/%s/[^"]+/" class="project-card".*?</a>\n'
+            % route),
+        'project-list-row': re.compile(
+            r'(?s)[ \t]*<a href="/%s/[^"]+/" class="project-list-row".*?</a>\n'
+            % route),
+    }
 
 
 def sangrar(bloque):
@@ -47,11 +50,11 @@ def nombre_de(bloque):
     return html.unescape(m.group(1)).lower() if m else ''
 
 
-def main():
-    p = 'proyectos/index.html'
+def ordenar(p, route):
     h = io.open(p, encoding='utf-8').read()
+    patterns = patrones_de(route)
     resumen = []
-    for clase, patron in BLOQUE.items():
+    for clase, patron in patterns.items():
         bloques = patron.findall(h)
         if not bloques:
             raise SystemExit('no se encontraron bloques de %s' % clase)
@@ -64,10 +67,15 @@ def main():
     io.open(p, 'w', encoding='utf-8').write(h)
     for r in resumen:
         print('  ' + r)
-    primeros = BLOQUE['project-card'].findall(h)[:6]
-    print('\nprimeros del listado:')
+    primeros = patterns['project-card'].findall(h)[:6]
+    print('\nprimeros de %s:' % p)
     for b in primeros:
         print('   %-28s %d' % (nombre_de(b), anio_de(b)))
+
+
+def main():
+    ordenar('proyectos/index.html', 'proyectos')
+    ordenar('en/projects/index.html', 'en/projects')
 
 
 if __name__ == '__main__':
