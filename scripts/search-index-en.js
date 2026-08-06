@@ -1,6 +1,22 @@
 window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Project",
+  "titulo": "7167 Burger",
+  "sub": "Hospitality",
+  "desc": "Burger restaurant · Scalabrini Ortiz 3110, Buenos Aires · 70 m² · 2021",
+  "url": "/en/projects/burger-7167/",
+  "img": "/assets/gallery/burger-7167/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "Abasto Food Court",
+  "sub": "Hospitality",
+  "desc": "Food court · Av. Corrientes 3247, Buenos Aires · 294 m² (Patio Zorzal) · 1,300 m² (Patio Central) · 2020",
+  "url": "/en/projects/abasto-patio-comidas/",
+  "img": "/assets/gallery/abasto-patio-comidas/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "Accor Hotels",
   "sub": "Hotels & Retail",
   "desc": "Hotel — international competition · São Paulo · 6.500 m² · 2018",
@@ -73,6 +89,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
+  "titulo": "Casa Olmo",
+  "sub": "Hospitality",
+  "desc": "Bar · Av. San Martín 86, Ushuaia · 75 m² indoor · 87 m² outdoor · 2017",
+  "url": "/en/projects/casa-olmo/",
+  "img": "/assets/gallery/casa-olmo/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "CCEBA",
   "sub": "Cultural & Institutional",
   "desc": "Cultural centre — private competition · Paraná 1159, Buenos Aires · 336 m² · 2025",
@@ -110,6 +134,22 @@ window.HMA_SEARCH_INDEX = [
   "desc": "Residences and hospitality — private competition · Buenos Aires · 44.000 m²",
   "url": "/en/projects/edificio-del-plata/",
   "img": "/assets/gallery/edificio-del-plata/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "El Clásico de Quilmes",
+  "sub": "Hospitality",
+  "desc": "Bar · Esmeralda 574, Buenos Aires · 60 m² ground floor · 71 m² basement · 2018–19",
+  "url": "/en/projects/clasico-quilmes/",
+  "img": "/assets/gallery/clasico-quilmes/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "Elyaki",
+  "sub": "Hospitality",
+  "desc": "Grill and bar · Costa Rica 4827, Buenos Aires · 57 m² · 2018–19",
+  "url": "/en/projects/elyaki/",
+  "img": "/assets/gallery/elyaki/1.webp"
  },
  {
   "tipo": "Project",
@@ -209,6 +249,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
+  "titulo": "Lucciano's Olivos",
+  "sub": "Hospitality",
+  "desc": "Ice cream and coffee shop · Av. del Libertador, Olivos, Buenos Aires · 100 m² · 2016",
+  "url": "/en/projects/luccianos-olivos/",
+  "img": "/assets/gallery/luccianos-olivos/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "Lucciano’s Caballito",
   "sub": "Hospitality",
   "desc": "Ice cream shop · Caballito, Buenos Aires",
@@ -217,11 +265,27 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
+  "titulo": "Luna office + house",
+  "sub": "Offices",
+  "desc": "Office and housing · Luna 250, Buenos Aires · 250 m² indoor · 100 m² outdoor · 2012–13",
+  "url": "/en/projects/oficina-casa-luna/",
+  "img": "/assets/gallery/oficina-casa-luna/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "Malabia",
   "sub": "Residential",
   "desc": "Multi-family housing · Buenos Aires · 2.405 m²",
   "url": "/en/projects/malabia/",
   "img": "/assets/covers/malabia.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "Malita",
+  "sub": "Hospitality",
+  "desc": "Bar · Av. del Libertador 3883, Paseo de la Infanta, Buenos Aires · 90 m² ground floor · 136 m² outdoor · 2019",
+  "url": "/en/projects/malita/",
+  "img": "/assets/gallery/malita/1.webp"
  },
  {
   "tipo": "Project",
@@ -257,19 +321,19 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
-  "titulo": "The Nim Bar",
-  "sub": "Hospitality",
-  "desc": "Restaurant and bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
-  "url": "/en/projects/nim-bar/",
-  "img": "/assets/covers/nim-bar.webp"
- },
- {
-  "tipo": "Project",
   "titulo": "Novotel",
   "sub": "Hotels & Retail",
   "desc": "Hotel · Av. Corrientes 1334, Buenos Aires · 1.486 m² · 2024",
   "url": "/en/projects/novotel/",
   "img": "/assets/gallery/novotel/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "Objeto A Art Gallery",
+  "sub": "Cultural & Institutional",
+  "desc": "Art gallery · Niceto Vega 5181, Buenos Aires · 253.3 m² covered · 52.1 m² uncovered · 2008",
+  "url": "/en/projects/galeria-objeto-a/",
+  "img": "/assets/gallery/galeria-objeto-a/1.webp"
  },
  {
   "tipo": "Project",
@@ -313,6 +377,22 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
+  "titulo": "PH El Salvador",
+  "sub": "Residential",
+  "desc": "Housing · El salvador 4633, Buenos Aires · 126 m² indoor · 63 m² outdoor · 2009",
+  "url": "/en/projects/ph-el-salvador/",
+  "img": "/assets/gallery/ph-el-salvador/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "PH Loft Arias",
+  "sub": "Residential",
+  "desc": "Housing · Arias 2553, Buenos Aires · 150 m² indoor · 100 m² outdoor · 2011",
+  "url": "/en/projects/ph-loft-arias/",
+  "img": "/assets/gallery/ph-loft-arias/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "Plaza Mateo",
   "sub": "Hospitality",
   "desc": "Concert hall, night club and restaurant — in progress · Rambla Wilson and Av. Sarmiento, Montevideo · 950 m² of overall intervention",
@@ -329,11 +409,35 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Project",
+  "titulo": "Stella Artois Mercat",
+  "sub": "Hospitality",
+  "desc": "Bar counter · Thames 747, Buenos Aires · 15 m² · 2020",
+  "url": "/en/projects/stella-artois-mercat/",
+  "img": "/assets/gallery/stella-artois-mercat/1.webp"
+ },
+ {
+  "tipo": "Project",
   "titulo": "Templo Mikdash",
   "sub": "Cultural & Institutional",
   "desc": "Temple · República Árabe Siria 3267, Buenos Aires · 600 m² · 2025",
   "url": "/en/projects/templo-mikdash/",
   "img": "/assets/gallery/templo-mikdash/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "The Birra",
+  "sub": "Hospitality",
+  "desc": "Bottle shop · Roca 63, Ushuaia · 38 m² ground floor · 53 m² first floor · 2017",
+  "url": "/en/projects/the-birra/",
+  "img": "/assets/gallery/the-birra/1.webp"
+ },
+ {
+  "tipo": "Project",
+  "titulo": "The Nim Bar",
+  "sub": "Hospitality",
+  "desc": "Restaurant and bar · Defensa 880, San Telmo, Buenos Aires · 430 m²",
+  "url": "/en/projects/nim-bar/",
+  "img": "/assets/covers/nim-bar.webp"
  },
  {
   "tipo": "Project",

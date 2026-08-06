@@ -169,6 +169,14 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
+  "titulo": "Galería Objeto A",
+  "sub": "Cultural & Institucional",
+  "desc": "Galería de arte · Niceto Vega 5181, Buenos Aires · 253,3 m² cubiertos · 52,1 m² descubiertos · 2008",
+  "url": "/proyectos/galeria-objeto-a/",
+  "img": "/assets/gallery/galeria-objeto-a/1.webp"
+ },
+ {
+  "tipo": "Proyecto",
   "titulo": "Goodsten",
   "sub": "Gastronómico",
   "desc": "Cremería · Av. del Libertador, Martínez, Buenos Aires · 330 m² · 2017",

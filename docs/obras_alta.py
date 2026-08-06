@@ -45,7 +45,7 @@ FICHAS = {
         lede='Una parrilla japonesa de 57 m² en Palermo, Buenos Aires.',
         sup='57 m²'),
     'galeria-objeto-a': dict(
-        titulo='Galería de arte Objeto A', cat='cultural',
+        titulo='Galería Objeto A', cat='cultural',
         tipo='Galería de arte', pais='Argentina',
         lede='Una galería de arte de 253 m² en Palermo, Buenos Aires.',
         sup='253,3 m² cubiertos · 52,1 m² descubiertos'),

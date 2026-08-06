@@ -13,7 +13,8 @@ NUEVAS = ['abasto-patio-comidas', 'burger-7167', 'casa-olmo', 'clasico-quilmes',
           'the-birra',
           # segunda tanda: estaban escritas desde el WordPress viejo y
           # esperaban las fotos, que el estudio subio al Drive
-          'oficina-casa-luna', 'ph-el-salvador', 'ph-loft-arias']
+          'oficina-casa-luna', 'ph-el-salvador', 'ph-loft-arias',
+          'galeria-objeto-a']
 
 
 def leer(slug):

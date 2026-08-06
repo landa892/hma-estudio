@@ -233,6 +233,10 @@ def main():
         print('\nOBRAS SIN MEMORIA EN INGLES (%d) — el espejo va sin ese bloque:'
               % len(sin_memoria_en))
         print('  ' + ', '.join(sorted(sin_memoria_en)))
+    # Las fichas en ingles ya existen en este punto, asi que tambien se puede
+    # completar su indice de busqueda con las obras dadas de alta.
+    import buscador_indice
+    buscador_indice.main_en()
     return hechas
 
 
