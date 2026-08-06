@@ -11,11 +11,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import en_dic3
 import en_dic4
+import en_dic5
 from en_rutas import a_ingles, a_castellano, reescribir_enlaces
 
 ROOT = r'C:\Users\El Niño\Desktop\Trabajo para naza\hma-estudio'
 SITIO = 'https://estudiohma.com'
-tr = en_dic4.traducir
+tr = en_dic5.traducir
 
 sin_traducir = []
 
