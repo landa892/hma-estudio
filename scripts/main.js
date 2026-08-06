@@ -208,6 +208,13 @@ try {
 
 try {
   /* ---------- COUNT-UP STATS (tiles + numeros dentro de frases) ---------- */
+  document.querySelectorAll('[data-founded-year]').forEach(el => {
+    el.dataset.count = Math.max(0, new Date().getFullYear() - parseInt(el.dataset.foundedYear, 10));
+  });
+  document.querySelectorAll('[data-countries]').forEach(el => {
+    const countries = el.dataset.countries.split('|').filter(Boolean);
+    el.dataset.count = new Set(countries).size;
+  });
   const statEls = document.querySelectorAll('[data-count]');
   const statIo = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
