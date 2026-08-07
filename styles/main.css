@@ -1646,7 +1646,11 @@ footer.site-footer {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1px;
-  background: var(--line);
+  /* El fondo va en blanco y la linea la dibuja cada tarjeta con su outline.
+     Antes la linea era este fondo asomando por el gap, y cuando la ultima
+     fila quedaba incompleta —nueve notas en dos columnas, por ejemplo— la
+     celda vacia se veia como un recuadro gris. */
+  background: var(--white);
   border: 1px solid var(--black);
   margin-bottom: 64px;
 }
@@ -1686,6 +1690,9 @@ footer.site-footer {
 .press-card {
   background: var(--white);
   display: block;
+  /* El outline no ocupa espacio, asi que cae dentro del gap de 1px y las
+     tarjetas vecinas comparten una sola linea. */
+  outline: 1px solid var(--line);
 }
 
 .press-card .press-img {
@@ -1765,6 +1772,25 @@ footer.site-footer {
    British and International Interior Design"— estiraba la fila y con ella
    toda la pagina: en pantalla angosta aparecian 101 px de scroll lateral. */
 .press-row > * { min-width: 0; overflow-wrap: anywhere; }
+
+/* Rotulo de año dentro de la lista de notas online. El estudio las queria
+   agrupadas "por carpeta segun los años": con catorce entradas seguidas no se
+   veia donde terminaba un año. Queda pegado arriba mientras se recorre su
+   grupo, asi que siempre se sabe que año se esta leyendo. */
+.pr-anio {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--white);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  font-weight: 600;
+  color: var(--gray-dark);
+  padding: 10px 0 6px;
+  border-bottom: 1px solid var(--black);
+}
+
+.pr-anio:first-child { padding-top: 0; }
 
 /* Con la lista desplegada aparecian 101 px de scroll lateral en pantalla
    angosta, sin que ninguna caja de la seccion se saliera: algo pinta unos
@@ -3128,6 +3154,24 @@ footer.site-footer {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* La foto del estudio es un panoramico de 1200x630: en una columna de 528 px
+   quedaba una franja de 277 px de alto, muy chica al lado del texto. Aca toma
+   el ancho completo y el alto sale de su proporcion; el texto pasa debajo. */
+.work-split--ancha {
+  grid-template-columns: 1fr;
+}
+
+.work-split--ancha .work-split__text {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 24px 40px;
+  align-items: start;
+}
+
+.work-split--ancha .work-split__text .bloque-texto {
+  margin: 0;
 }
 
 .work-split__text p {
