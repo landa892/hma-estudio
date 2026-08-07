@@ -445,7 +445,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hospitality",
   "desc": "Fast food · Miami, Florida · 100 m²",
   "url": "/en/projects/tostado/",
-  "img": "/assets/gallery/tostado/28.webp"
+  "img": "/assets/gallery/tostado/1.webp"
  },
  {
   "tipo": "Project",

@@ -13,7 +13,9 @@ import io
 import json
 import os
 import re
+import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,6 +37,31 @@ PROJECTS = {
         'year': '2019–2020',
         'surface': ('757 m²', '757 m²'),
     },
+    # Las cuatro que entraron despues de este pedido: se dieron de alta desde
+    # el molde, que no trae el sello de estado, asi que hay que nombrarlas aca
+    # para que lo reciban como el resto.
+    #
+    # En el listado va una sola medida. Cuando las dos son piso construido se
+    # suman, como en Osten Tower. Cuando la segunda es patio o jardin no se
+    # suma —inflaria la obra— y va la cubierta sola; la ficha sigue mostrando
+    # las dos.
+    'galeria-objeto-a': {'state': 'obra', 'surface_card': ('253 m²', '253 m²'),
+     'surface_sheet': ('253,3 m² cubiertos · 52,1 m² descubiertos', '253.3 m² covered · 52.1 m² uncovered')},
+    'ph-el-salvador': {'state': 'obra', 'surface_card': ('126 m²', '126 m²'),
+     'surface_sheet': ('126 m² cubiertos · 63 m² descubiertos', '126 m² covered · 63 m² uncovered')},
+    'ph-loft-arias': {'state': 'obra', 'surface_card': ('150 m²', '150 m²'),
+     'surface_sheet': ('150 m² cubiertos · 100 m² descubiertos', '150 m² covered · 100 m² uncovered')},
+    'oficina-casa-luna': {'state': 'obra', 'surface_card': ('250 m²', '250 m²'),
+     'surface_sheet': ('250 m² cubiertos · 100 m² descubiertos', '250 m² covered · 100 m² uncovered')},
+    'casa-olmo': {'surface_card': ('75 m²', '75 m²'),
+     'surface_sheet': ('75 m² cubiertos · 87 m² descubiertos', '75 m² covered · 87 m² uncovered')},
+    'malita': {'surface_card': ('90 m²', '90 m²'),
+     'surface_sheet': ('90 m² planta baja · 136 m² exterior', '90 m² ground floor · 136 m² outdoor')},
+    'clasico-quilmes': {'surface_card': ('131 m²', '131 m²'),
+     'surface_sheet': ('60 m² planta baja · 71 m² subsuelo', '60 m² ground floor · 71 m² basement')},
+    'the-birra': {'surface_card': ('91 m²', '91 m²'),
+     'surface_sheet': ('38 m² planta baja · 53 m² primer piso', '38 m² ground floor · 53 m² first floor')},
+
     'aire-libre': {'state': 'obra', 'year': '2024'},
     'bienal-venecia': {'state': 'proyecto', 'year': '2024'},
     'hyatt-ziva': {'category': 'hoteleria', 'year': '2024'},
@@ -46,10 +73,12 @@ PROJECTS = {
     'indusparquet': {'category': 'comercial'},
     'cien': {'category': 'comercial', 'surface': ('300 m\u00b2', '300 m\u00b2')},
     'manduca': {'category': 'gastronomico'},
-    'kavak-hub': {'category': 'oficinas', 'surface': ('15.300 m\u00b2', '15,300 m\u00b2')},
+    'kavak-hub': {'category': 'oficinas', 'surface_card': ('15.300 m\u00b2', '15,300 m\u00b2'),
+     'surface_sheet': ('300 m² cubiertos y 15.000 m² de playa de estacionamiento', '300 m² covered and 15,000 m² of parking area')},
     'kavak-oficinas': {'category': 'oficinas'},
     'plaza-mateo': {'category': 'comercial'},
-    'osten-tower': {'surface': ('950 m\u00b2', '950 m\u00b2')},
+    'osten-tower': {'surface_card': ('950 m\u00b2', '950 m\u00b2'),
+     'surface_sheet': ('Lobby 240 m² y rooftop 710 m²', 'Lobby 240 m² and rooftop 710 m²')},
     'cafe-artois': {'surface': ('354 m\u00b2', '354 m\u00b2')},
     'atelier-vilela': {'surface': ('115 m\u00b2', '115 m\u00b2')},
     'victoria-brown': {'surface': ('385 m\u00b2', '385 m\u00b2')},
@@ -61,6 +90,7 @@ AWARDS = {
     'cien': 'Surface Design Awards',
     'dos-casas-conde': 'Next Landmark Awards',
     'fogon': 'Bienal SCA-CPAU \u00b7 Restaurant & Bar Design Awards',
+    'galeria-objeto-a': 'Bienal SCA-CPAU',
     'goodsten': 'IIDA \u00b7 Next Landmark Awards',
     'kavak-hub': 'Bienal Internacional de Arquitectura',
     'mamba-bar': 'SBID \u00b7 Restaurant & Bar Design Awards',
@@ -151,7 +181,12 @@ def compact_meta(body, config, english=False):
         current_year = next((value for value in reversed(values)
                              if re.search(r'(?:19|20)\d{2}', value)), '')
         current_surface = next((value for value in values if 'm\u00b2' in value), '')
-        surface = config.get('surface', (current_surface, current_surface))[index]
+        # surface_card solo cambia la tarjeta: la ficha de la obra conserva el
+        # desglose (lobby y rooftop, cubierto y descubierto) que el estudio
+        # pidio mantener al entrar al proyecto.
+        surface = config.get('surface_card',
+                             config.get('surface',
+                                        (current_surface, current_surface)))[index]
         year = config.get('year', current_year)
         ordered = [program, location, surface, year]
         inner = ''.join('<span>%s</span>' % html.escape(value, quote=False)
@@ -192,13 +227,16 @@ def update_anchor(content, slug, config, english=False, listing=False):
                              opening, count=1)
             label = ('Project' if english else 'Proyecto') if state == 'proyecto' \
                 else ('Built' if english else 'Obra')
-            body = re.sub(
-                r'<span class="card-estado[^>]*>.*?</span>',
-                '<span class="card-estado card-estado--%s">%s</span>' % (state, label),
-                body,
-                count=1,
-                flags=re.S,
-            )
+            sello = ('<span class="card-estado card-estado--%s">%s</span>'
+                     % (state, label))
+            if re.search(r'<span class="card-estado', body):
+                body = re.sub(r'<span class="card-estado[^>]*>.*?</span>', sello,
+                              body, count=1, flags=re.S)
+            elif '<span class="card-cat"' in body:
+                # Las obras dadas de alta desde el molde no traen el sello: va
+                # delante de la categoria, que es donde esta en las demas.
+                body = body.replace('<span class="card-cat"',
+                                    sello + '\n            <span class="card-cat"', 1)
         if listing:
             body = compact_meta(body, config, english)
             award = AWARDS.get(slug)
@@ -251,10 +289,20 @@ def names_from_team(value):
 
 
 def teams():
+    """El WordPress viejo no conoce las obras nuevas.
+
+    Para esas el equipo sale de las fichas del Drive, en docs/equipos_drive.py,
+    y pisa lo que diga el WordPress: sin eso quedaban solo los dos socios.
+    """
+    from equipos_drive import EQUIPOS as DEL_DRIVE
+
     data = json.loads(read(os.path.join(ROOT, 'docs', 'wordpress_proyectos.json')))
     result = {}
     for slug in os.listdir(os.path.join(ROOT, 'proyectos')):
         if slug == 'index.html':
+            continue
+        if slug in DEL_DRIVE:
+            result[slug] = list(DEL_DRIVE[slug])
             continue
         source_slug = WORDPRESS_SLUG.get(slug, slug)
         names = names_from_team(data.get(source_slug, {}).get('equipo', ''))
@@ -262,9 +310,22 @@ def teams():
     return result
 
 
+# Los rotulos de rol que traen algunas fichas del Drive. Los nombres propios
+# no se tocan, pero estos si: en la pagina en ingles quedaban en castellano.
+ROLES_EN = {
+    'Dirección de obra:': 'Site management:',
+    'Documentación de obra:': 'Construction documentation:',
+    'Documentación ejecutiva de obra:': 'Construction documentation:',
+    'Colaboradores:': 'Collaborators:',
+    'Project manager:': 'Project manager:',
+    'Renders:': 'Renders:',
+}
+
+
 def update_team(content, names, english=False):
     label = 'Team' if english else 'Equipo'
-    shown = [re.sub(r'^Arq\.', 'Arch.', name) if english else name for name in names]
+    shown = [ROLES_EN.get(name, re.sub(r'^Arq\.', 'Arch.', name)) if english
+             else name for name in names]
     row = ('          <div class="spec-row spec-row--team"><dt>%s</dt><dd>%s</dd></div>'
            % (label, '<br>'.join(html.escape(name, quote=False) for name in shown)))
     if 'class="spec-row spec-row--team"' in content:
@@ -287,8 +348,12 @@ def update_detail(content, config, english=False):
         )
     if config.get('year'):
         values['Year' if english else 'Año'] = config['year']
-    if config.get('surface'):
-        values['Area' if english else 'Superficie'] = config['surface'][1 if english else 0]
+    # surface_sheet es el desglose que se ve al entrar a la obra. Va aparte de
+    # surface_card, que es la medida unica del listado: si se usara una sola
+    # clave, compactar la tarjeta borraria el detalle de la ficha.
+    detalle = config.get('surface_sheet') or config.get('surface')
+    if detalle:
+        values['Area' if english else 'Superficie'] = detalle[1 if english else 0]
 
     for label, value in values.items():
         content = re.sub(

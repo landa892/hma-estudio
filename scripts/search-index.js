@@ -453,7 +453,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Comida rápida · Miami, Florida · 100 m²",
   "url": "/proyectos/tostado/",
-  "img": "/assets/gallery/tostado/28.webp"
+  "img": "/assets/gallery/tostado/1.webp"
  },
  {
   "tipo": "Proyecto",

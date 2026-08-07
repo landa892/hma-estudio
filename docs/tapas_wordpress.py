@@ -65,13 +65,16 @@ PORTADAS = {
     'plaza-mateo': ('/assets/covers/plaza-mateo.webp', 800, 470),
     'stella-artois-mercat': ('/assets/covers/stella-artois-mercat.webp', 1200, 800),
     'the-birra': ('/assets/covers/the-birra.webp', 1200, 801),
-    'tostado': ('/assets/gallery/tostado/28.webp', 1000, 667),
+    # La carpeta de caratula del Drive contiene una foto de Tribunales, pero
+    # esta ficha corresponde a Miami. La primera foto esta identificada en el
+    # Drive como Tostado-Miami-1.
+    'tostado': ('/assets/gallery/tostado/1.webp', 1024, 768),
     'uala-office': ('/assets/covers/uala-office.webp', 1200, 800),
     'victoria-brown': ('/assets/covers/victoria-brown.webp', 1200, 800),
     'williamsburg': ('/assets/covers/williamsburg.webp', 1200, 499),
 }
 
-PUBLIC_BASE = 'https://estudiohma.com'
+PUBLIC_BASE = 'https://hma-estudio.vercel.app'
 
 
 def leer(path):
@@ -113,6 +116,28 @@ def actualizar_og(content, cover_path):
     )
 
 
+def actualizar_social(content, normalized_path):
+    """Hace que las previews apunten al despliegue que sirve los assets."""
+    public_path = '/' + normalized_path
+    if public_path.endswith('/index.html'):
+        public_path = public_path[:-len('index.html')]
+
+    content = re.sub(
+        r'(<meta property="og:image" content=")'
+        r'(?:https://(?:www\.)?estudiohma\.com|'
+        r'https://hma-estudio\.vercel\.app)?(/assets/[^"]+)(">)',
+        r'\1%s\2\3' % PUBLIC_BASE,
+        content,
+        count=1,
+    )
+    return re.sub(
+        r'(<meta property="og:url" content=")[^"]+(">)',
+        r'\1%s%s\2' % (PUBLIC_BASE, public_path),
+        content,
+        count=1,
+    )
+
+
 def actualizar_buscador(content, slug, cover_path):
     item = re.compile(
         r'("url":\s*"/(?:en/projects|proyectos)/%s/",\s*"img":\s*")[^"]+("\s*\})'
@@ -147,6 +172,7 @@ def main():
                 'en/projects/%s/index.html' % slug,
             ):
                 updated = actualizar_og(updated, cover_path)
+        updated = actualizar_social(updated, normalized_path)
         if updated != original:
             escribir(path, updated)
             changed.append(path)

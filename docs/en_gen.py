@@ -13,11 +13,12 @@ import en_dic3
 import en_dic4
 import en_dic5
 import en_dic6
+import en_dic7
 from en_rutas import a_ingles, a_castellano, reescribir_enlaces
 
 ROOT = r'C:\Users\El Niño\Desktop\Trabajo para naza\hma-estudio'
 SITIO = 'https://estudiohma.com'
-tr = en_dic6.traducir
+tr = en_dic7.traducir
 
 sin_traducir = []
 
@@ -229,6 +230,7 @@ def main():
             json.dumps([t for t, _ in c.most_common()], ensure_ascii=False, indent=1))
     else:
         print('sin faltantes: todo el texto visible quedo traducido')
+        io.open('docs/en_faltantes.json', 'w', encoding='utf-8').write('[]\n')
     if sin_memoria_en:
         print('\nOBRAS SIN MEMORIA EN INGLES (%d) — el espejo va sin ese bloque:'
               % len(sin_memoria_en))
