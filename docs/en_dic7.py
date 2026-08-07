@@ -21,6 +21,11 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # El titular de la portada lleva un espacio duro dentro, asi que en el HTML
+    # nunca aparece como una frase suelta y el diccionario no lo tenia. Se
+    # necesita entero para el panel de autogestion.
+    'Creando & construyendo ideas': 'Creating & building ideas',
+
     # --- fotos nuevas de la pagina Estudio ---
     # Reemplazan a la del plano y al fotograma del video: el estudio pidio dos
     # fotos propias en buena resolucion.
