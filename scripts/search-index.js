@@ -29,7 +29,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante · Av. del Libertador y Blanco Encalada, Buenos Aires · 2024",
   "url": "/proyectos/aire-libre/",
-  "img": "/assets/gallery/aire-libre/1.webp"
+  "img": "/assets/covers/aire-libre.webp"
  },
  {
   "tipo": "Proyecto",
@@ -37,7 +37,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Heladería · Nueva York 4002, Villa Devoto, Buenos Aires · 90 m²",
   "url": "/proyectos/antiche/",
-  "img": "/assets/gallery/antiche/33.webp"
+  "img": "/assets/covers/antiche.webp"
  },
  {
   "tipo": "Proyecto",
@@ -45,7 +45,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Edificio multifamiliar · Buenos Aires · 2.040 m²",
   "url": "/proyectos/araoz/",
-  "img": "/assets/gallery/araoz/11.webp"
+  "img": "/assets/covers/araoz.webp"
  },
  {
   "tipo": "Proyecto",
@@ -69,7 +69,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Cultural & Institucional",
   "desc": "Pabellón de exposición temporal · Pabellón argentino, Bienal de Arquitectura de Venecia · 582 m² · 2025",
   "url": "/proyectos/bienal-venecia/",
-  "img": "/assets/gallery/bienal-venecia/1.webp"
+  "img": "/assets/covers/bienal-venecia.webp"
  },
  {
   "tipo": "Proyecto",
@@ -101,7 +101,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Cultural & Institucional",
   "desc": "Centro cultural — concurso privado · Paraná 1159, Buenos Aires · 336 m² · 2025",
   "url": "/proyectos/cceba/",
-  "img": "/assets/gallery/cceba/1.webp"
+  "img": "/assets/covers/cceba.webp"
  },
  {
   "tipo": "Proyecto",
@@ -109,7 +109,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante & bar · Santiago de Chile · 598 m² · 2026",
   "url": "/proyectos/cerveceria-austral/",
-  "img": "/assets/gallery/cerveceria-austral/1.webp"
+  "img": "/assets/covers/cerveceria-austral.webp"
  },
  {
   "tipo": "Proyecto",
@@ -117,7 +117,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores · 2023",
   "url": "/proyectos/cien/",
-  "img": "/assets/gallery/cien/1.webp"
+  "img": "/assets/covers/cien.webp"
  },
  {
   "tipo": "Proyecto",
@@ -157,7 +157,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Centro de desarrollo gastronómico · Larrea 1250, Recoleta, Buenos Aires · 142 m²",
   "url": "/proyectos/fehgra/",
-  "img": "/assets/gallery/fehgra/3.webp"
+  "img": "/assets/covers/fehgra.webp"
  },
  {
   "tipo": "Proyecto",
@@ -165,7 +165,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante · Saedan Mall, Riad · 265 m² · 2019",
   "url": "/proyectos/fogon/",
-  "img": "/assets/gallery/fogon/25.webp"
+  "img": "/assets/covers/fogon.webp"
  },
  {
   "tipo": "Proyecto",
@@ -197,7 +197,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m² · 2022",
   "url": "/proyectos/hausscape/",
-  "img": "/assets/gallery/hausscape/2.webp"
+  "img": "/assets/covers/hausscape.webp"
  },
  {
   "tipo": "Proyecto",
@@ -221,7 +221,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
   "url": "/proyectos/indusparquet/",
-  "img": "/assets/gallery/indusparquet/1.webp"
+  "img": "/assets/covers/indusparquet.webp"
  },
  {
   "tipo": "Proyecto",
@@ -229,7 +229,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Oficinas",
   "desc": "Oficinas · Av. Juan Bautista Justo 1500, piso 23, Buenos Aires · 480 m² · 2025—2026",
   "url": "/proyectos/iol/",
-  "img": "/assets/gallery/iol/1.webp"
+  "img": "/assets/covers/iol.webp"
  },
  {
   "tipo": "Proyecto",
@@ -237,7 +237,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Cafetería · Av. Las Heras 2601, Buenos Aires",
   "url": "/proyectos/juan-valdez/",
-  "img": "/assets/gallery/juan-valdez/21.webp"
+  "img": "/assets/covers/juan-valdez.webp"
  },
  {
   "tipo": "Proyecto",
@@ -245,7 +245,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Hub comercial y oficinas · Shopping Dot Baires, Buenos Aires · 300 m² cubiertos y 15.000 m² de playa de estacionamiento · 2020",
   "url": "/proyectos/kavak-hub/",
-  "img": "/assets/gallery/kavak-hub/2.webp"
+  "img": "/assets/covers/kavak-hub.webp"
  },
  {
   "tipo": "Proyecto",
@@ -253,7 +253,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Oficinas",
   "desc": "Oficinas · Edificio Philips, Vedia 3892, Buenos Aires · 800 m²",
   "url": "/proyectos/kavak-oficinas/",
-  "img": "/assets/gallery/kavak-oficinas/14.webp"
+  "img": "/assets/covers/kavak-oficinas.webp"
  },
  {
   "tipo": "Proyecto",
@@ -285,7 +285,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Bar · Av. del Libertador 3883, Paseo de la Infanta, Buenos Aires · 90 m² planta baja · 136 m² exterior · 2019",
   "url": "/proyectos/malita/",
-  "img": "/assets/gallery/malita/1.webp"
+  "img": "/assets/covers/malita.webp"
  },
  {
   "tipo": "Proyecto",
@@ -301,7 +301,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Mercado · Paseo La Plaza · Buenos Aires · 1.525 m² · 2022",
   "url": "/proyectos/manduca/",
-  "img": "/assets/gallery/manduca/3.webp"
+  "img": "/assets/covers/manduca.webp"
  },
  {
   "tipo": "Proyecto",
@@ -309,7 +309,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante & pastelería · Buenos Aires · 330 m² · 2020",
   "url": "/proyectos/moshu/",
-  "img": "/assets/gallery/moshu/3.webp"
+  "img": "/assets/covers/moshu.webp"
  },
  {
   "tipo": "Proyecto",
@@ -341,7 +341,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Bar de cocktails · Puerto Madero · 460 m² · 2022",
   "url": "/proyectos/osten/",
-  "img": "/assets/gallery/osten/2.webp"
+  "img": "/assets/covers/osten.webp"
  },
  {
   "tipo": "Proyecto",
@@ -349,7 +349,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Cafetería · Puerto Madero, Buenos Aires · 325 m² · 2025",
   "url": "/proyectos/osten-foa/",
-  "img": "/assets/gallery/osten-foa/1.webp"
+  "img": "/assets/covers/osten-foa.webp"
  },
  {
   "tipo": "Proyecto",
@@ -357,7 +357,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Edificio residencial — en proceso · Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires · Lobby 240 m² y rooftop 710 m² · 2027",
   "url": "/proyectos/osten-tower/",
-  "img": "/assets/gallery/osten-tower/1.webp"
+  "img": "/assets/covers/osten-tower.webp"
  },
  {
   "tipo": "Proyecto",
@@ -365,7 +365,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Retail · Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires · 131 m² · 2025",
   "url": "/proyectos/parfumerie/",
-  "img": "/assets/gallery/parfumerie/1.webp"
+  "img": "/assets/covers/parfumerie.webp"
  },
  {
   "tipo": "Proyecto",
@@ -381,7 +381,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Co-work y co-living · Bernardo de Irigoyen 1140-52, Buenos Aires · 5.290 m² · 2025",
   "url": "/proyectos/people/",
-  "img": "/assets/gallery/people/13.webp"
+  "img": "/assets/covers/people.webp"
  },
  {
   "tipo": "Proyecto",
@@ -405,7 +405,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Sala de concierto, night club y restaurante — en proceso · Rambla Wilson y Av. Sarmiento, Montevideo · 950 m² de intervención general",
   "url": "/proyectos/plaza-mateo/",
-  "img": "/assets/gallery/plaza-mateo/1.webp"
+  "img": "/assets/covers/plaza-mateo.webp"
  },
  {
   "tipo": "Proyecto",
@@ -421,7 +421,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Barra · Thames 747, Buenos Aires · 15 m² · 2020",
   "url": "/proyectos/stella-artois-mercat/",
-  "img": "/assets/gallery/stella-artois-mercat/1.webp"
+  "img": "/assets/covers/stella-artois-mercat.webp"
  },
  {
   "tipo": "Proyecto",
@@ -485,7 +485,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Restaurante exterior · Av. del Libertador 3883, Arco 1, Buenos Aires · 54 m² · 2020",
   "url": "/proyectos/williamsburg/",
-  "img": "/assets/gallery/williamsburg/17.webp"
+  "img": "/assets/covers/williamsburg.webp"
  },
  {
   "tipo": "Prensa",
