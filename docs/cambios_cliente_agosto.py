@@ -383,7 +383,18 @@ def update_all_pages(team_map):
         relative = os.path.relpath(path, ROOT).replace('\\', '/')
         english = relative.startswith('en/')
         content = read(path)
-        updated = re.sub(r'/styles/main\.css\?v=\d+', '/styles/main.css?v=79', content)
+        updated = re.sub(r'/styles/main\.css\?v=\d+', '/styles/main.css?v=80', content)
+        updated = re.sub(r'/scripts/main\.js\?v=\d+', '/scripts/main.js?v=80', updated)
+        if english:
+            updated = re.sub(
+                r'(<a href="/en/projects/"[^>]*>)Projects(</a>)',
+                r'\1Works\2', updated,
+            )
+        else:
+            updated = re.sub(
+                r'(<a href="/proyectos/"[^>]*>)Proyectos(</a>)',
+                r'\1Trabajos\2', updated,
+            )
         for slug, config in PROJECTS.items():
             updated = update_anchor(updated, slug, config, english)
         match = re.match(r'(?:en/projects|proyectos)/([^/]+)/index\.html$', relative)

@@ -716,6 +716,55 @@ try {
 } catch (e) { console.error('press-filters', e); }
 
 try {
+  /* ---------- MEMORIA DE OBRA CON IMAGENES INTERCALADAS ----------
+     La memoria real ya existe en cada ficha. Las filas que venian despues
+     repetian los mismos textos institucionales en todas las obras, asi que
+     tomamos solamente sus fotos y las repartimos entre los parrafos. La
+     galeria completa sigue disponible debajo con su boton "ver las fotos". */
+  const memoria = document.querySelector('.project-memoria .memoria-cuerpo');
+  const galeriaEditorial = document.querySelector('.project-gallery');
+
+  if (memoria && galeriaEditorial) {
+    const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
+    const fotos = Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
+    const cantidad = Math.min(6, parrafos.length, fotos.length);
+
+    for (let i = cantidad - 1; i >= 0; i -= 1) {
+      /* ScrollTrigger ya preparo la foto original dentro de su fila. Se usa
+         una copia limpia para no arrastrar transforms ligados a ese contexto. */
+      const foto = fotos[i].cloneNode(true);
+      foto.removeAttribute('style');
+      const indice = Math.min(
+        parrafos.length - 1,
+        Math.floor((i * parrafos.length) / cantidad)
+      );
+
+      foto.classList.add('memoria-inline-photo');
+      const imagen = foto.querySelector('img');
+      if (imagen) imagen.removeAttribute('style');
+      if (indice >= 2) {
+        foto.classList.add('memoria-inline-photo--extra');
+      } else {
+        if (imagen) imagen.loading = 'eager';
+      }
+      parrafos[indice].after(foto);
+    }
+
+    memoria.classList.add('memoria-cuerpo--intercalada');
+    memoria.classList.remove('reveal');
+    memoria.removeAttribute('style');
+  }
+
+  /* Las obras sin memoria todavia no pueden intercalar texto y fotos, pero
+     tampoco deben conservar las frases institucionales repetidas. */
+  if (galeriaEditorial) galeriaEditorial.hidden = true;
+
+  /* El cierre conserva el titulo y el acceso al indice general. Las tarjetas
+     sugeridas se retiraron a pedido del estudio. */
+  document.querySelectorAll('.related-projects').forEach(grid => grid.remove());
+} catch (e) { console.error('memoria-intercalada', e); }
+
+try {
   /* ---------- VER TODO: GALERIAS DE OBRA Y GRILLA DE VIDEOS ----------
      Las dos muestran unas pocas y guardan el resto detras de un boton. Al
      abrirlas hay que avisarle a ScrollTrigger: aparecen decenas de figuras y

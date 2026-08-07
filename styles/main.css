@@ -1177,8 +1177,23 @@ footer.site-footer {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   filter: grayscale(.85) contrast(1.05);
   transition: filter .3s ease, transform .5s ease;
+}
+
+/* Las caratulas verticales se encuadran desde el centro. Dos Casas Conde es
+   la excepcion: la fachada debe quedar completa y el recorte caer en la calle. */
+.project-card:is([data-slug="araoz"], [data-slug="malabia"], [data-slug="moshu"],
+  [data-slug="osten"], [data-slug="people"]) img,
+.project-list-row:is([data-slug="araoz"], [data-slug="malabia"], [data-slug="moshu"],
+  [data-slug="osten"], [data-slug="people"]) img {
+  object-position: center center;
+}
+
+.project-card[data-slug="dos-casas-conde"] img,
+.project-list-row[data-slug="dos-casas-conde"] img {
+  object-position: center 20%;
 }
 
 .project-card:hover img {
@@ -1507,6 +1522,10 @@ footer.site-footer {
   background: var(--line);
 }
 
+.project-gallery[hidden] {
+  display: none;
+}
+
 .project-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1605,7 +1624,7 @@ footer.site-footer {
 }
 
 .related-projects {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   background: var(--line);
@@ -3650,6 +3669,43 @@ html.lenis body {
   column-gap: clamp(32px, 4.5vw, 76px);
 }
 
+/* Cuando hay fotos disponibles, el script convierte la memoria en un relato
+   editorial de una sola columna y reparte las imagenes entre los parrafos. */
+.memoria-cuerpo--intercalada {
+  columns: 1;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.memoria-cuerpo--intercalada > p {
+  max-width: 62ch;
+}
+
+.memoria-inline-photo {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+  margin: clamp(28px, 4vw, 58px) 0;
+  overflow: hidden;
+}
+
+.memoria-inline-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+}
+
+.memoria-cuerpo:not(.is-open) > .memoria-inline-photo--extra {
+  display: none;
+}
+
+.memoria-cuerpo.is-open > .memoria-inline-photo--extra {
+  display: block;
+}
+
 .memoria-cuerpo>p {
   margin: 0 0 1.15em;
   font-size: clamp(1rem, .4vw + .95rem, 1.1rem);
@@ -3682,6 +3738,11 @@ html.lenis body {
 
   .memoria-cuerpo>p {
     max-width: 55ch;
+  }
+
+  .memoria-inline-photo {
+    aspect-ratio: 4 / 3;
+    margin: 28px 0;
   }
 }
 
