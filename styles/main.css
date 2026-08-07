@@ -1657,8 +1657,15 @@ footer.site-footer {
 
 /* La grilla es de seis, y la seccion de videos muestra cinco: con seis
    columnas quedaba una celda vacia al final de la fila. Se ajusta a la
-   cantidad que haya, sin tocar el resto de las grillas de prensa. */
-#youtubeEntrevistas { grid-template-columns: repeat(5, 1fr); }
+   cantidad que haya, sin tocar el resto de las grillas de prensa.
+
+   Va acotada a pantalla ancha a proposito. Como es un id, le gana a las
+   medias queries de .press-featured, asi que sin este limite mantenia las
+   cinco columnas tambien en el telefono: los videos quedaban en cinco
+   columnas de 100 px, la fila se salia de la pantalla y arrastraba al pie. */
+@media (min-width: 1101px) {
+  #youtubeEntrevistas { grid-template-columns: repeat(5, 1fr); }
+}
 
 /* Rotulo de seccion como los de la pagina Estudio ("Fundadores", "Que
    hacemos", "Enfoque creativo"). Estaba repetido como estilo en linea en
@@ -1681,9 +1688,15 @@ footer.site-footer {
   }
 }
 
-@media (max-width: 480px) {
+/* En telefono las grillas de prensa bajan a una sola columna: se recorren
+   hacia abajo, como el resto de la pagina, en vez de apretar cuatro o cinco
+   tarjetas en un ancho donde el titulo caia letra por letra. De paso ninguna
+   fila queda incompleta, asi que no hay celda sobrante al final. */
+@media (max-width: 620px) {
+
+  #youtubeEntrevistas,
   .press-featured {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3918,9 +3931,11 @@ html.lenis body {
   margin-bottom: 22px;
 }
 
-@media (max-width: 640px) {
+/* Esta regla va despues de la general de 620 px, asi que es la que manda para
+   esta grilla: tiene que repetir la misma columna unica. */
+@media (max-width: 620px) {
   .press-featured--col {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
