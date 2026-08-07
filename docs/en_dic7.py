@@ -21,6 +21,14 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # --- fotos nuevas de la pagina Estudio ---
+    # Reemplazan a la del plano y al fotograma del video: el estudio pidio dos
+    # fotos propias en buena resolucion.
+    'La planta del estudio HMA en Buenos Aires, con el equipo trabajando':
+        'The HMA studio floor in Buenos Aires, with the team at work',
+    'Los socios y el equipo de HMA revisando un proyecto en pantalla':
+        'HMA’s partners and team reviewing a project on screen',
+
     # --- rotulos de la ficha ---
     'Equipo': 'Team',
     'Fotografía': 'Photography',
