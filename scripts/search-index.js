@@ -325,7 +325,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Hotel · Av. Corrientes 1334, Buenos Aires · 1.486 m² · 2024",
   "url": "/proyectos/novotel/",
-  "img": "/assets/gallery/novotel/1.webp"
+  "img": "/assets/covers/novotel.webp"
  },
  {
   "tipo": "Proyecto",
@@ -413,7 +413,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Club nocturno · Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro · 2.000 m² · 2023",
   "url": "/proyectos/roket/",
-  "img": "/assets/gallery/roket/1.webp"
+  "img": "/assets/covers/roket.webp"
  },
  {
   "tipo": "Proyecto",
@@ -429,7 +429,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Cultural & Institucional",
   "desc": "Templo · República Árabe Siria 3267, Buenos Aires · 600 m² · 2025",
   "url": "/proyectos/templo-mikdash/",
-  "img": "/assets/gallery/templo-mikdash/1.webp"
+  "img": "/assets/covers/templo-mikdash.webp"
  },
  {
   "tipo": "Proyecto",
@@ -453,7 +453,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Comida rápida · Miami, Florida · 100 m²",
   "url": "/proyectos/tostado/",
-  "img": "/assets/gallery/tostado/1.webp"
+  "img": "/assets/covers/tostado.webp"
  },
  {
   "tipo": "Proyecto",
