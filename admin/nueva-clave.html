@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva contraseña — HMA Estudio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body>
+  <main class="acceso">
+    <div class="acceso__caja">
+      <img src="/assets/logo-mark-black.png" alt="HMA" class="acceso__marca">
+
+      <section id="vistaClave">
+        <h1>Elegí una nueva contraseña</h1>
+        <p class="acceso__ayuda">Mínimo 8 caracteres.</p>
+
+        <form id="formClave" novalidate>
+          <div class="campo">
+            <label for="clave1">Nueva contraseña</label>
+            <input type="password" id="clave1" autocomplete="new-password" required>
+          </div>
+          <div class="campo">
+            <label for="clave2">Repetila</label>
+            <input type="password" id="clave2" autocomplete="new-password" required>
+          </div>
+          <button type="submit" class="boton" id="botonClave">Guardar</button>
+          <p class="aviso" id="avisoClave" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="vistaSinEnlace" class="oculto">
+        <h1>Este enlace ya no sirve</h1>
+        <p class="acceso__ayuda">Los enlaces de recupero vencen al rato y se usan
+          una sola vez. Pedí uno nuevo desde la pantalla de acceso.</p>
+        <a class="boton" href="/admin/" style="display:block;text-align:center;text-decoration:none">
+          Ir al acceso</a>
+      </section>
+    </div>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/nueva-clave.js"></script>
+</body>
+
+</html>

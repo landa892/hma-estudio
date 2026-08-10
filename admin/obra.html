@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obra — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="panel">
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <a class="barra__volver" href="/admin/obras">← Obras</a>
+    <span class="barra__titulo" id="encabezado">Nueva obra</span>
+    <span class="barra__quien" id="quien"></span>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido contenido--angosto">
+    <div id="cargando" class="vacio">Cargando…</div>
+
+    <form id="formObra" class="oculto" novalidate>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Identificación</h2>
+
+        <div class="campo">
+          <label for="titulo">Título <span class="obligatorio">obligatorio</span></label>
+          <input type="text" id="titulo" required maxlength="120">
+        </div>
+
+        <div class="campo">
+          <label for="slug">Dirección web</label>
+          <div class="campo__prefijo">
+            <span>estudiohma.com/proyectos/</span>
+            <input type="text" id="slug" maxlength="60" autocapitalize="off" spellcheck="false">
+            <span>/</span>
+          </div>
+          <p class="campo__ayuda" id="ayudaSlug">Se propone sola a partir del título.</p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Ficha técnica</h2>
+
+        <div class="dupla">
+          <div class="campo">
+            <label for="ubicacion">Ubicación</label>
+            <input type="text" id="ubicacion" maxlength="160">
+          </div>
+          <div class="campo">
+            <label for="pais">País</label>
+            <input type="text" id="pais" maxlength="60">
+          </div>
+        </div>
+
+        <div class="dupla">
+          <div class="campo">
+            <label for="anio">Año</label>
+            <input type="text" id="anio" maxlength="20" placeholder="2025 o 2024–2025">
+          </div>
+          <div class="campo">
+            <label for="superficie">Superficie</label>
+            <input type="text" id="superficie" maxlength="120" placeholder="325 m²">
+          </div>
+        </div>
+
+        <div class="dupla">
+          <div class="campo">
+            <label for="comitente">Comitente</label>
+            <input type="text" id="comitente" maxlength="120">
+          </div>
+          <div class="campo">
+            <label for="tipologia">Tipología</label>
+            <input type="text" id="tipologia" maxlength="80" placeholder="Restaurante, Oficinas…">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoría</label>
+          <select id="categoria"></select>
+          <p class="campo__ayuda">Define en qué filtro del listado aparece la obra.</p>
+        </div>
+
+        <div class="campo">
+          <label for="equipo">Equipo</label>
+          <textarea id="equipo" rows="6"
+            placeholder="Arq. Fernando Hitzig&#10;Arq. Leonardo Militello"></textarea>
+          <p class="campo__ayuda">Un nombre por línea, en el orden en que van a aparecer.</p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Textos</h2>
+
+        <div class="campo">
+          <label for="bajada">Bajada</label>
+          <textarea id="bajada" rows="2" maxlength="200"></textarea>
+          <p class="campo__ayuda">La frase corta que se lee en la tarjeta del listado.
+            <span id="contadorBajada"></span></p>
+        </div>
+
+        <div class="campo">
+          <label for="memoria">Memoria descriptiva</label>
+          <textarea id="memoria" rows="12"></textarea>
+          <p class="campo__ayuda">Una línea vacía entre párrafo y párrafo.</p>
+        </div>
+
+        <div class="campo">
+          <label for="memoriaEn">Memoria en inglés</label>
+          <textarea id="memoriaEn" rows="8"></textarea>
+          <p class="campo__ayuda">Opcional. Si queda vacía, la página en inglés
+            de esta obra va sin memoria.</p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Fotos</h2>
+
+        <!-- Sin obra guardada no hay a donde colgar las fotos: la ruta del
+             archivo lleva el id, y todavia no existe. -->
+        <p class="campo__ayuda" id="galeriaSinObra">
+          Guardá la obra y después vas a poder cargar las fotos.
+        </p>
+
+        <div id="galeria" class="oculto">
+          <div class="galeria__barra">
+            <button type="button" class="boton boton--compacto" id="subir">Agregar fotos</button>
+            <span class="conteo" id="conteoFotos"></span>
+          </div>
+          <input type="file" id="archivos" accept="image/*" multiple hidden>
+
+          <p class="campo__ayuda oculto" id="ayudaTope">
+            Llegaste al máximo de 15. Para subir otra, eliminá una.
+          </p>
+          <p class="campo__ayuda">
+            Se achican y se convierten solas antes de subir. Arrastralas para
+            cambiar el orden, o usá las flechas.
+          </p>
+
+          <div class="grilla-fotos" id="grilla"></div>
+          <p class="aviso" id="avisoGaleria" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Publicación</h2>
+
+        <div class="campo">
+          <label for="estado">Estado de la obra</label>
+          <select id="estado"></select>
+        </div>
+
+        <label class="casilla">
+          <input type="checkbox" id="destacada">
+          <span>Mostrarla entre las destacadas del home</span>
+        </label>
+
+        <label class="casilla">
+          <input type="checkbox" id="publicada">
+          <span>Publicada en el sitio</span>
+        </label>
+        <p class="campo__ayuda">Mientras esté sin publicar, nadie puede verla:
+          ni entrando a la dirección de la obra.</p>
+      </section>
+
+      <div class="acciones">
+        <button type="submit" class="boton boton--compacto" id="guardar">Guardar</button>
+        <a class="enlace" href="/admin/obras" id="cancelar">Cancelar</a>
+        <span class="aviso" id="aviso" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/datos.js"></script>
+  <script src="/admin/galeria.js"></script>
+  <script src="/admin/obra.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textos del sitio — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="panel">
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <a class="barra__volver" href="/admin/obras">← Obras</a>
+    <span class="barra__titulo">Textos del sitio</span>
+    <span class="barra__quien" id="quien"></span>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido contenido--angosto">
+    <p class="campo__ayuda">
+      Los textos fijos del sitio. Cada uno se guarda por separado: editás,
+      apretás guardar y ese queda. Para que se vean en el sitio, después hay
+      que publicar desde la pantalla de obras.
+    </p>
+
+    <div id="cargando" class="vacio">Cargando…</div>
+    <div id="secciones"></div>
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/textos.js"></script>
+</body>
+
+</html>

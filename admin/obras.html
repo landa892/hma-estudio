@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obras — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="panel">
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <span class="barra__titulo">Obras</span>
+    <span class="barra__quien" id="quien"></span>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido">
+    <div class="herramientas">
+      <input type="search" id="buscador" placeholder="Buscar por título…"
+        aria-label="Buscar obra" autocomplete="off">
+      <select id="filtroEstado" aria-label="Filtrar por publicación">
+        <option value="">Todas</option>
+        <option value="si">Publicadas</option>
+        <option value="no">En borrador</option>
+      </select>
+      <a class="boton boton--compacto" href="/admin/obra">Nueva obra</a>
+      <a class="enlace" href="/admin/textos">Textos del sitio</a>
+      <button type="button" class="boton boton--compacto boton--claro" id="publicar">
+        Publicar cambios</button>
+    </div>
+
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+
+    <div id="cargando" class="vacio">Cargando obras…</div>
+
+    <table class="tabla oculto" id="tabla">
+      <thead>
+        <tr>
+          <th>Obra</th>
+          <th>Año</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>En el sitio</th>
+          <th><span class="solo-lectores">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody id="filas"></tbody>
+    </table>
+
+    <p class="vacio oculto" id="sinResultados">No hay obras que coincidan.</p>
+    <p class="conteo" id="conteo"></p>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/datos.js"></script>
+  <script src="/admin/obras.js"></script>
+  <script src="/admin/publicar.js"></script>
+</body>
+
+</html>

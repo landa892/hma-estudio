@@ -18,3 +18,8 @@ docs/en_faltantes.json
 # Configuracion de herramientas locales. Trae claves de API en texto plano
 # y no tiene que salir nunca del equipo.
 .codex/
+
+# Los valores del proyecto de Supabase. No son secretos —viajan al
+# navegador— pero afuera del repo el codigo no queda atado a una cuenta:
+# el dia que el proyecto se transfiera al estudio solo cambia este archivo.
+admin/config.js

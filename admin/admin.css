@@ -1,0 +1,591 @@
+/* Estilos del panel. Aparte de styles/main.css a proposito: el sitio publico
+   tiene animaciones, scroll suave y tipografias grandes que en una herramienta
+   de trabajo estorban. Aca importa leer rapido y no equivocarse. */
+
+:root {
+  --negro: #111;
+  --gris: #6b6b6b;
+  --linea: #dcdcdc;
+  --fondo: #f6f6f6;
+  --blanco: #fff;
+  --error: #b3261e;
+  --ok: #1c6b3a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--negro);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- login ---------------------------------------------------------------- */
+
+.acceso {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.acceso__caja {
+  width: 100%;
+  max-width: 380px;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 32px 28px;
+}
+
+.acceso__marca {
+  display: block;
+  height: 26px;
+  margin-bottom: 28px;
+}
+
+.acceso h1 {
+  font-size: 1.15rem;
+  margin: 0 0 4px;
+}
+
+.acceso__ayuda {
+  margin: 0 0 24px;
+  color: var(--gris);
+  font-size: .88rem;
+}
+
+label {
+  display: block;
+  font-size: .8rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font: inherit;
+  /* 16 px y no menos: por debajo de eso Safari en iPhone hace zoom al enfocar
+     el campo y deja la pantalla corrida. El estudio va a entrar del telefono. */
+  font-size: 16px;
+  background: var(--blanco);
+  color: var(--negro);
+}
+
+input:focus-visible {
+  outline: 2px solid var(--negro);
+  outline-offset: 1px;
+  border-color: var(--negro);
+}
+
+.campo + .campo { margin-top: 16px; }
+
+.boton {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--negro);
+  color: var(--blanco);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.boton:disabled { opacity: .55; cursor: progress; }
+.boton:hover:not(:disabled) { background: #000; }
+
+.enlace {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--gris);
+  font-size: .85rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+  font-size: .85rem;
+}
+
+/* El aviso ocupa lugar desde el principio: si apareciera de golpe empujaria el
+   boton justo cuando la persona va a apretarlo otra vez. */
+.aviso {
+  margin-top: 16px;
+  min-height: 1.4em;
+  font-size: .88rem;
+}
+
+.aviso--error { color: var(--error); }
+.aviso--ok { color: var(--ok); }
+
+.oculto { display: none !important; }
+
+/* --- panel ---------------------------------------------------------------- */
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: var(--blanco);
+  border-bottom: 1px solid var(--linea);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.barra__marca { height: 20px; }
+
+.barra__titulo {
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* Empuja el correo y el boton de salir al otro extremo. */
+.barra__quien {
+  margin-left: auto;
+  color: var(--gris);
+  font-size: .85rem;
+}
+
+.contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+.herramientas {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+#buscador {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 16px;
+}
+
+select {
+  padding: 10px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 16px;
+  background: var(--blanco);
+}
+
+.boton--compacto {
+  width: auto;
+  margin-top: 0;
+  padding: 11px 18px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.tabla th {
+  text-align: left;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gris);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--linea);
+  font-weight: 600;
+}
+
+.tabla td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--linea);
+  vertical-align: top;
+}
+
+.tabla tr:last-child td { border-bottom: 0; }
+
+.tabla__titulo {
+  display: block;
+  color: var(--negro);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabla__titulo:hover { text-decoration: underline; }
+
+.tabla__slug {
+  display: block;
+  color: var(--gris);
+  font-size: .8rem;
+  margin-top: 2px;
+}
+
+.tabla__acciones {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.tabla__acciones .enlace + .enlace { margin-left: 14px; }
+
+.enlace--riesgo { color: var(--error); }
+
+.chip {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chip + .chip { margin-left: 6px; }
+
+/* Publicada y borrador se distinguen tambien por el texto, no solo por el
+   color: hay gente que no separa el verde del gris. */
+.chip--vive { background: #e3f1e8; color: var(--ok); }
+.chip--borrador { background: #eee; color: var(--gris); }
+.chip--destacada { background: #fdf0d5; color: #8a6100; }
+
+.vacio {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--gris);
+}
+
+.conteo {
+  margin-top: 14px;
+  color: var(--gris);
+  font-size: .85rem;
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* En telefono la tabla no entra: cada fila pasa a ser una tarjeta y los
+   encabezados se esconden, que es lo que ya no aporta sin columnas. */
+@media (max-width: 720px) {
+  .tabla, .tabla tbody, .tabla tr, .tabla td { display: block; width: 100%; }
+  .tabla thead { display: none; }
+
+  .tabla tr {
+    border-bottom: 1px solid var(--linea);
+    padding: 6px 0;
+  }
+
+  .tabla td {
+    border: 0;
+    padding: 4px 14px;
+  }
+
+  .tabla__acciones { text-align: left; padding-top: 10px; }
+}
+
+/* --- formulario de obra --------------------------------------------------- */
+
+.contenido--angosto { max-width: 720px; }
+
+.barra__volver {
+  color: var(--gris);
+  text-decoration: none;
+  font-size: .88rem;
+}
+
+.barra__volver:hover { color: var(--negro); }
+
+.ficha {
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 22px 22px 26px;
+  margin-bottom: 18px;
+}
+
+.ficha__titulo {
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin: 0 0 18px;
+}
+
+/* Dos campos por fila en pantalla ancha; en telefono se apilan solos. */
+.dupla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 0 18px;
+}
+
+.dupla .campo + .campo { margin-top: 16px; }
+
+@media (min-width: 560px) {
+  .dupla .campo + .campo { margin-top: 0; }
+  .dupla + .dupla { margin-top: 16px; }
+}
+
+textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--blanco);
+  color: var(--negro);
+  resize: vertical;
+}
+
+textarea:focus-visible {
+  outline: 2px solid var(--negro);
+  outline-offset: 1px;
+  border-color: var(--negro);
+}
+
+.campo__ayuda {
+  margin: 6px 0 0;
+  font-size: .82rem;
+  color: var(--gris);
+}
+
+.obligatorio {
+  color: var(--gris);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: .72rem;
+}
+
+/* La direccion web se lee mejor con el dominio delante: se ve que lo que se
+   escribe es solo el final de la URL. */
+.campo__prefijo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  padding: 0 10px;
+  background: var(--blanco);
+  flex-wrap: wrap;
+}
+
+.campo__prefijo span {
+  color: var(--gris);
+  font-size: .86rem;
+  white-space: nowrap;
+}
+
+.campo__prefijo input {
+  flex: 1 1 140px;
+  min-width: 0;
+  border: 0;
+  padding: 11px 2px;
+  border-radius: 0;
+}
+
+.campo__prefijo input:focus-visible { outline: 0; }
+.campo__prefijo:focus-within { outline: 2px solid var(--negro); outline-offset: 1px; }
+
+.casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: .95rem;
+  color: var(--negro);
+  cursor: pointer;
+}
+
+.casilla input {
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  flex: none;
+}
+
+/* Las acciones quedan a la vista al pie mientras se completa una memoria
+   larga: si hubiera que buscar el boton al final del scroll, se pierde. */
+.acciones {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 14px 0 20px;
+  background: linear-gradient(to bottom, transparent, var(--fondo) 22%);
+}
+
+.acciones .aviso { margin-top: 0; }
+
+/* --- galeria de la obra --------------------------------------------------- */
+
+.galeria__barra {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.galeria__barra .conteo { margin: 0; }
+
+.grilla-fotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.foto {
+  margin: 0;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--blanco);
+  position: relative;
+  cursor: grab;
+}
+
+.foto img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--fondo);
+}
+
+/* La portada se marca con un rotulo ademas del borde: el color solo no
+   alcanza para quien no lo distingue. */
+.foto--portada { border-color: var(--negro); }
+
+.foto__sello {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: var(--negro);
+  color: var(--blanco);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  padding: 3px 7px;
+  border-radius: 999px;
+}
+
+.foto--moviendo { opacity: .4; }
+
+.foto__pie {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 6px;
+  border-top: 1px solid var(--linea);
+}
+
+.foto__flecha {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--linea);
+  border-radius: 4px;
+  background: var(--blanco);
+  color: var(--negro);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  flex: none;
+}
+
+.foto__flecha:disabled { opacity: .35; cursor: default; }
+
+.foto__accion {
+  border: 0;
+  background: none;
+  color: var(--gris);
+  font: inherit;
+  font-size: .76rem;
+  padding: 4px 2px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.foto__accion:hover { color: var(--negro); }
+.foto__accion--riesgo { color: var(--error); margin-left: auto; }
+
+/* En pantalla tactil no se puede arrastrar para reordenar: las flechas pasan a
+   ser el unico camino, asi que necesitan tamaño de dedo y no de mouse. */
+@media (pointer: coarse) {
+  .foto__flecha {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .foto__accion {
+    padding: 12px 6px;
+    font-size: .82rem;
+  }
+}
+
+/* --- textos fijos --------------------------------------------------------- */
+
+.texto + .texto {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--linea);
+}
+
+.texto__rotulo-en {
+  margin-top: 10px;
+}
+
+.texto__pie {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.texto__pie .aviso { margin-top: 0; }
+
+/* Publicar no es lo mismo que guardar: se distingue del boton principal para
+   que nadie lo apriete creyendo que esta guardando una obra. */
+.boton--claro {
+  background: var(--blanco);
+  color: var(--negro);
+  border: 1px solid var(--negro);
+}
+
+.boton--claro:hover:not(:disabled) { background: var(--fondo); }
