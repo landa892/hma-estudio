@@ -100,19 +100,45 @@ nada.
 Pedirlo al estudio con código de país, sin espacios ni signos:
 `5491122334455`. Va en `scripts/main.js`, en la línea marcada.
 
-## A5 · El dominio — **este va último**
+**Es lo único del bloque A que queda pendiente.**
 
-Se hace cuando A2, A3 y A4 ya estén, para que el sitio no salga a medias.
+## A5 · El dominio — **hecho el 11/08/2026**
 
-1. Vercel → **Settings → Domains** → agregar `estudiohma.com`
-2. Vercel devuelve un registro **A** y un **CNAME**
-3. Cargarlos en DreamHost
+`estudiohma.com` sirve el sitio nuevo desde Vercel. `www` y
+`hma-estudio.vercel.app` redirigen al apex con 308.
 
-> ### No tocar los registros MX
-> El correo del estudio corre por Google Workspace. Si se pisan los MX, se
-> les cae el mail. **Sólo se tocan A y CNAME.**
+El apex es el canónico en todo el sitio —`rel="canonical"`, `og:url` y las 65
+entradas del sitemap—, así que la redirección va de `www` hacia el apex y no al
+revés. Vercel venía configurado al revés y se corrigió antes de mover el DNS.
 
-La propagación tarda entre minutos y unas horas.
+Los registros que quedaron en DreamHost:
+
+| Nombre | Tipo | Valor |
+|---|---|---|
+| `@` | A | `216.198.79.1` |
+| `www` | CNAME | `bc0fe562eb9e786c.vercel-dns-017.com` |
+
+> ### El paso que no es obvio: "Solo DNS"
+> No alcanza con agregar el registro A. Mientras el dominio esté como sitio
+> alojado, DreamHost mantiene su propio `@ A 64.90.39.10` y **ese le gana al
+> personalizado**: el dominio siguió resolviendo a DreamHost aun con el registro
+> de Vercel cargado.
+>
+> Se arregla en **Sitios Web → el dominio → Configuraciones → Establecer como
+> Solo DNS**. Después hay que apretar **Actualizar DNS** en la pestaña DNS: el
+> registro viejo no se va solo hasta que DreamHost reconstruye la zona.
+>
+> El CNAME de DreamHost no acepta el punto final. `...vercel-dns-017.com.` da
+> "Nombre de dominio inválido"; sin el punto entra.
+
+> ### El correo no se tocó
+> Se verificaron los MX antes y después: los cinco de Google, prioridad 0.
+> "Solo DNS" borra el alojamiento y los registros A, no el correo ni los TXT de
+> Resend. Los archivos y la base del WordPress viejo siguen en el VPS y el
+> cambio es reversible.
+>
+> Al WordPress viejo ya no se llega por `estudiohma.com`. Sigue accesible por
+> `staging.estudiohma.com`.
 
 ---
 
