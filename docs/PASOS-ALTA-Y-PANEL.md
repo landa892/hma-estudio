@@ -255,8 +255,13 @@ En **Environment Variables**, agregar tres:
 Vercel → **Settings → Build & Development Settings → Build Command**:
 
 ```bash
-python3 docs/panel_config.py && python3 docs/panel_alta.py --supabase && python3 docs/panel_generar.py --supabase && python3 docs/panel_sitio.py --supabase && python3 docs/panel_textos.py --supabase && python3 docs/panel_home.py --supabase && python3 docs/sitemap_gen.py && python3 docs/en_gen.py
+python3 docs/panel_build.py
 ```
+
+Los ocho pasos viven en ese script y no encadenados con `&&` en la casilla por
+una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
+cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
+que en una sola línea de shell no se ve.
 
 Y una variable más:
 
