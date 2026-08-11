@@ -285,6 +285,23 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel
 no publica un build que no terminó.
 
+### Dos cosas de Vercel que no son obvias
+
+**`"outputDirectory": "."` en `vercel.json`.** Mientras no había comando de
+build, Vercel servía la raíz del repositorio. En cuanto se define uno, espera
+encontrar el sitio en una carpeta `public` y el deploy falla con *No Output
+Directory named "public" found*. Nuestro sitio se arma en la raíz.
+
+Y `vercel.json` **no admite comentarios ni claves inventadas**: una clave `"//"`
+para explicar algo hace fallar la validación del esquema. Por eso esto está
+acá y no en el archivo.
+
+**`.vercelignore` ya no excluye `docs/` entero.** No puede: los generadores
+viven ahí y el build los necesita. Excluye las notas —que era lo sensible, por
+`AUDITORIA-SEGURIDAD.md`— y del resto se encarga `panel_build.py`, que borra la
+carpeta como último paso, ya en el servidor. Ese borrado mira la variable
+`VERCEL`: en una máquina de desarrollo no se ejecuta.
+
 ## B7 · Fusionar la rama
 
 Con B1 a B6 hechos, fusionar `panel` en `main`. El panel queda vivo en

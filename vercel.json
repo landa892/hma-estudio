@@ -1,9 +1,5 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": "El sitio se arma en la raiz del repositorio, no en una carpeta aparte. Mientras no habia comando de build, Vercel servia la raiz y esto no hacia falta; en cuanto se define uno, espera una carpeta 'public' y el deploy falla con 'No Output Directory named public found'. Se declara aca y no en la interfaz para que quede versionado y no dependa de que alguien lo recuerde.",
   "outputDirectory": ".",
-
   "headers": [
     {
       "source": "/(.*)",
