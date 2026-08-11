@@ -255,7 +255,7 @@ En **Environment Variables**, agregar tres:
 Vercel → **Settings → Build & Development Settings → Build Command**:
 
 ```bash
-python3 docs/panel_generar.py --supabase && python3 docs/en_gen.py
+python3 docs/panel_config.py && python3 docs/panel_alta.py --supabase && python3 docs/panel_generar.py --supabase && python3 docs/panel_sitio.py --supabase && python3 docs/panel_textos.py --supabase && python3 docs/panel_home.py --supabase && python3 docs/sitemap_gen.py && python3 docs/en_gen.py
 ```
 
 Y una variable más:
@@ -264,15 +264,36 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
+### Qué hace cada paso, y por qué en ese orden
+
+| Paso | Qué hace |
+|---|---|
+| `panel_config.py` | Escribe `admin/config.js` desde las variables. Sin esto el panel publicado no conecta con nada. |
+| `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
+| `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
+| `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas. |
+| `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
+| `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
+| `sitemap_gen.py` | Rearma el sitemap del disco. **Va después de las altas y bajas**, o lista páginas que no existen. |
+| `en_gen.py` | Rehace `/en/` de cero. **Va último**: traduce lo que dejaron los pasos anteriores. |
+
+Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel
+no publica un build que no terminó.
+
 ## B7 · Fusionar la rama
 
 Con B1 a B6 hechos, fusionar `panel` en `main`. El panel queda vivo en
 `estudiohma.com/admin`.
 
-Antes de fusionar hay que resolver una cosa: `admin/config.js` no está en el
-repo, así que en el sitio publicado no existe. Hay que generarlo en el build
-desde las variables de entorno, o el panel no arranca. **Avisar cuando se
-llegue a este punto.**
+`admin/config.js` ya no bloquea: lo genera `docs/panel_config.py` en el build,
+desde `SUPABASE_URL` y `SUPABASE_ANON_KEY`. Aborta el deploy si falta alguna, o
+si la clave que le pasan parece la de servicio — esa saltea el RLS y en el
+navegador dejaría la base abierta.
+
+> ### La migración 0006
+> La rama trae una migración más que las cinco de B2:
+> `supabase/migrations/0006_banners.sql`, el rótulo de los banners del home.
+> Hay que correrla también.
 
 ---
 
