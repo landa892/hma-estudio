@@ -153,20 +153,33 @@ Sitemap enviado como URL completa: `https://estudiohma.com/sitemap.xml`. Una
 propiedad de tipo Dominio cubre varios hosts, así que la ruta suelta
 (`sitemap.xml`) la rechaza con "Dirección de sitemap no válida".
 
-### El sitemap incluye el espejo en inglés
+### El sitemap se genera solo
 
-Lo genera `docs/sitemap_en.py`. Lee las páginas en castellano del sitemap,
-agrega su par en `/en/` y anota los `<xhtml:link>` de idioma. **Hay que
-correrlo cada vez que se sumen o saquen páginas**, y es idempotente: correrlo
-dos veces da lo mismo.
+Lo arma `docs/sitemap_gen.py` **enumerando las páginas del disco**:
 
 ```bash
-python docs/sitemap_en.py
+python docs/sitemap_gen.py
 ```
 
-Sin el par declarado, Google puede tomar las dos versiones como duplicadas y
-descartar una. El `hreflang` del HTML ya lo dice —está en las 140 páginas—, y
-el sitemap lo repite, que es lo que Google recomienda.
+Antes se mantenía a mano, y por eso **14 obras publicadas no estaban en el
+sitemap**: Abasto, Burger 7167, Casa Olmo, Clásico Quilmes, Elyaki, Galería
+Objeto A, Lucciano's Olivos, Malita, Oficina Casa Luna, PH El Salvador, PH Loft
+Arias, Stella Artois Mercat, The Birra y Ualá II. Ahora la fuente son los
+archivos, que es lo único que no puede desincronizarse del sitio.
+
+Qué hace, además de listar:
+
+- Agrega el par en `/en/` de cada página y anota los `<xhtml:link>` de idioma.
+  Sin ese par, Google puede tomar las dos versiones como duplicadas y quedarse
+  con una sola.
+- **Saltea las páginas con `noindex`** — hoy `/buscar/`. Listarlas sería pedirle
+  a Google que indexe algo que la propia página le prohíbe, y Search Console lo
+  reporta como error.
+- Conserva el `changefreq` y el `priority` que cada URL ya tenía, así sumar una
+  obra no reescribe el archivo entero.
+
+Es idempotente: correrlo dos veces da lo mismo. Quedaron 136 URLs, 68 en cada
+idioma.
 
 ---
 

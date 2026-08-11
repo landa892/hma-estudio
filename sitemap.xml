@@ -18,196 +18,36 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/"/>
+    <loc>https://estudiohma.com/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/contacto/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/contacto/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/estudio/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/estudio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/studio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/estudio/"/>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/"/>
+    <loc>https://estudiohma.com/en/studio/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/estudio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/studio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/estudio/"/>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/osten-foa/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten-foa/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten-foa/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten-foa/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/osten-foa/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten-foa/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten-foa/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten-foa/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/movistar-arena/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/movistar-arena/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/movistar-arena/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/movistar-arena/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/movistar-arena/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/movistar-arena/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/movistar-arena/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/movistar-arena/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/hyatt-ziva/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hyatt-ziva/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/hyatt-ziva/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hyatt-ziva/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/manduca/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/manduca/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/manduca/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/manduca/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/manduca/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/manduca/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/manduca/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/manduca/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/osten/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/osten/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/moshu/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/moshu/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/moshu/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/moshu/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/moshu/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/moshu/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/moshu/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/moshu/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/cerveceria-austral/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cerveceria-austral/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/cerveceria-austral/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cerveceria-austral/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/uala-office/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-office/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-office/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-office/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/uala-office/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-office/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-office/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-office/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/araoz/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/araoz/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/araoz/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/araoz/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/araoz/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/araoz/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/araoz/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/araoz/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/malabia/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malabia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malabia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malabia/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/malabia/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malabia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malabia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malabia/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/dos-casas-conde/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/dos-casas-conde/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/dos-casas-conde/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/dos-casas-conde/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://estudiohma.com/premios/</loc>
@@ -242,38 +82,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/estudio/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/estudio/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/studio/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/estudio/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/studio/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/estudio/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/studio/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/estudio/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/contacto/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/contacto/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/contact/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/contacto/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/contact/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/contacto/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/contact/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/contacto/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://estudiohma.com/privacidad/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/privacidad/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/privacy/"/>
@@ -290,34 +98,34 @@
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/benedetta/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/benedetta/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/benedetta/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/benedetta/"/>
+    <loc>https://estudiohma.com/proyectos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/abasto-patio-comidas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/abasto-patio-comidas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/abasto-patio-comidas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/abasto-patio-comidas/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/benedetta/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/benedetta/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/benedetta/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/benedetta/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/bienal-venecia/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bienal-venecia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/bienal-venecia/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bienal-venecia/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
+    <loc>https://estudiohma.com/en/projects/abasto-patio-comidas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/abasto-patio-comidas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/abasto-patio-comidas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/abasto-patio-comidas/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -354,50 +162,114 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/parfumerie/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/parfumerie/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/parfumerie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/parfumerie/"/>
+    <loc>https://estudiohma.com/proyectos/antiche/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/antiche/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/antiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/antiche/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/parfumerie/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/parfumerie/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/parfumerie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/parfumerie/"/>
+    <loc>https://estudiohma.com/en/projects/antiche/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/antiche/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/antiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/antiche/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/indusparquet/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/indusparquet/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/indusparquet/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <loc>https://estudiohma.com/proyectos/araoz/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/araoz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/araoz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/araoz/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/indusparquet/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/indusparquet/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/indusparquet/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <loc>https://estudiohma.com/en/projects/araoz/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/araoz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/araoz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/araoz/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/templo-mikdash/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/templo-mikdash/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
+    <loc>https://estudiohma.com/proyectos/atelier-vilela/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/atelier-vilela/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/templo-mikdash/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/templo-mikdash/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
+    <loc>https://estudiohma.com/en/projects/atelier-vilela/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/atelier-vilela/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/benedetta/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/benedetta/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/benedetta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/benedetta/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/benedetta/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/benedetta/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/benedetta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/benedetta/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/bienal-venecia/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bienal-venecia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/bienal-venecia/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bienal-venecia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bienal-venecia/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/bolivar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bolivar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/bolivar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bolivar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/burger-7167/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/burger-7167/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/burger-7167/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/burger-7167/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/burger-7167/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/burger-7167/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/burger-7167/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/burger-7167/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -418,82 +290,18 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/uala-gigena/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-gigena/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-gigena/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-gigena/"/>
+    <loc>https://estudiohma.com/proyectos/casa-olmo/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/casa-olmo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/casa-olmo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/casa-olmo/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/uala-gigena/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-gigena/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-gigena/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-gigena/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/williamsburg/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/williamsburg/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/williamsburg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/williamsburg/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/williamsburg/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/williamsburg/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/williamsburg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/williamsburg/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/iol/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iol/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iol/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iol/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/iol/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iol/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iol/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iol/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/novotel/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/novotel/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/novotel/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/novotel/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/novotel/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/novotel/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/novotel/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/novotel/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/roket/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/roket/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/roket/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/roket/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/roket/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/roket/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/roket/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/roket/"/>
+    <loc>https://estudiohma.com/en/projects/casa-olmo/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/casa-olmo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/casa-olmo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/casa-olmo/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -514,6 +322,134 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://estudiohma.com/proyectos/cerveceria-austral/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cerveceria-austral/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/cerveceria-austral/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cerveceria-austral/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cerveceria-austral/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/cien/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cien/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cien/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cien/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/cien/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cien/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cien/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cien/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/clasico-quilmes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/clasico-quilmes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/clasico-quilmes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/clasico-quilmes/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/clasico-quilmes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/clasico-quilmes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/clasico-quilmes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/clasico-quilmes/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/dos-casas-conde/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/dos-casas-conde/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/dos-casas-conde/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/dos-casas-conde/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/dos-casas-conde/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/edificio-del-plata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/edificio-del-plata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/edificio-del-plata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/edificio-del-plata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/elyaki/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/elyaki/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/elyaki/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/elyaki/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/elyaki/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/elyaki/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/elyaki/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/elyaki/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/fehgra/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fehgra/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/fehgra/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fehgra/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/fogon/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fogon/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fogon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fogon/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/fogon/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fogon/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fogon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fogon/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://estudiohma.com/proyectos/fresco/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fresco/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fresco/"/>
@@ -526,6 +462,134 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fresco/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fresco/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fresco/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/galeria-objeto-a/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/galeria-objeto-a/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/galeria-objeto-a/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/galeria-objeto-a/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/galeria-objeto-a/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/galeria-objeto-a/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/galeria-objeto-a/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/galeria-objeto-a/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/goodsten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/goodsten/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/goodsten/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/goodsten/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/goodsten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/goodsten/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/goodsten/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/goodsten/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/hausscape/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hausscape/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/hausscape/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hausscape/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/hyatt-ziva/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hyatt-ziva/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/hyatt-ziva/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hyatt-ziva/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hyatt-ziva/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/iguanafix/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iguanafix/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/iguanafix/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iguanafix/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/indusparquet/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/indusparquet/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/indusparquet/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/indusparquet/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/indusparquet/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/iol/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iol/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iol/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iol/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/iol/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iol/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iol/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iol/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/juan-valdez/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/juan-valdez/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/juan-valdez/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/juan-valdez/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/juan-valdez/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/juan-valdez/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/juan-valdez/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/juan-valdez/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -562,82 +626,66 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/victoria-brown/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/victoria-brown/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/victoria-brown/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <loc>https://estudiohma.com/proyectos/luccianos-caballito/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-caballito/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/victoria-brown/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/victoria-brown/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/victoria-brown/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <loc>https://estudiohma.com/en/projects/luccianos-caballito/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-caballito/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/atelier-vilela/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/atelier-vilela/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
+    <loc>https://estudiohma.com/proyectos/luccianos-olivos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-olivos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-olivos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-olivos/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/atelier-vilela/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/atelier-vilela/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/atelier-vilela/"/>
+    <loc>https://estudiohma.com/en/projects/luccianos-olivos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-olivos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-olivos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-olivos/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/antiche/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/antiche/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/antiche/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/antiche/"/>
+    <loc>https://estudiohma.com/proyectos/malabia/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malabia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malabia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malabia/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/antiche/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/antiche/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/antiche/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/antiche/"/>
+    <loc>https://estudiohma.com/en/projects/malabia/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malabia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malabia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malabia/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/goodsten/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/goodsten/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/goodsten/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/goodsten/"/>
+    <loc>https://estudiohma.com/proyectos/malita/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malita/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malita/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/goodsten/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/goodsten/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/goodsten/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/goodsten/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/proyectos/nim-bar/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/nim-bar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/nim-bar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/nim-bar/"/>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estudiohma.com/en/projects/nim-bar/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/nim-bar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/nim-bar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/nim-bar/"/>
+    <loc>https://estudiohma.com/en/projects/malita/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/malita/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/malita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/malita/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -658,82 +706,114 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/cien/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cien/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cien/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cien/"/>
+    <loc>https://estudiohma.com/proyectos/manduca/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/manduca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/manduca/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/manduca/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/cien/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/cien/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/cien/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/cien/"/>
+    <loc>https://estudiohma.com/en/projects/manduca/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/manduca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/manduca/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/manduca/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/hausscape/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hausscape/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hausscape/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <loc>https://estudiohma.com/proyectos/moshu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/moshu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/moshu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/moshu/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/hausscape/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/hausscape/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/hausscape/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/hausscape/"/>
+    <loc>https://estudiohma.com/en/projects/moshu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/moshu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/moshu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/moshu/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/bolivar/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bolivar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bolivar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <loc>https://estudiohma.com/proyectos/movistar-arena/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/movistar-arena/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/movistar-arena/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/movistar-arena/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/bolivar/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/bolivar/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/bolivar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/bolivar/"/>
+    <loc>https://estudiohma.com/en/projects/movistar-arena/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/movistar-arena/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/movistar-arena/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/movistar-arena/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/fehgra/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fehgra/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fehgra/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <loc>https://estudiohma.com/proyectos/nim-bar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/nim-bar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/nim-bar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/nim-bar/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/fehgra/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fehgra/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fehgra/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fehgra/"/>
+    <loc>https://estudiohma.com/en/projects/nim-bar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/nim-bar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/nim-bar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/nim-bar/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/people/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/people/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/people/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/people/"/>
+    <loc>https://estudiohma.com/proyectos/novotel/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/novotel/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/novotel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/novotel/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/people/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/people/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/people/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/people/"/>
+    <loc>https://estudiohma.com/en/projects/novotel/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/novotel/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/novotel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/novotel/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/oficina-casa-luna/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/oficina-casa-luna/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/oficina-casa-luna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/oficina-casa-luna/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/oficina-casa-luna/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/oficina-casa-luna/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/oficina-casa-luna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/oficina-casa-luna/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/osten-foa/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten-foa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten-foa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten-foa/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/osten-foa/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten-foa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten-foa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten-foa/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -754,50 +834,82 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/fogon/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fogon/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fogon/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fogon/"/>
+    <loc>https://estudiohma.com/proyectos/osten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/fogon/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/fogon/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/fogon/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/fogon/"/>
+    <loc>https://estudiohma.com/en/projects/osten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/osten/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/osten/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/osten/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/tostado/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/tostado/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/tostado/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/tostado/"/>
+    <loc>https://estudiohma.com/proyectos/parfumerie/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/parfumerie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/parfumerie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/parfumerie/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/tostado/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/tostado/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/tostado/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/tostado/"/>
+    <loc>https://estudiohma.com/en/projects/parfumerie/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/parfumerie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/parfumerie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/parfumerie/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/juan-valdez/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/juan-valdez/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/juan-valdez/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/juan-valdez/"/>
+    <loc>https://estudiohma.com/proyectos/people/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/people/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/people/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/people/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/juan-valdez/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/juan-valdez/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/juan-valdez/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/juan-valdez/"/>
+    <loc>https://estudiohma.com/en/projects/people/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/people/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/people/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/people/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/ph-el-salvador/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/ph-el-salvador/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/ph-el-salvador/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/ph-el-salvador/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/ph-el-salvador/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/ph-el-salvador/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/ph-el-salvador/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/ph-el-salvador/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/ph-loft-arias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/ph-loft-arias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/ph-loft-arias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/ph-loft-arias/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/ph-loft-arias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/ph-loft-arias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/ph-loft-arias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/ph-loft-arias/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -818,50 +930,162 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/edificio-del-plata/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/edificio-del-plata/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <loc>https://estudiohma.com/proyectos/roket/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/roket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/roket/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/roket/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/edificio-del-plata/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/edificio-del-plata/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/edificio-del-plata/"/>
+    <loc>https://estudiohma.com/en/projects/roket/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/roket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/roket/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/roket/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/luccianos-caballito/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-caballito/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
+    <loc>https://estudiohma.com/proyectos/stella-artois-mercat/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/stella-artois-mercat/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/stella-artois-mercat/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/stella-artois-mercat/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/luccianos-caballito/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/luccianos-caballito/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/luccianos-caballito/"/>
+    <loc>https://estudiohma.com/en/projects/stella-artois-mercat/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/stella-artois-mercat/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/stella-artois-mercat/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/stella-artois-mercat/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/proyectos/iguanafix/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iguanafix/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iguanafix/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <loc>https://estudiohma.com/proyectos/templo-mikdash/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/templo-mikdash/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://estudiohma.com/en/projects/iguanafix/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/iguanafix/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/iguanafix/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/iguanafix/"/>
+    <loc>https://estudiohma.com/en/projects/templo-mikdash/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/templo-mikdash/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/templo-mikdash/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/the-birra/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/the-birra/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/the-birra/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/the-birra/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/the-birra/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/the-birra/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/the-birra/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/the-birra/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/tostado/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/tostado/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/tostado/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/tostado/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/tostado/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/tostado/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/tostado/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/tostado/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/uala-gigena/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-gigena/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-gigena/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-gigena/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/uala-gigena/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-gigena/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-gigena/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-gigena/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/uala-ii/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-ii/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-ii/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-ii/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/uala-ii/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-ii/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-ii/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-ii/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/uala-office/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-office/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-office/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-office/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/uala-office/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/uala-office/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/uala-office/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/uala-office/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/victoria-brown/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/victoria-brown/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/victoria-brown/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/victoria-brown/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/victoria-brown/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/proyectos/williamsburg/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/williamsburg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/williamsburg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/williamsburg/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/projects/williamsburg/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/williamsburg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/williamsburg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/proyectos/williamsburg/"/>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
