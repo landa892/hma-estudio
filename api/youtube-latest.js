@@ -1,15 +1,69 @@
-// Canal de YouTube del estudio. Cambiar aca si el canal cambia — no requiere
-// tocar nada mas (el resto de la pagina se actualiza solo).
-const YOUTUBE_CHANNEL_ID = "UC1BfV3DzfGbaWfiMNHd0baw"; // HMA Estudio — youtube.com/@HMAEstudio
+// Los videos que muestra la pagina de prensa.
+//
+// Salen de tres playlists del canal y no de "lo ultimo que subio el canal".
+// El motivo es editorial: el estudio tambien publica despieces de planos y
+// clips tecnicos que no van en la web, y con la lista de subidas esos eran
+// justamente los mas recientes.
+//
+// Antes se filtraba por el titulo, buscando palabras como "entrevista" o
+// "podcast". Eso funcionaba de casualidad: bastaba que bautizaran una charla
+// "Charla en HOTELGA" para que quedara afuera, o que un despiece dijera
+// "entrevista" adentro para que entrara. Con playlists la decision es del
+// estudio y explicita: lo que agregan a estas listas aparece, lo demas no.
+//
+// Para sumar o sacar una lista, se toca este arreglo y nada mas.
+const PLAYLISTS = [
+  "PLzPPIqCbpvjQoVeH19BqSE5NefL6Tt5hw", // Oradores
+  "PLzPPIqCbpvjTz-A_AzZrJRj_dIayTP3lv", // Entrevistas
+  "PLzPPIqCbpvjTXso-Q666hx0thn96KLum3", // Ciclo de entrevistas
+];
 
-// El feed RSS publico de YouTube (feeds/videos.xml) fue dado de baja por
-// Google — devuelve 404 incluso para canales conocidos. Se usa en su lugar
-// la YouTube Data API v3 oficial, gratuita y sin revision, via la playlist
-// de "subidos" del canal (se arma cambiando el prefijo UC por UU).
-// La pagina reparte los videos en dos secciones (entrevistas y charlas),
-// asi que pedir tres dejaba una de las dos vacia o repetida. Con doce hay
-// material para las dos y sigue entrando de sobra en la cuota gratuita.
+// Se piden de a 20 por lista y despues se recorta: asi el orden por fecha sale
+// del conjunto y no de lo que devolvio cada lista por separado.
+const POR_LISTA = 20;
 const MAX_VIDEOS = 12;
+
+async function traerLista(playlistId, apiKey) {
+  const url =
+    "https://www.googleapis.com/youtube/v3/playlistItems" +
+    `?part=snippet&maxResults=${POR_LISTA}` +
+    `&playlistId=${encodeURIComponent(playlistId)}&key=${apiKey}`;
+
+  const r = await fetch(url);
+  if (!r.ok) {
+    // Una lista borrada, renombrada o puesta en privado no puede tumbar las
+    // otras dos: se registra y se sigue.
+    console.error("YouTube: falló la playlist", playlistId, r.status,
+      await r.text());
+    return [];
+  }
+
+  const data = await r.json();
+  return (data.items || []).map((item) => {
+    const s = item.snippet || {};
+    const videoId = s.resourceId ? s.resourceId.videoId : "";
+    const thumb = s.thumbnails || {};
+    // Varios videos del canal son verticales, y para esos "high" (hqdefault)
+    // viene con bandas negras que ocupan dos tercios del cuadro. "maxres" trae
+    // la imagen completa cuando existe.
+    const thumbnail =
+      (thumb.maxres || thumb.standard || thumb.high || thumb.medium ||
+        thumb.default || {}).url || "";
+
+    return {
+      id: videoId,
+      title: s.title || "",
+      url: `https://www.youtube.com/watch?v=${videoId}`,
+      thumbnail,
+      published: s.publishedAt || "",
+    };
+  }).filter((v) => {
+    // YouTube deja en la lista los videos borrados o pasados a privado, con el
+    // titulo cambiado y sin miniatura. Si entraran, la grilla mostraria huecos.
+    if (!v.id || !v.thumbnail) return false;
+    return !/^(Deleted|Private) video$/i.test(v.title);
+  });
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://estudiohma.com");
@@ -21,37 +75,29 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ videos: [] });
   }
 
-  const uploadsPlaylistId = "UU" + YOUTUBE_CHANNEL_ID.slice(2);
-
   try {
-    const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${MAX_VIDEOS}&playlistId=${uploadsPlaylistId}&key=${apiKey}`;
-    const ytRes = await fetch(apiUrl);
+    const listas = await Promise.all(
+      PLAYLISTS.map((id) => traerLista(id, apiKey))
+    );
 
-    if (!ytRes.ok) {
-      const detail = await ytRes.text();
-      console.error("Error de YouTube Data API:", ytRes.status, detail);
-      return res.status(502).json({ error: "No se pudo leer el canal de YouTube.", videos: [] });
+    // Un mismo video puede estar en dos listas —una entrevista que tambien es
+    // parte del ciclo—, asi que se deduplica por id antes de ordenar.
+    const porId = new Map();
+    for (const lista of listas) {
+      for (const v of lista) {
+        if (!porId.has(v.id)) porId.set(v.id, v);
+      }
     }
 
-    const data = await ytRes.json();
-    const videos = (data.items || []).map((item) => {
-      const s = item.snippet || {};
-      const videoId = s.resourceId ? s.resourceId.videoId : "";
-      const thumb = s.thumbnails || {};
-      // Varios videos del canal son verticales, y para esos "high"
-      // (hqdefault) viene con bandas negras que ocupan dos tercios del
-      // cuadro. "maxres" trae la imagen completa cuando existe.
-      const thumbnail = (thumb.maxres || thumb.standard || thumb.high ||
-        thumb.medium || thumb.default || {}).url || "";
+    const videos = [...porId.values()]
+      .sort((a, b) => (b.published || "").localeCompare(a.published || ""))
+      .slice(0, MAX_VIDEOS);
 
-      return {
-        id: videoId,
-        title: s.title || "",
-        url: `https://www.youtube.com/watch?v=${videoId}`,
-        thumbnail,
-        published: s.publishedAt || "",
-      };
-    });
+    if (!videos.length) {
+      // Sin videos la pagina se queda con las tarjetas que trae el HTML, que es
+      // mejor que mostrar la seccion vacia.
+      console.error("YouTube: las playlists no devolvieron ningún video.");
+    }
 
     return res.status(200).json({ videos });
   } catch (err) {
