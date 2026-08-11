@@ -140,6 +140,34 @@ Los registros que quedaron en DreamHost:
 > Al WordPress viejo ya no se llega por `estudiohma.com`. Sigue accesible por
 > `staging.estudiohma.com`.
 
+## A6 · Search Console — **hecho el 11/08/2026**
+
+Propiedad de tipo **Dominio** (`sc-domain:estudiohma.com`), verificada por TXT
+en la raíz y creada **con la cuenta del estudio**, así que acá no hay deuda de
+traspaso como con la clave de YouTube.
+
+El TXT no se ve hasta apretar **Actualizar DNS** en DreamHost, igual que pasó
+con el registro A.
+
+Sitemap enviado como URL completa: `https://estudiohma.com/sitemap.xml`. Una
+propiedad de tipo Dominio cubre varios hosts, así que la ruta suelta
+(`sitemap.xml`) la rechaza con "Dirección de sitemap no válida".
+
+### El sitemap incluye el espejo en inglés
+
+Lo genera `docs/sitemap_en.py`. Lee las páginas en castellano del sitemap,
+agrega su par en `/en/` y anota los `<xhtml:link>` de idioma. **Hay que
+correrlo cada vez que se sumen o saquen páginas**, y es idempotente: correrlo
+dos veces da lo mismo.
+
+```bash
+python docs/sitemap_en.py
+```
+
+Sin el par declarado, Google puede tomar las dos versiones como duplicadas y
+descartar una. El `hreflang` del HTML ya lo dice —está en las 140 páginas—, y
+el sitemap lo repite, que es lo que Google recomienda.
+
 ---
 
 # B · Encender el panel
