@@ -2,25 +2,18 @@
 // telefono), para que el estudio pueda contactarla aunque nunca llegue a
 // escribir el mensaje.
 //
-// A donde va lo que manda el formulario.
+// A donde va. Mismo destino y mismo remitente que api/contact.js: si divergen,
+// una de las dos vias de contacto termina llegando a otra casilla sin que nadie
+// se de cuenta.
 //
-// El destino definitivo es hitzig.militello@gmail.com, que pidio el cliente.
-// Todavia no esta activo, y por dos razones distintas:
+// Desde el 10/08/2026 va a la casilla del estudio. El remitente tiene que ser
+// del dominio verificado en Resend; con un @gmail.com o con el sandbox, el
+// envio se rechaza.
 //
-//   1. La cuenta todavia no es del estudio. Hasta que no la creen, esa
-//      direccion puede ser de cualquiera, y ahi irian a parar las consultas
-//      de gente real.
-//   2. Aunque se activara, no llegaria: mientras el dominio estudiohma.com no
-//      este verificado en Resend, se envia desde el sandbox
-//      (onboarding@resend.dev), que solo entrega a la casilla dueña de la
-//      cuenta de Resend. Cualquier otro destino se descarta en silencio.
-//
-// Asi que hasta que existan la cuenta y el dominio verificado, sigue yendo a
-// la casilla que hoy funciona. Cambiar TO_EMAIL por DESTINO_FINAL es todo lo
-// que hay que hacer el dia que esten las dos cosas.
-const DESTINO_FINAL = "hitzig.militello@gmail.com";
-const TO_EMAIL = "nacholanda08@gmail.com";
-const FROM_EMAIL = "HMA Web <onboarding@resend.dev>";
+// Aca no hay reply_to: la persona deja nombre y telefono, no correo. El estudio
+// la contacta por WhatsApp, que es lo que estaba haciendo cuando dejo los datos.
+const TO_EMAIL = "hitzig.militello@gmail.com";
+const FROM_EMAIL = "HMA Estudio <web@estudiohma.com>";
 
 const submissions = new Map();
 const RATE_LIMIT_WINDOW_MS = 60_000;
