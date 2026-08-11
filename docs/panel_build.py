@@ -62,7 +62,28 @@ def main():
     print('\n' + '=' * 70)
     print('los %d pasos terminaron bien' % len(PASOS))
     print('=' * 70)
+
+    limpiar_docs()
     return 0
+
+
+def limpiar_docs():
+    """Saca docs/ de lo que se publica, ya con el sitio armado.
+
+    Vercel sirve todo lo que queda en la carpeta al terminar el build, asi que
+    sin esto los generadores quedarian descargables en estudiohma.com/docs/.
+    Antes se resolvia excluyendo docs/ en .vercelignore, pero eso los dejaba
+    fuera del servidor y el build no podia correrlos.
+
+    Solo corre en Vercel. En la maquina del desarrollador borraria el codigo
+    fuente, que es exactamente lo que no queremos que pase por descuido.
+    """
+    if not os.environ.get('VERCEL'):
+        print('\n(fuera de Vercel: no se toca docs/)')
+        return
+    import shutil
+    shutil.rmtree(os.path.join(RAIZ, 'docs'), ignore_errors=True)
+    print('\ndocs/ sacado de lo que se publica')
 
 
 if __name__ == '__main__':

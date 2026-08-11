@@ -7,11 +7,15 @@
 # proyecto y de la maquina desde la que se trabaja. robots.txt pedia no
 # indexarlo, pero eso no impide que alguien lo abra: solo evita que Google lo
 # muestre.
-docs/
-
-# El generador del espejo en ingles y sus diccionarios viven en docs/, asi que
-# ya quedan fuera por la linea de arriba. Se siguen versionando en git, que es
-# donde tienen que estar.
+#
+# Antes se excluia docs/ entero. No se puede: desde que el panel arma el sitio
+# en cada build, los generadores viven ahi y el build los necesita. Se excluyen
+# las notas, que son lo sensible, y del resto se encarga docs/panel_build.py:
+# borra la carpeta como ultimo paso, ya en el servidor, asi los generadores
+# corren pero no quedan publicados.
+docs/*.md
+docs/memorias_drive/
+docs/__pycache__/
 
 node_modules/
 package.json
