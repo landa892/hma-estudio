@@ -51,8 +51,17 @@
     $('memoriaEn').value = o.memoria_en || '';
     $('estado').value = o.estado || 'en_proyecto';
     $('destacada').checked = !!o.destacada;
+    $('bannerRotulo').value = o.banner_rotulo || '';
+    $('bannerRotuloEn').value = o.banner_rotulo_en || '';
     $('publicada').checked = !!o.publicada;
     contarBajada();
+    verBanner();
+  }
+
+  /* Los campos del banner solo tienen sentido si la obra va al home. Mostrarlos
+     siempre haria pensar que toda obra tiene banner. */
+  function verBanner() {
+    $('camposBanner').classList.toggle('oculto', !$('destacada').checked);
   }
 
   function recoger() {
@@ -79,6 +88,8 @@
       memoria_en: texto('memoriaEn'),
       estado: $('estado').value,
       destacada: $('destacada').checked,
+      banner_rotulo: texto('bannerRotulo'),
+      banner_rotulo_en: texto('bannerRotuloEn'),
       publicada: $('publicada').checked,
     };
   }
@@ -194,6 +205,7 @@
     });
     $('slug').addEventListener('input', function () { slugTocado = true; });
     $('bajada').addEventListener('input', contarBajada);
+    $('destacada').addEventListener('change', verBanner);
     $('formObra').addEventListener('submit', guardar);
 
     // Salir con cambios sin guardar es la forma mas facil de perder una

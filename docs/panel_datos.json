@@ -41,7 +41,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "accor-hotels",
@@ -77,7 +79,9 @@
    "7.webp",
    "8.webp",
    "9.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "aire-libre",
@@ -143,7 +147,9 @@
    "34.webp",
    "35.webp",
    "36.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "antiche",
@@ -208,7 +214,9 @@
    "32.webp",
    "33.webp",
    "34.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "araoz",
@@ -276,7 +284,9 @@
    "37.webp",
    "38.webp",
    "39.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "atelier-vilela",
@@ -331,7 +341,9 @@
    "24.webp",
    "25.webp",
    "26.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "benedetta",
@@ -391,7 +403,9 @@
    "29.webp",
    "30.webp",
    "31.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "bienal-venecia",
@@ -428,7 +442,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "bolivar",
@@ -478,7 +494,9 @@
    "19.webp",
    "20.webp",
    "21.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "burger-7167",
@@ -515,7 +533,9 @@
    "7.webp",
    "8.webp",
    "9.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "cafe-artois",
@@ -551,7 +571,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "casa-olmo",
@@ -596,7 +618,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "cceba",
@@ -631,7 +655,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "cerveceria-austral",
@@ -704,7 +730,9 @@
    "41.webp",
    "42.webp",
    "43.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "cien",
@@ -750,7 +778,9 @@
    "15.webp",
    "16.webp",
    "17.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "clasico-quilmes",
@@ -795,7 +825,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "dos-casas-conde",
@@ -851,7 +883,9 @@
    "25.webp",
    "26.webp",
    "27.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "edificio-del-plata",
@@ -904,7 +938,9 @@
    "18.webp",
    "19.webp",
    "20.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "elyaki",
@@ -948,7 +984,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "fehgra",
@@ -1001,7 +1039,9 @@
    "23.webp",
    "24.webp",
    "25.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "fogon",
@@ -1067,7 +1107,9 @@
    "35.webp",
    "36.webp",
    "37.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "fresco",
@@ -1131,7 +1173,9 @@
    "34.webp",
    "35.webp",
    "36.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "galeria-objeto-a",
@@ -1187,7 +1231,9 @@
    "24.webp",
    "25.webp",
    "26.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "goodsten",
@@ -1252,7 +1298,9 @@
    "35.webp",
    "36.webp",
    "37.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "hausscape",
@@ -1316,7 +1364,9 @@
    "32.webp",
    "33.webp",
    "34.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "hyatt-ziva",
@@ -1344,7 +1394,7 @@
   "memoria_en": null,
   "estado": "en_proyecto",
   "publicada": true,
-  "destacada": false,
+  "destacada": true,
   "orden": 13,
   "premios": null,
   "portada": "/assets/covers/hyatt-ziva.webp",
@@ -1355,7 +1405,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": "Proyecto en proceso",
+  "banner_rotulo_en": "In progress"
  },
  {
   "slug": "iguanafix",
@@ -1390,7 +1442,9 @@
    "6.webp",
    "7.webp",
    "8.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "indusparquet",
@@ -1417,7 +1471,7 @@
   "memoria_en": null,
   "estado": "concluida",
   "publicada": true,
-  "destacada": false,
+  "destacada": true,
   "orden": 2,
   "premios": null,
   "portada": "/assets/covers/indusparquet.webp",
@@ -1435,7 +1489,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": "Obra recientemente inaugurada",
+  "banner_rotulo_en": "Recently opened"
  },
  {
   "slug": "iol",
@@ -1473,7 +1529,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "juan-valdez",
@@ -1536,7 +1594,9 @@
    "32.webp",
    "33.webp",
    "34.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "kavak-hub",
@@ -1584,7 +1644,9 @@
    "18.webp",
    "19.webp",
    "20.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "kavak-oficinas",
@@ -1645,7 +1707,9 @@
    "31.webp",
    "32.webp",
    "33.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "luccianos-caballito",
@@ -1686,7 +1750,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "luccianos-olivos",
@@ -1730,7 +1796,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "malabia",
@@ -1785,7 +1853,9 @@
    "25.webp",
    "26.webp",
    "27.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "malita",
@@ -1827,7 +1897,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "mamba-bar",
@@ -1877,7 +1949,9 @@
    "17.webp",
    "18.webp",
    "19.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "manduca",
@@ -1914,7 +1988,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "moshu",
@@ -1957,7 +2033,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "movistar-arena",
@@ -1992,7 +2070,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "nim-bar",
@@ -2055,7 +2135,9 @@
    "32.webp",
    "33.webp",
    "34.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "novotel",
@@ -2093,7 +2175,9 @@
    "5.webp",
    "6.webp",
    "7.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "oficina-casa-luna",
@@ -2144,7 +2228,9 @@
    "19.webp",
    "20.webp",
    "21.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "osten-foa",
@@ -2280,7 +2366,9 @@
    "101.webp",
    "102.webp",
    "103.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "osten-tower",
@@ -2326,7 +2414,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "osten",
@@ -2362,7 +2452,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "parfumerie",
@@ -2388,7 +2480,7 @@
   "memoria_en": null,
   "estado": "en_proyecto",
   "publicada": true,
-  "destacada": false,
+  "destacada": true,
   "orden": 6,
   "premios": null,
   "portada": "/assets/covers/parfumerie.webp",
@@ -2406,7 +2498,9 @@
    "11.webp",
    "12.webp",
    "13.webp"
-  ]
+  ],
+  "banner_rotulo": "Obra recientemente inaugurada",
+  "banner_rotulo_en": "Recently opened"
  },
  {
   "slug": "people",
@@ -2448,7 +2542,9 @@
    "12.webp",
    "13.webp",
    "14.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "ph-el-salvador",
@@ -2491,7 +2587,9 @@
    "10.webp",
    "11.webp",
    "12.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "ph-loft-arias",
@@ -2531,7 +2629,9 @@
    "10.webp",
    "11.webp",
    "12.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "plaza-mateo",
@@ -2571,7 +2671,9 @@
    "6.webp",
    "7.webp",
    "8.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "roket",
@@ -2607,7 +2709,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "stella-artois-mercat",
@@ -2652,7 +2756,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "templo-mikdash",
@@ -2709,7 +2815,9 @@
    "27.webp",
    "28.webp",
    "29.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "the-birra",
@@ -2754,7 +2862,9 @@
    "14.webp",
    "15.webp",
    "16.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "tostado",
@@ -2812,7 +2922,9 @@
    "29.webp",
    "30.webp",
    "31.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "uala-gigena",
@@ -2853,7 +2965,9 @@
    "4.webp",
    "5.webp",
    "6.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "uala-ii",
@@ -2910,7 +3024,9 @@
    "26.webp",
    "27.webp",
    "28.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "uala-office",
@@ -2973,7 +3089,9 @@
    "32.webp",
    "33.webp",
    "34.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "victoria-brown",
@@ -3030,7 +3148,9 @@
    "26.webp",
    "27.webp",
    "28.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  },
  {
   "slug": "williamsburg",
@@ -3081,6 +3201,8 @@
    "19.webp",
    "20.webp",
    "21.webp"
-  ]
+  ],
+  "banner_rotulo": null,
+  "banner_rotulo_en": null
  }
 ]

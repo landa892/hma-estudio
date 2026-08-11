@@ -161,6 +161,29 @@
           <span>Mostrarla entre las destacadas del home</span>
         </label>
 
+        <!-- Solo aparecen si la obra es destacada: son los unicos datos del
+             banner del home que no salen de la ficha. El titulo del banner es el
+             titulo de la obra y el parrafo es la bajada. -->
+        <div id="camposBanner" class="oculto">
+          <div class="campo">
+            <label for="bannerRotulo">Rótulo del banner</label>
+            <input type="text" id="bannerRotulo" maxlength="60"
+              placeholder="Obra recientemente inaugurada">
+            <p class="campo__ayuda">La línea chica sobre el título, en el home.
+              El título y el texto del banner salen del título y la bajada de la
+              obra.</p>
+          </div>
+          <div class="campo">
+            <label for="bannerRotuloEn">Rótulo en inglés</label>
+            <input type="text" id="bannerRotuloEn" maxlength="60"
+              placeholder="Recently opened">
+            <p class="campo__ayuda">Si queda vacío, el banner del sitio en inglés
+              muestra el rótulo en castellano.</p>
+          </div>
+          <p class="campo__ayuda">El home tiene lugar para tres destacadas. Si hay
+            más marcadas, entran las tres primeras.</p>
+        </div>
+
         <label class="casilla">
           <input type="checkbox" id="publicada">
           <span>Publicada en el sitio</span>

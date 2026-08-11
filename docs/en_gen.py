@@ -29,12 +29,14 @@ sin_traducir = []
 # docs/panel_textos.py con los pares que cargo el propio estudio, y van antes
 # que los diccionarios: un texto recien editado no esta en ningun diccionario y
 # apareceria en castellano dentro de la pagina en ingles.
+# Son dos archivos y no uno para que cada generador escriba el suyo: si los dos
+# tocaran el mismo, el que corriera segundo borraria los pares del primero.
 TEXTOS_EN = {}
-_ruta_tex = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                         'en_textos.json')
-if os.path.isfile(_ruta_tex):
-    import json as _json_tex
-    TEXTOS_EN = _json_tex.load(io.open(_ruta_tex, encoding='utf-8'))
+for _nombre in ('en_textos.json', 'en_textos_banner.json'):
+    _ruta_tex = os.path.join(os.path.dirname(os.path.abspath(__file__)), _nombre)
+    if os.path.isfile(_ruta_tex):
+        import json as _json_tex
+        TEXTOS_EN.update(_json_tex.load(io.open(_ruta_tex, encoding='utf-8')))
 
 
 def T(t):
