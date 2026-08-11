@@ -25,6 +25,17 @@ tr = en_dic7.traducir
 
 sin_traducir = []
 
+# Los textos fijos que el estudio edita desde el panel. Los escribe
+# docs/panel_textos.py con los pares que cargo el propio estudio, y van antes
+# que los diccionarios: un texto recien editado no esta en ningun diccionario y
+# apareceria en castellano dentro de la pagina en ingles.
+TEXTOS_EN = {}
+_ruta_tex = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         'en_textos.json')
+if os.path.isfile(_ruta_tex):
+    import json as _json_tex
+    TEXTOS_EN = _json_tex.load(io.open(_ruta_tex, encoding='utf-8'))
+
 
 def T(t):
     """Traduce respetando los espacios de los bordes."""
@@ -33,7 +44,10 @@ def T(t):
     nucleo = t.strip()
     if not nucleo or not re.search(r'[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]', nucleo):
         return t
-    r = tr(re.sub(r'\s+', ' ', nucleo))
+    plano = re.sub(r'\s+', ' ', nucleo)
+    if plano in TEXTOS_EN:
+        return izq + TEXTOS_EN[plano] + der
+    r = tr(plano)
     if r is None:
         sin_traducir.append(nucleo)
         return t
