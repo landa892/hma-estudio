@@ -222,6 +222,12 @@ def main():
         en = re.sub(r'(<meta property="og:locale" content=")[^"]*(")', r'\1en_US\2', en)
         en = re.sub(r'(<link rel="canonical" href="[^"]*?)(")',
                     lambda m: '<link rel="canonical" href="%s%s"' % (SITIO, ruta_en), en)
+        # og:url va junto con el canonical. Quedaba con la url en castellano, asi
+        # que compartir una pagina en ingles mostraba la direccion en castellano,
+        # y para Facebook og:url tambien es señal de canonica: consolidaba las
+        # paginas inglesas bajo las castellanas.
+        en = re.sub(r'(<meta property="og:url" content=")[^"]*(")',
+                    lambda m: m.group(1) + SITIO + ruta_en + m.group(2), en)
         en = poner_hreflang(en, ruta_es, ruta_en)
         en = poner_boton(en, ruta_es, 'ES', 'Ver esta página en español')
         # el buscador tiene su propio indice traducido, con las urls de /en/

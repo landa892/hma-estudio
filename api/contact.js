@@ -1,22 +1,19 @@
 // A donde va lo que manda el formulario.
 //
-// El destino definitivo es hitzig.militello@gmail.com, que pidio el cliente.
-// Todavia no esta activo, y por dos razones distintas:
+// Desde el 10/08/2026 las consultas van a la casilla del estudio. Antes iban a
+// la del desarrollador, y no por comodidad: el dominio no estaba verificado en
+// Resend, asi que se enviaba desde el sandbox (onboarding@resend.dev), que solo
+// entrega a la casilla dueña de la cuenta y descarta en silencio cualquier otro
+// destino. Con estudiohma.com verificado eso ya no aplica.
 //
-//   1. La cuenta todavia no es del estudio. Hasta que no la creen, esa
-//      direccion puede ser de cualquiera, y ahi irian a parar las consultas
-//      de gente real.
-//   2. Aunque se activara, no llegaria: mientras el dominio estudiohma.com no
-//      este verificado en Resend, se envia desde el sandbox
-//      (onboarding@resend.dev), que solo entrega a la casilla dueña de la
-//      cuenta de Resend. Cualquier otro destino se descarta en silencio.
+// El remitente tiene que ser del dominio verificado: si vuelve a un @gmail.com
+// o al sandbox, Resend rechaza el envio.
 //
-// Asi que hasta que existan la cuenta y el dominio verificado, sigue yendo a
-// la casilla que hoy funciona. Cambiar TO_EMAIL por DESTINO_FINAL es todo lo
-// que hay que hacer el dia que esten las dos cosas.
-const DESTINO_FINAL = "hitzig.militello@gmail.com";
-const TO_EMAIL = "nacholanda08@gmail.com";
-const FROM_EMAIL = "HMA Web <onboarding@resend.dev>";
+// web@estudiohma.com no necesita existir como casilla. Nadie responde ahi: cada
+// mail sale con reply_to apuntando a quien escribio, asi que el estudio contesta
+// y le llega directo a la persona.
+const TO_EMAIL = "hitzig.militello@gmail.com";
+const FROM_EMAIL = "HMA Estudio <web@estudiohma.com>";
 
 const submissions = new Map();
 const RATE_LIMIT_WINDOW_MS = 60_000;

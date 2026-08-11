@@ -57,18 +57,18 @@ PORTADAS = {
     'moshu': ('/assets/covers/moshu.webp', 533, 800),
     'movistar-arena': ('/assets/covers/movistar-arena.webp', 1010, 616),
     'nim-bar': ('/assets/covers/nim-bar.webp', 1200, 1100),
+    'novotel': ('/assets/covers/novotel.webp', 1200, 769),
     'osten': ('/assets/covers/osten.webp', 533, 800),
     'osten-foa': ('/assets/covers/osten-foa.webp', 800, 533),
     'osten-tower': ('/assets/covers/osten-tower.webp', 1024, 682),
     'parfumerie': ('/assets/covers/parfumerie.webp', 643, 428),
     'people': ('/assets/covers/people.webp', 801, 1000),
     'plaza-mateo': ('/assets/covers/plaza-mateo.webp', 800, 470),
+    'roket': ('/assets/covers/roket.webp', 1200, 751),
     'stella-artois-mercat': ('/assets/covers/stella-artois-mercat.webp', 1200, 800),
+    'templo-mikdash': ('/assets/covers/templo-mikdash.webp', 1200, 949),
     'the-birra': ('/assets/covers/the-birra.webp', 1200, 801),
-    # La carpeta de caratula del Drive contiene una foto de Tribunales, pero
-    # esta ficha corresponde a Miami. La primera foto esta identificada en el
-    # Drive como Tostado-Miami-1.
-    'tostado': ('/assets/gallery/tostado/1.webp', 1024, 768),
+    'tostado': ('/assets/covers/tostado.webp', 1000, 667),
     'uala-office': ('/assets/covers/uala-office.webp', 1200, 800),
     'victoria-brown': ('/assets/covers/victoria-brown.webp', 1200, 800),
     'williamsburg': ('/assets/covers/williamsburg.webp', 1200, 499),

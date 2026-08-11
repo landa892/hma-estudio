@@ -428,8 +428,6 @@ try {
           } catch (e) { return null; }
         };
 
-        const vEntrevistas = videos.filter(v => /entrevista|conversación|podcast/i.test(v.title));
-        const vCharlas = videos.filter(v => !/entrevista|conversación|podcast/i.test(v.title));
 
         const armarTarjetas = (lista) => lista.map(v => {
           const url = urlSegura(v.url, ['youtube.com', 'youtu.be']);
@@ -447,11 +445,17 @@ try {
           </a>`;
         }).filter(Boolean).join('');
 
-        /* Si no hay entrevistas, la seccion se queda con las tarjetas que ya
-           trae el HTML en vez de mostrar las charlas de nuevo: antes ambas
-           secciones terminaban repitiendo la misma lista. */
-        if (feedEntrevistas && vEntrevistas.length) feedEntrevistas.innerHTML = armarTarjetas(vEntrevistas);
-        if (feedCharlas && vCharlas.length) feedCharlas.innerHTML = armarTarjetas(vCharlas);
+        /* Todos juntos y ordenados por fecha: la separacion entre entrevistas y
+           charlas se hacia adivinando por el titulo, y ahora la decision de que
+           video entra la toma el estudio agregandolo a una playlist.
+
+           Si la lista viene vacia —sin clave de API, o las playlists caidas— la
+           seccion se queda con las tarjetas que ya trae el HTML, que es mejor
+           que dejarla en blanco. */
+        const tarjetas = armarTarjetas(videos);
+        if (!tarjetas) return;
+        if (feedEntrevistas) feedEntrevistas.innerHTML = tarjetas;
+        if (feedCharlas) feedCharlas.innerHTML = tarjetas;
       })
       .catch(e => console.error('youtube-feed-categories', e));
   }

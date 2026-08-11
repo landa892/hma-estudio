@@ -19,7 +19,9 @@ docs/en_faltantes.json
 # y no tiene que salir nunca del equipo.
 .codex/
 
-# Los valores del proyecto de Supabase. No son secretos —viajan al
-# navegador— pero afuera del repo el codigo no queda atado a una cuenta:
-# el dia que el proyecto se transfiera al estudio solo cambia este archivo.
+# La conexion del panel a Supabase. Los dos valores que trae son publicos por
+# diseño -viajan al navegador en cada visita y lo que protege los datos es el
+# RLS de la base-, pero el archivo igual no va al repo: asi el codigo no queda
+# atado a una cuenta y transferir el proyecto al estudio es cambiar dos
+# variables. Lo escribe docs/panel_config.py en cada build.
 admin/config.js

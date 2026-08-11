@@ -1664,7 +1664,27 @@ footer.site-footer {
    cinco columnas tambien en el telefono: los videos quedaban en cinco
    columnas de 100 px, la fila se salia de la pantalla y arrastraba al pie. */
 @media (min-width: 1101px) {
-  #youtubeEntrevistas { grid-template-columns: repeat(5, 1fr); }
+  /* auto-fit reparte el ancho entre las tarjetas que haya y descarta las
+     columnas que sobran, asi que la fila queda llena vengan cinco videos del
+     canal o cuatro. Con un numero fijo de columnas, un video de menos dejaba
+     un hueco. */
+  #youtubeEntrevistas {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+}
+
+/* Entre el telefono y la pantalla ancha van dos columnas, y si la cantidad de
+   videos es impar el ultimo ocupa las dos. Antes, con cuatro columnas y cinco
+   videos, el ultimo quedaba solo y sobraban 616 px de blanco adentro del
+   recuadro. */
+@media (min-width: 621px) and (max-width: 1100px) {
+  #youtubeEntrevistas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #youtubeEntrevistas > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Rotulo de seccion como los de la pagina Estudio ("Fundadores", "Que
