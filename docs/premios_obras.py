@@ -24,7 +24,11 @@ MAPA = {
                                        ('manduca', 'Mercado Manduca')],
     ('2022', 'Bienal Internacional'): [('kavak-hub', 'Kavak Hub'), ('fogon', 'Fogón')],
     ('2022', 'Prix Versailles'):      [('moshu', 'Moshu')],
-    ('2018', 'Accor Hotels'):         [('novotel', 'Novotel')],
+    # El premio es del concurso internacional, no del hotel de Avenida
+    # Corrientes: lo marco el estudio el 11/08/2026 y lo confirma la propia
+    # descripcion del premio ("primer premio del concurso internacional"), que es
+    # lo que cuenta la ficha de Accor. Novotel es otra obra.
+    ('2018', 'Accor Hotels'):         [('accor-hotels', 'Accor')],
     ('2018', 'Next Landmark'):        [('goodsten', 'Goodsten')],
     ('2014', 'Next Landmark'):        [('dos-casas-conde', 'Dos casas Conde'),
                                        (None, 'PH Loft Arias')],

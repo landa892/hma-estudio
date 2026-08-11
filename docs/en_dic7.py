@@ -18,6 +18,9 @@ from en_dic import DIC, PASA_EXACTO
 PASA_EXACTO.update({
     'Dolores Gayoso', 'Alfana Nizza', 'Josué Solano', 'Joaquín Medina',
     'Federico Kulekdjian',
+    # Nombre de la obra en la barra de premios, desde que el premio del concurso
+    # internacional dejo de estar atribuido a Novotel. Es marca, no se traduce.
+    'Accor',
 })
 
 DIC.update({
