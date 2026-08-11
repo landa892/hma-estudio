@@ -16,7 +16,10 @@ import en_dic6
 import en_dic7
 from en_rutas import a_ingles, a_castellano, reescribir_enlaces
 
-ROOT = r'C:\Users\El Niño\Desktop\Trabajo para naza\hma-estudio'
+# La raiz se deduce de la ubicacion de este archivo y no se escribe a mano: el
+# build de Vercel corre en Linux y con una ruta de Windows os.chdir corta el
+# deploy antes de generar una sola pagina.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITIO = 'https://estudiohma.com'
 tr = en_dic7.traducir
 
@@ -181,8 +184,13 @@ def main():
     if os.path.isdir('en'):
         shutil.rmtree('en')
 
+    # admin queda afuera: es el panel privado del estudio, va con noindex y no
+    # tiene version publica. Sin excluirlo, el espejo generaba /en/admin/ —una
+    # copia publica del panel— y le inyectaba el boton de idioma y el hreflang
+    # al panel de verdad, como si fuera una pagina del sitio.
     paginas = sorted([p for p in glob.glob('**/index.html', recursive=True)
-                      if 'node_modules' not in p and not p.startswith(('docs', 'en'))]
+                      if 'node_modules' not in p
+                      and not p.startswith(('docs', 'en', 'admin'))]
                      + ['404.html'])
 
     hechas = []
