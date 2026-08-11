@@ -3207,6 +3207,15 @@ footer.site-footer {
   margin: 0;
 }
 
+/* El margen de arriba que separa un parrafo del siguiente sirve cuando van
+   apilados, pero aca van en tres columnas y hundia la segunda y la tercera
+   26 px respecto de la primera. No alcanza con el "margin: 0" de arriba: esa
+   regla tiene la misma especificidad que la que lo pone y esta antes en el
+   archivo, asi que perdia. */
+.work-split--ancha .work-split__text .bloque-texto+.bloque-texto {
+  margin-top: 0;
+}
+
 .work-split__text p {
   font-size: clamp(1.05rem, 2vw, 1.4rem);
   line-height: 1.5;
