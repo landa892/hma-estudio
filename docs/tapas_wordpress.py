@@ -35,6 +35,9 @@ PORTADAS = {
     'cien': ('/assets/covers/cien.webp', 1200, 800),
     'clasico-quilmes': ('/assets/covers/clasico-quilmes.webp', 1200, 800),
     'dos-casas-conde': ('/assets/covers/dos-casas-conde.webp', 800, 1200),
+    # Llego el 06/08/2026, cuando el estudio armo su carpeta "03 - Carátula".
+    # Hasta entonces la tarjeta usaba la primera foto de la galeria.
+    'edificio-del-plata': ('/assets/covers/edificio-del-plata.webp', 800, 450),
     'elyaki': ('/assets/covers/elyaki.webp', 1200, 800),
     'fehgra': ('/assets/covers/fehgra.webp', 800, 520),
     'fogon': ('/assets/covers/fogon.webp', 1024, 683),
@@ -74,7 +77,11 @@ PORTADAS = {
     'williamsburg': ('/assets/covers/williamsburg.webp', 1200, 499),
 }
 
-PUBLIC_BASE = 'https://hma-estudio.vercel.app'
+# El dominio del sitio, que es el que va en og:image. Decia hma-estudio.vercel.app
+# de cuando el sitio todavia no tenia dominio propio; ese host ahora redirige, y
+# los scrapers de WhatsApp y LinkedIn no suelen seguir redirecciones para la
+# imagen, asi que la vista previa al compartir salia sin foto.
+PUBLIC_BASE = 'https://estudiohma.com'
 
 
 def leer(path):

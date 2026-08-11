@@ -133,7 +133,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residential",
   "desc": "Residences and hospitality — private competition · Buenos Aires · 44.000 m²",
   "url": "/en/projects/edificio-del-plata/",
-  "img": "/assets/gallery/edificio-del-plata/1.webp"
+  "img": "/assets/covers/edificio-del-plata.webp"
  },
  {
   "tipo": "Project",
