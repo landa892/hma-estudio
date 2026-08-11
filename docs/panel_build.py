@@ -13,6 +13,9 @@
                         Va antes del generador: si la pagina no existe, la saltea.
      3. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
      4. panel_sitio     saca del sitio las eliminadas o despublicadas.
+     4b.panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
+                        con el estado de la base. Va despues de las altas y las
+                        bajas, que son las que agregan y sacan tarjetas.
      5. panel_textos    escribe los textos fijos de home, estudio y contacto.
      6. panel_home      pone las destacadas en los banners del home.
      7. sitemap_gen     rearma el sitemap leyendo el disco. Va despues de las
@@ -37,6 +40,7 @@ PASOS = [
     ('las obras nuevas',             'panel_alta.py',    ['--supabase']),
     ('los datos de cada obra',       'panel_generar.py', ['--supabase']),
     ('las obras que ya no van',      'panel_sitio.py',   ['--supabase']),
+    ('el estado en el listado',      'panel_estados.py', ['--supabase']),
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('el sitemap',                   'sitemap_gen.py',   []),

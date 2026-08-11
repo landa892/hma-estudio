@@ -289,10 +289,15 @@ def tarjeta_y_fila(o, fotos):
     w = fotos[0]['w'] if fotos else 1800
     hh = fotos[0]['h'] if fotos else 1200
     anio = metas[-1] if metas else ''
+    # El sello del listado es binario aunque el estado tenga tres valores. Igual
+    # lo repasa despues panel_estados.py, que es el que lo mantiene al dia.
+    marca = 'obra' if o.get('estado') == 'concluida' else 'proyecto'
+    sello = 'Obra' if marca == 'obra' else 'Proyecto'
 
     tarjeta = (
         '          <a href="/proyectos/%s/" class="project-card" data-cat="%s" '
-        'data-slug="%s" data-estado="obra">\n'
+        'data-slug="%s" data-estado="%s">\n'
+        '            <span class="card-estado card-estado--%s">%s</span>\n'
         '            <span class="card-cat">%s</span>\n'
         '            <img src="%s" width="%d" height="%d" alt="%s" loading="lazy" decoding="async">\n'
         '            <div class="card-plate">\n'
@@ -300,16 +305,17 @@ def tarjeta_y_fila(o, fotos):
         '              <div class="p-meta">%s</div>\n'
         '            </div>\n'
         '          </a>\n'
-        % (slug, cat, slug, rotulo, img, w, hh, E(titulo), E(titulo), spans))
+        % (slug, cat, slug, marca, marca, sello, rotulo, img, w, hh,
+           E(titulo), E(titulo), spans))
 
     fila = (
         '          <a href="/proyectos/%s/" class="project-list-row" data-cat="%s" '
-        'data-slug="%s" data-estado="obra">\n'
+        'data-slug="%s" data-estado="%s">\n'
         '            <div class="plr-thumb"><img src="%s" width="%d" height="%d" alt="" loading="lazy"></div>\n'
         '            <div><div class="plr-name">%s</div><div class="plr-meta">%s</div></div>\n'
         '            <div class="plr-cat">%s</div><div class="plr-loc">%s</div>\n'
         '          </a>\n'
-        % (slug, cat, slug, img, w, hh, E(titulo), spans, rotulo, anio))
+        % (slug, cat, slug, marca, img, w, hh, E(titulo), spans, rotulo, anio))
     return tarjeta, fila
 
 
