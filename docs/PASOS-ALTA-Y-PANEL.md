@@ -296,6 +296,15 @@ Y `vercel.json` **no admite comentarios ni claves inventadas**: una clave `"//"`
 para explicar algo hace fallar la validación del esquema. Por eso esto está
 acá y no en el archivo.
 
+**`"cleanUrls": true`, o el panel no anda.** Los enlaces del panel van sin
+extensión —`/admin/obras`, no `/admin/obras.html`— porque el servidor de
+desarrollo perdía el `?id=` al redirigir de uno a otro. Vercel no resuelve eso
+solo: sin `cleanUrls`, las cuatro pantallas dan 404 y, como el login manda a
+`/admin/obras` al entrar, el panel queda inusable apenas alguien se loguea.
+
+El sitio público no se ve afectado: sus enlaces son de directorio
+(`/proyectos/moshu/`) y no hay ni un `href` a un `.html` fuera del panel.
+
 **`.vercelignore` ya no excluye `docs/` entero.** No puede: los generadores
 viven ahí y el build los necesita. Excluye las notas —que era lo sensible, por
 `AUDITORIA-SEGURIDAD.md`— y del resto se encarga `panel_build.py`, que borra la

@@ -1,5 +1,6 @@
 {
   "outputDirectory": ".",
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
