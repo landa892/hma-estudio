@@ -22,25 +22,63 @@ se cargan directo en Vercel, no se pegan en una conversación.
 
 # A · Dar de alta la página
 
-## A1 · La cuenta de Gmail del estudio
+## A1 · La cuenta de Gmail del estudio — **resuelto**
 
-De esta cuenta salen los pasos A2 y A3. Sin ella no se avanza.
+Es `hitzig.militello@gmail.com`. Tiene verificación en dos pasos y el código
+llega al teléfono de la dueña del estudio, asi que no siempre se puede usar en
+el momento: tenerlo en cuenta al planificar cualquier paso que la necesite.
 
-## A2 · Clave de YouTube
+## A2 · Clave de YouTube — **hecho, con una salvedad**
 
 Sin esta clave, la sección de videos de la página de prensa se ve vacía. No
 rompe nada más.
 
-1. Entrar a `console.cloud.google.com` con la cuenta del estudio
+1. Entrar a `console.cloud.google.com`
 2. Crear un proyecto
 3. Activar **YouTube Data API v3**
 4. **Credenciales → Crear credenciales → Clave de API**
-5. En Vercel → proyecto → **Settings → Environment Variables**, agregar:
+5. Restringirla: **API** a `YouTube Data API v3`; **aplicación** en *Ninguna*
+   (la usa el servidor de Vercel, cuya IP cambia)
+6. En Vercel → proyecto → **Settings → Environment Variables**, agregar:
    `YOUTUBE_API_KEY`
 
-## A3 · El formulario de contacto
+> ### Pendiente de traspaso
+> Esta clave quedó creada en la **cuenta de Google del desarrollador**, no en la
+> del estudio: la del estudio tiene verificación en dos pasos y el código llega
+> al teléfono de la dueña.
+>
+> Funciona igual, porque sólo lee la lista pública de videos del canal. Pero el
+> día de la entrega hay que rehacerla desde la cuenta del estudio y reemplazar
+> la variable en Vercel. Es un minuto, y si no se hace, el día que el
+> desarrollador borre ese proyecto de Google la sección de videos queda vacía
+> sin que nadie entienda por qué.
 
-**Hoy las consultas llegan a `nacholanda08@gmail.com`, no al estudio.** Está
+## A3 · El formulario de contacto — **hecho**
+
+`estudiohma.com` quedó verificado en Resend el 10/08/2026 y las consultas ya
+llegan a `hitzig.militello@gmail.com`. Se cambiaron los dos endpoints:
+`api/contact.js` (el formulario) y `api/lead.js` (los datos que se dejan antes
+de abrir WhatsApp).
+
+El remitente es `web@estudiohma.com`, que no existe como casilla y no hace
+falta: el formulario manda el correo de quien escribió en el campo de respuesta.
+
+Los registros quedaron así, en el DNS de `estudiohma.com`:
+
+| Nombre | Tipo | Para qué |
+|---|---|---|
+| `resend._domainkey` | TXT | firma DKIM |
+| `send` | TXT | SPF |
+| `_dmarc` | TXT | política DMARC |
+
+Y el MX de Resend vive dentro de `send.estudiohma.com`, que se creó como sitio
+web aparte sólo para poder colgárselo. **Los cinco MX de Google en la raíz no se
+tocaron** — verificado antes y después.
+
+<details>
+<summary>Cómo era antes (por si hay que rehacerlo)</summary>
+
+**Las consultas llegaban a `nacholanda08@gmail.com`, no al estudio.** Está
 así porque Resend en modo prueba sólo entrega a la casilla dueña de la cuenta.
 Si el sitio sale a producción con esto sin cambiar, las consultas de clientes
 reales pasan por vos y alguna se pierde.
@@ -51,6 +89,8 @@ reales pasan por vos y alguna se pierde.
 4. Esperar a que diga **verified**
 5. Avisar: hay que cambiar `TO_EMAIL` por `DESTINO_FINAL` en `api/contact.js`
    (ya está preparado y comentado)
+
+</details>
 
 ## A4 · El número de WhatsApp
 
