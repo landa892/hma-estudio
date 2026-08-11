@@ -269,7 +269,7 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden
+### Qué hace cada paso, y por qué en ese orden (son nueve)
 
 | Paso | Qué hace |
 |---|---|
@@ -277,6 +277,7 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
 | `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas. |
+| `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |
 | `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
 | `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
 | `sitemap_gen.py` | Rearma el sitemap del disco. **Va después de las altas y bajas**, o lista páginas que no existen. |
