@@ -18,3 +18,10 @@ docs/en_faltantes.json
 # Configuracion de herramientas locales. Trae claves de API en texto plano
 # y no tiene que salir nunca del equipo.
 .codex/
+
+# La conexion del panel a Supabase. Los dos valores que trae son publicos por
+# diseño -viajan al navegador en cada visita y lo que protege los datos es el
+# RLS de la base-, pero el archivo igual no va al repo: asi el codigo no queda
+# atado a una cuenta y transferir el proyecto al estudio es cambiar un archivo.
+# Se copia de admin/config.ejemplo.js.
+admin/config.js
