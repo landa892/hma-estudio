@@ -197,7 +197,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Hotel · Barbados · 50.000 m² · 2026",
   "url": "/en/projects/hyatt-ziva/",
-  "img": "/assets/covers/hyatt-ziva.webp"
+  "img": "/assets/covers/hyatt-ziva.webp?v=20260812b"
  },
  {
   "tipo": "Project",
@@ -213,7 +213,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
   "url": "/en/projects/indusparquet/",
-  "img": "/assets/covers/indusparquet.webp?v=20260812"
+  "img": "/assets/covers/indusparquet.webp?v=20260812b"
  },
  {
   "tipo": "Project",
@@ -317,7 +317,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/en/projects/movistar-arena/",
-  "img": "/assets/covers/movistar-arena.webp?v=20260812"
+  "img": "/assets/covers/movistar-arena.webp?v=20260812b"
  },
  {
   "tipo": "Project",
@@ -365,7 +365,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotels & Retail",
   "desc": "Retail · Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires · 131 m² · 2025",
   "url": "/en/projects/parfumerie/",
-  "img": "/assets/covers/parfumerie.webp"
+  "img": "/assets/covers/parfumerie.webp?v=20260812b"
  },
  {
   "tipo": "Project",

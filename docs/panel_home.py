@@ -25,10 +25,10 @@
    - El id="section-N" de cada banner: la navegacion por puntos de la derecha los
      usa como destino. Se conservan en su lugar aunque cambie la obra.
 
-   La foto: se prefiere assets/covers/<slug>-hero.webp, que son los recortes
-   horizontales hechos para el home. Si la obra no tiene uno, cae en su caratula
-   y despues en la primera foto de la galeria, y avisa: una foto vertical en un
-   banner de 1920x1080 se ve mal, y conviene recortarla.
+   La foto es exactamente la misma caratula que usa la obra en Trabajos. Si el
+   panel ya publico una portada, usa esa; si no, cae en assets/covers/<slug>.webp
+   y despues en la primera foto de la galeria. Asi el home y el listado no
+   pueden mostrar dos tapas distintas para una misma obra.
 
        python docs/panel_home.py --verificar   # no toca nada, solo informa
        python docs/panel_home.py               # desde el JSON local
@@ -41,6 +41,8 @@ import re
 import struct
 import sys
 import urllib.request
+
+from tapas_wordpress import versionar
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HOME = os.path.join(RAIZ, 'index.html')
@@ -96,11 +98,8 @@ def foto_del_banner(slug):
         mapa = json.load(io.open(PORTADAS_PANEL, encoding='utf-8'))
         portada_panel = mapa.get(slug)
     candidatas = [
-        ('/assets/covers/%s-hero.webp' % slug, None),
-        ((portada_panel or {}).get('src'),
-         'no tiene caratula -hero recortada para el home'),
-        ('/assets/covers/%s.webp' % slug,
-         'no tiene caratula -hero recortada para el home'),
+        ((portada_panel or {}).get('src'), None),
+        ('/assets/covers/%s.webp' % slug, None),
         ('/assets/gallery/%s/1.webp' % slug,
          'no tiene ninguna caratula: va la primera foto de la galeria'),
     ]
@@ -110,6 +109,10 @@ def foto_del_banner(slug):
         local = os.path.join(RAIZ, publica.lstrip('/').replace('/', os.sep))
         m = medidas_webp(local)
         if m:
+            # Las tapas locales llevan el mismo cache-buster que el listado.
+            # Las URLs remotas del panel se conservan sin tocar.
+            if publica.startswith('/assets/covers/'):
+                publica = versionar(slug, publica)
             if m[0] < m[1] and aviso:
                 aviso += ' y es vertical, en el banner se va a ver mal'
             return publica, m[0], m[1], aviso
