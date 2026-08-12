@@ -202,8 +202,6 @@ CORRECCIONES = {
         # Las fichas originales de Uala Gigena fueron creadas en 2022. El
         # cliente tambien marco ese ano en la revision final del contenido.
         'anio': valor('2024', '2022'),
-        'portada': valor('/assets/gallery/uala-gigena/1.webp',
-                         '/assets/covers/uala-gigena.webp'),
         # Habia quedado al final del listado con orden 60 aunque es de 2022.
         'orden': valor(60, 27),
     },
