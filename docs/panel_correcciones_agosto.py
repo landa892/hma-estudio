@@ -154,6 +154,11 @@ CORRECCIONES = {
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
              'Arq. Carmela Zuleta', 'Arq. Juliana Zorza', 'Arq. Samira Attar']),
     },
+    'uala-gigena': {
+        # Las fichas originales de Uala Gigena fueron creadas en 2022. El
+        # cliente tambien marco ese ano en la revision final del contenido.
+        'anio': valor('2024', '2022'),
+    },
 }
 
 
