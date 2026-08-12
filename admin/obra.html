@@ -13,15 +13,17 @@
 </head>
 
 <body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="barra">
     <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
     <a class="barra__volver" href="/admin/obras">← Obras</a>
-    <span class="barra__titulo" id="encabezado">Nueva obra</span>
+    <h1 class="barra__titulo" id="encabezado">Nueva obra</h1>
     <span class="barra__quien" id="quien"></span>
+    <a class="barra__sitio" href="/" target="_blank" rel="noopener">Ver sitio</a>
     <button type="button" class="enlace" id="salir">Salir</button>
   </header>
 
-  <main class="contenido contenido--angosto">
+  <main class="contenido contenido--angosto" id="contenido">
     <div id="cargando" class="vacio">Cargando…</div>
 
     <form id="formObra" class="oculto" novalidate>
@@ -194,6 +196,8 @@
 
       <div class="acciones">
         <button type="submit" class="boton boton--compacto" id="guardar">Guardar</button>
+        <a class="boton boton--compacto boton--claro oculto" href="#" id="verObra"
+          target="_blank" rel="noopener">Ver obra</a>
         <a class="enlace" href="/admin/obras" id="cancelar">Cancelar</a>
         <span class="aviso" id="aviso" role="status" aria-live="polite"></span>
       </div>

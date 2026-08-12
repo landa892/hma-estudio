@@ -270,21 +270,32 @@ header.site-header.is-overlay.scrolled .menu-btn span {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 14px;
+  gap: 0;
 }
 
 .scroll-dots button {
   position: relative;
-  width: 9px;
-  height: 9px;
+  width: 44px;
+  height: 30px;
   padding: 0;
-  border: 1.5px solid var(--black);
+  border: 0;
   background: transparent;
   cursor: pointer;
+}
+
+.scroll-dots button::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%);
+  border: 1.5px solid var(--black);
   transition: background .2s ease, border-color .2s ease;
 }
 
-.scroll-dots button.active {
+.scroll-dots button.active::after {
   background: var(--black);
 }
 
@@ -293,7 +304,7 @@ header.site-header.is-overlay.scrolled .menu-btn span {
    Solo texto, sin recuadro de fondo. */
 .dot-label {
   position: absolute;
-  right: calc(100% + 12px);
+  right: 21px;
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
@@ -315,11 +326,11 @@ header.site-header.is-overlay.scrolled .menu-btn span {
 /* Cuando los puntos quedan sobre una foto (hero o banner de proyecto), el
    texto y los puntos pasan a blanco. La clase la pone main.js observando
    que hay a la altura del centro de la pantalla. */
-.scroll-dots.on-dark button {
+.scroll-dots.on-dark button::after {
   border-color: var(--white);
 }
 
-.scroll-dots.on-dark button.active {
+.scroll-dots.on-dark button.active::after {
   background: var(--white);
 }
 
@@ -341,7 +352,11 @@ header.site-header.is-overlay.scrolled .menu-btn span {
   cursor: pointer;
   background: none;
   border: none;
-  padding: 8px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .menu-btn span {
@@ -2119,6 +2134,7 @@ footer.site-footer {
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
+  border-bottom-width: 3px;
 }
 
 .contact-form textarea {
@@ -2400,6 +2416,11 @@ footer.site-footer {
 
 .search-bar input:focus {
   outline: none;
+}
+
+.search-bar:focus-within {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
 }
 
 .search-bar__icon {

@@ -13,14 +13,16 @@
 </head>
 
 <body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="barra">
     <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
-    <span class="barra__titulo">Obras</span>
+    <h1 class="barra__titulo">Obras</h1>
     <span class="barra__quien" id="quien"></span>
+    <a class="barra__sitio" href="/" target="_blank" rel="noopener">Ver sitio</a>
     <button type="button" class="enlace" id="salir">Salir</button>
   </header>
 
-  <main class="contenido">
+  <main class="contenido" id="contenido">
     <div class="herramientas">
       <input type="search" id="buscador" placeholder="Buscar por título…"
         aria-label="Buscar obra" autocomplete="off">
@@ -29,6 +31,9 @@
         <option value="si">Publicadas</option>
         <option value="no">En borrador</option>
       </select>
+      <select id="filtroCategoria" aria-label="Filtrar por categoría">
+        <option value="">Todas las categorías</option>
+      </select>
       <a class="boton boton--compacto" href="/admin/obra">Nueva obra</a>
       <a class="enlace" href="/admin/textos">Textos del sitio</a>
       <button type="button" class="boton boton--compacto boton--claro" id="publicar">
@@ -36,6 +41,25 @@
     </div>
 
     <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+
+    <section class="resumen oculto" id="resumen" aria-label="Resumen de obras">
+      <div class="resumen__dato">
+        <strong id="totalObras">0</strong>
+        <span>Total</span>
+      </div>
+      <div class="resumen__dato">
+        <strong id="totalPublicadas">0</strong>
+        <span>Publicadas</span>
+      </div>
+      <div class="resumen__dato">
+        <strong id="totalBorradores">0</strong>
+        <span>Borradores</span>
+      </div>
+      <div class="resumen__dato">
+        <strong id="totalDestacadas">0</strong>
+        <span>En el home</span>
+      </div>
+    </section>
 
     <div id="cargando" class="vacio">Cargando obras…</div>
 

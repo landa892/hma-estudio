@@ -6,6 +6,14 @@
   var $ = function (id) { return document.getElementById(id); };
   var todas = [];
 
+  function resumir() {
+    $('totalObras').textContent = todas.length;
+    $('totalPublicadas').textContent = todas.filter(function (o) { return o.publicada; }).length;
+    $('totalBorradores').textContent = todas.filter(function (o) { return !o.publicada; }).length;
+    $('totalDestacadas').textContent = todas.filter(function (o) { return o.destacada; }).length;
+    $('resumen').classList.remove('oculto');
+  }
+
   function avisar(texto, tipo) {
     var el = $('aviso');
     el.textContent = texto || '';
@@ -15,9 +23,10 @@
   /* El titulo y el slug van al HTML sin escapar si se arma con innerHTML, y
      los escribe una persona: un apostrofe o un signo menor rompe la fila. Se
      arma con nodos para que el navegador no interprete nada. */
-  function celda(fila, texto, clase) {
+  function celda(fila, texto, rotulo, clase) {
     var td = document.createElement('td');
     td.textContent = texto == null ? '—' : String(texto);
+    td.dataset.rotulo = rotulo;
     if (clase) td.className = clase;
     fila.appendChild(td);
     return td;
@@ -32,6 +41,7 @@
 
       // Titulo, con la direccion web abajo para reconocerla de un vistazo.
       var td = document.createElement('td');
+      td.dataset.rotulo = 'Obra';
       var a = document.createElement('a');
       a.href = '/admin/obra?id=' + encodeURIComponent(o.id);
       a.className = 'tabla__titulo';
@@ -43,12 +53,13 @@
       td.appendChild(slug);
       tr.appendChild(td);
 
-      celda(tr, o.anio);
-      celda(tr, DATOS.rotuloDe(DATOS.CATEGORIAS, o.categoria));
-      celda(tr, DATOS.rotuloDe(DATOS.ESTADOS, o.estado));
+      celda(tr, o.anio, 'Año');
+      celda(tr, DATOS.rotuloDe(DATOS.CATEGORIAS, o.categoria), 'Categoría');
+      celda(tr, DATOS.rotuloDe(DATOS.ESTADOS, o.estado), 'Estado');
 
       // Publicada o borrador: es el dato que mas se consulta de un listado.
       var estado = document.createElement('td');
+      estado.dataset.rotulo = 'En el sitio';
       var chip = document.createElement('span');
       chip.className = 'chip ' + (o.publicada ? 'chip--vive' : 'chip--borrador');
       chip.textContent = o.publicada ? 'Publicada' : 'Borrador';
@@ -63,11 +74,22 @@
 
       var acciones = document.createElement('td');
       acciones.className = 'tabla__acciones';
+      acciones.dataset.rotulo = 'Acciones';
       var editar = document.createElement('a');
       editar.href = '/admin/obra?id=' + encodeURIComponent(o.id);
       editar.className = 'enlace';
       editar.textContent = 'Editar';
       acciones.appendChild(editar);
+
+      if (o.publicada) {
+        var ver = document.createElement('a');
+        ver.href = '/proyectos/' + encodeURIComponent(o.slug) + '/';
+        ver.className = 'enlace';
+        ver.textContent = 'Ver';
+        ver.target = '_blank';
+        ver.rel = 'noopener';
+        acciones.appendChild(ver);
+      }
 
       var borrar = document.createElement('button');
       borrar.type = 'button';
@@ -90,9 +112,11 @@
   function filtrar() {
     var texto = $('buscador').value.trim().toLowerCase();
     var pub = $('filtroEstado').value;
+    var categoria = $('filtroCategoria').value;
     pintar(todas.filter(function (o) {
       if (pub === 'si' && !o.publicada) return false;
       if (pub === 'no' && o.publicada) return false;
+      if (categoria && o.categoria !== categoria) return false;
       if (!texto) return true;
       return (o.titulo || '').toLowerCase().indexOf(texto) >= 0
         || (o.slug || '').toLowerCase().indexOf(texto) >= 0;
@@ -114,6 +138,7 @@
     avisar('Eliminando…', 'ok');
     DATOS.borrarObra(obra.id).then(function () {
       todas = todas.filter(function (o) { return o.id !== obra.id; });
+      resumir();
       filtrar();
       avisar('"' + obra.titulo + '" quedó eliminada.', 'ok');
     }).catch(function (e) {
@@ -124,6 +149,7 @@
   function cargar() {
     return DATOS.listarObras().then(function (lista) {
       todas = lista || [];
+      resumir();
       $('cargando').classList.add('oculto');
       filtrar();
     }).catch(function (e) {
@@ -139,6 +165,13 @@
     $('quien').textContent = s && s.email ? s.email : '';
     $('buscador').addEventListener('input', filtrar);
     $('filtroEstado').addEventListener('change', filtrar);
+    DATOS.CATEGORIAS.forEach(function (categoria) {
+      var opcion = document.createElement('option');
+      opcion.value = categoria.valor;
+      opcion.textContent = categoria.rotulo;
+      $('filtroCategoria').appendChild(opcion);
+    });
+    $('filtroCategoria').addEventListener('change', filtrar);
     $('salir').addEventListener('click', function () {
       HMA.salir().then(function () { location.replace('/admin/'); });
     });

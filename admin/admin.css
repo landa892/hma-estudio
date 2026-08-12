@@ -21,6 +21,19 @@ body {
   font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 20;
+  padding: 10px 14px;
+  background: var(--negro);
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+.skip-link:focus { top: 12px; }
+
 /* --- login ---------------------------------------------------------------- */
 
 .acceso {
@@ -148,6 +161,8 @@ input:focus-visible {
 .barra__marca { height: 20px; }
 
 .barra__titulo {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: .02em;
 }
@@ -157,6 +172,12 @@ input:focus-visible {
   margin-left: auto;
   color: var(--gris);
   font-size: .85rem;
+}
+
+.barra__sitio {
+  color: var(--gris);
+  font-size: .85rem;
+  text-decoration: underline;
 }
 
 .contenido {
@@ -171,6 +192,37 @@ input:focus-visible {
   align-items: center;
   margin-bottom: 8px;
   flex-wrap: wrap;
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 24px 0 18px;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  background: var(--blanco);
+  overflow: hidden;
+}
+
+.resumen__dato {
+  min-width: 0;
+  padding: 16px 18px;
+  border-right: 1px solid var(--linea);
+}
+
+.resumen__dato:last-child { border-right: 0; }
+
+.resumen__dato strong {
+  display: block;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.resumen__dato span {
+  display: block;
+  margin-top: 4px;
+  color: var(--gris);
+  font-size: .78rem;
 }
 
 #buscador {
@@ -294,7 +346,23 @@ select {
 
 /* En telefono la tabla no entra: cada fila pasa a ser una tarjeta y los
    encabezados se esconden, que es lo que ya no aporta sin columnas. */
-@media (max-width: 720px) {
+@media (max-width: 820px) {
+  .barra { gap: 12px; padding: 12px 16px; }
+  .barra__quien { display: none; }
+  .barra__sitio { margin-left: auto; }
+  .contenido { padding: 22px 16px 72px; }
+
+  .herramientas > * { min-height: 44px; }
+  .herramientas .enlace {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  .resumen { grid-template-columns: repeat(2, 1fr); }
+  .resumen__dato:nth-child(2) { border-right: 0; }
+  .resumen__dato:nth-child(-n + 2) { border-bottom: 1px solid var(--linea); }
+
   .tabla, .tabla tbody, .tabla tr, .tabla td { display: block; width: 100%; }
   .tabla thead { display: none; }
 
@@ -305,10 +373,46 @@ select {
 
   .tabla td {
     border: 0;
-    padding: 4px 14px;
+    display: grid;
+    grid-template-columns: minmax(88px, 34%) 1fr;
+    gap: 10px;
+    padding: 5px 14px;
   }
 
-  .tabla__acciones { text-align: left; padding-top: 10px; }
+  .tabla td::before {
+    content: attr(data-rotulo);
+    color: var(--gris);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .tabla td:first-child { display: block; padding-top: 12px; padding-bottom: 10px; }
+  .tabla td:first-child::before { display: none; }
+
+  .tabla__acciones {
+    text-align: left;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 12px;
+  }
+
+  .tabla__acciones .enlace {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    margin-top: 0;
+    padding: 7px 4px;
+  }
+
+  .tabla__acciones .enlace + .enlace { margin-left: 10px; }
+}
+
+@media (max-width: 430px) {
+  .barra__sitio { display: none; }
+  .barra__marca { height: 18px; }
+  .barra__titulo { font-size: .92rem; }
 }
 
 /* --- formulario de obra --------------------------------------------------- */
@@ -449,6 +553,13 @@ textarea:focus-visible {
 }
 
 .acciones .aviso { margin-top: 0; }
+
+@media (max-width: 560px) {
+  .ficha { padding: 18px 16px 22px; margin-bottom: 14px; }
+  .acciones { gap: 10px; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .acciones .boton { flex: 1 1 auto; text-align: center; }
+  .acciones .aviso { flex: 1 0 100%; }
+}
 
 /* --- galeria de la obra --------------------------------------------------- */
 

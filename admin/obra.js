@@ -64,6 +64,13 @@
     $('camposBanner').classList.toggle('oculto', !$('destacada').checked);
   }
 
+  function actualizarEnlacePublico() {
+    var slug = $('slug').value.trim();
+    var visible = !esNueva && !!slug && $('publicada').checked;
+    $('verObra').classList.toggle('oculto', !visible);
+    if (visible) $('verObra').href = '/proyectos/' + encodeURIComponent(slug) + '/';
+  }
+
   function recoger() {
     var texto = function (campo) {
       var v = $(campo).value.trim();
@@ -174,8 +181,9 @@
         // Ya hay id, asi que las fotos tienen a donde colgarse.
         GALERIA.iniciar(id);
       }
+      actualizarEnlacePublico();
       avisar(o.publicada
-        ? 'Guardada y publicada.'
+        ? 'Guardada. Para verla en el sitio, publicá los cambios desde Obras.'
         : 'Guardada como borrador.', 'ok');
     }).catch(function (e) {
       guardando = false;
@@ -203,9 +211,13 @@
         $('slug').value = DATOS.proponerSlug($('titulo').value);
       }
     });
-    $('slug').addEventListener('input', function () { slugTocado = true; });
+    $('slug').addEventListener('input', function () {
+      slugTocado = true;
+      actualizarEnlacePublico();
+    });
     $('bajada').addEventListener('input', contarBajada);
     $('destacada').addEventListener('change', verBanner);
+    $('publicada').addEventListener('change', actualizarEnlacePublico);
     $('formObra').addEventListener('submit', guardar);
 
     // Salir con cambios sin guardar es la forma mas facil de perder una
@@ -230,6 +242,7 @@
         + 'que ya estén compartidos o en Google.';
       $('cargando').classList.add('oculto');
       $('formObra').classList.remove('oculto');
+      actualizarEnlacePublico();
       return GALERIA.iniciar(id);
     }).catch(function (e) {
       $('cargando').textContent = e.message;
