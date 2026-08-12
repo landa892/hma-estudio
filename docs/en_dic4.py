@@ -278,6 +278,8 @@ DIC.update({
     'Reconocimientos nacionales e internacionales.': 'National and international recognition.',
     'Seguir viendo': 'View more',
     'Todas las publicaciones': 'All publications',
+    'Ranking': 'Ranking',
+    'Indusparquet — fachada': 'Indusparquet — facade',
     'Publicaciones | Hitzig Militello Arquitectos': 'Publications | Hitzig Militello Architects',
     'Prensa y News': 'Press and News',
     'Publicaciones, entrevistas, conferencias y novedades del estudio desde 2003.':

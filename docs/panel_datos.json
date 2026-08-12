@@ -1459,11 +1459,11 @@
   "equipo": [
    "Arq. Fernando Hitzig",
    "Arq. Leonardo Militello",
-   "Dolores Gayoso",
-   "Alfana Nizza",
-   "Josué Solano",
+   "Arq. Dolores Gayoso",
+   "Arq. Alfana Nizza",
+   "Arq. Josué Solano",
    "Dirección de obra:",
-   "Joaquín Medina"
+   "Arq. Joaquín Medina"
   ],
   "bajada": "El flagship de una empresa de pisos de madera, resuelto con troncos naturales expuestos.",
   "memoria": "El proyecto desarrollado para Indus Parquet, empresa brasileña especializada en producción e instalación de pisos de madera con más de 80 años de trayectoria, surge como una interpretación arquitectónica de los valores de sustentabilidad, trazabilidad y vínculo con la naturaleza que definen a la marca. Implantado en el barrio de Núñez, el flagship propone una experiencia inmersiva donde la madera se manifiesta en su estado más puro y esencial. El proyecto toma como inspiración los procesos de siembra y tala controlada que la firma desarrolla en distintas regiones de Brasil, incorporando una narrativa espacial asociada al paisaje boscoso y al origen orgánico de la materia prima.\n\nLa propuesta arquitectónica se estructura a partir de una composición ortogonal de troncos naturales expuestos, utilizados como elementos de fachada, revestimiento y conformación topográfica del acceso exterior. Este plano de ingreso funciona como una superficie escultórica que organiza el vínculo con el espacio público y construye una barrera física y perceptiva respecto de la vereda. Hacia el interior, el espacio se organiza mediante un recorrido sinuoso y no lineal, inspirado en la experiencia de desplazarse dentro de un bosque, articulando áreas de exhibición, atención y exploración material.\n\nEl eje central del proyecto está conformado por una serie de estructuras pivotantes de piso a techo que exhiben más de cuarenta variedades de maderas y terminaciones. Complementariamente, se incorpora una \"mesa creativa\" destinada al trabajo conjunto entre profesionales, clientes y asesores de la marca. El recorrido culmina en un nivel superior destinado a reuniones, eventos y experiencias gastronómicas, integrando una terraza parquizada, mobiliario de diseño, piezas de autor, iluminación especializada y obras artísticas que consolidan una experiencia integral de marca donde arquitectura, paisaje, arte y materialidad operan como un único sistema narrativo.",
@@ -1475,9 +1475,9 @@
   "premios": null,
   "portada": "/assets/covers/indusparquet.webp",
   "galeria": [
+   "3.webp",
    "1.webp",
    "2.webp",
-   "3.webp",
    "4.webp",
    "5.webp",
    "6.webp",

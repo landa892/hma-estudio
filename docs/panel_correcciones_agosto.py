@@ -93,6 +93,17 @@ CORRECCIONES = {
              'Arq. Sofía Kesting', 'Arq. Camila Lacarpia',
              'Arq. Victoria Nabias', 'Arq. Milagros Rivelli']),
     },
+    'indusparquet': {
+        # En la ficha que devolvio el estudio, todas las personas listadas son
+        # arquitectas. "Direccion de obra" es un rotulo, no un integrante.
+        'equipo': valor(
+            ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
+             'Dolores Gayoso', 'Alfana Nizza', 'Josué Solano',
+             'Dirección de obra:', 'Joaquín Medina'],
+            ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
+             'Arq. Dolores Gayoso', 'Arq. Alfana Nizza', 'Arq. Josué Solano',
+             'Dirección de obra:', 'Arq. Joaquín Medina']),
+    },
     'cerveceria-austral': {
         'equipo': valor(
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',

@@ -117,7 +117,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Gastronómico",
   "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores · 2023",
   "url": "/proyectos/cien/",
-  "img": "/assets/covers/cien.webp"
+  "img": "/assets/covers/cien.webp?v=20260812"
  },
  {
   "tipo": "Proyecto",
@@ -221,7 +221,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
   "url": "/proyectos/indusparquet/",
-  "img": "/assets/covers/indusparquet.webp"
+  "img": "/assets/covers/indusparquet.webp?v=20260812"
  },
  {
   "tipo": "Proyecto",
@@ -317,7 +317,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/proyectos/movistar-arena/",
-  "img": "/assets/covers/movistar-arena.webp"
+  "img": "/assets/covers/movistar-arena.webp?v=20260812"
  },
  {
   "tipo": "Proyecto",
@@ -357,7 +357,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Edificio residencial — en proceso · Camila O’Gorman 430, Madero Harbour, Puerto Madero, Buenos Aires · Lobby 240 m² y rooftop 710 m² · 2027",
   "url": "/proyectos/osten-tower/",
-  "img": "/assets/covers/osten-tower.webp"
+  "img": "/assets/covers/osten-tower.webp?v=20260812"
  },
  {
   "tipo": "Proyecto",
@@ -469,7 +469,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Oficinas",
   "desc": "Oficinas · Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires · 9.002 m²",
   "url": "/proyectos/uala-gigena/",
-  "img": "/assets/covers/uala-gigena.webp"
+  "img": "/assets/covers/uala-gigena.webp?v=20260812"
  },
  {
   "tipo": "Proyecto",

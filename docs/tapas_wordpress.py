@@ -32,7 +32,7 @@ PORTADAS = {
     'casa-olmo': ('/assets/covers/casa-olmo.webp', 1024, 684),
     'cceba': ('/assets/covers/cceba.webp', 1200, 798),
     'cerveceria-austral': ('/assets/covers/cerveceria-austral.webp', 1200, 800),
-    'cien': ('/assets/covers/cien.webp', 1200, 800),
+    'cien': ('/assets/covers/cien.webp', 1600, 1067),
     'clasico-quilmes': ('/assets/covers/clasico-quilmes.webp', 1200, 800),
     'dos-casas-conde': ('/assets/covers/dos-casas-conde.webp', 800, 1200),
     # Llego el 06/08/2026, cuando el estudio armo su carpeta "03 - Carátula".
@@ -46,7 +46,7 @@ PORTADAS = {
     'hausscape': ('/assets/covers/hausscape.webp', 818, 545),
     'hyatt-ziva': ('/assets/covers/hyatt-ziva.webp', 800, 450),
     'iguanafix': ('/assets/covers/iguanafix.webp', 900, 600),
-    'indusparquet': ('/assets/covers/indusparquet.webp', 1200, 800),
+    'indusparquet': ('/assets/covers/indusparquet.webp', 1536, 1024),
     'iol': ('/assets/covers/iol.webp', 1200, 803),
     'juan-valdez': ('/assets/covers/juan-valdez.webp', 800, 533),
     'kavak-hub': ('/assets/covers/kavak-hub.webp', 1200, 800),
@@ -73,9 +73,9 @@ PORTADAS = {
     'the-birra': ('/assets/covers/the-birra.webp', 1200, 801),
     'tostado': ('/assets/covers/tostado.webp', 1000, 667),
     'uala-office': ('/assets/covers/uala-office.webp', 1200, 800),
-    # Uala III no tiene carpeta "03 - Caratula" en el Drive. El estudio pidio
-    # otra tapa y se eligio una imagen distinta de su carpeta oficial de fotos.
-    'uala-gigena': ('/assets/covers/uala-gigena.webp', 1200, 604),
+    # El Drive ofrece dos caratulas para esta obra. Se usa la horizontal porque
+    # conserva el espacio completo en las tarjetas del listado.
+    'uala-gigena': ('/assets/covers/uala-gigena.webp', 1800, 1200),
     'victoria-brown': ('/assets/covers/victoria-brown.webp', 1200, 800),
     'williamsburg': ('/assets/covers/williamsburg.webp', 1200, 499),
 }
@@ -85,6 +85,21 @@ PORTADAS = {
 # los scrapers de WhatsApp y LinkedIn no suelen seguir redirecciones para la
 # imagen, asi que la vista previa al compartir salia sin foto.
 PUBLIC_BASE = 'https://estudiohma.com'
+
+# Estas caratulas cambiaron el 12/08. El sufijo obliga a navegadores y CDNs a
+# pedir el archivo nuevo aun cuando tengan en cache la URL anterior.
+VERSIONES = {
+    'cien': '20260812',
+    'indusparquet': '20260812',
+    'movistar-arena': '20260812',
+    'osten-tower': '20260812',
+    'uala-gigena': '20260812',
+}
+
+
+def versionar(slug, ruta):
+    version = VERSIONES.get(slug)
+    return '%s?v=%s' % (ruta, version) if version else ruta
 
 
 def leer(path):
@@ -174,6 +189,7 @@ def main():
         updated = original
         normalized_path = path.replace('\\', '/')
         for slug, (cover_path, width, height) in PORTADAS.items():
+            cover_path = versionar(slug, cover_path)
             updated = actualizar_tarjetas(
                 updated, slug, cover_path, width, height
             )
@@ -191,6 +207,7 @@ def main():
         original = leer(path)
         updated = original
         for slug, (cover_path, _, __) in PORTADAS.items():
+            cover_path = versionar(slug, cover_path)
             updated = actualizar_buscador(updated, slug, cover_path)
         if updated != original:
             escribir(path, updated)

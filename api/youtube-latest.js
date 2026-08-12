@@ -26,7 +26,7 @@ const MAX_VIDEOS = 12;
 async function traerLista(playlistId, apiKey) {
   const url =
     "https://www.googleapis.com/youtube/v3/playlistItems" +
-    `?part=snippet&maxResults=${POR_LISTA}` +
+    `?part=snippet,contentDetails&maxResults=${POR_LISTA}` +
     `&playlistId=${encodeURIComponent(playlistId)}&key=${apiKey}`;
 
   const r = await fetch(url);
@@ -55,7 +55,10 @@ async function traerLista(playlistId, apiKey) {
       title: s.title || "",
       url: `https://www.youtube.com/watch?v=${videoId}`,
       thumbnail,
-      published: s.publishedAt || "",
+      // snippet.publishedAt es cuando alguien agrego el video a la playlist.
+      // Para el orden editorial importa cuando se publico el video: si no,
+      // agregar hoy una entrevista vieja la hacia aparecer como novedad.
+      published: (item.contentDetails || {}).videoPublishedAt || s.publishedAt || "",
     };
   }).filter((v) => {
     // YouTube deja en la lista los videos borrados o pasados a privado, con el

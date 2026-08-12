@@ -596,19 +596,21 @@ try {
   const tabs = document.querySelectorAll('#pressTabs .press-tab');
   const yearBtns = document.querySelectorAll('#pressYears .filter-btn');
   const count = document.getElementById('pressCount');
+  const loadMore = document.getElementById('pressLoadMore');
 
   if (feed && tabs.length && yearBtns.length) {
     const rows = Array.from(feed.querySelectorAll('.press-row'));
     let grupo = 'all';
     let anio = 'all';
+    let limite = loadMore ? 12 : Number.POSITIVE_INFINITY;
 
     function aplicar() {
-      let visibles = 0;
+      let coincidencias = 0;
       rows.forEach(r => {
         const ok = (grupo === 'all' || r.dataset.group === grupo) &&
           (anio === 'all' || r.dataset.year === anio);
-        r.hidden = !ok;
-        if (ok) visibles++;
+        if (ok) coincidencias++;
+        r.hidden = !ok || coincidencias > limite;
       });
 
       // los años sin resultados dentro del grupo elegido se desactivan
@@ -620,15 +622,23 @@ try {
       });
 
       if (count) {
-        const que = grupo === 'news' ? 'novedades' : (grupo === 'prensa' ? 'publicaciones' : 'entradas');
-        count.textContent = visibles === 1 ? `1 ${que.replace(/s$/, '')}` : `${visibles} ${que}`;
+        const ingles = document.documentElement.lang === 'en';
+        const que = ingles
+          ? (grupo === 'news' ? 'news items' : (grupo === 'prensa' ? 'publications' : 'entries'))
+          : (grupo === 'news' ? 'novedades' : (grupo === 'prensa' ? 'publicaciones' : 'entradas'));
+        const singular = ingles
+          ? (grupo === 'news' ? 'news item' : (grupo === 'prensa' ? 'publication' : 'entry'))
+          : que.replace(/s$/, '');
+        count.textContent = coincidencias === 1 ? `1 ${singular}` : `${coincidencias} ${que}`;
       }
+      if (loadMore) loadMore.hidden = coincidencias <= limite;
     }
 
     tabs.forEach(tab => tab.addEventListener('click', () => {
       tabs.forEach(x => x.classList.remove('active'));
       tab.classList.add('active');
       grupo = tab.dataset.group;
+      limite = 12;
       // si el año elegido no existe en el grupo nuevo, se vuelve a todos
       const sigue = rows.some(r => r.dataset.year === anio && (grupo === 'all' || r.dataset.group === grupo));
       if (anio !== 'all' && !sigue) {
@@ -643,8 +653,14 @@ try {
       yearBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       anio = btn.dataset.year;
+      limite = 12;
       aplicar();
     }));
+
+    if (loadMore) loadMore.addEventListener('click', () => {
+      limite += 12;
+      aplicar();
+    });
 
     aplicar();
   }
