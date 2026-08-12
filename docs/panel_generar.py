@@ -179,6 +179,24 @@ def main(verificar, supabase):
         datos = json.load(io.open(os.path.join(RAIZ, 'docs', 'panel_datos.json'),
                                   encoding='utf-8'))
 
+    # La memoria en ingles no se escribe en la pagina castellana: el espejo la
+    # toma de docs/en_memorias.json. Nadie llenaba ese archivo desde la base, asi
+    # que una memoria inglesa cargada en el panel se guardaba y el sitio en ingles
+    # seguia con la de antes -o sin bloque, si era nueva-. Aca se vuelca.
+    if not verificar:
+        mem_en = {}
+        for o in datos:
+            texto = (o.get('memoria_en') or '').strip()
+            if not texto:
+                continue
+            parrafos = [p.strip() for p in re.split(r'\n\s*\n', texto) if p.strip()]
+            if parrafos:
+                mem_en[o['slug']] = parrafos
+        io.open(os.path.join(RAIZ, 'docs', 'en_memorias.json'), 'w',
+                encoding='utf-8', newline='\n').write(
+            json.dumps(mem_en, ensure_ascii=False, indent=1, sort_keys=True) + '\n')
+        print('memorias en ingles para el espejo: %d' % len(mem_en))
+
     cambiadas, iguales, avisos = [], 0, []
     for o in datos:
         ruta = os.path.join(RAIZ, 'proyectos', o['slug'], 'index.html')
