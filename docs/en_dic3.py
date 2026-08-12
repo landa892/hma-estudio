@@ -365,8 +365,8 @@ DIC.update({
     'Cómo Hitzig Militello Arquitectos trata los datos personales que se envían a través de este sitio.':
         'How Hitzig Militello Architects handles the personal data submitted through this site.',
 
-    'Oficinas resueltas con tabiques y mobiliario de OSB, y la gráfica de la empresa sobre los vidrios.':
-        'Offices resolved with OSB partitions and furniture, and the company graphics applied to the glass.',
+    'Remodelación integral de las oficinas de IguanaFix en Buenos Aires.':
+        'Complete renovation of IguanaFix\'s offices in Buenos Aires.',
 
     'En el Design District de Miami: una envolvente de chapa perforada que de noche se ilumina entera.':
         'In the Miami Design District: a perforated metal envelope that lights up entirely at night.',
@@ -389,8 +389,8 @@ DIC.update({
     'Un atelier de artes y oficios resuelto en 62 m² cubiertos, con envolvente de chapa perforada.':
         'An arts and crafts atelier resolved in 62 m² indoors, with a perforated metal envelope.',
 
-    'Una cremería que se presenta como un volumen facetado de pizarra negra con una cuña de cobre.':
-        'A creamery presented as a faceted volume of black slate with a copper wedge.',
+    'Una cremería concebida como una envolvente diamantada de superficies facetadas.':
+        'A creamery conceived as a diamond-like envelope of faceted surfaces.',
 
     'Oficinas de una fintech en el piso 23: un núcleo compacto libera todo el perímetro vidriado.':
         'Fintech offices on the 23rd floor: a compact core frees up the entire glazed perimeter.',
@@ -437,8 +437,8 @@ DIC.update({
     '«La creatividad en estado presente» — Leonardo Militello en la Universidad de Palermo':
         '“Creativity in the present tense” — Leonardo Militello at Universidad de Palermo',
 
-    'Un bar de geometrías facetadas en cobre y hormigón, con un patio selvático al fondo.':
-        'A bar of faceted geometries in copper and concrete, with a jungle courtyard at the back.',
+    'Un bar organizado por una pieza de hierro y paneles facetados, con un patio selvático al fondo.':
+        'A bar organized around an iron structure with faceted panels, with a lush courtyard at the back.',
 
     'Centro de desarrollo gastronómico de la FEHGRA, bajo una bóveda continua de madera.':
         'FEHGRA’s hospitality development centre, under a continuous timber vault.',

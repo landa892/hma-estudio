@@ -41,9 +41,11 @@ DIC.update({
         'Restaurant on Av. del Libertador and Blanco Encalada — in progress.',
     'Restaurante argentino en el Saedan Mall de Riad.':
         'Argentine restaurant at the Saedan Mall in Riyadh.',
-    'Cafetería Juan Valdez sobre Avenida Las Heras.':
-        'Juan Valdez coffee shop on Avenida Las Heras.',
-    'Local de Tostado Café Club en Miami.': 'Tostado Café Club venue in Miami.',
+    'Dos cafeterías Juan Valdez en Buenos Aires.':
+        'Two Juan Valdez coffee shops in Buenos Aires.',
+    'Locales de Tostado Café Club en Argentina, Uruguay, Miami y São Paulo.':
+        'Tostado Café Club locations in Argentina, Uruguay, Miami and São Paulo.',
+    'Luciano Cichanowski': 'Luciano Cichanowski',
     'Local de perfumería de 131 m² en el shopping Terrazas de Mayo.':
         '131 m² perfumery at the Terrazas de Mayo shopping centre.',
     'Nueva sede de Ualá en el Paseo Gigena: 9.002 m² de oficinas.':

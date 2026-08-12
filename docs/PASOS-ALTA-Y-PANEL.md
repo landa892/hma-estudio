@@ -204,6 +204,8 @@ En Supabase → **SQL Editor**. Pegar y ejecutar **en este orden**, de a uno:
 | 3 | `supabase/migrations/0003_textos.sql` | los 11 textos fijos |
 | 4 | `supabase/migrations/0004a_fotografia.sql` | el campo de crédito de foto |
 | 5 | `supabase/migrations/0005_obras.sql` | **las 61 obras del sitio** |
+| 6 | `supabase/migrations/0006_banners.sql` | los rótulos de los banners del home |
+| 7 | `supabase/migrations/0007_correcciones_cliente_agosto.sql` | correcciones de fichas y memorias |
 
 El orden importa: cada uno usa lo que creó el anterior.
 
@@ -258,7 +260,7 @@ Vercel → **Settings → Build & Development Settings → Build Command**:
 python3 docs/panel_build.py
 ```
 
-Los ocho pasos viven en ese script y no encadenados con `&&` en la casilla por
+Los diez pasos viven en ese script y no encadenados con `&&` en la casilla por
 una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
 cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
 que en una sola línea de shell no se ve.
@@ -269,11 +271,12 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden (son nueve)
+### Qué hace cada paso, y por qué en ese orden (son diez)
 
 | Paso | Qué hace |
 |---|---|
 | `panel_config.py` | Escribe `admin/config.js` desde las variables. Sin esto el panel publicado no conecta con nada. |
+| `panel_correcciones_agosto.py` | Migra los valores viejos marcados por el cliente. Es condicional: no pisa una edición posterior hecha desde el panel. |
 | `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
 | `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas. |
@@ -322,11 +325,6 @@ desde `SUPABASE_URL` y `SUPABASE_ANON_KEY`. Aborta el deploy si falta alguna, o
 si la clave que le pasan parece la de servicio — esa saltea el RLS y en el
 navegador dejaría la base abierta.
 
-> ### La migración 0006
-> La rama trae una migración más que las cinco de B2:
-> `supabase/migrations/0006_banners.sql`, el rótulo de los banners del home.
-> Hay que correrla también.
-
 ---
 
 # Cómo funciona, una vez andando
@@ -352,10 +350,6 @@ entrando a su dirección, ni consultando la base a mano.
 
 Nada de esto rompe el sitio. Son huecos que se ven si se buscan.
 
-- **Ualá Gigena sin año** — no está en el sitio, ni en el WordPress viejo, ni
-  en su ficha del Drive
-- **Tostado**: la carátula y la memoria son de la sucursal Tribunales, pero la
-  página es la de Miami
 - **Parfumerie**: la carátula está en 643 px; el resto ronda los 1200
 - **Seis obras sin memoria en inglés**: Accor, Antiche, Indusparquet, IOL,
   Lucciano's Caballito y Roket. En el sitio en inglés esas páginas van sin ese

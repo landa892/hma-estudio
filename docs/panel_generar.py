@@ -9,7 +9,7 @@ las borraria sin que nadie se entere hasta verlo publicado.
 
 Que se toca de cada obra:
   - el <h1> con el titulo
-  - el parrafo de bajada
+  - el parrafo de bajada y sus copias en SEO y preview social
   - la ficha tecnica (estado, tipo, ubicacion, pais, superficie, año, equipo)
   - el bloque de memoria descriptiva
 
@@ -41,6 +41,10 @@ ESTADOS = {
 
 def escapar(t):
     return (t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'))
+
+
+def escapar_atributo(t):
+    return escapar(t).replace('"', '&quot;')
 
 
 def bloque_ficha(o, html):
@@ -114,6 +118,17 @@ def aplicar(o, html):
         problemas.append('sin <h1>')
     html = nuevo
 
+    # El titulo del navegador y el preview social deben seguir al <h1>. Si no,
+    # editar el titulo desde el panel deja dos nombres distintos para la obra.
+    titulo_pagina = escapar(o['titulo'] + ' | Hitzig Militello Arquitectos')
+    html = re.sub(r'(<title>).*?(</title>)',
+                  lambda m: m.group(1) + titulo_pagina + m.group(2),
+                  html, count=1, flags=re.S)
+    html = re.sub(r'(<meta property="og:title" content=")[^"]*(">)',
+                  lambda m: m.group(1) + escapar_atributo(
+                      o['titulo'] + ' | Hitzig Militello Arquitectos') + m.group(2),
+                  html, count=1)
+
     # --- bajada ---
     if o.get('bajada'):
         nuevo, n = re.subn(r'(<p class="lede[^"]*"[^>]*>)(.*?)(</p>)',
@@ -122,6 +137,16 @@ def aplicar(o, html):
         if not n:
             problemas.append('sin bajada')
         html = nuevo
+
+
+        # Google y WhatsApp leen estas etiquetas, no el texto visible.
+        bajada_atributo = escapar_atributo(o['bajada'])
+        html = re.sub(r'(<meta name="description" content=")[^"]*(">)',
+                      lambda m: m.group(1) + bajada_atributo + m.group(2),
+                      html, count=1)
+        html = re.sub(r'(<meta property="og:description" content=")[^"]*(">)',
+                      lambda m: m.group(1) + bajada_atributo + m.group(2),
+                      html, count=1)
 
     # --- ficha ---
     filas = bloque_ficha(o, html)
