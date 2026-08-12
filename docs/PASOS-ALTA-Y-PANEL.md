@@ -107,8 +107,8 @@ Pedirlo al estudio con código de país, sin espacios ni signos:
 `estudiohma.com` sirve el sitio nuevo desde Vercel. `www` y
 `hma-estudio.vercel.app` redirigen al apex con 308.
 
-El apex es el canónico en todo el sitio —`rel="canonical"`, `og:url` y las 65
-entradas del sitemap—, así que la redirección va de `www` hacia el apex y no al
+El apex es el canónico en todo el sitio —`rel="canonical"`, `og:url` y todas
+las entradas del sitemap—, así que la redirección va de `www` hacia el apex y no al
 revés. Vercel venía configurado al revés y se corrigió antes de mover el DNS.
 
 Los registros que quedaron en DreamHost:
@@ -178,7 +178,7 @@ Qué hace, además de listar:
 - Conserva el `changefreq` y el `priority` que cada URL ya tenía, así sumar una
   obra no reescribe el archivo entero.
 
-Es idempotente: correrlo dos veces da lo mismo. Quedaron 136 URLs, 68 en cada
+Es idempotente: correrlo dos veces da lo mismo. Quedaron 138 URLs, 69 en cada
 idioma.
 
 ---
@@ -261,7 +261,7 @@ Vercel → **Settings → Build & Development Settings → Build Command**:
 python3 docs/panel_build.py
 ```
 
-Los diez pasos viven en ese script y no encadenados con `&&` en la casilla por
+Los once pasos viven en ese script y no encadenados con `&&` en la casilla por
 una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
 cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
 que en una sola línea de shell no se ve.
@@ -272,7 +272,7 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden (son diez)
+### Qué hace cada paso, y por qué en ese orden (son once)
 
 | Paso | Qué hace |
 |---|---|
@@ -284,8 +284,9 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |
 | `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
 | `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
-| `sitemap_gen.py` | Rearma el sitemap del disco. **Va después de las altas y bajas**, o lista páginas que no existen. |
-| `en_gen.py` | Rehace `/en/` de cero. **Va último**: traduce lo que dejaron los pasos anteriores. |
+| `prensa_pagina.py` | Genera `/prensa/publicaciones/` desde `docs/prensa-listado.html`, el archivo cronológico completo de prensa. |
+| `en_gen.py` | Rehace `/en/` de cero y traduce lo que dejaron los pasos anteriores. |
+| `sitemap_gen.py` | Rearma el sitemap leyendo las páginas en castellano y el espejo inglés ya generado. **Va último** para incluir ambas versiones. |
 
 Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel
 no publica un build que no terminó.

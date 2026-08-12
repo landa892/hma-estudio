@@ -20,10 +20,10 @@
                         bajas, que son las que agregan y sacan tarjetas.
      7. panel_textos    escribe los textos fijos de home, estudio y contacto.
      8. panel_home      pone las destacadas en los banners del home.
-     9. sitemap_gen     rearma el sitemap leyendo el disco. Va despues de las
-                        altas y las bajas, o lista paginas que no existen.
-    10. en_gen          rehace /en/ de cero. Ultimo: traduce lo que dejaron los
-                        pasos anteriores.
+     9. prensa_pagina   rearma el archivo completo de publicaciones.
+    10. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+                        anteriores.
+    11. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -46,8 +46,9 @@ PASOS = [
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
-    ('el sitemap',                   'sitemap_gen.py',   []),
+    ('el archivo de prensa',         'prensa_pagina.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),
+    ('el sitemap',                   'sitemap_gen.py',   []),
 ]
 
 

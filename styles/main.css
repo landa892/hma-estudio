@@ -1790,6 +1790,18 @@ footer.site-footer {
   border-top: 1px solid var(--black);
 }
 
+.press-archive-link {
+  margin-top: 24px;
+}
+
+.press-archive-page {
+  padding-top: 24px;
+}
+
+.press-archive-page .press-filter-bar {
+  margin-bottom: 28px;
+}
+
 .press-year-head {
   font-size: 1.6rem;
   font-weight: 700;
@@ -1887,6 +1899,13 @@ footer.site-footer {
   font-size: .8rem;
   color: var(--gray);
   white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .press-row .pr-outlet {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
 
 .press-filter-bar {
@@ -2135,6 +2154,21 @@ footer.site-footer {
 .contact-form textarea:focus {
   outline: none;
   border-bottom-width: 3px;
+}
+
+.award-row .award-row__logo--plain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.award-platform {
+  font-size: clamp(.8rem, 1.1vw, 1rem);
+  font-weight: 700;
+}
+
+.award-row--recognition .award-row__res {
+  color: var(--gray-dark);
 }
 
 .contact-form textarea {

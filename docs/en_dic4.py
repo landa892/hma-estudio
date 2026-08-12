@@ -265,6 +265,135 @@ DIC.update({
     # banner de YouTube
     'Novedades en YouTube': 'News on YouTube',
     'Nuestro canal': 'Our channel',
+    'Reconocimientos nacionales e internacionales.': 'National and international recognition.',
+    'Seguir viendo': 'View more',
+    'Todas las publicaciones': 'All publications',
+    'Publicaciones | Hitzig Militello Arquitectos': 'Publications | Hitzig Militello Architects',
+    'Prensa y News': 'Press and News',
+    'Publicaciones, entrevistas, conferencias y novedades del estudio desde 2003.':
+        'Publications, interviews, talks and studio news since 2003.',
+    'Archivo de publicaciones, entrevistas, conferencias y novedades de Hitzig Militello Arquitectos desde 2003.':
+        'Archive of Hitzig Militello Architects publications, interviews, talks and news since 2003.',
+    'Archello — Ranking Argentina': 'Archello — Argentina ranking',
+    'Architizer — Ranking Argentina': 'Architizer — Argentina ranking',
+    'El estudio fue incluido en el Top 25 de estudios de Argentina de 2023, en el puesto n.º 3.':
+        'The studio was ranked no. 3 among Archello’s Top 25 architecture firms in Argentina for 2023.',
+    'El estudio fue incluido en el Top 30 de estudios de Argentina de 2023, en el puesto n.º 6.':
+        'The studio was ranked no. 6 among Architizer’s Top 30 architecture firms in Argentina for 2023.',
+    'Reconocimiento': 'Recognition',
+    # archivo completo de prensa
+    'News': 'News',
+    'Mayo': 'May',
+    'Docencia': 'Teaching',
+    'Febrero': 'February',
+    'Abril': 'April',
+    'Oct.': 'Oct.',
+    'Julio': 'July',
+    'Junio': 'June',
+    'Marzo': 'March',
+    'Agosto': 'August',
+    'Charla': 'Talk',
+    'Entrevista al estudio': 'Studio interview',
+    'archello': 'archello',
+    'Architizer': 'Architizer',
+    'Todos los años': 'All years',
+    '— nota sobre el estudio': '— feature on the studio',
+    'Leonardo Militello, profesor de Arquitectura Comercial Interior en La Haus':
+        'Leonardo Militello, Commercial Interior Architecture lecturer at La Haus',
+    '— el nuevo restaurante de Belgrano en un patio lleno de plantas':
+        '— Belgrano’s new restaurant in a plant-filled courtyard',
+    'TENDIEZ LAB — «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia», Buenos Aires':
+        'TENDIEZ LAB — “Restaurant and Hotel Architecture: Business, Design, Experience”, Buenos Aires',
+    'Nov.': 'Nov.',
+    'Sept.': 'Sept.',
+    'El Arqui - Flow, Argentina': 'El Arqui - Flow, Argentina',
+    'Crónicas Urbanas, Argentina': 'Crónicas Urbanas, Argentina',
+    'TENDIEZ LAB Mar del Plata': 'TENDIEZ LAB Mar del Plata',
+    'Podcast': 'Podcast',
+    'Podcast Cerrame la Ocho': 'Cerrame la Ocho podcast',
+    'Enero': 'January',
+    'Clase magistral': 'Masterclass',
+    'Clase magistral FAD-UPC Córdoba': 'FAD-UPC Córdoba masterclass',
+    'Dic.': 'Dec.',
+    'Osten — un viaje del Art Déco a la contemporaneidad':
+        'Osten — a journey from Art Deco to the contemporary',
+    'Octubre': 'October',
+    'ganador — Mejor bar de América': 'winner — Best Bar in the Americas',
+    'Festival': 'Festival',
+    'Congreso': 'Conference',
+    'Congreso SCA — «Experiencias en arquitectura de interiores»':
+        'SCA Conference — “Experiences in interior architecture”',
+    'Reportaje de vivienda': 'Residential feature',
+    'Profesores de Diseño Arquitectónico I, Cátedra Lestard-Cajide-Janchez, FADU-UBA':
+        'Architectural Design I lecturers, Lestard-Cajide-Janchez studio, FADU-UBA',
+    'Primeras publicaciones del estudio': 'The studio’s first publications',
+    # Nombres de medios y lugares: no se traducen, pero se declaran para que la
+    # verificacion pueda distinguirlos de contenido olvidado en castellano.
+    'Archidiaries, India': 'Archidiaries, India',
+    'Metalocus, España': 'Metalocus, Spain',
+    'La Nación, Argentina': 'La Nación, Argentina',
+    'UADE FADI': 'UADE FADI',
+    'Archipanic, Italia': 'Archipanic, Italy',
+    'Newsweek, Argentina': 'Newsweek, Argentina',
+    'Osten Coffee Shop, Casa FOA': 'Osten Coffee Shop, Casa FOA',
+    'Archello, Argentina': 'Archello, Argentina',
+    'ArchDaily, Argentina': 'ArchDaily, Argentina',
+    'Designverse, Argentina': 'Designverse, Argentina',
+    'MAS ARQ, Argentina': 'MAS ARQ, Argentina',
+    'Gooood, Argentina': 'Gooood, Argentina',
+    'Estilo Propio, Argentina': 'Estilo Propio, Argentina',
+    'Casa Linda, Argentina': 'Casa Linda, Argentina',
+    'Fehgra': 'FEHGRA',
+    'a2 · Cosentino · Arquimaster, USA/Argentina': 'a2 · Cosentino · Arquimaster, USA/Argentina',
+    'ArchSight, Argentina': 'ArchSight, Argentina',
+    'Archidiaries, Argentina': 'Archidiaries, Argentina',
+    'Mas Arq, Argentina': 'Mas Arq, Argentina',
+    'Más Arq · El Planeta Urbano · Rethinking the Future · Ministerio de Diseño · El Cronista':
+        'Más Arq · El Planeta Urbano · Rethinking the Future · Ministerio de Diseño · El Cronista',
+    'G&amp;G, Italia': 'G&amp;G, Italy',
+    'Architizer, USA · PLOT, Estilo Propio, Floornature, Argentina/Italia':
+        'Architizer, USA · PLOT, Estilo Propio, Floornature, Argentina/Italy',
+    'IED Barcelona — Master in Interior Design for Commercial Spaces and Retail':
+        'IED Barcelona — Master in Interior Design for Commercial Spaces and Retail',
+    ', Argentina · Floornature, Italia · Wooooooow, China':
+        ', Argentina · Floornature, Italy · Wooooooow, China',
+    'Dezeen': 'Dezeen',
+    ', Reino Unido · Monocle, EE.UU. · Stir, India':
+        ', United Kingdom · Monocle, USA · Stir, India',
+    'Glocal, México · SBID, Reino Unido · El Cronista, Argentina':
+        'Glocal, Mexico · SBID, United Kingdom · El Cronista, Argentina',
+    'Floornature,': 'Floornature,',
+    'Archipanic': 'Archipanic',
+    'La Nación online, Argentina · Restaurant &amp; Bar Design Awards, Reino Unido':
+        'La Nación online, Argentina · Restaurant &amp; Bar Design Awards, United Kingdom',
+    'IED Kunsthal Bilbao': 'IED Kunsthal Bilbao',
+    'UADE FADI, Proyecto 6': 'UADE FADI, Project 6',
+    'Condé Nast Traveler, España · Revista 90+10, Argentina':
+        'Condé Nast Traveler, Spain · Revista 90+10, Argentina',
+    'Summa+ 186, Argentina': 'Summa+ 186, Argentina',
+    'Rethinking The Future, India': 'Rethinking The Future, India',
+    'Urdesign UK · Metalocus España · Designboom EE.UU. · Gooood China · Floornature Italia':
+        'Urdesign UK · Metalocus Spain · Designboom USA · Gooood China · Floornature Italy',
+    'Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina':
+        'Infobae, Argentina · Summa+ 179, Argentina · La Nación, Argentina',
+    'ArchDaily UK · Hospitality Snapshots, EE.UU. · Plataforma de Arquitectura, Chile':
+        'ArchDaily UK · Hospitality Snapshots, USA · Plataforma de Arquitectura, Chile',
+    'Hospitality Design NY · Baunetz Alemania · Floornature Italia':
+        'Hospitality Design NY · Baunetz Germany · Floornature Italy',
+    'Restaurant &amp; Bar Design Awards, Reino Unido':
+        'Restaurant &amp; Bar Design Awards, United Kingdom',
+    'International Architecture Festival ARQfestival, Guadalajara, México':
+        'International Architecture Festival ARQfestival, Guadalajara, Mexico',
+    "L'archi n°283, Francia · Interior Design, China":
+        "L'archi no. 283, France · Interior Design, China",
+    'Summa+ N°148, Argentina': 'Summa+ no. 148, Argentina',
+    'Wallpaper*, Reino Unido · ArchDaily, Reino Unido':
+        'Wallpaper*, United Kingdom · ArchDaily, United Kingdom',
+    'Dezeen &amp; Design Boom, Reino Unido/EE.UU. · Archdaily, Reino Unido':
+        'Dezeen &amp; Design Boom, United Kingdom/USA · Archdaily, United Kingdom',
+    'Architectural Digest, México': 'Architectural Digest, Mexico',
+    'Diario Clarín Arquitectura · La Nación, Argentina':
+        'Diario Clarín Arquitectura · La Nación, Argentina',
     'Novedades del estudio': 'Studio news',
     'Entrevista con @LadrilloInfo': 'Interview with @LadrilloInfo',
     'Leonardo Militello y Fernando Hitzig, arquitectos y fundadores de HMA Estudio, cuentan cómo diseñan espacios que generan experiencia: desde el VIP del Movistar Arena hasta restaurantes, hoteles y oficinas. Hablan de su método de storytelling, los costos de construcción en Argentina y por qué una oficina no tiene que ser un pelotero infantil.':

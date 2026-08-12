@@ -21,7 +21,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 31,
+  "orden": 32,
   "premios": null,
   "portada": "/assets/gallery/abasto-patio-comidas/1.webp",
   "galeria": [
@@ -66,7 +66,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 38,
+  "orden": 39,
   "premios": null,
   "portada": "/assets/covers/accor-hotels.webp",
   "galeria": [
@@ -311,7 +311,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 53,
+  "orden": 54,
   "premios": "BIAR",
   "portada": "/assets/covers/atelier-vilela.webp",
   "galeria": [
@@ -469,7 +469,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 50,
+  "orden": 51,
   "premios": null,
   "portada": "/assets/covers/bolivar.webp",
   "galeria": [
@@ -520,7 +520,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 27,
+  "orden": 28,
   "premios": null,
   "portada": "/assets/covers/burger-7167.webp",
   "galeria": [
@@ -561,7 +561,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 39,
+  "orden": 40,
   "premios": null,
   "portada": "/assets/covers/cafe-artois.webp",
   "galeria": [
@@ -598,7 +598,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 44,
+  "orden": 45,
   "premios": null,
   "portada": "/assets/covers/casa-olmo.webp",
   "galeria": [
@@ -805,7 +805,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 40,
+  "orden": 41,
   "premios": null,
   "portada": "/assets/covers/clasico-quilmes.webp",
   "galeria": [
@@ -851,7 +851,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 55,
+  "orden": 56,
   "premios": "Next Landmark Awards",
   "portada": "/assets/covers/dos-casas-conde.webp",
   "galeria": [
@@ -963,7 +963,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 41,
+  "orden": 42,
   "premios": null,
   "portada": "/assets/covers/elyaki.webp",
   "galeria": [
@@ -1065,7 +1065,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 35,
+  "orden": 36,
   "premios": "Bienal SCA-CPAU · Restaurant & Bar Design Awards",
   "portada": "/assets/covers/fogon.webp",
   "galeria": [
@@ -1132,7 +1132,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 36,
+  "orden": 37,
   "premios": null,
   "portada": "/assets/covers/fresco.webp",
   "galeria": [
@@ -1200,7 +1200,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 59,
+  "orden": 60,
   "premios": "Bienal SCA-CPAU",
   "portada": "/assets/gallery/galeria-objeto-a/1.webp",
   "galeria": [
@@ -1256,7 +1256,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 45,
+  "orden": 46,
   "premios": "IIDA · Next Landmark Awards",
   "portada": "/assets/covers/goodsten.webp",
   "galeria": [
@@ -1429,7 +1429,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 46,
+  "orden": 47,
   "premios": null,
   "portada": "/assets/covers/iguanafix.webp",
   "galeria": [
@@ -1619,7 +1619,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 29,
+  "orden": 30,
   "premios": "Bienal Internacional de Arquitectura",
   "portada": "/assets/covers/kavak-hub.webp",
   "galeria": [
@@ -1669,7 +1669,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 28,
+  "orden": 29,
   "premios": null,
   "portada": "/assets/covers/kavak-oficinas.webp",
   "galeria": [
@@ -1732,7 +1732,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 52,
+  "orden": 53,
   "premios": null,
   "portada": "/assets/covers/luccianos-caballito.webp",
   "galeria": [
@@ -1775,7 +1775,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 51,
+  "orden": 52,
   "premios": null,
   "portada": "/assets/covers/luccianos-olivos.webp",
   "galeria": [
@@ -1821,7 +1821,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 47,
+  "orden": 48,
   "premios": null,
   "portada": "/assets/covers/malabia.webp",
   "galeria": [
@@ -1879,7 +1879,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 37,
+  "orden": 38,
   "premios": null,
   "portada": "/assets/covers/malita.webp",
   "galeria": [
@@ -1925,7 +1925,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 42,
+  "orden": 43,
   "premios": "SBID · Restaurant & Bar Design Awards",
   "portada": "/assets/covers/mamba-bar.webp",
   "galeria": [
@@ -2015,7 +2015,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 30,
+  "orden": 31,
   "premios": "Prix Versailles · Surface Design Awards",
   "portada": "/assets/covers/moshu.webp",
   "galeria": [
@@ -2096,7 +2096,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 43,
+  "orden": 44,
   "premios": "Prix Versailles · Restaurant & Bar Design Awards",
   "portada": "/assets/covers/nim-bar.webp",
   "galeria": [
@@ -2201,7 +2201,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 56,
+  "orden": 57,
   "premios": null,
   "portada": "/assets/gallery/oficina-casa-luna/1.webp",
   "galeria": [
@@ -2566,7 +2566,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 58,
+  "orden": 59,
   "premios": null,
   "portada": "/assets/gallery/ph-el-salvador/1.webp",
   "galeria": [
@@ -2608,7 +2608,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 57,
+  "orden": 58,
   "premios": null,
   "portada": "/assets/gallery/ph-loft-arias/1.webp",
   "galeria": [
@@ -2731,7 +2731,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 32,
+  "orden": 33,
   "premios": null,
   "portada": "/assets/covers/stella-artois-mercat.webp",
   "galeria": [
@@ -2837,7 +2837,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 48,
+  "orden": 49,
   "premios": null,
   "portada": "/assets/covers/the-birra.webp",
   "galeria": [
@@ -2950,9 +2950,9 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 60,
+  "orden": 27,
   "premios": null,
-  "portada": "/assets/gallery/uala-gigena/1.webp",
+  "portada": "/assets/covers/uala-gigena.webp",
   "galeria": [
    "1.webp",
    "2.webp",
@@ -2987,7 +2987,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 33,
+  "orden": 34,
   "premios": null,
   "portada": "/assets/covers/uala-ii.webp",
   "galeria": [
@@ -3046,7 +3046,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 49,
+  "orden": 50,
   "premios": null,
   "portada": "/assets/covers/uala-office.webp",
   "galeria": [
@@ -3110,7 +3110,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 54,
+  "orden": 55,
   "premios": "Restaurant & Bar Design Awards",
   "portada": "/assets/covers/victoria-brown.webp",
   "galeria": [
@@ -3170,7 +3170,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 34,
+  "orden": 35,
   "premios": null,
   "portada": "/assets/covers/williamsburg.webp",
   "galeria": [

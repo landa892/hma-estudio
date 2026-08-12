@@ -82,6 +82,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://estudiohma.com/prensa/publicaciones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/prensa/publicaciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/press/publicaciones/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/prensa/publicaciones/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://estudiohma.com/en/press/publicaciones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/prensa/publicaciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/press/publicaciones/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://estudiohma.com/prensa/publicaciones/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://estudiohma.com/privacidad/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://estudiohma.com/privacidad/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://estudiohma.com/en/privacy/"/>

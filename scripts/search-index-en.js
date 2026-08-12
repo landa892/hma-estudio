@@ -461,7 +461,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Offices",
   "desc": "Offices · Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires · 9.002 m²",
   "url": "/en/projects/uala-gigena/",
-  "img": "/assets/gallery/uala-gigena/1.webp"
+  "img": "/assets/covers/uala-gigena.webp"
  },
  {
   "tipo": "Project",

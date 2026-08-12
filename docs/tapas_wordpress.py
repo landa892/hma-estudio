@@ -73,6 +73,9 @@ PORTADAS = {
     'the-birra': ('/assets/covers/the-birra.webp', 1200, 801),
     'tostado': ('/assets/covers/tostado.webp', 1000, 667),
     'uala-office': ('/assets/covers/uala-office.webp', 1200, 800),
+    # Uala III no tiene carpeta "03 - Caratula" en el Drive. El estudio pidio
+    # otra tapa y se eligio una imagen distinta de su carpeta oficial de fotos.
+    'uala-gigena': ('/assets/covers/uala-gigena.webp', 1200, 604),
     'victoria-brown': ('/assets/covers/victoria-brown.webp', 1200, 800),
     'williamsburg': ('/assets/covers/williamsburg.webp', 1200, 499),
 }

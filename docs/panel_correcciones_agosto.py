@@ -202,8 +202,30 @@ CORRECCIONES = {
         # Las fichas originales de Uala Gigena fueron creadas en 2022. El
         # cliente tambien marco ese ano en la revision final del contenido.
         'anio': valor('2024', '2022'),
+        'portada': valor('/assets/gallery/uala-gigena/1.webp',
+                         '/assets/covers/uala-gigena.webp'),
+        # Habia quedado al final del listado con orden 60 aunque es de 2022.
+        'orden': valor(60, 27),
     },
 }
+
+# Uala Gigena habia quedado ultima al darse de alta sin ano visible. Se ubica
+# dentro del bloque 2022 y se desplazan los ordenes siguientes una posicion.
+for _slug, _orden_anterior in {
+    'burger-7167': 27, 'kavak-oficinas': 28, 'kavak-hub': 29,
+    'moshu': 30, 'abasto-patio-comidas': 31,
+    'stella-artois-mercat': 32, 'uala-ii': 33, 'williamsburg': 34,
+    'fogon': 35, 'fresco': 36, 'malita': 37, 'accor-hotels': 38,
+    'cafe-artois': 39, 'clasico-quilmes': 40, 'elyaki': 41,
+    'mamba-bar': 42, 'nim-bar': 43, 'casa-olmo': 44, 'goodsten': 45,
+    'iguanafix': 46, 'malabia': 47, 'the-birra': 48, 'uala-office': 49,
+    'bolivar': 50, 'luccianos-olivos': 51, 'luccianos-caballito': 52,
+    'atelier-vilela': 53, 'victoria-brown': 54, 'dos-casas-conde': 55,
+    'oficina-casa-luna': 56, 'ph-loft-arias': 57,
+    'ph-el-salvador': 58, 'galeria-objeto-a': 59,
+}.items():
+    CORRECCIONES.setdefault(_slug, {})['orden'] = valor(
+        _orden_anterior, _orden_anterior + 1)
 
 
 def sumar_memorias_en_pendientes():
