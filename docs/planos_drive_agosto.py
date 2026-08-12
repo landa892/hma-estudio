@@ -24,6 +24,13 @@ FUENTE_LOCAL = os.environ.get('HMA_PLANOS_FUENTE', '')
 
 # slug: IDs de las imagenes del Drive, en orden.
 PLANOS = {
+    'cerveceria-austral': [
+        '1N_zcKtv7j10C4rE8A-LrdmIv74cl7vUS',
+        '17j7zdcorph1uhWwcouS9-96rk490QBlD',
+        '1WTFfk32LEvd9RgFQNqkWER_eL6QMO9QQ',
+        '11ODuFmkZS3qndUypioVxsAq0XrMq81C4',
+        '1meqDXmeSqNcThcKEm7Ba7UfqVaoJG9l5',
+    ],
     'cceba': [
         '1TomUdaO-9j_l0FlDfa5gzInKkB4kuCry',
         '1SNjrZUFMPN6QE1cJzJBg8pgg3Taq04_b',
@@ -58,6 +65,16 @@ PLANOS = {
         '1HN0968uKALMPNtGe4uMQeaaffxevHgQy',
         '1VUd5-24Y8ecie-olBfXgbhlAaDC1X_lC',
         '1upWLRpIENeLhM_MyqLdRmch1WQrnECsd',
+    ],
+    'parfumerie': [
+        '1EGPTjNJdoCHNVqXgOwfYXzvfhh76uq_N',
+        '1d2gpYz7ms-WzZnruPIn8oLMqkJ-BiPnN',
+        '15KDjKdNH7bH5LaRhDATthEdpWRMpF98w',
+        '19LWfkg4Vdg-Xkg_XlejDT1kWfLKk4IXA',
+        '1fXo_nZ6_aA2Zp2tCJ72WyBwsQNotyqrh',
+        '1Zu0m7w036GVLssVHJxlP3DgvfgOQXzqW',
+        '1kr9wSciG4SXrnm_d8aq5gCM2PaoNSA66',
+        '14f2Qtm55Ru10yfTxyn0RGwtZbZiobrcm',
     ],
     'ph-el-salvador': [
         '1fqqWqUD9IUTr5qxNkO0gltPM47cHgFhG',
