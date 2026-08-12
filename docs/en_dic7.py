@@ -21,6 +21,21 @@ PASA_EXACTO.update({
     # Nombre de la obra en la barra de premios, desde que el premio del concurso
     # internacional dejo de estar atribuido a Novotel. Es marca, no se traduce.
     'Accor',
+    # Los dos premios que se sumaron el 12/08/2026. Son nombres propios.
+    'Casa FOA', 'Archello',
+})
+
+DIC.update({
+    # Las dos filas nuevas de la pagina de premios.
+    'La cafetería de Osten en la 40ª edición, en Madero Harbour.':
+        'The Osten coffee shop at the 40th edition, in Madero Harbour.',
+    'Elegida entre lo mejor del año por Archello.':
+        'Chosen among the best of the year by Archello.',
+    # Ninguno de los dos es un concurso con ganadores: Casa FOA es una muestra y
+    # el "Best of" de Archello una seleccion curada. Los rotulos lo dicen asi.
+    'Espacio seleccionado': 'Selected space',
+    'Seleccionada': 'Selected',
+    'Ámsterdam': 'Amsterdam',
 })
 
 DIC.update({
