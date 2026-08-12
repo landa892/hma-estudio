@@ -30,6 +30,10 @@ def valor(viejo, nuevo):
     return lambda actual: nuevo if actual == viejo else actual
 
 
+def completar_vacio(nuevo):
+    return lambda actual: nuevo if not actual else actual
+
+
 CORRECCIONES = {
     'edificio-del-plata': {
         'memoria': reemplazo('corresponde a oficinas:', 'Corresponde a oficinas:'),
@@ -151,6 +155,17 @@ CORRECCIONES = {
              'Arq. Carmela Zuleta', 'Arq. Juliana Zorza', 'Arq. Samira Attar']),
     },
 }
+
+
+def sumar_memorias_en_pendientes():
+    ruta = os.path.join(RAIZ, 'docs', 'memorias_en_agosto.json')
+    with io.open(ruta, encoding='utf-8') as archivo:
+        traducciones = json.load(archivo)
+    for slug, traduccion in traducciones.items():
+        CORRECCIONES.setdefault(slug, {})['memoria_en'] = completar_vacio(traduccion)
+
+
+sumar_memorias_en_pendientes()
 
 
 def corregir(obras):

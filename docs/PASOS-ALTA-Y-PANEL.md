@@ -206,6 +206,7 @@ En Supabase → **SQL Editor**. Pegar y ejecutar **en este orden**, de a uno:
 | 5 | `supabase/migrations/0005_obras.sql` | **las 61 obras del sitio** |
 | 6 | `supabase/migrations/0006_banners.sql` | los rótulos de los banners del home |
 | 7 | `supabase/migrations/0007_correcciones_cliente_agosto.sql` | correcciones de fichas y memorias |
+| 8 | `supabase/migrations/0008_memorias_ingles.sql` | completa las seis memorias en inglés |
 
 El orden importa: cada uno usa lo que creó el anterior.
 
@@ -351,9 +352,6 @@ entrando a su dirección, ni consultando la base a mano.
 Nada de esto rompe el sitio. Son huecos que se ven si se buscan.
 
 - **Parfumerie**: la carátula está en 643 px; el resto ronda los 1200
-- **Seis obras sin memoria en inglés**: Accor, Antiche, Indusparquet, IOL,
-  Lucciano's Caballito y Roket. En el sitio en inglés esas páginas van sin ese
-  bloque
 - **Tres obras con sólo los dos socios en el equipo**: Accor, Iguanafix y
   Tostado. No hay más nombres en ninguna fuente
 - **"Comitente" vacío en las 61 obras** — el sitio nunca mostró ese campo. El
