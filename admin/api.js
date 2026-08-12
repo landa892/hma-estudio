@@ -65,8 +65,11 @@
     }).catch(function () {
       // Cuando fetch se rechaza no hay respuesta HTTP que traducir: sin esto
       // al usuario le llegaba el "Failed to fetch" del navegador, en ingles.
-      var e = new Error('No pudimos conectar con el servidor. '
-        + 'Revisá tu conexión y probá de nuevo.');
+      // No se afirma que sea la conexion del usuario: el pedido puede no haber
+      // salido por una red caida, pero tambien porque el sitio se estaba
+      // reconstruyendo o porque la base quedo suspendida por inactividad.
+      var e = new Error('El pedido no llegó al servidor. Probá de nuevo en un '
+        + 'minuto; si sigue igual, avisá.');
       e.sinRed = true;
       throw e;
     }).then(function (r) {
@@ -105,7 +108,7 @@
       return 'Tu sesión venció. Volvé a entrar.';
     }
     if (!crudo) {
-      return 'No pudimos conectar con el servidor. Revisá tu conexión.';
+      return 'El servidor contestó sin explicar el error. Probá de nuevo.';
     }
     return crudo;
   }

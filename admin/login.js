@@ -17,6 +17,23 @@
     return /^\/admin\/[A-Za-z0-9._~/-]*$/.test(pedido) ? pedido : '/admin/obras';
   }
 
+  /* Ver la contraseña. La eligio otra persona y se escribe una vez cada tanto:
+     a ciegas, un rebote no distingue un dedazo de una contraseña equivocada. */
+  (function () {
+    var ojo = document.getElementById('verClave');
+    var campo = document.getElementById('clave');
+    if (!ojo || !campo) return;
+    ojo.addEventListener('click', function () {
+      var visible = campo.type === 'text';
+      campo.type = visible ? 'password' : 'text';
+      ojo.textContent = visible ? 'Mostrar' : 'Ocultar';
+      ojo.setAttribute('aria-pressed', visible ? 'false' : 'true');
+      ojo.setAttribute('aria-label',
+        visible ? 'Mostrar la contraseña' : 'Ocultar la contraseña');
+      campo.focus();
+    });
+  })();
+
   function avisar(el, texto, tipo) {
     el.textContent = texto || '';
     el.className = 'aviso' + (texto ? ' aviso--' + tipo : '');

@@ -39,7 +39,14 @@
           </div>
           <div class="campo">
             <label for="clave">Contraseña</label>
-            <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+            <!-- El ojo es util de verdad aca: la contraseña la eligio otra
+                 persona y se escribe una vez cada tanto, asi que escribirla a
+                 ciegas y que rebote no dice si fue un dedazo o si esta mal. -->
+            <div class="campo__clave">
+              <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+              <button type="button" class="campo__ojo" id="verClave" aria-pressed="false"
+                aria-label="Mostrar la contraseña">Mostrar</button>
+            </div>
           </div>
           <button type="submit" class="boton" id="botonEntrar">Entrar</button>
           <p class="aviso" id="avisoEntrar" role="status" aria-live="polite"></p>

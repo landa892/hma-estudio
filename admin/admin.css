@@ -589,3 +589,36 @@ textarea:focus-visible {
 }
 
 .boton--claro:hover:not(:disabled) { background: var(--fondo); }
+
+/* El campo de contraseña con su boton de ver. El boton va adentro del recuadro
+   y no al lado para que el campo no pierda ancho en el telefono, que es donde
+   el estudio va a entrar la mitad de las veces. */
+.campo__clave {
+  position: relative;
+}
+
+.campo__clave input {
+  padding-right: 5.5rem;
+}
+
+.campo__ojo {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: none;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: .82rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--gris, #666);
+  cursor: pointer;
+}
+
+.campo__ojo:hover,
+.campo__ojo:focus-visible {
+  color: #000;
+  text-decoration: underline;
+}
