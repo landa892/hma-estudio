@@ -3237,6 +3237,22 @@ footer.site-footer {
   margin-top: 0;
 }
 
+.work-split--ancha .work-steps {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .work-split--ancha .work-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .work-split--ancha .work-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
 .work-split__text p {
   font-size: clamp(1.05rem, 2vw, 1.4rem);
   line-height: 1.5;

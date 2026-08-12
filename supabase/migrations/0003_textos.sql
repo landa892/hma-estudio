@@ -10,10 +10,7 @@ insert into textos (clave, seccion, rotulo, es, en, multilinea, orden) values
 Más de dos décadas creando identidades de marca en América Latina, Europa, Medio Oriente y EE.UU.', 'Architecture and interior design for hotels, restaurants, offices and homes. More than two decades creating brand identities across Latin America, Europe, the Middle East and the US.', true, 2),
   ('estudio.eyebrow', 'estudio', 'Rotulo sobre el titulo', 'Desde 2006 — Buenos Aires', 'Since 2006 — Buenos Aires', false, 3),
   ('estudio.titular', 'estudio', 'Titulo de la pagina', 'Quiénes somos', 'Who we are', false, 4),
-  ('estudio.presentacion', 'estudio', 'Presentacion del estudio', 'En Hitzig Militello Arquitectos llevamos a cabo proyectos
-comerciales y residenciales de alta calidad en toda Latinoamérica, Europa, Oriente Medio y Estados Unidos. Con
-un enfoque especial en hotelería y espacios de trabajo, nos hemos convertido en auténticos artesanos de las
-marcas, con reconocimiento internacional.', 'At Hitzig Militello Architects we deliver high-quality commercial and residential projects across Latin America, Europe, the Middle East and the United States. With a particular focus on hospitality and workspaces, we have become genuine craftsmen of brands, with international recognition.', true, 5),
+  ('estudio.presentacion', 'estudio', 'Presentacion del estudio', 'En Hitzig Militello arquitectos realizamos proyectos comerciales de forma local y regional tanto en América Latina, como en Europa, Medio Oriente y EEUU, con especial enfoque en la industria de la hospitalidad. Más de dos décadas de trayectoria creado arquitectura e interiorismos de reconocimiento internacional.', 'At Hitzig Militello Architects, we deliver commercial projects locally and regionally across Latin America, Europe, the Middle East and the United States, with a particular focus on the hospitality industry. For more than two decades, we have created internationally recognised architecture and interior design.', true, 5),
   ('contacto.titular', 'contacto', 'Titulo de la pagina', 'Hablemos de tu proyecto', 'Let''s talk about your project', false, 6),
   ('contacto.direccion', 'contacto', 'Direccion', 'Soler 5130, 1° B — Palermo
 C1425, Buenos Aires, Argentina', 'Soler 5130, 1° B — Palermo C1425, Buenos Aires, Argentina', true, 7),

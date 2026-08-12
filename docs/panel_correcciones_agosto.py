@@ -11,6 +11,7 @@ el estudio desde el panel.
 import io
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -32,6 +33,49 @@ def valor(viejo, nuevo):
 
 def completar_vacio(nuevo):
     return lambda actual: nuevo if not actual else actual
+
+
+def texto_normalizado(viejo, nuevo):
+    """Corrige el texto viejo aunque Supabase use saltos CRLF."""
+    esperado = re.sub(r'\s+', ' ', viejo).strip()
+
+    def aplicar(actual):
+        if isinstance(actual, str) and re.sub(r'\s+', ' ', actual).strip() == esperado:
+            return nuevo
+        return actual
+    return aplicar
+
+
+PRESENTACION_ANTERIOR_ES = (
+    'En Hitzig Militello Arquitectos llevamos a cabo proyectos comerciales y '
+    'residenciales de alta calidad en toda Latinoamérica, Europa, Oriente Medio '
+    'y Estados Unidos. Con un enfoque especial en hotelería y espacios de '
+    'trabajo, nos hemos convertido en auténticos artesanos de las marcas, con '
+    'reconocimiento internacional.')
+PRESENTACION_NUEVA_ES = (
+    'En Hitzig Militello arquitectos realizamos proyectos comerciales de forma '
+    'local y regional tanto en América Latina, como en Europa, Medio Oriente y '
+    'EEUU, con especial enfoque en la industria de la hospitalidad. Más de dos '
+    'décadas de trayectoria creado arquitectura e interiorismos de reconocimiento '
+    'internacional.')
+PRESENTACION_ANTERIOR_EN = (
+    'At Hitzig Militello Architects we deliver high-quality commercial and '
+    'residential projects across Latin America, Europe, the Middle East and the '
+    'United States. With a particular focus on hospitality and workspaces, we '
+    'have become genuine craftsmen of brands, with international recognition.')
+PRESENTACION_NUEVA_EN = (
+    'At Hitzig Militello Architects, we deliver commercial projects locally and '
+    'regionally across Latin America, Europe, the Middle East and the United '
+    'States, with a particular focus on the hospitality industry. For more than '
+    'two decades, we have created internationally recognised architecture and '
+    'interior design.')
+
+TEXTOS_CORRECCIONES = {
+    'estudio.presentacion': {
+        'es': texto_normalizado(PRESENTACION_ANTERIOR_ES, PRESENTACION_NUEVA_ES),
+        'en': texto_normalizado(PRESENTACION_ANTERIOR_EN, PRESENTACION_NUEVA_EN),
+    },
+}
 
 
 CORRECCIONES = {
@@ -189,6 +233,22 @@ def corregir(obras):
     return cambios
 
 
+def corregir_textos(textos):
+    cambios = {}
+    por_clave = {t['clave']: t for t in textos}
+    for clave, campos in TEXTOS_CORRECCIONES.items():
+        fila = por_clave.get(clave)
+        if not fila:
+            continue
+        for campo, transformar in campos.items():
+            anterior = fila.get(campo)
+            nuevo = transformar(anterior)
+            if nuevo != anterior:
+                fila[campo] = nuevo
+                cambios.setdefault(clave, {})[campo] = nuevo
+    return cambios
+
+
 def parchear_supabase(cambios, url, clave):
     cabeceras = {
         'apikey': clave,
@@ -206,10 +266,35 @@ def parchear_supabase(cambios, url, clave):
             pass
 
 
+def parchear_textos_supabase(cambios, url, clave):
+    cabeceras = {
+        'apikey': clave,
+        'Authorization': 'Bearer ' + clave,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+    }
+    for clave_texto, campos in cambios.items():
+        pedido = urllib.request.Request(
+            url + '/rest/v1/textos?clave=eq.' + clave_texto,
+            data=json.dumps(campos, ensure_ascii=False).encode('utf-8'),
+            headers=cabeceras,
+            method='PATCH')
+        with urllib.request.urlopen(pedido, timeout=30):
+            pass
+
+
 def desde_supabase(url, clave):
     campos = sorted({campo for cs in CORRECCIONES.values() for campo in cs})
     pedido = urllib.request.Request(
         url + '/rest/v1/obras?select=slug,' + ','.join(campos),
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+    with urllib.request.urlopen(pedido, timeout=30) as respuesta:
+        return json.loads(respuesta.read().decode('utf-8'))
+
+
+def textos_desde_supabase(url, clave):
+    pedido = urllib.request.Request(
+        url + '/rest/v1/textos?select=clave,es,en',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
     with urllib.request.urlopen(pedido, timeout=30) as respuesta:
         return json.loads(respuesta.read().decode('utf-8'))
@@ -225,6 +310,9 @@ def main(supabase):
         cambios = corregir(obras)
         parchear_supabase(cambios, url, clave)
         print('correcciones aplicadas en Supabase: %d obras' % len(cambios))
+        cambios_textos = corregir_textos(textos_desde_supabase(url, clave))
+        parchear_textos_supabase(cambios_textos, url, clave)
+        print('correcciones aplicadas en Supabase: %d textos' % len(cambios_textos))
         return
 
     ruta = os.path.join(RAIZ, 'docs', 'panel_datos.json')
@@ -236,6 +324,16 @@ def main(supabase):
             json.dump(obras, archivo, ensure_ascii=False, indent=1)
             archivo.write('\n')
     print('correcciones aplicadas en panel_datos.json: %d obras' % len(cambios))
+
+    ruta_textos = os.path.join(RAIZ, 'docs', 'panel_textos.json')
+    with io.open(ruta_textos, encoding='utf-8') as archivo:
+        textos = json.load(archivo)
+    cambios_textos = corregir_textos(textos)
+    if cambios_textos:
+        with io.open(ruta_textos, 'w', encoding='utf-8', newline='\n') as archivo:
+            json.dump(textos, archivo, ensure_ascii=False, indent=1)
+            archivo.write('\n')
+    print('correcciones aplicadas en panel_textos.json: %d textos' % len(cambios_textos))
 
 
 if __name__ == '__main__':

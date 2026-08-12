@@ -44,6 +44,14 @@ DIC.update({
     # necesita entero para el panel de autogestion.
     'Creando & construyendo ideas': 'Creating & building ideas',
 
+    # --- correcciones de contenido de la pagina Estudio ---
+    'En Hitzig Militello arquitectos realizamos proyectos comerciales de forma local y regional tanto en América Latina, como en Europa, Medio Oriente y EEUU, con especial enfoque en la industria de la hospitalidad. Más de dos décadas de trayectoria creado arquitectura e interiorismos de reconocimiento internacional.':
+        'At Hitzig Militello Architects, we deliver commercial projects locally and regionally across Latin America, Europe, the Middle East and the United States, with a particular focus on the hospitality industry. For more than two decades, we have created internationally recognised architecture and interior design.',
+    'Conceptualizamos ideas.': 'We conceptualise ideas.',
+    'Generamos la documentación técnica.': 'We produce the technical documentation.',
+    'Creamos el producto arquitectónico.': 'We create the architectural product.',
+    'Construimos nuestras ideas.': 'We build our ideas.',
+
     # --- fotos nuevas de la pagina Estudio ---
     # Reemplazan a la del plano y al fotograma del video: el estudio pidio dos
     # fotos propias en buena resolucion.
