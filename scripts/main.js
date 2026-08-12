@@ -577,85 +577,16 @@ try {
   }
 } catch (e) { console.error('search-page', e); }
 
-try {
-  /* ---------- WHATSAPP CON CAPTURA DE DATOS ----------
-     Antes del salto a WhatsApp se piden nombre y telefono y se mandan a
-     /api/lead, para que el estudio pueda contactar aunque la persona nunca
-     llegue a escribir el mensaje.
+/* El estudio no tiene WhatsApp: usan solo una linea telefonica. Hasta el
+   12/08/2026 el popup de contacto ofrecia "WhatsApp - Chatear ahora" y un
+   formulario que prometia "seguimos la charla por WhatsApp", que era una
+   promesa que el sitio no podia cumplir.
 
-     >>> UNICO LUGAR A EDITAR cuando este el numero de WhatsApp del estudio:
-     solo digitos, con codigo de pais y sin espacios ni signos.
-     Ejemplo: '5491122334455'. Vacio = todavia no configurado. */
-  const WHATSAPP_NUMBER = '';
-
-  const waStart = document.getElementById('waStart');
-  const waForm = document.getElementById('waForm');
-  const waList = document.getElementById('contactPopList');
-
-  if (waStart && waForm && waList) {
-    const waStatus = document.getElementById('waStatus');
-    const waSubmit = document.getElementById('waSubmit');
-    const nameEl = document.getElementById('wa-name');
-    const phoneEl = document.getElementById('wa-phone');
-    const consentEl = document.getElementById('wa-consent');
-    const companyEl = document.getElementById('wa-company');
-
-    waStart.addEventListener('click', () => {
-      waList.hidden = true;
-      waForm.hidden = false;
-      nameEl.focus();
-    });
-
-    waForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      waStatus.textContent = '';
-      waStatus.className = 'form-status';
-
-      const name = nameEl.value.trim();
-      const phone = phoneEl.value.trim();
-
-      if (!name || phone.replace(/\D/g, '').length < 6) {
-        waStatus.textContent = T('Completá tu nombre y un teléfono válido.', 'Please enter your name and a valid phone number.');
-        waStatus.classList.add('err');
-        return;
-      }
-      if (!consentEl.checked) {
-        waStatus.textContent = T('Necesitamos tu confirmación para poder contactarte.', 'We need your consent in order to contact you.');
-        waStatus.classList.add('err');
-        return;
-      }
-
-      waSubmit.disabled = true;
-      waSubmit.textContent = T('Abriendo…', 'Opening…');
-
-      // El aviso al estudio no debe frenar a la persona: si falla, sigue igual.
-      try {
-        await fetch('/api/lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, company: companyEl ? companyEl.value : '' }),
-        });
-      } catch (err) {
-        console.error('lead', err);
-      }
-
-      if (WHATSAPP_NUMBER) {
-        const texto = encodeURIComponent('Hola, soy ' + name + '. Quiero consultar por un proyecto.');
-        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + texto, '_blank', 'noopener');
-        waStatus.textContent = T('Listo, te abrimos WhatsApp.', 'Done — opening WhatsApp.');
-        waStatus.classList.add('ok');
-      } else {
-        // Sin numero cargado todavia: al menos quedan los datos guardados.
-        waStatus.textContent = T('Gracias, ', 'Thank you, ') + name + T('. Te vamos a contactar a la brevedad.', '. We will be in touch shortly.');
-        waStatus.classList.add('ok');
-      }
-
-      waForm.reset();
-      waSubmit.disabled = false;
-      waSubmit.textContent = T('Iniciar conversación', 'Start a conversation');
-    });
-  }
-} catch (e) { console.error('wa-lead', e); }
+   Se saco el boton y el formulario de todas las paginas. El endpoint
+   /api/lead.js queda en pie y sin usar: capturaba nombre y telefono y se los
+   mandaba por mail al estudio, asi que sirve tal cual si algun dia quieren un
+   "dejanos tu telefono y te llamamos". Borrarlo seria tirar algo que funciona
+   y habria que rehacerlo igual. */
 
 try {
   /* ---------- PRENSA + NEWS: solapas y años combinados ----------
