@@ -57,6 +57,16 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # Bajadas actualizadas desde el panel en agosto.
+    'Una cremería concebida como un volumen facetado, inspirado en la superficie de una piedra preciosa.':
+        'A creamery conceived as a faceted volume inspired by the surface of a precious stone.',
+    'Dos sucursales de la cafetería Juan Valdez.':
+        'Two Juan Valdez coffee shop locations.',
+    'Un paisaje de escamas facetadas unifica todo el bar, con vitrina artística y patio verde al fondo.':
+        'A landscape of faceted scales unifies the bar, with an art display and a green courtyard beyond.',
+    'Tostado Café Club: locales en Argentina, Uruguay, Miami y San Pablo.':
+        'Tostado Café Club locations in Argentina, Uruguay, Miami and São Paulo.',
+
     # El estudio se fundo en 2006, no en 2002.
     'Desde 2006 — Buenos Aires': 'Since 2006 — Buenos Aires',
     'Desde 2006 — obra construida en': 'Since 2006 — built work in',

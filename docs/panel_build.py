@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Arma el sitio desde la base. Es lo unico que corre el build de Vercel.
 
-   Los diez pasos podrian ir encadenados con && en la casilla de Vercel, pero el
+   Los doce pasos podrian ir encadenados con && en la casilla de Vercel, pero el
    comando de build admite 256 caracteres y esa cadena mide mas del doble. Aca
    ademas se ve en el log donde falla, que en una sola linea de shell no se ve.
 
@@ -13,17 +13,18 @@
                         encuentra el valor viejo; no pisa ediciones posteriores.
      3. panel_alta      crea la pagina de cada obra nueva y baja sus fotos.
                         Va antes del generador: si la pagina no existe, la saltea.
-     4. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
-     5. panel_sitio     saca del sitio las eliminadas o despublicadas.
-     6. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
+     4. panel_galerias  conecta las fotos historicas y aplica portada y orden.
+     5. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
+     6. panel_sitio     saca del sitio las eliminadas o despublicadas.
+     7. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
                         con el estado de la base. Va despues de las altas y las
                         bajas, que son las que agregan y sacan tarjetas.
-     7. panel_textos    escribe los textos fijos de home, estudio y contacto.
-     8. panel_home      pone las destacadas en los banners del home.
-     9. prensa_pagina   rearma el archivo completo de publicaciones.
-    10. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+     8. panel_textos    escribe los textos fijos de home, estudio y contacto.
+     9. panel_home      pone las destacadas en los banners del home.
+    10. prensa_pagina   rearma el archivo completo de publicaciones.
+    11. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    11. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    12. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -41,6 +42,7 @@ PASOS = [
     ('la conexion del panel',        'panel_config.py',  []),
     ('las correcciones de contenido','panel_correcciones_agosto.py', ['--supabase']),
     ('las obras nuevas',             'panel_alta.py',    ['--supabase']),
+    ('las galerias y portadas',       'panel_galerias.py', []),
     ('los datos de cada obra',       'panel_generar.py', ['--supabase']),
     ('las obras que ya no van',      'panel_sitio.py',   ['--supabase']),
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),

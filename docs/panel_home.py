@@ -45,6 +45,7 @@ import urllib.request
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HOME = os.path.join(RAIZ, 'index.html')
 DESTINO_EN = os.path.join(RAIZ, 'docs', 'en_textos_banner.json')
+PORTADAS_PANEL = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 
 # Cuantos banners de este molde hay en el home. Si algun dia se suma o se saca
 # uno, este numero y el home se mueven juntos.
@@ -90,14 +91,22 @@ def medidas_webp(ruta):
 
 def foto_del_banner(slug):
     """(ruta publica, ancho, alto, aviso)."""
+    portada_panel = None
+    if os.path.isfile(PORTADAS_PANEL):
+        mapa = json.load(io.open(PORTADAS_PANEL, encoding='utf-8'))
+        portada_panel = mapa.get(slug)
     candidatas = [
         ('/assets/covers/%s-hero.webp' % slug, None),
+        ((portada_panel or {}).get('src'),
+         'no tiene caratula -hero recortada para el home'),
         ('/assets/covers/%s.webp' % slug,
          'no tiene caratula -hero recortada para el home'),
         ('/assets/gallery/%s/1.webp' % slug,
          'no tiene ninguna caratula: va la primera foto de la galeria'),
     ]
     for publica, aviso in candidatas:
+        if not publica:
+            continue
         local = os.path.join(RAIZ, publica.lstrip('/').replace('/', os.sep))
         m = medidas_webp(local)
         if m:

@@ -207,8 +207,13 @@ En Supabase → **SQL Editor**. Pegar y ejecutar **en este orden**, de a uno:
 | 6 | `supabase/migrations/0006_banners.sql` | los rótulos de los banners del home |
 | 7 | `supabase/migrations/0007_correcciones_cliente_agosto.sql` | correcciones de fichas y memorias |
 | 8 | `supabase/migrations/0008_memorias_ingles.sql` | completa las seis memorias en inglés |
+| 9 | `supabase/migrations/0009_seguridad_panel.sql` | restringe la edición al correo del estudio y limita el home a tres destacadas |
 
 El orden importa: cada uno usa lo que creó el anterior.
+
+En **Authentication → Providers → Email**, desactivar **Allow new users to sign
+up**. El usuario se crea manualmente en el paso siguiente; ninguna otra cuenta
+debe poder registrarse por API.
 
 Cargar las 61 obras **no cambia nada visible** — ya se muestran. Lo que
 habilita es que el estudio pueda editarlas desde el panel.
@@ -261,7 +266,7 @@ Vercel → **Settings → Build & Development Settings → Build Command**:
 python3 docs/panel_build.py
 ```
 
-Los once pasos viven en ese script y no encadenados con `&&` en la casilla por
+Los doce pasos viven en ese script y no encadenados con `&&` en la casilla por
 una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
 cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
 que en una sola línea de shell no se ve.
@@ -272,13 +277,14 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden (son once)
+### Qué hace cada paso, y por qué en ese orden (son doce)
 
 | Paso | Qué hace |
 |---|---|
 | `panel_config.py` | Escribe `admin/config.js` desde las variables. Sin esto el panel publicado no conecta con nada. |
 | `panel_correcciones_agosto.py` | Migra los valores viejos marcados por el cliente. Es condicional: no pisa una edición posterior hecha desde el panel. |
 | `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
+| `panel_galerias.py` | Conecta hasta 15 fotos de cada obra histórica con el panel y aplica orden, portada, altas y bajas desde la primera edición. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
 | `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas. |
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |

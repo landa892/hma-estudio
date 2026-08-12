@@ -135,7 +135,44 @@
       return 'Para publicarla falta la memoria descriptiva. '
         + 'Podés guardarla como borrador y completarla después.';
     }
+    if (o.publicada && !o.categoria) {
+      return 'Para publicarla elegí una categoría. Es la que usa el filtro de Trabajos.';
+    }
+    if (o.destacada && !o.publicada) {
+      return 'Para mostrarla en el home, la obra primero tiene que estar publicada.';
+    }
+    if (o.destacada && (!o.banner_rotulo || !o.banner_rotulo_en)) {
+      return 'Para mostrarla en el home completá el rótulo del banner en castellano e inglés.';
+    }
     return null;
+  }
+
+  function validarRelacionados(o) {
+    if (esNueva && o.publicada) {
+      return Promise.reject(new Error(
+        'Primero guardala como borrador, cargá al menos una foto y después publicala.'
+      ));
+    }
+
+    var fotos = o.publicada
+      ? DATOS.listarImagenes(id).then(function (lista) {
+        if (!lista.length) {
+          throw new Error('Para publicarla cargá al menos una foto y elegí una portada.');
+        }
+      })
+      : Promise.resolve();
+
+    return fotos.then(function () {
+      if (!o.destacada || (original && original.destacada)) return;
+      return DATOS.listarObras().then(function (obras) {
+        var ocupadas = obras.filter(function (obra) {
+          return obra.id !== id && obra.publicada && obra.destacada;
+        }).length;
+        if (ocupadas >= 3) {
+          throw new Error('El home ya tiene sus 3 obras destacadas. Sacá una antes de sumar esta.');
+        }
+      });
+    });
   }
 
   function contarBajada() {
@@ -161,9 +198,11 @@
     $('guardar').textContent = 'Guardando…';
     avisar('', 'ok');
 
-    var promesa = esNueva
-      ? DATOS.crearObra(o)
-      : DATOS.actualizarObra(id, o);
+    var promesa = validarRelacionados(o).then(function () {
+      return esNueva
+        ? DATOS.crearObra(o)
+        : DATOS.actualizarObra(id, o);
+    });
 
     promesa.then(function (fila) {
       original = fila;

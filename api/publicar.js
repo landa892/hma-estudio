@@ -45,6 +45,14 @@ module.exports = async function handler(req, res) {
       return res.status(401).json({ error: "Tu sesión venció. Volvé a entrar." });
     }
 
+    const usuario = await quien.json();
+    const correoPermitido = (process.env.PANEL_ADMIN_EMAIL || "hitzig.militello@gmail.com")
+      .trim()
+      .toLowerCase();
+    if ((usuario.email || "").toLowerCase() !== correoPermitido) {
+      return res.status(403).json({ error: "Esta cuenta no tiene permiso para publicar." });
+    }
+
     // --- disparar ---------------------------------------------------------
     const build = await fetch(hook, { method: "POST" });
     if (!build.ok) {

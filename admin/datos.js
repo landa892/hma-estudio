@@ -111,6 +111,11 @@
   }
 
   function borrarArchivos(rutas) {
+    rutas = (rutas || []).filter(function (ruta) {
+      return ruta && !/^@(seed|site):/.test(ruta);
+    });
+    if (!rutas.length) return Promise.resolve();
+
     return HMA.token().then(function (t) {
       return fetch(HMA.BASE + '/storage/v1/object/obras', {
         method: 'DELETE',
@@ -120,6 +125,10 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ prefixes: rutas }),
+      }).then(function (r) {
+        if (!r.ok) {
+          throw new Error('No pudimos eliminar el archivo de la galería. Probá de nuevo.');
+        }
       });
     });
   }

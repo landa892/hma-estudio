@@ -17,6 +17,7 @@
   var obraId = null;
   var fotos = [];
   var arrastrada = null;
+  var activando = null;
 
   /* --- optimizacion ----------------------------------------------------- */
 
@@ -69,7 +70,30 @@
   }
 
   function urlPublica(ruta) {
+    if (/^@(seed|site):/.test(ruta || '')) {
+      return ruta.replace(/^@(seed|site):/, '');
+    }
     return HMA.BASE + '/storage/v1/object/public/obras/' + ruta;
+  }
+
+  /* Las obras anteriores al panel arrancan con una selección de fotos del
+     sitio. Recién al primer cambio se marca esa selección como administrada:
+     así el primer deploy no recorta una galería histórica sin intervención. */
+  function activarGestion() {
+    var heredadas = fotos.filter(function (f) {
+      return /^@seed:/.test(f.storage_path || '');
+    });
+    if (!heredadas.length) return Promise.resolve();
+    if (activando) return activando;
+
+    activando = Promise.all(heredadas.map(function (f) {
+      var nueva = f.storage_path.replace(/^@seed:/, '@site:');
+      return rest('/obra_imagenes?id=eq.' + encodeURIComponent(f.id), {
+        method: 'PATCH',
+        body: { storage_path: nueva },
+      }).then(function () { f.storage_path = nueva; });
+    })).finally(function () { activando = null; });
+    return activando;
   }
 
   function rest(ruta, opciones) {
@@ -183,7 +207,10 @@
     var f = fotos.splice(desde, 1)[0];
     fotos.splice(hasta, 0, f);
     pintar();
-    guardarOrden();
+    activarGestion().then(guardarOrden).catch(function (e) {
+      avisar(e.message, 'error');
+      cargar();
+    });
   }
 
   /* Se graba solo lo que cambio de lugar: mover la ultima foto de 15 no tiene
@@ -215,10 +242,12 @@
     var anterior = fotos.filter(function (f) { return f.es_portada; })[0];
     avisar('Cambiando la portada…', 'ok');
 
-    var paso = anterior
-      ? rest('/obra_imagenes?id=eq.' + encodeURIComponent(anterior.id),
-        { method: 'PATCH', body: { es_portada: false } })
-      : Promise.resolve();
+    var paso = activarGestion().then(function () {
+      return anterior
+        ? rest('/obra_imagenes?id=eq.' + encodeURIComponent(anterior.id),
+          { method: 'PATCH', body: { es_portada: false } })
+        : Promise.resolve();
+    });
 
     paso.then(function () {
       return rest('/obra_imagenes?id=eq.' + encodeURIComponent(foto.id),
@@ -241,7 +270,9 @@
 
     // Primero el archivo y despues la fila: al reves, si falla el segundo paso
     // el archivo queda en el bucket sin nada que lo referencie.
-    DATOS.borrarArchivos([foto.storage_path]).then(function () {
+    activarGestion().then(function () {
+      return DATOS.borrarArchivos([foto.storage_path]);
+    }).then(function () {
       return rest('/obra_imagenes?id=eq.' + encodeURIComponent(foto.id),
         { method: 'DELETE' });
     }).then(function () {
@@ -298,9 +329,13 @@
       var archivo = lista[i];
       avisar('Subiendo ' + (i + 1) + ' de ' + lista.length + '…', 'ok');
 
-      optimizar(archivo).then(function (opt) {
+      var rutaSubida = null;
+      activarGestion().then(function () {
+        return optimizar(archivo);
+      }).then(function (opt) {
         var ruta = obraId + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.webp';
         return subirArchivo(ruta, opt.blob).then(function () {
+          rutaSubida = ruta;
           return rest('/obra_imagenes', {
             method: 'POST',
             devolver: true,
@@ -322,8 +357,13 @@
         pintar();
         siguiente(i + 1);
       }).catch(function (e) {
-        fallos.push(archivo.name);
-        siguiente(i + 1);
+        var limpiar = rutaSubida
+          ? DATOS.borrarArchivos([rutaSubida]).catch(function () {})
+          : Promise.resolve();
+        limpiar.then(function () {
+          fallos.push(archivo.name + (e.message ? ' (' + e.message + ')' : ''));
+          siguiente(i + 1);
+        });
       });
     };
 
