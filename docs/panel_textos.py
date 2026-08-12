@@ -27,6 +27,7 @@
 """
 import html as _html
 import io, json, os, re, sys
+import urllib.parse
 import urllib.request
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,7 +68,32 @@ def desde_supabase():
         url + '/rest/v1/textos?select=clave,es,en',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
     with urllib.request.urlopen(pedido, timeout=30) as r:
-        return json.loads(r.read().decode('utf-8'))
+        filas = json.loads(r.read().decode('utf-8'))
+
+    # Correccion puntual pedida por el estudio. Es condicional para no pisar
+    # una edicion futura hecha desde el panel: solo migra el valor anterior.
+    anterior = 'Hablemos de tu proyecto'
+    for fila in filas:
+        if fila.get('clave') != 'contacto.titular' or fila.get('es') != anterior:
+            continue
+        nuevo = {'es': 'Contacto', 'en': 'Contact'}
+        consulta = ('/rest/v1/textos?clave=eq.contacto.titular&es=eq.' +
+                    urllib.parse.quote(anterior, safe=''))
+        parche = urllib.request.Request(
+            url + consulta,
+            data=json.dumps(nuevo).encode('utf-8'),
+            method='PATCH',
+            headers={
+                'apikey': clave,
+                'Authorization': 'Bearer ' + clave,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal',
+            })
+        with urllib.request.urlopen(parche, timeout=30):
+            pass
+        fila.update(nuevo)
+        print('correccion aplicada: contacto.titular')
+    return filas
 
 
 def desde_json():
