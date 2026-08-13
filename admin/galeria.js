@@ -249,7 +249,7 @@
         : Promise.resolve();
     });
 
-    paso.then(function () {
+    return paso.then(function () {
       return rest('/obra_imagenes?id=eq.' + encodeURIComponent(foto.id),
         { method: 'PATCH', body: { es_portada: true } });
     }).then(function () {
@@ -258,35 +258,60 @@
       avisar('Portada cambiada.', 'ok');
     }).catch(function (e) {
       avisar(e.message, 'error');
-      cargar();
+      // Si marcar la nueva fallo despues de sacar la anterior, se intenta
+      // restaurar la portada previa antes de recargar el estado real.
+      var restaurar = anterior
+        ? rest('/obra_imagenes?id=eq.' + encodeURIComponent(anterior.id),
+          { method: 'PATCH', body: { es_portada: true } }).catch(function () {})
+        : Promise.resolve();
+      return restaurar.then(cargar);
     });
   }
 
   /* --- eliminar --------------------------------------------------------- */
 
   function eliminar(foto) {
-    if (!window.confirm('¿Eliminar esta foto? No se puede deshacer.')) return;
-    avisar('Eliminando…', 'ok');
+    var puedeEliminar = fotos.length === 1
+      ? rest('/obras?id=eq.' + encodeURIComponent(obraId) + '&select=publicada')
+        .then(function (obras) {
+          if (obras[0] && obras[0].publicada) {
+            throw new Error(
+              'Una obra publicada necesita al menos una foto. Despublicala antes de eliminar la última.'
+            );
+          }
+        })
+      : Promise.resolve();
 
-    // Primero el archivo y despues la fila: al reves, si falla el segundo paso
-    // el archivo queda en el bucket sin nada que lo referencie.
-    activarGestion().then(function () {
-      return DATOS.borrarArchivos([foto.storage_path]);
+    // Primero se saca la fila y despues el archivo. Si falla la limpieza del
+    // bucket puede quedar un archivo huerfano para borrar mas tarde, pero la
+    // pagina nunca queda apuntando a una imagen que ya no existe.
+    puedeEliminar.then(function () {
+      if (!window.confirm('¿Eliminar esta foto? No se puede deshacer.')) {
+        throw { cancelada: true };
+      }
+      avisar('Eliminando…', 'ok');
+      return activarGestion();
     }).then(function () {
       return rest('/obra_imagenes?id=eq.' + encodeURIComponent(foto.id),
         { method: 'DELETE' });
+    }).then(function () {
+      return DATOS.borrarArchivos([foto.storage_path]).catch(function () {
+        // La baja visible ya termino. La limpieza del archivo no debe hacer
+        // creer que la foto sigue en la galeria ni reintentar una fila borrada.
+      });
     }).then(function () {
       fotos = fotos.filter(function (f) { return f.id !== foto.id; });
       // Si se borro la portada, la primera pasa a serlo: una obra sin portada
       // sale sin imagen en el listado del sitio.
       if (foto.es_portada && fotos.length) {
-        elegirPortada(fotos[0]);
+        return elegirPortada(fotos[0]);
       } else {
         pintar();
         guardarOrden();
         avisar('Foto eliminada.', 'ok');
       }
     }).catch(function (e) {
+      if (e && e.cancelada) return;
       avisar(e.message, 'error');
     });
   }

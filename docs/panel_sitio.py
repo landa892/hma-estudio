@@ -9,8 +9,10 @@
    Que saca de una obra que ya no esta publicada:
 
    - la carpeta proyectos/<slug>/
+   - sus galerias, planos y portada del build publico
    - su tarjeta y su fila en /proyectos/
    - sus entradas en el buscador, en los dos idiomas
+   - los enlaces que la apuntaban desde premios, prensa u otras secciones
 
    Lo que NO hace: crear las que faltan —eso es otro paso— ni tocar el sitemap,
    que se regenera despues con docs/sitemap_gen.py leyendo el disco. El espejo
@@ -116,6 +118,35 @@ def quien_linkea(slug, salvo):
     return fuera
 
 
+def desvincular(html, slug):
+    """Saca enlaces a una obra dada de baja, conservando su contenido visible.
+
+    El build parte siempre del repo limpio. Si la obra se vuelve a publicar, el
+    enlace original reaparece y no hace falta reconstruirlo desde la base.
+    """
+    rutas = (
+        '/proyectos/%s/' % slug,
+        'https://estudiohma.com/proyectos/%s/' % slug,
+    )
+    for ruta in rutas:
+        patron = re.compile(
+            r'<a\b[^>]*href=["\']%s["\'][^>]*>(.*?)</a>' % re.escape(ruta),
+            re.DOTALL | re.IGNORECASE)
+        html = patron.sub(lambda m: m.group(1), html)
+    return html
+
+
+def sacar_recursos(slug):
+    """Quita del resultado publico los archivos de una obra no publicada."""
+    for carpeta in ('gallery', 'planos'):
+        destino = os.path.join(RAIZ, 'assets', carpeta, slug)
+        if os.path.isdir(destino):
+            shutil.rmtree(destino)
+    portada = os.path.join(RAIZ, 'assets', 'covers', slug + '.webp')
+    if os.path.isfile(portada):
+        os.remove(portada)
+
+
 # ---------------------------------------------------------------------------
 
 def main(verificar, supabase):
@@ -167,12 +198,27 @@ def main(verificar, supabase):
         print('\nOJO — enlaces que quedan apuntando a una pagina que ya no existe:')
         for s, donde in sorted(colgados.items()):
             print('  %s  <-  %s' % (s, ', '.join(donde)))
-        print('  Hay que sacarlos a mano: este script no adivina como queda el '
-              'texto alrededor.')
+        print('  Se conservara el contenido visible y se sacara solo el enlace.')
 
     if verificar:
         print('\n(--verificar: no se toco nada)')
         return 0
+
+    # --- enlaces externos a las fichas que se van ---
+    # Se hace antes de borrar las paginas. Premios y prensa conservan el texto
+    # o la imagen, pero ya no mandan a una URL inexistente.
+    archivos_a_desvincular = set()
+    for donde in colgados.values():
+        archivos_a_desvincular.update(donde)
+    for rel in sorted(archivos_a_desvincular):
+        p = os.path.join(RAIZ, *rel.split('/'))
+        crudo = io.open(p, encoding='utf-8').read()
+        limpio = crudo
+        for s in sobran:
+            limpio = desvincular(limpio, s)
+        if limpio != crudo:
+            io.open(p, 'w', encoding='utf-8', newline='\n').write(limpio)
+            print('  enlaces retirados de ' + rel)
 
     # --- listado ---
     html = io.open(LISTADO, encoding='utf-8').read()
@@ -206,6 +252,7 @@ def main(verificar, supabase):
         d = os.path.join(RAIZ, 'proyectos', s)
         if os.path.isdir(d):
             shutil.rmtree(d)
+        sacar_recursos(s)
 
     tarjetas = len(re.findall(r'class="project-card"', html))
     filas = len(re.findall(r'class="project-list-row"', html))

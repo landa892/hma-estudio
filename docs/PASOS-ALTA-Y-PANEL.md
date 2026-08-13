@@ -277,7 +277,7 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden (son doce)
+### Qué hace cada paso, y por qué en ese orden (son trece)
 
 | Paso | Qué hace |
 |---|---|
@@ -286,12 +286,13 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
 | `panel_galerias.py` | Conecta hasta 15 fotos de cada obra histórica con el panel y aplica orden, portada, altas y bajas desde la primera edición. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
-| `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas. |
+| `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas, incluidos portada, galería, planos y enlaces que quedarían apuntando a una ficha inexistente. |
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |
 | `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
 | `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
 | `prensa_pagina.py` | Genera `/prensa/publicaciones/` desde `docs/prensa-listado.html`, el archivo cronológico completo de prensa. |
 | `en_gen.py` | Rehace `/en/` de cero y traduce lo que dejaron los pasos anteriores. |
+| `obras_orden.py` | Ordena grilla y lista por año final, en ambos idiomas. **Va después de `en_gen.py`** para que una obra nueva quede en la misma posición cronológica en los dos listados. |
 | `sitemap_gen.py` | Rearma el sitemap leyendo las páginas en castellano y el espejo inglés ya generado. **Va último** para incluir ambas versiones. |
 
 Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel

@@ -92,14 +92,17 @@
   }
 
   /* Borrar la obra borra sus filas de imagenes por el cascade, pero NO los
-     archivos del bucket: eso se hace antes, aparte, o quedan ocupando espacio
-     para siempre. */
+     archivos del bucket. Se borra primero la fila: si despues falla Storage
+     queda un archivo huerfano, pero nunca una obra viva con fotos rotas. */
   function borrarObra(id) {
+    var rutas = [];
     return listarImagenes(id).then(function (imgs) {
-      if (!imgs.length) return null;
-      return borrarArchivos(imgs.map(function (i) { return i.storage_path; }));
-    }).then(function () {
+      rutas = imgs.map(function (i) { return i.storage_path; });
       return llamar('/obras?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
+    }).then(function () {
+      // La obra ya no es visible ni regenerable. Un fallo al limpiar Storage
+      // no debe presentar la baja como fallida ni invitar a repetirla.
+      return borrarArchivos(rutas).catch(function () {});
     });
   }
 

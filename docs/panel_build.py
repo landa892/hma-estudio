@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Arma el sitio desde la base. Es lo unico que corre el build de Vercel.
 
-   Los doce pasos podrian ir encadenados con && en la casilla de Vercel, pero el
+   Los trece pasos podrian ir encadenados con && en la casilla de Vercel, pero el
    comando de build admite 256 caracteres y esa cadena mide mas del doble. Aca
    ademas se ve en el log donde falla, que en una sola linea de shell no se ve.
 
@@ -24,7 +24,10 @@
     10. prensa_pagina   rearma el archivo completo de publicaciones.
     11. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    12. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    12. obras_orden     ordena grilla y lista por el ano final, tanto en
+                        castellano como en ingles. Asi una obra nueva no queda
+                        al final solo por haberse cargado despues.
+    13. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -50,6 +53,7 @@ PASOS = [
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),
+    ('el orden cronologico',         'obras_orden.py',   []),
     ('el sitemap',                   'sitemap_gen.py',   []),
 ]
 
