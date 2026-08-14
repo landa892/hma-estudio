@@ -20,7 +20,7 @@
      Architizer con negritas y cursivas adentro y linkea a Instagram. Eso no se
      puede editar desde un panel de campos de texto sin inventar un editor de
      texto rico.
-   - El banner de YouTube, que se llena solo.
+   - Los bloques de LinkedIn y YouTube.
    - Los separadores entre banners.
    - El id="section-N" de cada banner: la navegacion por puntos de la derecha los
      usa como destino. Se conservan en su lugar aunque cambie la obra.
@@ -238,6 +238,18 @@ def main(verificar, supabase):
         return m.group(0)
 
     nuevo_html = BANNER.sub(cambiar, html)
+
+    # Los puntos laterales comparten el id de cada ranura. Si cambia una obra
+    # destacada, también cambia su rótulo: dejar el nombre anterior hace que la
+    # navegación funcione pero lleve una etiqueta equivocada.
+    for o, ident in zip(destacadas[:RANURAS], idents):
+        titulo = E(o['titulo']).replace('"', '&quot;')
+        patron_punto = re.compile(
+            r'<button data-target="%s"[^>]*>.*?</button>' % re.escape(ident), re.S)
+        punto = ('<button data-target="%s" aria-label="Ir a %s">'
+                 '<span class="dot-label">%s</span></button>'
+                 % (ident, titulo, titulo))
+        nuevo_html = patron_punto.sub(punto, nuevo_html, count=1)
 
     if avisos:
         print('\navisos de foto:')

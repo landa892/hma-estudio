@@ -24,7 +24,10 @@ def a_ingles(ruta):
     """/proyectos/moshu/ -> /en/projects/moshu/"""
     if not ruta.startswith('/') or ruta.startswith('//'):
         return ruta
-    if ruta.startswith(('/assets/', '/styles/', '/scripts/', '/api/', '/en/')):
+    if ruta.startswith(('/assets/', '/styles/', '/scripts/', '/api/', '/en/',
+                        '/favicon-', '/apple-touch-icon')):
+        return ruta
+    if ruta in ('/favicon.ico', '/site.webmanifest'):
         return ruta
     if ruta == '/':
         return '/en/'

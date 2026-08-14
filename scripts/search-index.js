@@ -1,12 +1,12 @@
 window.HMA_SEARCH_INDEX = [
  {
- "tipo": "Proyecto",
- "titulo": "Ualá II",
- "sub": "Oficinas",
- "desc": "Diseño interior de oficinas · Buenos Aires · 757 m² · 2019–2020",
- "url": "/proyectos/uala-ii/",
- "img": "/assets/covers/uala-ii.webp"
-},
+  "tipo": "Proyecto",
+  "titulo": "Ualá II",
+  "sub": "Oficinas",
+  "desc": "Diseño interior de oficinas · Buenos Aires · 757 m² · 2019–2020",
+  "url": "/proyectos/uala-ii/",
+  "img": "/assets/covers/uala-ii.webp"
+ },
  {
   "tipo": "Proyecto",
   "titulo": "7167 Burger",

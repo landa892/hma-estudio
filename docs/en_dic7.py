@@ -39,6 +39,35 @@ DIC.update({
 })
 
 DIC.update({
+    # --- ajustes de contenido del 14/08/2026 ---
+    'Actualidad en LinkedIn': 'Latest on LinkedIn',
+    'Indusparquet en Tietê': 'Indusparquet in Tietê',
+    'Una entrevista desde la planta de Indusparquet en el estado de São Paulo, en el marco del proyecto que desarrollamos para su flagship de Núñez. El concepto “El Bosque” define la experiencia y la identidad espacial de la tienda.':
+        'An interview from the Indusparquet plant in the state of São Paulo, within the project we developed for its Núñez flagship. The “El Bosque” concept defines the store experience and spatial identity.',
+    'Entrevista de Hitzig Militello Arquitectos en la planta de Indusparquet en Tietê, Brasil':
+        'Hitzig Militello Architects interview at the Indusparquet plant in Tietê, Brazil',
+    'Ver publicación': 'View post',
+    'Ver la publicación de Hitzig Militello Arquitectos en LinkedIn':
+        'View the Hitzig Militello Architects post on LinkedIn',
+    'Ir a LinkedIn': 'Go to LinkedIn',
+    'Proyectos construidos en': 'Projects built in',
+    'países, con una práctica local y alcance internacional.':
+        'countries, combining local practice with international reach.',
+    'Ranking Clarín ARQ — Diseñadores de Interior':
+        'Clarín ARQ Ranking — Interior Designers',
+    'El estudio obtuvo el 2.º puesto en el ranking argentino de diseño interior de 2024.':
+        'The studio ranked second in Argentina’s 2024 interior design ranking.',
+    'Ranking · 2.º puesto': 'Ranking · 2nd place',
+    'Conferencia': 'Conference',
+    'Ciclo de conferencias presenciales DINA — Auditorio Diego de Torres, UCC Córdoba':
+        'DINA in-person conference series — Diego de Torres Auditorium, UCC Córdoba',
+    'Leonardo Militello, profesor de Interior Creative Architecture en Haus':
+        'Leonardo Militello, professor of Interior Creative Architecture at Haus',
+    '10.ª TENDIEZ Experiences, Buenos Aires':
+        '10th TENDIEZ Experiences, Buenos Aires',
+})
+
+DIC.update({
     # El titular de la portada lleva un espacio duro dentro, asi que en el HTML
     # nunca aparece como una frase suelta y el diccionario no lo tenia. Se
     # necesita entero para el panel de autogestion.

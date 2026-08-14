@@ -24,8 +24,11 @@
   <meta name="twitter:title" content="Estudio | Hitzig Militello Arquitectos">
   <meta name="twitter:image" content="https://estudiohma.com/assets/socios-mesa.webp">
 
-  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
-  <link rel="stylesheet" href="/styles/main.css?v=86">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/main.css?v=87">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/estudio/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/studio/">
@@ -66,10 +69,10 @@
     <div class="site-menu__inner">
       <ul class="site-menu__primary">
         <li><a href="/">Inicio</a></li>
+        <li><a href="/estudio/" aria-current="page">Estudio</a></li>
         <li><a href="/proyectos/">Trabajos</a></li>
         <li><a href="/prensa/">Prensa y News</a></li>
         <li><a href="/premios/">Premios</a></li>
-        <li><a href="/estudio/" aria-current="page">Estudio</a></li>
         <li><a href="/contacto/">Contacto</a></li>
       </ul>
       <div class="site-menu__footer">
@@ -239,25 +242,24 @@
               trabajamos</span></div>
         </div>
 
-        <div class="work-split work-split--ancha reveal">
-          <div class="work-split__photo">
-            <img src="/assets/estudio-reunion.webp" width="1999" height="1334"
-              alt="Los socios y el equipo de HMA revisando un proyecto en pantalla" loading="lazy" decoding="async"
-              style="width: 100%; height: auto;">
-          </div>
+        <div class="work-split work-split--proceso reveal">
           <div class="work-split__text work-steps">
-            <div class="bloque-texto">
+            <div class="bloque-texto" data-step="01">
               <p>Conceptualizamos ideas.</p>
             </div>
-            <div class="bloque-texto">
+            <div class="bloque-texto" data-step="02">
               <p>Generamos la documentación técnica.</p>
             </div>
-            <div class="bloque-texto">
+            <div class="bloque-texto" data-step="03">
               <p>Creamos el producto arquitectónico.</p>
             </div>
-            <div class="bloque-texto">
+            <div class="bloque-texto" data-step="04">
               <p>Construimos nuestras ideas.</p>
             </div>
+          </div>
+          <div class="work-split__photo">
+            <img src="/assets/estudio-reunion.webp" width="1999" height="1334"
+              alt="Los socios y el equipo de HMA revisando un proyecto en pantalla" loading="lazy" decoding="async">
           </div>
         </div>
       </div>

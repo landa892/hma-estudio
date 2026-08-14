@@ -119,6 +119,43 @@ def sembrar(obras, por_slug, existentes, url, clave):
     return bool(nuevas)
 
 
+def sincronizar_semillas(obras, por_slug, existentes, url, clave):
+    """Actualiza sólo selecciones heredadas que el estudio todavía no editó.
+
+    Si cambian las fotos locales de una obra, el panel no puede seguir mostrando
+    rutas @seed que ya no existen. Las galerías administradas (@site o Storage)
+    quedan fuera de esta sincronización para no pisar decisiones del estudio.
+    """
+    por_obra = {}
+    for foto in existentes:
+        por_obra.setdefault(foto['obra_id'], []).append(foto)
+
+    actualizadas = 0
+    for obra in obras:
+        fila = por_slug.get(obra['slug'])
+        if not fila:
+            continue
+        actuales = sorted(por_obra.get(fila['id'], []), key=lambda f: f['orden'])
+        if not actuales or not all(f['storage_path'].startswith('@seed:') for f in actuales):
+            continue
+        deseadas = seleccion_inicial(obra)
+        firma_actual = [(f['storage_path'], f['orden'], bool(f['es_portada']),
+                         f.get('ancho'), f.get('alto')) for f in actuales]
+        firma_deseada = [(f['storage_path'], f['orden'], bool(f['es_portada']),
+                          f.get('ancho'), f.get('alto')) for f in deseadas]
+        if firma_actual == firma_deseada:
+            continue
+        pedir(url, clave, '/rest/v1/obra_imagenes?obra_id=eq.%s' % fila['id'], 'DELETE')
+        for foto in deseadas:
+            foto['obra_id'] = fila['id']
+        if deseadas:
+            pedir(url, clave, '/rest/v1/obra_imagenes', 'POST', deseadas)
+        actualizadas += 1
+    if actualizadas:
+        print('selecciones historicas actualizadas: %d obras' % actualizadas)
+    return bool(actualizadas)
+
+
 def resolver_foto(slug, foto, url):
     ruta = foto['storage_path']
     if ruta.startswith('@seed:') or ruta.startswith('@site:'):
@@ -243,7 +280,9 @@ def main():
     obras = pedir(url, clave, '/rest/v1/obras?select=id,slug,titulo&publicada=is.true')
     por_slug = {o['slug']: o for o in obras}
     fotos = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
-    if sembrar(catalogo, por_slug, fotos, url, clave):
+    sembradas = sembrar(catalogo, por_slug, fotos, url, clave)
+    sincronizadas = sincronizar_semillas(catalogo, por_slug, fotos, url, clave)
+    if sembradas or sincronizadas:
         fotos = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
 
     por_obra = {}

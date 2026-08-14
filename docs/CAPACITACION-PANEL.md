@@ -10,6 +10,21 @@
 6. Activar **Publicada** y guardar.
 7. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
 
+### Preparar las imágenes
+
+- Formato: JPG, PNG o WebP. No usar capturas de pantalla ni fotos reenviadas
+  por WhatsApp, porque ya llegan comprimidas.
+- Tamaño recomendado: entre 1600 y 2400 px en el lado mayor. El panel reduce
+  automáticamente cualquier imagen a un máximo de 1800 px.
+- Peso recomendado del archivo original: hasta 8 MB. El peso no necesita ser
+  exacto, porque el panel lo convierte a WebP antes de subirlo.
+- Portada: elegir una foto horizontal, nítida y sin textos. La misma portada se
+  usa en el listado y, si la obra está destacada, también en el home.
+- Orden: la primera foto debe presentar la obra; después conviene alternar
+  vistas generales y detalles. Se puede arrastrar cada imagen para reordenarla.
+- Límite: 15 imágenes por obra. Antes de publicar, revisar la vista previa en
+  computadora y celular.
+
 ## Obra existente
 
 Abrirla desde Obras, editar sus datos o galería y guardar. Las fotos históricas

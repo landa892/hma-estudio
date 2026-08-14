@@ -34,7 +34,10 @@
   <meta name="twitter:title" content="Hitzig Militello Arquitectos — Arquitectura y diseño comercial">
   <meta name="twitter:image" content="https://estudiohma.com/assets/og-hma-estudio-video-2026.jpg">
 
-  <link rel="icon" type="image/png" href="/assets/logo-mark.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <script type="application/ld+json">
   {
@@ -44,23 +47,26 @@
     "alternateName": "HMA",
     "description": "Estudio de arquitectura y diseño comercial especializado en hotelería, gastronomía, oficinas y arquitectura residencial.",
     "url": "https://estudiohma.com/",
-    "image": "https://estudiohma.com/assets/og-portada.jpg",
+    "image": "https://estudiohma.com/assets/og-hma-estudio-video-2026.jpg",
+    "logo": "https://estudiohma.com/favicon-512x512.png",
     "email": "hma@estudiohma.com",
-    "sameAs": ["https://instagram.com/hitzig.militello.arquitectos"],
+    "sameAs": [
+      "https://www.instagram.com/hitzig.militello.arquitectos/",
+      "https://www.linkedin.com/company/hitzig-militello-arquitectos/",
+      "https://www.youtube.com/@HMAEstudio",
+      "https://www.behance.net/hitzigmilitello"
+    ],
     "areaServed": ["Argentina", "América Latina", "Europa", "Medio Oriente", "Estados Unidos"],
     "founder": [
       { "@type": "Person", "name": "Fernando Hitzig" },
       { "@type": "Person", "name": "Leonardo Militello" }
     ],
-    "address": [
-      { "@type": "PostalAddress", "streetAddress": "Soler 5130, 1° B, Palermo", "addressLocality": "Buenos Aires", "postalCode": "C1425", "addressCountry": "AR" },
-      { "@type": "PostalAddress", "streetAddress": "2980 NE 207 St., Fl.", "addressLocality": "Miami", "postalCode": "33180", "addressCountry": "US" }
-    ],
+    "address": { "@type": "PostalAddress", "streetAddress": "Soler 5130, 1° B, Palermo", "addressLocality": "Buenos Aires", "postalCode": "C1425", "addressCountry": "AR" },
     "telephone": ["+54 11 4773 8658", "+1 305 851 3565"]
   }
   </script>
 
-  <link rel="stylesheet" href="/styles/main.css?v=86">
+  <link rel="stylesheet" href="/styles/main.css?v=87">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
@@ -102,10 +108,10 @@
     <div class="site-menu__inner">
       <ul class="site-menu__primary">
         <li><a href="/" aria-current="page">Inicio</a></li>
+        <li><a href="/estudio/">Estudio</a></li>
         <li><a href="/proyectos/">Trabajos</a></li>
         <li><a href="/prensa/">Prensa y News</a></li>
         <li><a href="/premios/">Premios</a></li>
-        <li><a href="/estudio/">Estudio</a></li>
         <li><a href="/contacto/">Contacto</a></li>
       </ul>
       <div class="site-menu__footer">
@@ -172,9 +178,10 @@
     <button data-target="section-1" aria-label="Ir a Movistar Arena"><span class="dot-label">Movistar
         Arena</span></button>
     <button data-target="section-2" aria-label="Ir a Indusparquet"><span class="dot-label">Indusparquet</span></button>
-    <button data-target="section-3" aria-label="Ir a Parfumerie"><span class="dot-label">Parfumerie</span></button>
-    <button data-target="section-4" aria-label="Ir a Hyatt Ziva"><span class="dot-label">Hyatt · Ziva</span></button>
+    <button data-target="section-3" aria-label="Ir a LinkedIn"><span class="dot-label">LinkedIn</span></button>
+    <button data-target="section-4" aria-label="Ir a Parfumerie"><span class="dot-label">Parfumerie</span></button>
     <button data-target="section-5" aria-label="Ir a YouTube"><span class="dot-label">Novedades</span></button>
+    <button data-target="section-6" aria-label="Ir a Hyatt · Ziva"><span class="dot-label">Hyatt · Ziva</span></button>
     <button data-target="section-contacto" aria-label="Ir a contacto"><span class="dot-label">Hablemos</span></button>
   </nav>
 
@@ -280,8 +287,35 @@
       <a href="/proyectos/?cat=hoteleria" class="interlude-btn" aria-label="Ver hotelería y comercial">→</a>
     </div>
 
-    <!-- CUADRADITO 4: PARFUMERIE -->
-    <a href="/proyectos/parfumerie/" class="project-banner reveal" id="section-3">
+    <!-- CUADRADITO 4: ACTUALIDAD LINKEDIN -->
+    <div class="project-banner project-banner--split project-banner--linkedin reveal" id="section-3">
+      <a href="https://www.linkedin.com/posts/hitzig-militello-arquitectos_tiete-estado-de-sao-paulo-brasil-planta-activity-7493426602161401856-_JfD?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAQLXg4BXmuAkzxUfcQUHrk7Zdwk6xuexd0"
+        target="_blank" rel="noopener" class="project-banner--split__media project-banner--linkedin__media"
+        aria-label="Ver la publicación de Hitzig Militello Arquitectos en LinkedIn">
+        <img src="/assets/social/linkedin-indusparquet.webp" width="720" height="1280"
+          alt="Entrevista de Hitzig Militello Arquitectos en la planta de Indusparquet en Tietê, Brasil"
+          class="project-banner--linkedin__image" loading="lazy" decoding="async">
+      </a>
+      <div class="project-banner--split__copy">
+        <span class="eyebrow eyebrow--seccion">Actualidad en LinkedIn</span>
+        <h2 class="display-3">Indusparquet en Tietê</h2>
+        <p class="lede project-banner--split__lede">Una entrevista desde la planta de Indusparquet en el estado de
+          São Paulo, en el marco del proyecto que desarrollamos para su flagship de Núñez. El concepto “El Bosque”
+          define la experiencia y la identidad espacial de la tienda.</p>
+        <a class="btn link-arrow mt-24"
+          href="https://www.linkedin.com/posts/hitzig-militello-arquitectos_tiete-estado-de-sao-paulo-brasil-planta-activity-7493426602161401856-_JfD?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAQLXg4BXmuAkzxUfcQUHrk7Zdwk6xuexd0"
+          target="_blank" rel="noopener">Ver publicación</a>
+      </div>
+    </div>
+
+    <!-- SEPARADOR 3 -->
+    <div class="banner-interlude reveal">
+      <p>Somos un equipo de arquitectos que trabaja integrando oficios y disciplinas creativas.</p>
+      <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
+    </div>
+
+    <!-- CUADRADITO 5: PARFUMERIE -->
+    <a href="/proyectos/parfumerie/" class="project-banner reveal" id="section-4">
       <div class="banner-stage">
         <img src="/assets/covers/parfumerie.webp?v=20260812b" width="1920" height="1080" alt="Parfumerie"
           loading="lazy" decoding="async">
@@ -290,27 +324,6 @@
             <span class="eyebrow">Obra recientemente inaugurada</span>
             <h2>Parfumerie</h2>
             <p>Local de perfumería de 131 m² en el shopping Terrazas de Mayo.</p>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- SEPARADOR 3 -->
-    <div class="banner-interlude reveal">
-      <p>Somos un equipo de arquitectos que trabaja integrando oficios y disciplinas creativas.</p>
-      <a href="/estudio/" class="interlude-btn" aria-label="Conocer el estudio">→</a>
-    </div>
-
-    <!-- CUADRADITO 5: HYATT ZIVA -->
-    <a href="/proyectos/hyatt-ziva/" class="project-banner reveal" id="section-4">
-      <div class="banner-stage">
-        <img src="/assets/covers/hyatt-ziva.webp?v=20260812b" width="1920" height="1080" alt="Hyatt · Ziva"
-          loading="lazy" decoding="async">
-        <div class="project-banner__content">
-          <div class="pb-content-inner">
-            <span class="eyebrow">Proyecto en proceso</span>
-            <h2>Hyatt · Ziva</h2>
-            <p>50.000 m² de zonas comunes y locales comerciales en Barbados, Caribe.</p>
           </div>
         </div>
       </div>
@@ -344,6 +357,28 @@
           de construcción en Argentina y por qué una oficina no tiene que ser un pelotero infantil.</p>
       </div>
     </div>
+
+    <!-- SEPARADOR 5 -->
+    <div class="banner-interlude reveal">
+      <p>Proyectos construidos en <span class="count-inline" data-countries="AR|BB|BR|CL|IT|SA|UY" data-suffix="">7</span>
+        países, con una práctica local y alcance internacional.</p>
+      <a href="/proyectos/" class="interlude-btn" aria-label="Ver todos los trabajos">→</a>
+    </div>
+
+    <!-- CUADRADITO 7: HYATT ZIVA -->
+    <a href="/proyectos/hyatt-ziva/" class="project-banner reveal" id="section-6">
+      <div class="banner-stage">
+        <img src="/assets/covers/hyatt-ziva.webp?v=20260812b" width="1920" height="1080" alt="Hyatt · Ziva"
+          loading="lazy" decoding="async">
+        <div class="project-banner__content">
+          <div class="pb-content-inner">
+            <span class="eyebrow">Proyecto en proceso</span>
+            <h2>Hyatt · Ziva</h2>
+            <p>50.000 m² de zonas comunes y locales comerciales en Barbados, Caribe.</p>
+          </div>
+        </div>
+      </div>
+    </a>
 
     </section>
 

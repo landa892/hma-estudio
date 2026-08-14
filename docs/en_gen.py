@@ -218,6 +218,12 @@ def main():
         # --- version en ingles ---
         en = poner_memoria_en(traducir_html(sacar_memoria(sacar_boton(s))), p)
         en = reescribir_enlaces(en)
+        if ruta_es == '/':
+            en = en.replace(
+                '"description": "Estudio de arquitectura y diseño comercial especializado en hotelería, gastronomía, oficinas y arquitectura residencial."',
+                '"description": "Architecture and commercial design studio specialising in hospitality, restaurants, offices and residential architecture."', 1)
+            en = en.replace('"url": "https://estudiohma.com/"',
+                            '"url": "https://estudiohma.com/en/"', 1)
         en = en.replace('<html lang="es"', '<html lang="en"', 1)
         en = re.sub(r'(<meta property="og:locale" content=")[^"]*(")', r'\1en_US\2', en)
         en = re.sub(r'(<link rel="canonical" href="[^"]*?)(")',
