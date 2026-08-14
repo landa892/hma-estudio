@@ -127,12 +127,14 @@ def poner_boton(html, destino, rotulo, titulo):
 
 
 def poner_hreflang(html, ruta_es, ruta_en):
-    html = re.sub(r'\n?\s*<link rel="alternate" hreflang="[^"]*"[^>]*>', '', html)
-    bloque = ('\n  <link rel="alternate" hreflang="es" href="%s%s">'
-              '\n  <link rel="alternate" hreflang="en" href="%s%s">'
-              '\n  <link rel="alternate" hreflang="x-default" href="%s%s">'
+    html = re.sub(
+        r'(?m)^[ \t]*<link rel="alternate" hreflang="[^"]*"[^>]*>[ \t]*\r?\n?',
+        '', html)
+    bloque = ('  <link rel="alternate" hreflang="es" href="%s%s">\n'
+              '  <link rel="alternate" hreflang="en" href="%s%s">\n'
+              '  <link rel="alternate" hreflang="x-default" href="%s%s">\n'
               % (SITIO, ruta_es, SITIO, ruta_en, SITIO, ruta_es))
-    return html.replace('</head>', bloque + '\n</head>', 1)
+    return html.replace('</head>', bloque + '</head>', 1)
 
 
 # --- paginas -----------------------------------------------------------------
@@ -216,7 +218,15 @@ def main():
         ruta_en = a_ingles(ruta_es)
 
         # --- version en ingles ---
-        en = poner_memoria_en(traducir_html(sacar_memoria(sacar_boton(s))), p)
+        # El schema SEO se genera de nuevo al final del build para los dos
+        # idiomas. Sacarlo de esta copia evita intentar traducir JSON como si
+        # fuera contenido visible y mantiene una sola fuente de verdad.
+        s_para_en = re.sub(
+            r'(?ms)^[ \t]*<!-- SEO-JSON-LD:START -->.*?'
+            r'^[ \t]*<!-- SEO-JSON-LD:END -->[ \t]*\r?\n?',
+            '', s)
+        en = poner_memoria_en(
+            traducir_html(sacar_memoria(sacar_boton(s_para_en))), p)
         en = reescribir_enlaces(en)
         if ruta_es == '/':
             en = en.replace(

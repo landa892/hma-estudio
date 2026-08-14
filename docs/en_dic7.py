@@ -26,6 +26,20 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # --- metadatos SEO de las secciones principales ---
+    'Estudio de arquitectura e interiorismo en Buenos Aires | HMA':
+        'Architecture and interior design studio in Buenos Aires | HMA',
+    'Conocé Hitzig Militello Arquitectos, estudio de arquitectura e interiorismo fundado en Buenos Aires en 2006 por Fernando Hitzig y Leonardo Militello.':
+        'Meet Hitzig Militello Architects, an architecture and interior design studio founded in Buenos Aires in 2006 by Fernando Hitzig and Leonardo Militello.',
+    'Contacto | Estudio de arquitectura en Buenos Aires | HMA':
+        'Contact | Architecture studio in Buenos Aires | HMA',
+    'Contactá a Hitzig Militello Arquitectos en Palermo, Buenos Aires, para proyectos de arquitectura, interiorismo, hotelería, gastronomía y oficinas.':
+        'Contact Hitzig Militello Architects in Palermo, Buenos Aires, for architecture, interior design, hospitality, restaurant and office projects.',
+    'Proyectos de arquitectura e interiorismo | Hitzig Militello':
+        'Architecture and interior design projects | Hitzig Militello',
+    'Proyectos de arquitectura e interiorismo comercial: hotelería, gastronomía, oficinas y obras residenciales en Argentina y el mundo.':
+        'Architecture and commercial interior design projects: hospitality, restaurants, offices and residential work in Argentina and worldwide.',
+
     # Las dos filas nuevas de la pagina de premios.
     'La cafetería de Osten en la 40ª edición, en Madero Harbour.':
         'The Osten coffee shop at the 40th edition, in Madero Harbour.',

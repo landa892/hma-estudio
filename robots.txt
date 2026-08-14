@@ -1,5 +1,40 @@
 User-agent: *
-Allow: /
 Disallow: /admin/
+Allow: /
+
+# Busqueda de OpenAI. GPTBot se declara aparte porque es un agente distinto.
+User-agent: OAI-SearchBot
+Disallow: /admin/
+Allow: /
+
+User-agent: ChatGPT-User
+Disallow: /admin/
+Allow: /
+
+User-agent: GPTBot
+Disallow: /admin/
+Allow: /
+
+# Busqueda y consultas iniciadas por usuarios de Claude.
+User-agent: Claude-SearchBot
+Disallow: /admin/
+Allow: /
+
+User-agent: Claude-User
+Disallow: /admin/
+Allow: /
+
+User-agent: ClaudeBot
+Disallow: /admin/
+Allow: /
+
+# Otros motores que alimentan busqueda web y respuestas con IA.
+User-agent: PerplexityBot
+Disallow: /admin/
+Allow: /
+
+User-agent: Google-Extended
+Disallow: /admin/
+Allow: /
 
 Sitemap: https://estudiohma.com/sitemap.xml
