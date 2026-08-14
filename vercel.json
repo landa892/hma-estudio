@@ -3,16 +3,32 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/proyecto/:slug/",
+      "destination": "/api/legacy-project?lang=es&slug=:slug"
+    },
+    {
       "source": "/proyecto/:slug",
       "destination": "/api/legacy-project?lang=es&slug=:slug"
+    },
+    {
+      "source": "/en/proyecto/:slug/",
+      "destination": "/api/legacy-project?lang=en&slug=:slug"
     },
     {
       "source": "/en/proyecto/:slug",
       "destination": "/api/legacy-project?lang=en&slug=:slug"
     },
     {
+      "source": "/Backup-2026/proyecto/:slug/",
+      "destination": "/api/legacy-project?lang=es&slug=:slug"
+    },
+    {
       "source": "/Backup-2026/proyecto/:slug",
       "destination": "/api/legacy-project?lang=es&slug=:slug"
+    },
+    {
+      "source": "/Backup-2026/en/proyecto/:slug/",
+      "destination": "/api/legacy-project?lang=en&slug=:slug"
     },
     {
       "source": "/Backup-2026/en/proyecto/:slug",
