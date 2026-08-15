@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de uso — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <a class="barra__volver" href="/admin/obras">← Obras</a>
+    <h1 class="barra__titulo">Guía de uso</h1>
+    <span class="barra__quien" id="quien"></span>
+    <a class="barra__sitio" href="/" target="_blank" rel="noopener">Ver sitio</a>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido" id="contenido">
+    <p class="guia__intro">Este panel permite preparar obras y textos sin tocar el código. Guardar conserva
+      la edición en privado; Publicar cambios actualiza la web. Ante una duda, dejá la obra en borrador.</p>
+
+    <section class="guia__seccion" aria-labelledby="obraNueva">
+      <h2 id="obraNueva">Cargar una obra nueva</h2>
+      <ol class="guia__pasos">
+        <li>En Obras, elegí <b>Nueva obra</b>. Completá el título y guardala sin marcar Publicada.</li>
+        <li>Cargá las fotos. Revisá sus medidas, ordenalas y elegí una portada horizontal.</li>
+        <li>Completá ficha técnica, bajada, memoria en castellano y memoria en inglés.</li>
+        <li>Elegí el estado correcto: En proyecto, En progreso o Concluida.</li>
+        <li>Marcá <b>Publicada en el sitio</b> y guardá. Si va al home, completá también sus dos rótulos.</li>
+        <li>Volvé a Obras, elegí <b>Publicar cambios</b> y esperá entre 2 y 3 minutos antes de revisar.</li>
+      </ol>
+    </section>
+
+    <section class="guia__seccion" aria-labelledby="camposObra">
+      <h2 id="camposObra">Qué cargar en cada campo</h2>
+      <table class="guia__tabla">
+        <thead><tr><th>Campo</th><th>Contenido</th><th>Formato recomendado</th></tr></thead>
+        <tbody>
+          <tr><td>Título</td><td>Nombre oficial y público.</td><td>2 a 6 palabras; máximo 120 caracteres.</td></tr>
+          <tr><td>Dirección web</td><td>Final de la URL.</td><td>Minúsculas, números y guiones. No cambiarla después de publicar.</td></tr>
+          <tr><td>Ubicación y país</td><td>Dirección, ciudad y país que se muestran en la ficha.</td><td>Ej. Palermo, Buenos Aires / Argentina.</td></tr>
+          <tr><td>Año</td><td>Año o período del proyecto.</td><td>2026 o 2025–2026.</td></tr>
+          <tr><td>Superficie</td><td>Medida con su unidad.</td><td>325 m² o 300 m² cubiertos · 120 m² exteriores.</td></tr>
+          <tr><td>Comitente</td><td>Empresa o persona que encargó la obra.</td><td>Dejar vacío si no puede publicarse.</td></tr>
+          <tr><td>Tipología</td><td>Uso específico del espacio.</td><td>Ej. Restaurante y bar; máximo 80 caracteres.</td></tr>
+          <tr><td>Categoría</td><td>Filtro general de Trabajos.</td><td>Elegir una sola; es obligatoria para publicar.</td></tr>
+          <tr><td>Equipo</td><td>Autores y colaboradores.</td><td>Una persona por línea, con rol o título.</td></tr>
+          <tr><td>Bajada</td><td>Resumen de tarjeta y banner del home.</td><td>90 a 160 caracteres; máximo 200.</td></tr>
+          <tr><td>Memoria</td><td>Descripción completa del proyecto.</td><td>3 a 8 párrafos; 150 a 600 palabras.</td></tr>
+          <tr><td>Memoria en inglés</td><td>Traducción completa.</td><td>Mismos párrafos y contenido que en castellano.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="guia__seccion" aria-labelledby="imagenes">
+      <h2 id="imagenes">Preparar las imágenes</h2>
+      <table class="guia__tabla">
+        <thead><tr><th>Dato</th><th>Requisito</th></tr></thead>
+        <tbody>
+          <tr><td>Formatos</td><td>JPG, PNG o WebP.</td></tr>
+          <tr><td>Medida ideal</td><td>1800 × 1200 px. Mínimo recomendado: 1600 × 900 px.</td></tr>
+          <tr><td>Peso de origen</td><td>Hasta 20 MB por archivo.</td></tr>
+          <tr><td>Cantidad</td><td>Hasta 15 imágenes por obra.</td></tr>
+          <tr><td>Portada</td><td>Horizontal, nítida, sin texto ni marcas. Debe representar bien la obra.</td></tr>
+          <tr><td>Calidad</td><td>No usar capturas ni imágenes reenviadas por WhatsApp. El panel avisa si la resolución es baja.</td></tr>
+          <tr><td>Optimización</td><td>Automática: WebP al 82% y lado mayor de hasta 1800 px, conservando la proporción.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="guia__seccion" aria-labelledby="publicacion">
+      <h2 id="publicacion">Borradores, destacadas y publicación</h2>
+      <h3>Guardar</h3>
+      <p>Conserva lo escrito en el panel. No modifica inmediatamente la página pública.</p>
+      <h3>Publicada en el sitio</h3>
+      <p>Marcada: la obra entrará en el próximo deploy. Sin marcar: queda privada como borrador y sale del
+        sitio al volver a publicar.</p>
+      <h3>Destacada en el home</h3>
+      <p>El home admite 3. Debe estar publicada, tener portada horizontal, bajada y rótulos en castellano e inglés.</p>
+      <h3>Publicar cambios</h3>
+      <p>Reconstruye la web con todo lo guardado. Tarda entre 2 y 3 minutos. No lo pulses varias veces seguidas.</p>
+    </section>
+
+    <section class="guia__seccion" aria-labelledby="editar">
+      <h2 id="editar">Editar, despublicar o eliminar</h2>
+      <p><b>Editar:</b> abrí la obra desde su título, modificá, guardá y publicá cambios.</p>
+      <p><b>Despublicar:</b> quitá Publicada en el sitio, guardá y publicá cambios. La obra queda en el panel.</p>
+      <p><b>Eliminar:</b> borra la ficha y sus fotos del panel. Es irreversible y requiere escribir el título para confirmar.</p>
+      <p><b>Textos del sitio:</b> cada texto se guarda por separado. Completá siempre castellano e inglés y
+        después publicá desde Obras.</p>
+    </section>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/ayuda.js"></script>
+</body>
+
+</html>

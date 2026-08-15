@@ -11,6 +11,10 @@
   var LADO_MAX = 1800;      // el mismo tope que ya usan las galerias del sitio
   var CALIDAD = 0.82;
   var TOPE = 15;            // lo que se cotizo; la base lo valida tambien
+  var TAMANO_MAX = 20 * 1024 * 1024;
+  var TIPOS = ['image/jpeg', 'image/png', 'image/webp'];
+  var LADO_LARGO_RECOMENDADO = 1600;
+  var LADO_CORTO_RECOMENDADO = 900;
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -147,6 +151,15 @@
       img.alt = f.alt || '';
       img.loading = 'lazy';
       tarjeta.appendChild(img);
+
+      if (f.ancho && f.alto) {
+        var medidas = document.createElement('span');
+        var baja = Math.max(f.ancho, f.alto) < LADO_LARGO_RECOMENDADO
+          || Math.min(f.ancho, f.alto) < LADO_CORTO_RECOMENDADO;
+        medidas.className = 'foto__datos' + (baja ? ' foto__datos--alerta' : '');
+        medidas.textContent = f.ancho + ' × ' + f.alto + ' px' + (baja ? ' · resolución baja' : '');
+        tarjeta.appendChild(medidas);
+      }
 
       if (f.es_portada) {
         var sello = document.createElement('span');
@@ -319,9 +332,22 @@
   /* --- subir ------------------------------------------------------------ */
 
   function subir(archivos) {
-    var lista = Array.prototype.slice.call(archivos)
-      .filter(function (a) { return /^image\//.test(a.type); });
-    if (!lista.length) return;
+    var lista = [];
+    var fallos = [];
+    Array.prototype.slice.call(archivos).forEach(function (archivo) {
+      if (TIPOS.indexOf(archivo.type) < 0) {
+        fallos.push(archivo.name + ' (usá JPG, PNG o WebP)');
+      } else if (archivo.size > TAMANO_MAX) {
+        fallos.push(archivo.name + ' (supera 20 MB)');
+      } else {
+        lista.push(archivo);
+      }
+    });
+    if (!lista.length) {
+      avisar(fallos.length ? 'No se subieron: ' + fallos.join(', ') + '.'
+        : 'Elegí al menos una imagen JPG, PNG o WebP.', 'error');
+      return;
+    }
 
     var lugar = TOPE - fotos.length;
     var sobran = 0;
@@ -335,7 +361,6 @@
     }
 
     var hechas = 0;
-    var fallos = [];
     $('subir').disabled = true;
 
     // De a una y no todas juntas: quince fotos en paralelo desde un telefono

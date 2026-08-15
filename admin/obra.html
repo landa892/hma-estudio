@@ -22,6 +22,7 @@
     <a class="barra__volver" href="/admin/obras">← Obras</a>
     <h1 class="barra__titulo" id="encabezado">Nueva obra</h1>
     <span class="barra__quien" id="quien"></span>
+    <a class="barra__ayuda" href="/admin/ayuda">Guía de uso</a>
     <a class="barra__sitio" href="/" target="_blank" rel="noopener">Ver sitio</a>
     <button type="button" class="enlace" id="salir">Salir</button>
   </header>
@@ -31,22 +32,33 @@
 
     <form id="formObra" class="oculto" novalidate>
 
+      <aside class="nota-flujo" aria-label="Flujo de carga">
+        <strong>Orden recomendado</strong>
+        Guardá primero como borrador, cargá y ordená las fotos, completá los textos y recién entonces
+        marcá la obra como publicada. Al terminar, volvé a Obras y elegí <b>Publicar cambios</b>.
+      </aside>
+
       <section class="ficha">
         <h2 class="ficha__titulo">Identificación</h2>
 
         <div class="campo">
           <label for="titulo">Título <span class="obligatorio">obligatorio</span></label>
-          <input type="text" id="titulo" required maxlength="120">
+          <input type="text" id="titulo" required maxlength="120" placeholder="Ej. Cervecería Austral"
+            aria-describedby="ayudaTitulo">
+          <p class="campo__ayuda" id="ayudaTitulo">Nombre público de la obra. Usá el nombre oficial, sin
+            agregar el año ni la ubicación. Máximo 120 caracteres. <span id="contadorTitulo"></span></p>
         </div>
 
         <div class="campo">
           <label for="slug">Dirección web</label>
           <div class="campo__prefijo">
             <span>estudiohma.com/proyectos/</span>
-            <input type="text" id="slug" maxlength="60" autocapitalize="off" spellcheck="false">
+            <input type="text" id="slug" maxlength="60" autocapitalize="off" spellcheck="false"
+              aria-describedby="ayudaSlug">
             <span>/</span>
           </div>
-          <p class="campo__ayuda" id="ayudaSlug">Se propone sola a partir del título.</p>
+          <p class="campo__ayuda" id="ayudaSlug">Se propone sola a partir del título. Sólo admite letras
+            minúsculas sin tilde, números y guiones; máximo 60 caracteres.</p>
         </div>
       </section>
 
@@ -56,47 +68,67 @@
         <div class="dupla">
           <div class="campo">
             <label for="ubicacion">Ubicación</label>
-            <input type="text" id="ubicacion" maxlength="160">
+            <input type="text" id="ubicacion" maxlength="160"
+              placeholder="Ej. Palermo, Buenos Aires" aria-describedby="ayudaUbicacion">
+            <p class="campo__ayuda" id="ayudaUbicacion">Dirección o ciudad que se mostrará en la ficha.
+              No repitas el país. Máximo 160 caracteres.</p>
           </div>
           <div class="campo">
             <label for="pais">País</label>
-            <input type="text" id="pais" maxlength="60">
+            <input type="text" id="pais" maxlength="60" placeholder="Ej. Argentina"
+              aria-describedby="ayudaPais">
+            <p class="campo__ayuda" id="ayudaPais">Nombre completo del país, sin abreviaturas. Máximo
+              60 caracteres.</p>
           </div>
         </div>
 
         <div class="dupla">
           <div class="campo">
             <label for="anio">Año</label>
-            <input type="text" id="anio" maxlength="20" placeholder="2025 o 2024–2025">
+            <input type="text" id="anio" maxlength="20" placeholder="2025 o 2024–2025"
+              aria-describedby="ayudaAnio">
+            <p class="campo__ayuda" id="ayudaAnio">Un año de cuatro cifras o un rango con raya. Ejemplos:
+              2026 o 2025–2026.</p>
           </div>
           <div class="campo">
             <label for="superficie">Superficie</label>
-            <input type="text" id="superficie" maxlength="120" placeholder="325 m²">
+            <input type="text" id="superficie" maxlength="120" placeholder="325 m²"
+              aria-describedby="ayudaSuperficie">
+            <p class="campo__ayuda" id="ayudaSuperficie">Incluí número y unidad. Ejemplos: 325 m² o
+              300 m² cubiertos · 120 m² exteriores. Máximo 120 caracteres.</p>
           </div>
         </div>
 
         <div class="dupla">
           <div class="campo">
             <label for="comitente">Comitente</label>
-            <input type="text" id="comitente" maxlength="120">
+            <input type="text" id="comitente" maxlength="120" placeholder="Ej. Grupo Osten"
+              aria-describedby="ayudaComitente">
+            <p class="campo__ayuda" id="ayudaComitente">Empresa o persona que encargó el proyecto. Dejalo
+              vacío si no corresponde o no puede publicarse.</p>
           </div>
           <div class="campo">
             <label for="tipologia">Tipología</label>
-            <input type="text" id="tipologia" maxlength="80" placeholder="Restaurante, Oficinas…">
+            <input type="text" id="tipologia" maxlength="80" placeholder="Ej. Restaurante y bar"
+              aria-describedby="ayudaTipologia">
+            <p class="campo__ayuda" id="ayudaTipologia">Tipo específico que leerá el visitante en la ficha.
+              Máximo 80 caracteres.</p>
           </div>
         </div>
 
         <div class="campo">
           <label for="categoria">Categoría</label>
           <select id="categoria"></select>
-          <p class="campo__ayuda">Define en qué filtro del listado aparece la obra.</p>
+          <p class="campo__ayuda">Elegí una sola categoría general. Define en qué filtro de Trabajos
+            aparece la obra; es obligatoria para publicarla.</p>
         </div>
 
         <div class="campo">
           <label for="equipo">Equipo</label>
           <textarea id="equipo" rows="6"
             placeholder="Arq. Fernando Hitzig&#10;Arq. Leonardo Militello"></textarea>
-          <p class="campo__ayuda">Un nombre por línea, en el orden en que van a aparecer.</p>
+          <p class="campo__ayuda">Un integrante por línea, con su rol o título. Ejemplo: “Arq. Ana
+            Pérez”. El orden escrito será el orden publicado.</p>
         </div>
       </section>
 
@@ -105,22 +137,27 @@
 
         <div class="campo">
           <label for="bajada">Bajada</label>
-          <textarea id="bajada" rows="2" maxlength="200"></textarea>
-          <p class="campo__ayuda">La frase corta que se lee en la tarjeta del listado.
+          <textarea id="bajada" rows="2" maxlength="200"
+            placeholder="Resumen de una o dos oraciones, sin repetir el título."></textarea>
+          <p class="campo__ayuda">Resumen para la tarjeta de Trabajos y, si la obra es destacada, para el
+            home. Recomendado: 90 a 160 caracteres; máximo 200.
             <span id="contadorBajada"></span></p>
         </div>
 
         <div class="campo">
           <label for="memoria">Memoria descriptiva</label>
-          <textarea id="memoria" rows="12"></textarea>
-          <p class="campo__ayuda">Una línea vacía entre párrafo y párrafo.</p>
+          <textarea id="memoria" rows="12" aria-describedby="ayudaMemoria"></textarea>
+          <p class="campo__ayuda" id="ayudaMemoria">Texto completo en castellano. Recomendado: 3 a 8
+            párrafos y 150 a 600 palabras. Deja una línea vacía entre párrafos; no pegues títulos,
+            viñetas ni enlaces. <span id="contadorMemoria"></span></p>
         </div>
 
         <div class="campo">
           <label for="memoriaEn">Memoria en inglés</label>
-          <textarea id="memoriaEn" rows="8"></textarea>
-          <p class="campo__ayuda">Opcional. Si queda vacía, la página en inglés
-            de esta obra va sin memoria.</p>
+          <textarea id="memoriaEn" rows="8" aria-describedby="ayudaMemoriaEn"></textarea>
+          <p class="campo__ayuda" id="ayudaMemoriaEn">Traducción completa de la memoria, conservando los
+            mismos párrafos. Si queda vacía, la página en inglés se publicará sin memoria.
+            <span id="contadorMemoriaEn"></span></p>
         </div>
       </section>
 
@@ -133,23 +170,28 @@
           Guardá la obra y después vas a poder cargar las fotos.
         </p>
 
+        <div class="requisitos" id="ayudaFotos">
+          <strong>Requisitos de las imágenes</strong>
+          <ul>
+            <li>JPG, PNG o WebP; hasta 20 MB por archivo y 15 imágenes por obra.</li>
+            <li>Ideal: 1800 × 1200 px. Mínimo recomendado: 1600 × 900 px.</li>
+            <li>Portada horizontal, nítida y sin texto. Evitá capturas y archivos de WhatsApp.</li>
+            <li>El panel conserva la proporción, reduce el lado mayor a 1800 px y convierte a WebP al 82%.</li>
+            <li>La primera imagen queda como portada. Podés cambiarla y reordenar con flechas o arrastre.</li>
+          </ul>
+        </div>
+
         <div id="galeria" class="oculto">
           <div class="galeria__barra">
             <button type="button" class="boton boton--compacto" id="subir">Agregar fotos</button>
             <span class="conteo" id="conteoFotos"></span>
           </div>
-          <input type="file" id="archivos" accept="image/*" multiple hidden>
+          <input type="file" id="archivos"
+            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
 
           <p class="campo__ayuda oculto" id="ayudaTope">
             Llegaste al máximo de 15. Para subir otra, eliminá una.
           </p>
-          <p class="campo__ayuda">
-            Usá JPG, PNG o WebP de al menos 1600 px en su lado mayor. Para la portada,
-            preferí una foto horizontal y evitá capturas o imágenes reenviadas por WhatsApp.
-            Se achican a un máximo de 1800 px y se convierten a WebP antes de subir.
-            Arrastralas para cambiar el orden, o usá las flechas.
-          </p>
-
           <div class="grilla-fotos" id="grilla"></div>
           <p class="aviso" id="avisoGaleria" role="status" aria-live="polite"></p>
         </div>
@@ -161,12 +203,16 @@
         <div class="campo">
           <label for="estado">Estado de la obra</label>
           <select id="estado"></select>
+          <p class="campo__ayuda"><b>En proyecto</b>: propuesta todavía no ejecutada. <b>En progreso</b>:
+            obra en construcción. <b>Concluida</b>: obra terminada. Este estado define el sello de la tarjeta.</p>
         </div>
 
         <label class="casilla">
           <input type="checkbox" id="destacada">
           <span>Mostrarla entre las destacadas del home</span>
         </label>
+        <p class="campo__ayuda">El home admite exactamente 3 destacadas. La obra debe estar publicada,
+          tener portada horizontal, bajada y rótulos en ambos idiomas.</p>
 
         <!-- Solo aparecen si la obra es destacada: son los unicos datos del
              banner del home que no salen de la ficha. El titulo del banner es el
@@ -176,7 +222,8 @@
             <label for="bannerRotulo">Rótulo del banner</label>
             <input type="text" id="bannerRotulo" maxlength="60"
               placeholder="Obra recientemente inaugurada">
-            <p class="campo__ayuda">La línea chica sobre el título, en el home.
+            <p class="campo__ayuda">La línea chica sobre el título, en el home. Recomendado: 2 a 5
+              palabras; máximo 60 caracteres.
               El título y el texto del banner salen del título y la bajada de la
               obra.</p>
           </div>
@@ -184,8 +231,8 @@
             <label for="bannerRotuloEn">Rótulo en inglés</label>
             <input type="text" id="bannerRotuloEn" maxlength="60"
               placeholder="Recently opened">
-            <p class="campo__ayuda">Si queda vacío, el banner del sitio en inglés
-              muestra el rótulo en castellano.</p>
+            <p class="campo__ayuda">Traducción del rótulo anterior; máximo 60 caracteres. Es obligatoria
+              si la obra va al home.</p>
           </div>
           <p class="campo__ayuda">El home tiene lugar para tres destacadas. Si hay
             más marcadas, entran las tres primeras.</p>
@@ -195,8 +242,9 @@
           <input type="checkbox" id="publicada">
           <span>Publicada en el sitio</span>
         </label>
-        <p class="campo__ayuda">Mientras esté sin publicar, nadie puede verla:
-          ni entrando a la dirección de la obra.</p>
+        <p class="campo__ayuda">Sin marcar: queda como borrador privado. Marcada: queda lista para el
+          próximo deploy. Guardar no actualiza la web; después tenés que usar <b>Publicar cambios</b>
+          desde Obras.</p>
       </section>
 
       <div class="acciones">

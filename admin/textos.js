@@ -15,6 +15,53 @@
     contacto: 'Contacto',
   };
 
+  var GUIAS = {
+    'home.titular': {
+      hasta: 60,
+      ayuda: 'Frase principal sobre el video del home. Recomendado: 3 a 7 palabras.',
+    },
+    'home.bajada': {
+      hasta: 260,
+      ayuda: 'Presentación breve del estudio. Recomendado: una o dos oraciones.',
+    },
+    'estudio.eyebrow': {
+      hasta: 60,
+      ayuda: 'Línea pequeña sobre el título. Ejemplo: Desde 2006 — Buenos Aires.',
+    },
+    'estudio.titular': {
+      hasta: 70,
+      ayuda: 'Título principal de la página Estudio.',
+    },
+    'estudio.presentacion': {
+      hasta: 500,
+      ayuda: 'Resumen institucional. Recomendado: 60 a 90 palabras.',
+    },
+    'contacto.titular': {
+      hasta: 70,
+      ayuda: 'Título principal de Contacto. Recomendado: 3 a 7 palabras.',
+    },
+    'contacto.direccion': {
+      hasta: 180,
+      ayuda: 'Dirección pública. Usá una línea para la calle y otra para ciudad y país.',
+    },
+    'contacto.telefonos': {
+      hasta: 120,
+      ayuda: 'Un teléfono por línea, siempre con código de país.',
+    },
+    'estudio.bloque1': {
+      hasta: 500,
+      ayuda: 'Texto de Diseño integral. Recomendado: 35 a 70 palabras.',
+    },
+    'estudio.bloque2': {
+      hasta: 500,
+      ayuda: 'Texto de Identidad. Recomendado: 35 a 70 palabras.',
+    },
+    'estudio.bloque3': {
+      hasta: 500,
+      ayuda: 'Texto de Autenticidad. Recomendado: 35 a 70 palabras.',
+    },
+  };
+
   function avisar(texto, tipo) {
     var el = $('aviso');
     el.textContent = texto || '';
@@ -60,6 +107,7 @@
 
     var es = control(t, 'es');
     caja.appendChild(es);
+    caja.appendChild(ayudaCampo(t, es, false));
 
     /* El ingles va junto al castellano y no en otra pantalla: si estuvieran
        separados, cambiar uno y olvidarse del otro seria lo normal, y el sitio
@@ -72,6 +120,7 @@
 
     var en = control(t, 'en');
     caja.appendChild(en);
+    caja.appendChild(ayudaCampo(t, en, true));
 
     var pie = document.createElement('div');
     pie.className = 'texto__pie';
@@ -133,6 +182,22 @@
     el.id = idioma + '-' + t.clave;
     el.value = t[idioma] || '';
     return el;
+  }
+
+  function ayudaCampo(t, control, ingles) {
+    var guia = GUIAS[t.clave] || { hasta: 500, ayuda: 'Texto visible en el sitio.' };
+    var ayuda = document.createElement('p');
+    ayuda.className = 'campo__ayuda texto__ayuda';
+
+    var actualizar = function () {
+      var n = control.value.length;
+      ayuda.textContent = (ingles ? 'Mismo contenido, traducido al inglés. ' : guia.ayuda + ' ')
+        + n + ' caracteres; recomendado hasta ' + guia.hasta + '.';
+      ayuda.classList.toggle('texto__ayuda--alerta', n > guia.hasta);
+    };
+    control.addEventListener('input', actualizar);
+    actualizar();
+    return ayuda;
   }
 
   function pintar(textos) {

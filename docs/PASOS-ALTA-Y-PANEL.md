@@ -353,6 +353,24 @@ se cae el sitio sigue en pie porque las páginas ya están escritas.
 **El modo borrador es real:** una obra sin publicar no se puede ver ni
 entrando a su dirección, ni consultando la base a mano.
 
+## Guía para el estudio
+
+El panel incluye una guía visible en `estudiohma.com/admin/ayuda`. También se
+accede desde **Guía de uso** en Obras, la ficha de cada obra y Textos del sitio.
+
+La guía explica:
+
+- el flujo completo de alta, desde borrador hasta publicación;
+- qué contenido y extensión corresponde a cada campo;
+- formatos, medidas, peso, calidad y cantidad de imágenes;
+- la diferencia entre Guardar, Publicada y Publicar cambios;
+- cómo editar, despublicar o eliminar sin perder una obra por error.
+
+El mismo resumen aparece dentro del formulario. Las fotos muestran sus medidas
+y avisan si quedan por debajo de la resolución recomendada. La carga acepta JPG,
+PNG y WebP de hasta 20 MB; el panel optimiza a WebP al 82% y limita el lado
+mayor a 1800 px antes de subir.
+
 ---
 
 # Lo que sigue pendiente de contenido

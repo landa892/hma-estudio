@@ -54,7 +54,10 @@
     $('bannerRotulo').value = o.banner_rotulo || '';
     $('bannerRotuloEn').value = o.banner_rotulo_en || '';
     $('publicada').checked = !!o.publicada;
+    contarTitulo();
     contarBajada();
+    contarMemoria('memoria', 'contadorMemoria');
+    contarMemoria('memoriaEn', 'contadorMemoriaEn');
     verBanner();
   }
 
@@ -177,7 +180,19 @@
 
   function contarBajada() {
     var n = $('bajada').value.length;
-    $('contadorBajada').textContent = n ? '(' + n + ' de 200)' : '';
+    $('contadorBajada').textContent = '(' + n + ' de 200 caracteres)';
+  }
+
+  function contarTitulo() {
+    $('contadorTitulo').textContent = '(' + $('titulo').value.length + ' de 120)';
+  }
+
+  function contarMemoria(campo, contador) {
+    var texto = $(campo).value.trim();
+    var palabras = texto ? texto.split(/\s+/).length : 0;
+    var parrafos = texto ? texto.split(/\n\s*\n/).filter(Boolean).length : 0;
+    $(contador).textContent = '(' + palabras + (palabras === 1 ? ' palabra' : ' palabras')
+      + ', ' + parrafos + (parrafos === 1 ? ' párrafo' : ' párrafos') + ')';
   }
 
   /* --- guardar ---------------------------------------------------------- */
@@ -246,6 +261,7 @@
 
     // La direccion web se propone del titulo mientras nadie la haya tocado.
     $('titulo').addEventListener('input', function () {
+      contarTitulo();
       if (!slugTocado && esNueva) {
         $('slug').value = DATOS.proponerSlug($('titulo').value);
       }
@@ -255,6 +271,12 @@
       actualizarEnlacePublico();
     });
     $('bajada').addEventListener('input', contarBajada);
+    $('memoria').addEventListener('input', function () {
+      contarMemoria('memoria', 'contadorMemoria');
+    });
+    $('memoriaEn').addEventListener('input', function () {
+      contarMemoria('memoriaEn', 'contadorMemoriaEn');
+    });
     $('destacada').addEventListener('change', verBanner);
     $('publicada').addEventListener('change', actualizarEnlacePublico);
     $('formObra').addEventListener('submit', guardar);
@@ -268,6 +290,10 @@
     if (esNueva) {
       $('cargando').classList.add('oculto');
       $('formObra').classList.remove('oculto');
+      contarTitulo();
+      contarBajada();
+      contarMemoria('memoria', 'contadorMemoria');
+      contarMemoria('memoriaEn', 'contadorMemoriaEn');
       $('titulo').focus();
       return;
     }
@@ -277,8 +303,8 @@
       slugTocado = true;   // en una obra ya creada el slug no se recalcula
       volcar(fila);
       $('encabezado').textContent = fila.titulo;
-      $('ayudaSlug').textContent = 'Cambiarla rompe los links a esta obra '
-        + 'que ya estén compartidos o en Google.';
+      $('ayudaSlug').textContent = 'No la cambies salvo que sea imprescindible: rompe los enlaces '
+        + 'compartidos y la dirección que conoce Google. Sólo admite minúsculas, números y guiones.';
       $('cargando').classList.add('oculto');
       $('formObra').classList.remove('oculto');
       actualizarEnlacePublico();
