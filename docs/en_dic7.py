@@ -63,6 +63,11 @@ DIC.update({
     'Ver LinkedIn': 'View LinkedIn',
     'Ver las publicaciones de Hitzig Militello Arquitectos en LinkedIn':
         'View Hitzig Militello Architects posts on LinkedIn',
+    'Proyectos y procesos': 'Projects and processes',
+    'Seguinos en LinkedIn para conocer la evolución de nuestras obras, procesos de diseño y novedades del estudio en Argentina y el exterior.':
+        'Follow us on LinkedIn for updates on our projects, design process and studio news from Argentina and abroad.',
+    'Proyecto hotelero de Hitzig Militello Arquitectos':
+        'Hospitality project by Hitzig Militello Architects',
     'Ir a LinkedIn': 'Go to LinkedIn',
     'Proyectos construidos en': 'Projects built in',
     'países, con una práctica local y alcance internacional.':

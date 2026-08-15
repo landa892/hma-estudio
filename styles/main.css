@@ -968,9 +968,10 @@ footer.site-footer {
 }
 
 .project-banner--linkedin__image {
-  width: min(62%, 440px);
-  max-height: 78vh;
-  object-fit: contain;
+  width: min(88%, 760px);
+  aspect-ratio: 1567 / 1004;
+  max-height: 72vh;
+  object-fit: cover;
   box-shadow: 0 14px 36px rgba(0, 0, 0, .12);
   transition: transform .45s ease;
 }
@@ -1025,8 +1026,8 @@ footer.site-footer {
   }
 
   .project-banner--linkedin__image {
-    width: min(72%, 340px);
-    max-height: 50vh;
+    width: 100%;
+    max-height: 46vh;
   }
 }
 
