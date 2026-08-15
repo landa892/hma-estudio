@@ -60,9 +60,9 @@ DIC.update({
         'An interview from the Indusparquet plant in the state of São Paulo, within the project we developed for its Núñez flagship. The “El Bosque” concept defines the store experience and spatial identity.',
     'Entrevista de Hitzig Militello Arquitectos en la planta de Indusparquet en Tietê, Brasil':
         'Hitzig Militello Architects interview at the Indusparquet plant in Tietê, Brazil',
-    'Ver publicación': 'View post',
-    'Ver la publicación de Hitzig Militello Arquitectos en LinkedIn':
-        'View the Hitzig Militello Architects post on LinkedIn',
+    'Ver LinkedIn': 'View LinkedIn',
+    'Ver las publicaciones de Hitzig Militello Arquitectos en LinkedIn':
+        'View Hitzig Militello Architects posts on LinkedIn',
     'Ir a LinkedIn': 'Go to LinkedIn',
     'Proyectos construidos en': 'Projects built in',
     'países, con una práctica local y alcance internacional.':
