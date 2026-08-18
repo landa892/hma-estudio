@@ -16,22 +16,24 @@
      4. panel_galerias  conecta las fotos historicas y aplica portada y orden.
      5. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
      6. panel_sitio     saca del sitio las eliminadas o despublicadas.
-     7. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
+     7. panel_listado   sincroniza titulo y categoria de cada tarjeta con la
+                        base.
+     8. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
                         con el estado de la base. Va despues de las altas y las
                         bajas, que son las que agregan y sacan tarjetas.
-     8. panel_textos    escribe los textos fijos de home, estudio y contacto.
-     9. panel_home      pone las destacadas en los banners del home.
-    10. obras_layout    garantiza que la portada abra cada ficha y deja una
+     9. panel_textos    escribe los textos fijos de home, estudio y contacto.
+    10. panel_home      pone las destacadas en los banners del home.
+    11. obras_layout    garantiza que la portada abra cada ficha y deja una
                         composicion consistente para la memoria editorial.
-    11. prensa_pagina   rearma el archivo completo de publicaciones.
-    12. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+    12. prensa_pagina   rearma el archivo completo de publicaciones.
+    13. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    13. obras_orden     ordena grilla y lista por el ano final, tanto en
+    14. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    14. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    15. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    15. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    16. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -52,6 +54,7 @@ PASOS = [
     ('las galerias y portadas',       'panel_galerias.py', []),
     ('los datos de cada obra',       'panel_generar.py', ['--supabase']),
     ('las obras que ya no van',      'panel_sitio.py',   ['--supabase']),
+    ('las tarjetas del listado',     'panel_listado.py', ['--supabase']),
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),

@@ -146,6 +146,7 @@ DIC.update({
 
     # --- Ualá II ---
     'Ualá II': 'Ualá II',
+    'Casa Luna': 'Luna House',
     'Diseño interior de oficinas': 'Office interior design',
     'Segundas oficinas de Ualá en Palermo: 757 m² organizados alrededor de un patio central y jardín vertical.':
         "Ualá's second offices in Palermo: 757 m² organised around a central courtyard and a vertical garden.",

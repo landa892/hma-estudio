@@ -325,6 +325,8 @@ CORRECCIONES = {
             'Oficinas resueltas con tabiques y mobiliario de OSB, y la gráfica '
             'de la empresa sobre los vidrios.',
             'Remodelación integral de las oficinas de IguanaFix en Buenos Aires.'),
+        # El estudio la clasifica como proyecto dentro del filtro de oficinas.
+        'estado': valor('concluida', 'en_proyecto'),
     },
     'victoria-brown': {
         'equipo': valor(
@@ -340,6 +342,9 @@ CORRECCIONES = {
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello', 'Arq. Ruben Ruiz']),
     },
     'oficina-casa-luna': {
+        'titulo': valor('Oficina + casa Luna', 'Casa Luna'),
+        'categoria': valor('oficinas', 'residencial'),
+        'estado': valor('en_proyecto', 'concluida'),
         'equipo': valor(
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
              'Arq. Leonardo G. Militello', 'Arq. Florencia Schvartzman',
@@ -348,6 +353,7 @@ CORRECCIONES = {
              'Arq. Florencia Schvartzman', 'Arq. Belen Lepro Delelis']),
     },
     'ph-el-salvador': {
+        'estado': valor('en_proyecto', 'concluida'),
         'equipo': valor(
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
              'Arq. Leonardo G. Militello', 'Arq. Carmela Zuleta',
@@ -356,11 +362,28 @@ CORRECCIONES = {
              'Arq. Carmela Zuleta', 'Arq. Juliana Zorza', 'Arq. Samira Attar']),
     },
     'uala-gigena': {
+        'titulo': valor('Ualá Gigena', 'Ualá 1'),
+        'estado': valor('en_proyecto', 'concluida'),
         # Las fichas originales de Uala Gigena fueron creadas en 2022. El
         # cliente tambien marco ese ano en la revision final del contenido.
         'anio': valor('2024', '2022'),
         # Habia quedado al final del listado con orden 60 aunque es de 2022.
         'orden': valor(60, 27),
+    },
+    'uala-ii': {
+        'estado': valor('concluida', 'en_proyecto'),
+    },
+    'kavak-oficinas': {
+        'estado': valor('concluida', 'en_proyecto'),
+    },
+    'abasto-patio-comidas': {
+        'categoria': valor('gastronomico', 'comercial'),
+    },
+    'ph-loft-arias': {
+        'estado': valor('en_proyecto', 'concluida'),
+    },
+    'galeria-objeto-a': {
+        'estado': valor('en_proyecto', 'concluida'),
     },
 }
 

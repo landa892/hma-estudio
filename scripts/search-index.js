@@ -329,8 +329,8 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
-  "titulo": "Oficina + casa Luna",
-  "sub": "Oficinas",
+  "titulo": "Casa Luna",
+  "sub": "Residencial",
   "desc": "Oficina y vivienda · Luna 250, Buenos Aires · 250 m² cubiertos · 100 m² descubiertos · 2012–13",
   "url": "/proyectos/oficina-casa-luna/",
   "img": "/assets/gallery/oficina-casa-luna/1.webp"
@@ -370,7 +370,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Patio de Comidas Abasto",
-  "sub": "Gastronómico",
+  "sub": "Comercial",
   "desc": "Patio de comidas · Av. Corrientes 3247, Buenos Aires · 294 m² (Patio Zorzal) · 1.300 m² (Patio Central) · 2020",
   "url": "/proyectos/abasto-patio-comidas/",
   "img": "/assets/gallery/abasto-patio-comidas/1.webp"
@@ -465,7 +465,7 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
-  "titulo": "Ualá Gigena",
+  "titulo": "Ualá 1",
   "sub": "Oficinas",
   "desc": "Oficinas · Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires · 9.002 m²",
   "url": "/proyectos/uala-gigena/",

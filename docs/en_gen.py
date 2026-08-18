@@ -6,7 +6,7 @@
    nunca hay que mantener dos sitios a mano: se edita el castellano y se
    vuelve a correr esto.
 """
-import io, os, re, glob, sys, shutil
+import io, os, re, glob, sys, shutil, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import en_dic3
@@ -24,6 +24,26 @@ SITIO = 'https://estudiohma.com'
 tr = en_dic7.traducir
 
 sin_traducir = []
+
+
+def escribir(ruta, contenido):
+    """Escribe de forma atomica y tolera bloqueos breves de Windows."""
+    temporal = ruta + '.en-gen-%s.tmp' % os.getpid()
+    ultimo = None
+    for intento in range(5):
+        try:
+            io.open(temporal, 'w', encoding='utf-8', newline='\n').write(contenido)
+            os.replace(temporal, ruta)
+            return
+        except OSError as error:
+            ultimo = error
+            if os.path.exists(temporal):
+                try:
+                    os.remove(temporal)
+                except OSError:
+                    pass
+            time.sleep(0.1 * (intento + 1))
+    raise ultimo
 
 # Los textos fijos que el estudio edita desde el panel. Los escribe
 # docs/panel_textos.py con los pares que cargo el propio estudio, y van antes
@@ -253,13 +273,13 @@ def main():
         if ruta_en.endswith('/'):
             destino = os.path.join(destino, 'index.html')
         os.makedirs(os.path.dirname(destino), exist_ok=True)
-        io.open(destino, 'w', encoding='utf-8').write(en)
+        escribir(destino, en)
 
         # --- el castellano solo suma boton y hreflang ---
         es = poner_hreflang(s, ruta_es, ruta_en)
         es = poner_boton(es, ruta_en, 'EN', 'View this page in English')
         if es != s:
-            io.open(p, 'w', encoding='utf-8').write(es)
+            escribir(p, es)
 
         hechas.append((ruta_es, ruta_en))
 
@@ -272,11 +292,11 @@ def main():
             print('  %3d x %s' % (n, t[:160]))
         # Lista completa y sin recortar, para poder pasarla al diccionario.
         import json
-        io.open('docs/en_faltantes.json', 'w', encoding='utf-8').write(
-            json.dumps([t for t, _ in c.most_common()], ensure_ascii=False, indent=1))
+        escribir('docs/en_faltantes.json',
+                 json.dumps([t for t, _ in c.most_common()], ensure_ascii=False, indent=1))
     else:
         print('sin faltantes: todo el texto visible quedo traducido')
-        io.open('docs/en_faltantes.json', 'w', encoding='utf-8').write('[]\n')
+        escribir('docs/en_faltantes.json', '[]\n')
     if sin_memoria_en:
         print('\nOBRAS SIN MEMORIA EN INGLES (%d) — el espejo va sin ese bloque:'
               % len(sin_memoria_en))
