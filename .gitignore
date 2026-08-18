@@ -26,3 +26,6 @@ docs/en_faltantes.json
 # atado a una cuenta y transferir el proyecto al estudio es cambiar dos
 # variables. Lo escribe docs/panel_config.py en cada build.
 admin/config.js
+.vercel/
+.env.local
+.env.*.local
