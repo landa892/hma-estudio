@@ -98,7 +98,7 @@ def main():
     main = '''<main id="main">
     <section class="hero-home pb-32">
       <div class="container">
-        <span class="eyebrow">Prensa y News</span>
+        <span class="eyebrow">Prensa</span>
         <h1 class="display-2 mt-14">Todas las publicaciones</h1>
         <p class="lede mt-16">Publicaciones, entrevistas, conferencias y novedades del estudio desde 2003.</p>
       </div>

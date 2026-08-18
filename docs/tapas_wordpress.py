@@ -46,7 +46,7 @@ PORTADAS = {
     'hausscape': ('/assets/covers/hausscape.webp', 818, 545),
     'hyatt-ziva': ('/assets/covers/hyatt-ziva.webp', 1920, 1080),
     'iguanafix': ('/assets/covers/iguanafix.webp', 900, 600),
-    'indusparquet': ('/assets/covers/indusparquet.webp', 1920, 1080),
+    'indusparquet': ('/assets/covers/indusparquet.webp', 1536, 1024),
     'iol': ('/assets/covers/iol.webp', 1200, 803),
     'juan-valdez': ('/assets/covers/juan-valdez.webp', 800, 533),
     'kavak-hub': ('/assets/covers/kavak-hub.webp', 1200, 800),
@@ -86,12 +86,12 @@ PORTADAS = {
 # imagen, asi que la vista previa al compartir salia sin foto.
 PUBLIC_BASE = 'https://estudiohma.com'
 
-# Estas caratulas cambiaron el 12/08. El sufijo obliga a navegadores y CDNs a
+# Estas caratulas cambiaron en agosto. El sufijo obliga a navegadores y CDNs a
 # pedir el archivo nuevo aun cuando tengan en cache la URL anterior.
 VERSIONES = {
     'cien': '20260812',
     'hyatt-ziva': '20260812b',
-    'indusparquet': '20260812b',
+    'indusparquet': '20260817',
     'movistar-arena': '20260812b',
     'osten-tower': '20260812',
     'parfumerie': '20260812b',

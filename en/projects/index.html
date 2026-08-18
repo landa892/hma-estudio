@@ -28,7 +28,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.css?v=87">
+  <link rel="stylesheet" href="/styles/main.css?v=88">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/">
@@ -74,7 +74,7 @@
         <li><a href="/en/">Home</a></li>
         <li><a href="/en/studio/">Studio</a></li>
         <li><a href="/en/projects/" aria-current="page">Works</a></li>
-        <li><a href="/en/press/">Press and News</a></li>
+        <li><a href="/en/press/">Press</a></li>
         <li><a href="/en/awards/">Awards</a></li>
         <li><a href="/en/contact/">Contact</a></li>
       </ul>
@@ -154,6 +154,7 @@
             <button class="filter-btn" data-filter="residencial">Residential</button>
             <button class="filter-btn" data-filter="oficinas">Offices</button>
             <button class="filter-btn" data-filter="cultural">Cultural &amp; Institutional</button>
+            <button class="filter-btn" data-filter="concursos">Competitions</button>
           </div>
           <div class="filtros-derecha">
             <div class="estado-toggle" id="estadoToggle">
@@ -196,7 +197,7 @@
             data-estado="obra">
             <span class="card-estado card-estado--obra">Built</span>
             <span class="card-cat">Commercial</span>
-            <img src="/assets/covers/indusparquet.webp?v=20260812b" width="1920" height="1080" alt="Indusparquet" loading="lazy"
+            <img src="/assets/covers/indusparquet.webp?v=20260817" width="1536" height="1024" alt="Indusparquet" loading="lazy"
             decoding="async">
             <div class="card-plate">
             <div class="p-name">Indusparquet</div>
@@ -278,7 +279,7 @@
             <div class="p-meta"><span>Restaurant</span><span>Buenos Aires</span><span>2024</span></div>
             </div>
           </a>
-          <a href="/en/projects/bienal-venecia/" class="project-card" data-cat="cultural" data-slug="bienal-venecia"
+          <a href="/en/projects/bienal-venecia/" class="project-card" data-cat="cultural" data-concurso="true" data-slug="bienal-venecia"
             data-estado="proyecto">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Cultural &amp; Institutional</span>
@@ -289,7 +290,7 @@
             <div class="p-meta"><span>Temporary exhibition pavilion</span><span>Venice Architecture Biennale</span><span>582 m²</span><span>2024</span></div>
             </div>
           </a>
-          <a href="/en/projects/edificio-del-plata/" class="project-card" data-cat="residencial"
+          <a href="/en/projects/edificio-del-plata/" class="project-card" data-cat="residencial" data-concurso="true"
             data-slug="edificio-del-plata" data-estado="proyecto">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Residential</span>
@@ -501,7 +502,7 @@
             <div class="p-meta"><span>Offices</span><span>Buenos Aires</span><span>800 m²</span><span>2020–2021</span></div>
             </div>
           </a>
-          <a href="/en/projects/abasto-patio-comidas/" class="project-card" data-cat="gastronomico"
+          <a href="/en/projects/abasto-patio-comidas/" class="project-card" data-cat="gastronomico" data-concurso="true"
             data-slug="abasto-patio-comidas" data-estado="proyecto">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Hospitality</span>
@@ -867,7 +868,7 @@
           </a>
           <a href="/en/projects/indusparquet/" class="project-list-row" data-cat="comercial" data-slug="indusparquet"
             data-estado="obra">
-            <div class="plr-thumb"><img src="/assets/covers/indusparquet.webp?v=20260812b" width="1920" height="1080" alt=""
+            <div class="plr-thumb"><img src="/assets/covers/indusparquet.webp?v=20260817" width="1536" height="1024" alt=""
             loading="lazy"></div>
             <div>
             <div class="plr-name">Indusparquet</div>
@@ -952,7 +953,7 @@
             <div class="plr-cat">Hospitality</div>
             <div class="plr-loc">2024</div>
           </a>
-          <a href="/en/projects/bienal-venecia/" class="project-list-row" data-cat="cultural" data-slug="bienal-venecia"
+          <a href="/en/projects/bienal-venecia/" class="project-list-row" data-cat="cultural" data-concurso="true" data-slug="bienal-venecia"
             data-estado="proyecto">
             <div class="plr-thumb"><img src="/assets/covers/bienal-venecia.webp" width="1200" height="849" alt=""
             loading="lazy"></div>
@@ -963,7 +964,7 @@
             <div class="plr-cat">Cultural &amp; Institutional</div>
             <div class="plr-loc">2024</div>
           </a>
-          <a href="/en/projects/edificio-del-plata/" class="project-list-row" data-cat="residencial"
+          <a href="/en/projects/edificio-del-plata/" class="project-list-row" data-cat="residencial" data-concurso="true"
             data-slug="edificio-del-plata" data-estado="proyecto">
             <div class="plr-thumb"><img src="/assets/covers/edificio-del-plata.webp" width="800" height="450" alt=""
             loading="lazy"></div>
@@ -1172,7 +1173,7 @@
             <div class="plr-cat">Offices</div>
             <div class="plr-loc">—</div>
           </a>
-          <a href="/en/projects/abasto-patio-comidas/" class="project-list-row" data-cat="gastronomico"
+          <a href="/en/projects/abasto-patio-comidas/" class="project-list-row" data-cat="gastronomico" data-concurso="true"
             data-slug="abasto-patio-comidas" data-estado="proyecto">
             <div class="plr-thumb"><img src="/assets/gallery/abasto-patio-comidas/1.webp" width="1920" height="1080"
             alt="" loading="lazy"></div>
@@ -1604,7 +1605,7 @@
   <script src="/scripts/animations/textReveal.js?v=85"></script>
   <script src="/scripts/animations/heroAnimation.js?v=85"></script>
   <script src="/scripts/animations/scrollEffects.js?v=85"></script>
-  <script src="/scripts/main.js?v=85"></script>
+  <script src="/scripts/main.js?v=86"></script>
 </body>
 
 </html>

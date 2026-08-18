@@ -1684,50 +1684,21 @@ footer.site-footer {
    PRENSA
    ======================================================================== */
 
-/* 6 columnas en vez de 3: el cliente pidio las fotos de prensa a la mitad. */
+/* Las tarjetas conservan el tamaño compacto, pero la ultima fila reparte el
+   espacio sobrante. Asi prensa y videos completan el ancho aunque la cantidad
+   de elementos no sea multiplo de seis. */
 .press-featured {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1px;
-  /* El fondo va en blanco y la linea la dibuja cada tarjeta con su outline.
-     Antes la linea era este fondo asomando por el gap, y cuando la ultima
-     fila quedaba incompleta —nueve notas en dos columnas, por ejemplo— la
-     celda vacia se veia como un recuadro gris. */
   background: var(--white);
   border: 1px solid var(--black);
   margin-bottom: 64px;
 }
 
-/* La grilla es de seis, y la seccion de videos muestra cinco: con seis
-   columnas quedaba una celda vacia al final de la fila. Se ajusta a la
-   cantidad que haya, sin tocar el resto de las grillas de prensa.
-
-   Va acotada a pantalla ancha a proposito. Como es un id, le gana a las
-   medias queries de .press-featured, asi que sin este limite mantenia las
-   cinco columnas tambien en el telefono: los videos quedaban en cinco
-   columnas de 100 px, la fila se salia de la pantalla y arrastraba al pie. */
-@media (min-width: 1101px) {
-  /* auto-fit reparte el ancho entre las tarjetas que haya y descarta las
-     columnas que sobran, asi que la fila queda llena vengan cinco videos del
-     canal o cuatro. Con un numero fijo de columnas, un video de menos dejaba
-     un hueco. */
-  #youtubeEntrevistas {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  }
-}
-
-/* Entre el telefono y la pantalla ancha van dos columnas, y si la cantidad de
-   videos es impar el ultimo ocupa las dos. Antes, con cuatro columnas y cinco
-   videos, el ultimo quedaba solo y sobraban 616 px de blanco adentro del
-   recuadro. */
-@media (min-width: 621px) and (max-width: 1100px) {
-  #youtubeEntrevistas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  #youtubeEntrevistas > :last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
+.press-featured > .press-card {
+  flex: 1 1 calc(16.666% - 1px);
+  min-width: 180px;
 }
 
 /* Rotulo de seccion como los de la pagina Estudio ("Fundadores", "Que
@@ -1740,14 +1711,14 @@ footer.site-footer {
 }
 
 @media (max-width: 1100px) {
-  .press-featured {
-    grid-template-columns: repeat(4, 1fr);
+  .press-featured > .press-card {
+    flex-basis: calc(25% - 1px);
   }
 }
 
 @media (max-width: 760px) {
-  .press-featured {
-    grid-template-columns: repeat(3, 1fr);
+  .press-featured > .press-card {
+    flex-basis: calc(33.333% - 1px);
   }
 }
 
@@ -1756,10 +1727,9 @@ footer.site-footer {
    tarjetas en un ancho donde el titulo caia letra por letra. De paso ninguna
    fila queda incompleta, asi que no hay celda sobrante al final. */
 @media (max-width: 620px) {
-
-  #youtubeEntrevistas,
-  .press-featured {
-    grid-template-columns: 1fr;
+  .press-featured > .press-card {
+    flex-basis: 100%;
+    min-width: 100%;
   }
 }
 
@@ -3326,9 +3296,9 @@ footer.site-footer {
 }
 
 .work-split--proceso {
-  grid-template-columns: minmax(0, 24rem) minmax(0, 444px);
-  justify-content: center;
-  gap: clamp(36px, 6vw, 88px);
+  grid-template-columns: minmax(0, 1.12fr) minmax(20rem, .88fr);
+  align-items: stretch;
+  gap: clamp(36px, 5vw, 76px);
 }
 
 .work-split--proceso .work-steps {
@@ -3363,8 +3333,17 @@ footer.site-footer {
 }
 
 .work-split--proceso .work-split__photo {
-  max-width: 444px;
-  justify-self: end;
+  width: 100%;
+  max-width: none;
+  min-height: clamp(420px, 42vw, 650px);
+  justify-self: stretch;
+}
+
+.work-split--proceso .work-split__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 760px) {
@@ -3374,8 +3353,10 @@ footer.site-footer {
   }
 
   .work-split--proceso .work-split__photo {
-    max-width: min(82vw, 444px);
-    justify-self: end;
+    max-width: none;
+    min-height: 0;
+    aspect-ratio: 3 / 2;
+    justify-self: stretch;
   }
 }
 
@@ -3912,8 +3893,8 @@ html.lenis body {
   column-gap: clamp(32px, 4.5vw, 76px);
 }
 
-/* Cuando hay fotos disponibles, el script convierte la memoria en un relato
-   editorial de una sola columna y reparte las imagenes entre los parrafos. */
+/* Cuando hay fotos disponibles, el script convierte la memoria en filas de
+   dos columnas y alterna la posicion de la imagen. */
 .memoria-cuerpo--intercalada {
   columns: 1;
   opacity: 1 !important;
@@ -3921,32 +3902,61 @@ html.lenis body {
   transform: none !important;
 }
 
-.memoria-cuerpo--intercalada > p {
-  max-width: 62ch;
+.memoria-editorial-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: clamp(380px, 46vw, 660px);
+  margin: 0 0 2px;
+  background: var(--line);
+  gap: 1px;
 }
 
-.memoria-inline-photo {
-  width: 100%;
-  min-height: 0;
-  aspect-ratio: 16 / 10;
-  margin: clamp(28px, 4vw, 58px) 0;
+.memoria-editorial-row__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--white);
+  padding: clamp(34px, 5vw, 76px);
+}
+
+.memoria-editorial-row__text > p {
+  max-width: 58ch;
+  margin: 0 0 1.15em;
+  font-size: clamp(1rem, .4vw + .95rem, 1.1rem);
+  line-height: 1.72;
+  color: #4a4a4a;
+  orphans: 3;
+  widows: 3;
+}
+
+.memoria-editorial-row__text > p:last-child {
+  margin-bottom: 0;
+}
+
+.memoria-editorial-row__photo {
+  min-width: 0;
   overflow: hidden;
+  background: #f2f2f2;
 }
 
-.memoria-inline-photo img {
+.memoria-editorial-row__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: none;
+  transform: none !important;
 }
 
-.memoria-cuerpo:not(.is-open) > .memoria-inline-photo--extra {
+.memoria-editorial-row--reverse .memoria-editorial-row__photo {
+  order: -1;
+}
+
+.memoria-cuerpo:not(.is-open) > .memoria-editorial-row--extra {
   display: none;
 }
 
-.memoria-cuerpo.is-open > .memoria-inline-photo--extra {
-  display: block;
+.memoria-cuerpo.is-open > .memoria-editorial-row--extra {
+  display: grid;
 }
 
 .memoria-cuerpo>p {
@@ -3983,9 +3993,24 @@ html.lenis body {
     max-width: 55ch;
   }
 
-  .memoria-inline-photo {
+  .memoria-editorial-row {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 0;
+    margin-bottom: 28px;
+    background: var(--white);
+  }
+
+  .memoria-editorial-row--reverse .memoria-editorial-row__photo {
+    order: 0;
+  }
+
+  .memoria-editorial-row__text {
+    padding: 0 0 24px;
+  }
+
+  .memoria-editorial-row__photo {
     aspect-ratio: 4 / 3;
-    margin: 28px 0;
   }
 }
 

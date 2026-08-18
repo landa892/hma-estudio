@@ -221,7 +221,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Hotelería & Comercial",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
   "url": "/proyectos/indusparquet/",
-  "img": "/assets/covers/indusparquet.webp?v=20260812b"
+  "img": "/assets/covers/indusparquet.webp?v=20260817"
  },
  {
   "tipo": "Proyecto",

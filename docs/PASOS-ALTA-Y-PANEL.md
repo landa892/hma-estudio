@@ -266,7 +266,7 @@ Vercel → **Settings → Build & Development Settings → Build Command**:
 python3 docs/panel_build.py
 ```
 
-Los doce pasos viven en ese script y no encadenados con `&&` en la casilla por
+Los quince pasos viven en ese script y no encadenados con `&&` en la casilla por
 una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
 cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
 que en una sola línea de shell no se ve.
@@ -290,9 +290,11 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |
 | `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
 | `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
+| `obras_layout.py` | Coloca la carátula como primera imagen de cada ficha y mantiene esa regla después de cambiar la portada desde el panel. |
 | `prensa_pagina.py` | Genera `/prensa/publicaciones/` desde `docs/prensa-listado.html`, el archivo cronológico completo de prensa. |
 | `en_gen.py` | Rehace `/en/` de cero y traduce lo que dejaron los pasos anteriores. |
 | `obras_orden.py` | Ordena grilla y lista por año final, en ambos idiomas. **Va después de `en_gen.py`** para que una obra nueva quede en la misma posición cronológica en los dos listados. |
+| `seo_gen.py` | Actualiza datos estructurados, títulos sociales y breadcrumbs con el contenido definitivo. |
 | `sitemap_gen.py` | Rearma el sitemap leyendo las páginas en castellano y el espejo inglés ya generado. **Va último** para incluir ambas versiones. |
 
 Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel

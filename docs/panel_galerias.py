@@ -182,6 +182,8 @@ def resolver_foto(slug, foto, url):
 
 def bloque_filas(actual, titulo, fotos):
     """Conserva los textos intercalados y cambia solamente sus fotografias."""
+    portada = next((foto for foto in fotos if foto['portada']), fotos[0])
+    fotos = [portada] + [foto for foto in fotos if foto is not portada]
     filas = re.findall(r'(?s)      <div class="project-row.*?\n      </div>', actual)
     if not filas:
         filas = ['      <div class="project-row project-row--sola reveal">\n'

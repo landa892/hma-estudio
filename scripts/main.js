@@ -256,7 +256,9 @@ try {
 
     const aplicar = () => {
       document.querySelectorAll('[data-cat]').forEach(c => {
-        const fueraDeCat = cat !== 'all' && c.dataset.cat !== cat;
+        const fueraDeCat = cat === 'concursos'
+          ? c.dataset.concurso !== 'true'
+          : cat !== 'all' && c.dataset.cat !== cat;
         const fueraDeEstado = estado !== 'all' && c.dataset.estado !== estado;
         c.classList.toggle('hidden', fueraDeCat || fueraDeEstado);
       });
@@ -667,48 +669,67 @@ try {
 } catch (e) { console.error('press-filters', e); }
 
 try {
-  /* ---------- MEMORIA DE OBRA CON IMAGENES INTERCALADAS ----------
+  /* ---------- MEMORIA DE OBRA CON FILAS EDITORIALES ----------
      La memoria real ya existe en cada ficha. Las filas que venian despues
-     repetian los mismos textos institucionales en todas las obras, asi que
-     tomamos solamente sus fotos y las repartimos entre los parrafos. La
-     galeria completa sigue disponible debajo con su boton "ver las fotos". */
+     repetian textos institucionales, asi que usamos solamente sus fotos y
+     armamos pares equilibrados de texto e imagen. La portada es siempre la
+     primera foto porque el build la coloca al comienzo de project-gallery. */
   const memoria = document.querySelector('.project-memoria .memoria-cuerpo');
   const galeriaEditorial = document.querySelector('.project-gallery');
+
+  let memoriaArmada = false;
 
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
     const fotos = Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
     const cantidad = Math.min(6, parrafos.length, fotos.length);
 
-    for (let i = cantidad - 1; i >= 0; i -= 1) {
-      /* ScrollTrigger ya preparo la foto original dentro de su fila. Se usa
-         una copia limpia para no arrastrar transforms ligados a ese contexto. */
-      const foto = fotos[i].cloneNode(true);
-      foto.removeAttribute('style');
-      const indice = Math.min(
-        parrafos.length - 1,
-        Math.floor((i * parrafos.length) / cantidad)
-      );
+    if (cantidad) {
+      const fragmento = document.createDocumentFragment();
+      for (let i = 0; i < cantidad; i += 1) {
+        const inicio = Math.floor((i * parrafos.length) / cantidad);
+        const fin = Math.floor(((i + 1) * parrafos.length) / cantidad);
+        const fila = document.createElement('div');
+        fila.className = 'memoria-editorial-row' + (i % 2 ? ' memoria-editorial-row--reverse' : '');
+        if (i >= 2) fila.classList.add('memoria-editorial-row--extra');
 
-      foto.classList.add('memoria-inline-photo');
-      const imagen = foto.querySelector('img');
-      if (imagen) imagen.removeAttribute('style');
-      if (indice >= 2) {
-        foto.classList.add('memoria-inline-photo--extra');
-      } else {
-        if (imagen) imagen.loading = 'eager';
+        const texto = document.createElement('div');
+        texto.className = 'memoria-editorial-row__text';
+        parrafos.slice(inicio, Math.max(inicio + 1, fin)).forEach(p => texto.appendChild(p));
+
+        const foto = fotos[i].cloneNode(true);
+        foto.className = 'memoria-editorial-row__photo';
+        foto.removeAttribute('style');
+        const imagen = foto.querySelector('img');
+        if (imagen) {
+          imagen.removeAttribute('style');
+          imagen.loading = i === 0 ? 'eager' : 'lazy';
+          if (i === 0) imagen.fetchPriority = 'high';
+        }
+
+        fila.append(texto, foto);
+        fragmento.appendChild(fila);
       }
-      parrafos[indice].after(foto);
+      memoria.replaceChildren(fragmento);
+      memoria.classList.add('memoria-cuerpo--intercalada');
+      memoria.classList.remove('reveal');
+      memoria.removeAttribute('style');
+      memoriaArmada = true;
     }
-
-    memoria.classList.add('memoria-cuerpo--intercalada');
-    memoria.classList.remove('reveal');
-    memoria.removeAttribute('style');
   }
 
-  /* Las obras sin memoria todavia no pueden intercalar texto y fotos, pero
-     tampoco deben conservar las frases institucionales repetidas. */
-  if (galeriaEditorial) galeriaEditorial.hidden = true;
+  if (galeriaEditorial && memoriaArmada) {
+    galeriaEditorial.hidden = true;
+  } else if (galeriaEditorial) {
+    /* Una obra cargada sin memoria conserva una presentacion util: portada y
+       bajada. Se retiran las filas institucionales repetidas hasta que el
+       estudio complete la memoria desde el panel. */
+    const primeraFila = galeriaEditorial.querySelector('.project-row');
+    if (primeraFila) {
+      primeraFila.classList.add('project-row--cover-only');
+      galeriaEditorial.replaceChildren(primeraFila);
+    }
+  }
 
   /* El cierre conserva el titulo y el acceso al indice general. Las tarjetas
      sugeridas se retiraron a pedido del estudio. */

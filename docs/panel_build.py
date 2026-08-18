@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Arma el sitio desde la base. Es lo unico que corre el build de Vercel.
 
-   Los catorce pasos podrian ir encadenados con && en la casilla de Vercel, pero el
+   Los quince pasos podrian ir encadenados con && en la casilla de Vercel, pero el
    comando de build admite 256 caracteres y esa cadena mide mas del doble. Aca
    ademas se ve en el log donde falla, que en una sola linea de shell no se ve.
 
@@ -21,15 +21,17 @@
                         bajas, que son las que agregan y sacan tarjetas.
      8. panel_textos    escribe los textos fijos de home, estudio y contacto.
      9. panel_home      pone las destacadas en los banners del home.
-    10. prensa_pagina   rearma el archivo completo de publicaciones.
-    11. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+    10. obras_layout    garantiza que la portada abra cada ficha y deja una
+                        composicion consistente para la memoria editorial.
+    11. prensa_pagina   rearma el archivo completo de publicaciones.
+    12. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    12. obras_orden     ordena grilla y lista por el ano final, tanto en
+    13. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    13. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    14. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    14. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    15. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -53,6 +55,7 @@ PASOS = [
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
+    ('la composicion de las fichas', 'obras_layout.py',  []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),
     ('el orden cronologico',         'obras_orden.py',   []),

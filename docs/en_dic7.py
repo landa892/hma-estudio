@@ -68,6 +68,16 @@ DIC.update({
         'Follow us on LinkedIn for updates on our projects, design process and studio news from Argentina and abroad.',
     'Proyecto hotelero de Hitzig Militello Arquitectos':
         'Hospitality project by Hitzig Militello Architects',
+    'El estudio detrás del Movistar Arena': 'The studio behind Movistar Arena',
+    'Leonardo Militello y Fernando Hitzig repasan dos décadas de trayectoria, el método de trabajo del estudio y el proceso creativo del espacio VIP gastronómico del Movistar Arena.':
+        "Leonardo Militello and Fernando Hitzig revisit two decades of practice, the studio's working method and the creative process behind Movistar Arena's hospitality VIP lounge.",
+    'Leer la última nota compartida por Hitzig Militello Arquitectos en LinkedIn':
+        'Read the latest article shared by Hitzig Militello Architects on LinkedIn',
+    'VIP Lounge del Movistar Arena, proyecto de Hitzig Militello Arquitectos':
+        'Movistar Arena VIP Lounge, a project by Hitzig Militello Architects',
+    'Ver publicación': 'View post',
+    'Ver publicación ↗': 'View post ↗',
+    'Concursos': 'Competitions',
     'Ir a LinkedIn': 'Go to LinkedIn',
     'Proyectos construidos en': 'Projects built in',
     'países, con una práctica local y alcance internacional.':
