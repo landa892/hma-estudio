@@ -26,6 +26,12 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # El cliente usa una misma denominacion bilingue para la seccion en el
+    # menu. El ampersand es parte del nombre visible, no una conjuncion a
+    # traducir como "and".
+    'Prensa & News': 'Press & News',
+    'Prensa &amp; News': 'Press &amp; News',
+
     # --- metadatos SEO de las secciones principales ---
     'Estudio de arquitectura e interiorismo en Buenos Aires | HMA':
         'Architecture and interior design studio in Buenos Aires | HMA',
@@ -87,6 +93,11 @@ DIC.update({
     'El estudio obtuvo el 2.º puesto en el ranking argentino de diseño interior de 2024.':
         'The studio ranked second in Argentina’s 2024 interior design ranking.',
     'Ranking · 2.º puesto': 'Ranking · 2nd place',
+    'El estudio obtuvo el 4.º puesto entre los 25 mejores estudios de arquitectura de Argentina en el ranking de 2025.':
+        'The studio ranked 4th among Argentina’s 25 best architecture firms in the 2025 ranking.',
+    'El estudio obtuvo el 4.º puesto entre los 30 mejores estudios de arquitectura de Argentina en el ranking de 2024.':
+        'The studio ranked 4th among Argentina’s 30 best architecture firms in the 2024 ranking.',
+    'Ranking · 4.º puesto': 'Ranking · 4th place',
     'Conferencia': 'Conference',
     'Ciclo de conferencias presenciales DINA — Auditorio Diego de Torres, UCC Córdoba':
         'DINA in-person conference series — Diego de Torres Auditorium, UCC Córdoba',

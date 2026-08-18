@@ -3915,8 +3915,10 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
   background: var(--white);
   padding: clamp(34px, 5vw, 76px);
+  overflow-wrap: anywhere;
 }
 
 .memoria-editorial-row__text > p {
