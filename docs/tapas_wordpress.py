@@ -37,7 +37,7 @@ PORTADAS = {
     'dos-casas-conde': ('/assets/covers/dos-casas-conde.webp', 800, 1200),
     # Llego el 06/08/2026, cuando el estudio armo su carpeta "03 - Carátula".
     # Hasta entonces la tarjeta usaba la primera foto de la galeria.
-    'edificio-del-plata': ('/assets/covers/edificio-del-plata.webp', 800, 450),
+    'edificio-del-plata': ('/assets/covers/edificio-del-plata.webp', 1672, 941),
     'elyaki': ('/assets/covers/elyaki.webp', 1200, 800),
     'fehgra': ('/assets/covers/fehgra.webp', 800, 520),
     'fogon': ('/assets/covers/fogon.webp', 1024, 683),
@@ -90,6 +90,7 @@ PUBLIC_BASE = 'https://estudiohma.com'
 # pedir el archivo nuevo aun cuando tengan en cache la URL anterior.
 VERSIONES = {
     'cien': '20260812',
+    'edificio-del-plata': '20260818',
     'hyatt-ziva': '20260812b',
     'indusparquet': '20260817',
     'movistar-arena': '20260812b',

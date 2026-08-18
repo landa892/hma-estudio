@@ -915,7 +915,7 @@
   "destacada": false,
   "orden": 11,
   "premios": null,
-  "portada": "/assets/gallery/edificio-del-plata/1.webp",
+  "portada": "/assets/covers/edificio-del-plata.webp",
   "galeria": [
    "1.webp",
    "2.webp",
@@ -934,9 +934,7 @@
    "15.webp",
    "16.webp",
    "17.webp",
-   "18.webp",
-   "19.webp",
-   "20.webp"
+   "18.webp"
   ],
   "banner_rotulo": null,
   "banner_rotulo_en": null

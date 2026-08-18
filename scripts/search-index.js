@@ -133,7 +133,7 @@ window.HMA_SEARCH_INDEX = [
   "sub": "Residencial",
   "desc": "Residencias y restauración — concurso privado · Buenos Aires · 44.000 m²",
   "url": "/proyectos/edificio-del-plata/",
-  "img": "/assets/covers/edificio-del-plata.webp"
+  "img": "/assets/covers/edificio-del-plata.webp?v=20260818"
  },
  {
   "tipo": "Proyecto",
