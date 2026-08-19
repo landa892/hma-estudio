@@ -30,6 +30,10 @@ servidor de build, nunca en un navegador.
 import io, json, os, re, sys
 import urllib.request
 
+# El parrafo de subtitulo que va debajo del titulo en la ficha. Se saca entero,
+# con el salto que lo precede, para no dejar una linea vacia.
+SUBTITULO = re.compile(r'\n?\s*<p class="lede[^"]*"[^>]*>.*?</p>', re.S)
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ESTADOS = {
@@ -130,15 +134,14 @@ def aplicar(o, html):
                   html, count=1)
 
     # --- bajada ---
+    # El 19/08/2026 el cliente pidio sacar el subtitulo de todas las fichas
+    # ("EN TODOS los trabajos: Quita los subtitulos"), tachado en rojo sobre la
+    # captura. La bajada se sigue usando: es el texto de la tarjeta del
+    # listado, del buscador y del banner del home, y la descripcion que leen
+    # Google y WhatsApp. Lo unico que se va es el parrafo visible de la ficha.
+    html = SUBTITULO.sub('', html, count=1)
+
     if o.get('bajada'):
-        nuevo, n = re.subn(r'(<p class="lede[^"]*"[^>]*>)(.*?)(</p>)',
-                           lambda m: m.group(1) + escapar(o['bajada']) + m.group(3),
-                           html, count=1, flags=re.S)
-        if not n:
-            problemas.append('sin bajada')
-        html = nuevo
-
-
         # Google y WhatsApp leen estas etiquetas, no el texto visible.
         bajada_atributo = escapar_atributo(o['bajada'])
         html = re.sub(r'(<meta name="description" content=")[^"]*(">)',
