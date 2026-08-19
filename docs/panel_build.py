@@ -14,6 +14,10 @@
      3. panel_alta      crea la pagina de cada obra nueva y baja sus fotos.
                         Va antes del generador: si la pagina no existe, la saltea.
      4. panel_galerias  conecta las fotos historicas y aplica portada y orden.
+                        Saltea las repetidas segun docs/galeria_repetidas.json,
+                        que se regenera a mano con docs/galeria_repetidas.py
+                        cuando cambian las fotos: ese paso necesita Pillow y
+                        aca no hay.
      5. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
      6. panel_sitio     saca del sitio las eliminadas o despublicadas.
      7. panel_listado   sincroniza titulo y categoria de cada tarjeta con la

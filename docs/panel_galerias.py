@@ -66,6 +66,27 @@ def ruta_local(publica):
     return os.path.join(RAIZ, publica.lstrip('/').replace('/', os.sep))
 
 
+REPETIDAS = os.path.join(RAIZ, 'docs', 'galeria_repetidas.json')
+
+
+def fotos_repetidas():
+    """{slug: {archivos que repiten la portada u otra foto de la misma obra}}.
+
+    La lista la calcula docs/galeria_repetidas.py comparando las imagenes, que
+    necesita Pillow y por eso corre fuera del build. Aca solo se lee.
+
+    El deduplicador de mas abajo compara por SHA1 y no alcanza: la portada y su
+    copia dentro de la galeria son la misma foto guardada dos veces, con
+    distinto peso, asi que los bytes no coinciden. Era el caso de once de las
+    doce obras que el cliente marco como "foto repetida" el 19/08/2026.
+    """
+    if not os.path.isfile(REPETIDAS):
+        return {}
+    with io.open(REPETIDAS, encoding='utf-8') as archivo:
+        return dict((slug, set(nombres))
+                    for slug, nombres in json.load(archivo).items())
+
+
 def seleccion_inicial(obra):
     candidatas = []
     portada = obra.get('portada')
@@ -74,9 +95,13 @@ def seleccion_inicial(obra):
     candidatas.extend('/assets/gallery/%s/%s' % (obra['slug'], nombre)
                       for nombre in obra.get('galeria') or [])
 
+    sobran = fotos_repetidas().get(obra['slug'], set())
+
     vistas, contenidos, filas = set(), set(), []
     for publica in candidatas:
         if publica in vistas or len(filas) >= TOPE:
+            continue
+        if os.path.basename(publica) in sobran and publica != portada:
             continue
         local = ruta_local(publica)
         medidas = medidas_webp(local)
