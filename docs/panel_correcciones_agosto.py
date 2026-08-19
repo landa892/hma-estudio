@@ -577,6 +577,166 @@ def sumar_memorias_en_pendientes():
 sumar_memorias_en_pendientes()
 
 
+def si_falta(marca, nuevo):
+    """Reemplaza el texto solo si perdio un fragmento que el original si tiene.
+
+    Sirve para reponer una memoria recortada sin pisar una edicion posterior
+    del estudio: si el texto ya contiene la marca, se lo deja como esta.
+    """
+    def aplicar(actual):
+        if isinstance(actual, str) and marca in actual:
+            return actual
+        return nuevo
+    return aplicar
+
+
+# Memoria original de Aire Libre, del Drive del estudio
+# ("ESP Memoria AIRE LIBRE + ficha tecnica.docx"). La version cargada habia
+# perdido el arranque del segundo parrafo -"Inspirados en los antiguos green
+# houses"- y tenia otros dos parrafos partidos al medio.
+MEMORIA_AIRE_LIBRE = (
+    'Cada decisión en este proyecto fue concebida bajo un mismo enfoque, '
+    'buscamos crear un oasis botánico emplazado en pleno caos urbano. Esta '
+    'línea rectora marcó un norte que determinó cada una de las definiciones '
+    'proyectuales desde lo espacial arquitectónico, pasando por la elección de '
+    'materiales, equipamiento, recursos gráficos, y principalmente '
+    'intervenciones paisajísticas.\n\n'
+    'Inspirados en los antiguos “green houses” de la Inglaterra del fines del '
+    'siglo XIX, estas grandes construcciones de acero y cristal prefabricadas '
+    'que en plena revolución industrial albergaban tanto la exuberancia de la '
+    'vegetación salvaje de los nuevos continentes y a su vez las reuniones de '
+    'la realeza, en AIRE LIBRE buscamos reflejar desde el lenguaje '
+    'arquitectónico contemporáneo esta misma dualidad: la rusticidad de un '
+    'vivero junto a la sofisticación de la alta coctelería. Los antiguos '
+    'cristales son ahora placas moduladas de policarbonato traslúcido que '
+    'conforman fachadas tanto interiores como exteriores, y las viejas '
+    'estructuras de acero se reemplazan por bastidores metálicos que modulan '
+    'dichas fachadas.\n\n'
+    'En el mismo sentido la propuesta gastronómica aporta desde su enfoque '
+    'también ecléctico, clásico pero moderno, hecho posible combinando una '
+    'cocina de fuegos a leña mediante un gran horno de barro construido '
+    'artesanalmente, acompañada de una cocina de alta tecnología y complejidad '
+    'técnica, siendo ambas complementarias y a la vista.\n\n'
+    'El proyecto se desarrolla en dos plantas sumando más de 900m2 entre '
+    'interiores y exteriores. A partir de un foyer de acceso que hace de '
+    'recepción los espacios se articulan integrando áreas abiertas y cerradas, '
+    'cubiertas y descubiertas, todas siempre abordadas bajo el mismo '
+    'tratamiento conceptual, desde lo material, la iluminación y las '
+    'estrategias de biofilia, generando como resultado la indefinición entre el '
+    'adentro y el afuera.\n\n'
+    'La paleta tanto cromática como material fue siempre regida a partir de la '
+    'decisión de naturaleza y la nobleza de sus materiales, tanto en interiores '
+    'como en exteriores. Texturas de hormigones pulidos y martelinados, '
+    'aberturas en madera maciza, sumado a revestimientos pétreos, costras de '
+    'granito en frentes de barra, espejos envejecidos y la utilización de '
+    'tablones de madera recuperada, acompañados por la abundancia botánica en '
+    'cada rincón del local logran a la perfección el ambiente buscado.\n\n'
+    'Este proyecto no podría sostenerse sin tener resuelto desde un principio '
+    'el alto grado de mantenimiento que requiere una intervención con semejante '
+    'presencia de vegetación. Para ello se diseñó una compleja red de riego '
+    'automatizado mediante un circuito cerrado de circulación de agua '
+    'fertilizada que trabaja en conjunto con equipos de iluminación que, a '
+    'contraturno del uso del local, se activan para garantizar riego y '
+    'fotosíntesis en la totalidad de las plantas tanto interiores como '
+    'exteriores. Para completar este sistema, se instaló en todos los espacios '
+    'exteriores una red de foggers que en días especialmente calurosos '
+    'proyectan al aire gotas de agua pulverizada garantizando el fresco y '
+    'confort a los usuarios.\n\n'
+    'La serenidad en los espacios y materiales, en contraposición a la '
+    'complejidad técnica del proyecto supo lograr como resultados espacios de '
+    'encuentro y de disfrute para brindar al AIRE LIBRE.')
+
+MEMORIA_AIRE_LIBRE_EN = (
+    'Every decision in this project was conceived under the same approach: we '
+    'sought to create a botanical oasis located in the middle of urban chaos. '
+    'This guiding line marked a north that determined each of the project '
+    'definitions from the architectural space, through the choice of materials, '
+    'equipment, graphic resources, and mainly landscape interventions.\n\n'
+    'Inspired by the old ‘green houses’ of late 19th century England, these '
+    'large prefabricated steel and glass constructions that in the midst of the '
+    'industrial revolution housed both the exuberance of the wild vegetation of '
+    'the new continents and the gatherings of royalty, in AIRE LIBRE we seek to '
+    'reflect this same duality in contemporary architectural language: the '
+    'rusticity of a greenhouse together with the sophistication of the high '
+    'cocktail bar. The old glass panes are now modulated translucent '
+    'polycarbonate plates that form both interior and exterior facades, and the '
+    'old steel structures are replaced by metal frames that modulate these '
+    'facades.\n\n'
+    'In the same sense, the gastronomic proposal is also eclectic in its '
+    'approach, classic but modern, made possible by combining a wood-fired '
+    'kitchen with a large handmade clay oven, accompanied by a high-tech and '
+    'technically complex kitchen, both of which are complementary and '
+    'visible.\n\n'
+    'The project is developed over two floors, totalling more than 900m2 '
+    'between indoors and outdoors. From an access foyer that acts as a '
+    'reception, the spaces are articulated integrating open and closed, covered '
+    'and uncovered areas, all of them always approached under the same '
+    'conceptual treatment, from the material, lighting and biophilia '
+    'strategies, generating as a result the indefinition between inside and '
+    'outside.\n\n'
+    'The chromatic and material palette was always governed by the decision of '
+    'nature and the nobility of its materials, both in interiors and exteriors. '
+    'Textures of polished and hammered concrete, solid wood openings, added to '
+    'stone cladding, granite crusts on the bar fronts, aged mirrors and the use '
+    'of reclaimed wood planks, accompanied by the abundance of botanical plants '
+    'in every corner of the premises, perfectly achieve the desired '
+    'ambience.\n\n'
+    'This project could not be sustained without having resolved, in the first '
+    'place, the high degree of maintenance required by the vegetation. A '
+    'complex automated irrigation network was designed by a closed circuit of '
+    'circulating fertilised water that works in conjunction with lighting '
+    'equipment that is activated in counter-time with the use of the premises, '
+    'to guarantee irrigation and photosynthesis in all the plants, both indoors '
+    'and outdoors. To complete this system, a network of foggers was installed '
+    'in all the outdoor spaces which, on particularly hot days, spray water '
+    'droplets into the air, guaranteeing coolness and comfort for users.\n\n'
+    'The serenity of the spaces and materials, in contrast to the technical '
+    'complexity of the project, resulted in spaces for meeting and enjoyment in '
+    'the outdoor.')
+
+CORRECCIONES.setdefault('aire-libre', {}).update({
+    'memoria': si_falta('Inspirados en los antiguos', MEMORIA_AIRE_LIBRE),
+    'memoria_en': si_falta('Inspired by the old', MEMORIA_AIRE_LIBRE_EN),
+})
+
+# Cierre valido de parrafo. Se incluyen las dos comillas tipograficas porque
+# PH El Salvador enumera pedidos del comitente entrecomillados y no llevan punto.
+CIERRE_PARRAFO = re.compile(u'[.!?…:;)”“"»]\\s*$')
+
+
+def unir_parrafos_cortados(texto):
+    """Vuelve a unir un parrafo que quedo partido en mitad de una oracion.
+
+    Al cargar las memorias varias quedaron cortadas: un parrafo termina sin
+    puntuacion y el siguiente arranca en minuscula, o sea que era una sola
+    oracion partida en dos. El cliente lo marco en Aire Libre -el texto cortaba
+    en "A partir de un"-, en Edificio del Plata y en otras.
+
+    Solo une ese caso. Si el parrafo siguiente empieza en mayuscula lo que
+    falta es el punto final, no la union, y ahi el corte se respeta: unir dos
+    oraciones distintas seria peor que dejar la puntuacion floja.
+
+    Si no hay nada que unir devuelve el texto original tal cual, sin
+    normalizar saltos, para no marcar como cambiada una memoria que esta bien.
+    """
+    if not isinstance(texto, str) or not texto.strip():
+        return texto
+
+    partes = [p.strip() for p in re.split(r'\n\s*\n', texto.replace('\r\n', '\n'))
+              if p.strip()]
+    unidas = []
+    for parrafo in partes:
+        if (unidas and not CIERRE_PARRAFO.search(unidas[-1])
+                and parrafo[:1].islower()):
+            unidas[-1] = unidas[-1] + ' ' + parrafo
+        else:
+            unidas.append(parrafo)
+
+    if len(unidas) == len(partes):
+        return texto
+    return '\n\n'.join(unidas)
+
+
 def corregir(obras):
     cambios = {}
     por_slug = {o['slug']: o for o in obras}
@@ -590,6 +750,18 @@ def corregir(obras):
             if nuevo != anterior:
                 obra[campo] = nuevo
                 cambios.setdefault(slug, {})[campo] = nuevo
+
+    # Pasada general: ningun parrafo de memoria puede terminar en mitad de una
+    # oracion. Va sobre todas las obras, no solo sobre las que el cliente
+    # alcanzo a marcar.
+    for obra in obras:
+        for campo in ('memoria', 'memoria_en'):
+            anterior = obra.get(campo)
+            unido = unir_parrafos_cortados(anterior)
+            if unido != anterior:
+                obra[campo] = unido
+                cambios.setdefault(obra['slug'], {})[campo] = unido
+
     return cambios
 
 
