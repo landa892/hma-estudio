@@ -239,17 +239,10 @@ def main(verificar, supabase):
 
     nuevo_html = BANNER.sub(cambiar, html)
 
-    # Los puntos laterales comparten el id de cada ranura. Si cambia una obra
-    # destacada, también cambia su rótulo: dejar el nombre anterior hace que la
-    # navegación funcione pero lleve una etiqueta equivocada.
-    for o, ident in zip(destacadas[:RANURAS], idents):
-        titulo = E(o['titulo']).replace('"', '&quot;')
-        patron_punto = re.compile(
-            r'<button data-target="%s"[^>]*>.*?</button>' % re.escape(ident), re.S)
-        punto = ('<button data-target="%s" aria-label="Ir a %s">'
-                 '<span class="dot-label">%s</span></button>'
-                 % (ident, titulo, titulo))
-        nuevo_html = patron_punto.sub(punto, nuevo_html, count=1)
+    # Los puntos laterales ya no listan las obras destacadas. El 19/08/2026 el
+    # cliente tacho en rojo todas menos cuatro: "En este punteo que solo quede:
+    # INICIO / LINKEDIN / NOVEDADES / HABLEMOS". Como las ranuras de banner
+    # -section-2, 4 y 6- salieron de esa lista, aca no hay nada que rotular.
 
     if avisos:
         print('\navisos de foto:')

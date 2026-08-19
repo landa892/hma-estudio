@@ -555,6 +555,19 @@ header.site-header.is-overlay.scrolled .menu-btn span {
   margin-bottom: 48px;
 }
 
+/* Titulo y boton sobre el mismo eje horizontal. Por defecto la cabecera
+   alinea los bordes de abajo, y como el titulo es grande y el boton chico y
+   con relleno, el boton quedaba 16px mas abajo. El cliente lo marco dibujando
+   una linea que cruza los dos ("poner en eje cuadro y titulo", 19/08/2026),
+   asi que van centrados entre si.
+
+   No se usa align-items: baseline porque el boton es un contenedor flex y
+   sintetiza su linea de base con el borde de la caja, no con su texto. */
+.section-head--eje {
+  align-items: center;
+}
+
+
 /* ---------- BUTTONS / LINKS ---------- */
 
 .btn {
@@ -2811,10 +2824,14 @@ footer.site-footer {
   opacity: .8;
 }
 
+/* El nombre del premio, su descripcion, el resultado y la ciudad arrancan
+   todos arriba: el cliente marco que no estaban a eje ("Acomodar a eje esos
+   titulos", 19/08/2026). Antes el nombre se apoyaba abajo de su fila y el
+   resto iba centrado entre las dos, asi que ninguna linea coincidia. */
 .award-row__name {
   grid-column: 2;
   grid-row: 1;
-  align-self: end;
+  align-self: start;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.3;
@@ -2838,7 +2855,7 @@ footer.site-footer {
 .award-row__desc {
   grid-column: 3;
   grid-row: 1 / 3;
-  align-self: center;
+  align-self: start;
   font-weight: 400;
   font-size: .84rem;
   line-height: 1.45;
@@ -2848,7 +2865,7 @@ footer.site-footer {
 .award-row__res {
   grid-column: 4;
   grid-row: 1 / 3;
-  align-self: center;
+  align-self: start;
   font-size: .72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -2862,7 +2879,7 @@ footer.site-footer {
   grid-column: 6;
   /* Saltamos a la columna 6, dejando la 5 vacía */
   grid-row: 1 / 3;
-  align-self: center;
+  align-self: start;
   font-size: .78rem;
   color: var(--gray);
   text-transform: uppercase;
@@ -2913,7 +2930,10 @@ footer.site-footer {
    el nombre para no sumar una columna a la grilla. */
 .award-row__desc {
   display: block;
-  margin-top: 5px;
+  /* Sin margen: en la grilla del escritorio bajaba el texto 5px respecto del
+     nombre del premio y ahi es donde el cliente marco que no estaban a eje.
+     La version apilada del celular se lo vuelve a poner mas abajo. */
+  margin-top: 0;
   font-weight: 400;
   font-size: .84rem;
   line-height: 1.45;
