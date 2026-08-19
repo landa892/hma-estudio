@@ -1,0 +1,101 @@
+[
+ {
+  "slug": "comer-solo-sin-pedir-perdon",
+  "titulo": "Comer solo sin pedir perdón",
+  "obra": "",
+  "medio": "Newsweek Argentina",
+  "pais": "",
+  "fecha": "Mayo 2026",
+  "link": "",
+  "tapa": "/assets/press/newsweek-2026.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "el-nuevo-restaurante-de-belgrano-en-un-patio-lleno",
+  "titulo": "El nuevo restaurante de Belgrano en un patio lleno de plantas",
+  "obra": "aire-libre",
+  "medio": "La Nación",
+  "pais": "Argentina",
+  "fecha": "Febrero 2025",
+  "link": "https://www.lanacion.com.ar/revista-lugares/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno-de-plantas-que-sirve-raciones-y-platitos-nid14022025/",
+  "tapa": "/assets/press/lanacion-airelibre.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "antiche-tentazioni-heladeria",
+  "titulo": "Antiche Tentazioni, heladería",
+  "obra": "antiche",
+  "medio": "G&G Magazine",
+  "pais": "Italia",
+  "fecha": "Febrero 2023",
+  "link": "https://gandgmagazine.eu/antiche-tentazioni",
+  "tapa": "/assets/press/gyg-magazine.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "stella-artois-stand-hitzig-militello-arquitectos",
+  "titulo": "Stella Artois Stand / Hitzig Militello arquitectos",
+  "obra": "stella-artois-mercat",
+  "medio": "ArchDaily",
+  "pais": "Reino Unido",
+  "fecha": "2023",
+  "link": "https://www.archdaily.com/1000300/stella-artois-stand-hitzig-militello-arquitectos",
+  "tapa": "/assets/press/archdaily-stellaartois.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "un-lugar-para-sentarse-al-aire-libre-en-la",
+  "titulo": "Un lugar para sentarse al aire libre en la normalidad pandémica: Williamsburg",
+  "obra": "williamsburg",
+  "medio": "Metalocus",
+  "pais": "España",
+  "fecha": "Octubre 2020",
+  "link": "https://www.metalocus.es/es/noticias/un-lugar-para-sentarse-al-aire-libre-en-la-normalidad-pandemica-williamsburg-por-hitzig-militello-arquitectos",
+  "tapa": "/assets/press/metalocus-williamsburg.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "williamsburg-espacio-al-aire-libre-en-buenos-aires",
+  "titulo": "Williamsburg, espacio al aire libre en Buenos Aires",
+  "obra": "williamsburg",
+  "medio": "Design Boom",
+  "pais": "",
+  "fecha": "Octubre 2020",
+  "link": "https://www.designboom.com/architecture/billboard-sign-outdoor-restaurant-hitzigmilitello-arquitectos-argentina-10-08-2020/",
+  "tapa": "/assets/press/designboom-williamsburg.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "entrevista-a-hitzig-militello-architects",
+  "titulo": "Entrevista a Hitzig Militello Architects",
+  "obra": "",
+  "medio": "Hospitality Design",
+  "pais": "EE.UU.",
+  "fecha": "Mayo 2019",
+  "link": "",
+  "tapa": "/assets/press/hospitalitydesign-entrevista.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "fogon-restaurante-y-bar-en-riad-arabia-saudi",
+  "titulo": "Fogón, restaurante y bar en Riad, Arabia Saudí",
+  "obra": "fogon",
+  "medio": "Design Boom",
+  "pais": "",
+  "fecha": "2019",
+  "link": "",
+  "tapa": "/assets/press/designboom-fogon.webp",
+  "imagenes": []
+ },
+ {
+  "slug": "the-nim-bar-fotografia-de-federico-kulekdjian",
+  "titulo": "The Nim Bar, fotografía de Federico Kulekdjian",
+  "obra": "nim-bar",
+  "medio": "Design Boom",
+  "pais": "",
+  "fecha": "2018",
+  "link": "",
+  "tapa": "/assets/press/designboom-nimbar.webp",
+  "imagenes": []
+ }
+]

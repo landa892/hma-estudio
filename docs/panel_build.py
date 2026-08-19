@@ -30,6 +30,9 @@
     11. obras_layout    garantiza que la portada abra cada ficha y deja una
                         composicion consistente para la memoria editorial.
     12. prensa_pagina   rearma el archivo completo de publicaciones.
+    13. prensa_paginas  arma la pagina propia de cada nota y enlaza su
+                        tarjeta. Va despues del archivo, que es quien
+                        rehace el listado.
     13. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
     14. obras_orden     ordena grilla y lista por el ano final, tanto en
@@ -64,6 +67,7 @@ PASOS = [
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
+    ('la pagina de cada nota',       'prensa_paginas.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),
     ('el orden cronologico',         'obras_orden.py',   []),
     ('los datos estructurados SEO',  'seo_gen.py',       []),
