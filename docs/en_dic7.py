@@ -26,6 +26,9 @@ PASA_EXACTO.update({
     # El estudio renombro la obra en su Drive el 19/08/2026: la carpeta pasa a
     # ser "82-Ualá III (Gigena)". Es el nombre de la obra, no se traduce.
     'Ualá III',
+    # La plataforma italiana y su ciudad, en la fila que se sumo el
+    # 19/08/2026. Nombres propios.
+    'Archilovers', 'Bari',
 })
 
 DIC.update({
@@ -59,6 +62,8 @@ DIC.update({
     'Espacio seleccionado': 'Selected space',
     'Seleccionada': 'Selected',
     'Ámsterdam': 'Amsterdam',
+    'Elegida Best Project 2022 por la plataforma italiana.':
+        'Chosen as Best Project 2022 by the Italian platform.',
 })
 
 DIC.update({
