@@ -67,24 +67,37 @@ def ruta_local(publica):
 
 
 REPETIDAS = os.path.join(RAIZ, 'docs', 'galeria_repetidas.json')
+EXCLUIDAS = os.path.join(RAIZ, 'docs', 'galeria_excluidas.json')
 
 
-def fotos_repetidas():
-    """{slug: {archivos que repiten la portada u otra foto de la misma obra}}.
+def fotos_fuera():
+    """{slug: {archivos que no van en la galeria}}.
 
-    La lista la calcula docs/galeria_repetidas.py comparando las imagenes, que
-    necesita Pillow y por eso corre fuera del build. Aca solo se lee.
+    Junta dos listas con motivos distintos: galeria_repetidas.json, que lo
+    calcula docs/galeria_repetidas.py comparando las imagenes, y
+    galeria_excluidas.json, que se escribe a mano para las fotos que no son
+    de la obra -placas de presentacion, moodboards- y que por eso no deberian
+    aparecer aunque no esten repetidas.
 
-    El deduplicador de mas abajo compara por SHA1 y no alcanza: la portada y su
-    copia dentro de la galeria son la misma foto guardada dos veces, con
-    distinto peso, asi que los bytes no coinciden. Era el caso de once de las
-    doce obras que el cliente marco como "foto repetida" el 19/08/2026.
+    El deduplicador de mas abajo compara por SHA1 y no alcanza para el primer
+    caso: la portada y su copia dentro de la galeria son la misma foto
+    guardada dos veces, con distinto peso, asi que los bytes no coinciden.
+    Era el caso de once de las doce obras que el cliente marco como "foto
+    repetida" el 19/08/2026.
     """
-    if not os.path.isfile(REPETIDAS):
-        return {}
-    with io.open(REPETIDAS, encoding='utf-8') as archivo:
-        return dict((slug, set(nombres))
-                    for slug, nombres in json.load(archivo).items())
+    fuera = {}
+    if os.path.isfile(REPETIDAS):
+        with io.open(REPETIDAS, encoding='utf-8') as archivo:
+            for slug, nombres in json.load(archivo).items():
+                fuera.setdefault(slug, set()).update(nombres)
+    if os.path.isfile(EXCLUIDAS):
+        with io.open(EXCLUIDAS, encoding='utf-8') as archivo:
+            for slug, entradas in json.load(archivo).items():
+                if slug.startswith('_'):
+                    continue
+                fuera.setdefault(slug, set()).update(
+                    e['archivo'] for e in entradas if e.get('archivo'))
+    return fuera
 
 
 def seleccion_inicial(obra):
@@ -95,7 +108,7 @@ def seleccion_inicial(obra):
     candidatas.extend('/assets/gallery/%s/%s' % (obra['slug'], nombre)
                       for nombre in obra.get('galeria') or [])
 
-    sobran = fotos_repetidas().get(obra['slug'], set())
+    sobran = fotos_fuera().get(obra['slug'], set())
 
     vistas, contenidos, filas = set(), set(), []
     for publica in candidatas:
