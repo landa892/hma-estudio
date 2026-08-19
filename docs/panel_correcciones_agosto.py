@@ -371,9 +371,6 @@ CORRECCIONES = {
              'Arq. Carmela Zuleta', 'Arq. Juliana Zorza', 'Arq. Samira Attar']),
     },
     'uala-gigena': {
-        # En el Drive del estudio la carpeta se llama "82-Ualá III (Gigena)"
-        # -renombrada por el cliente el 19/08/2026-, no "Ualá 1".
-        'titulo': alguno(('Ualá Gigena', 'Ualá 1'), 'Ualá III'),
         # El Word del 11/08 dice "Uala gigena es proyecto". La regla anterior
         # la daba por concluida, que es lo contrario.
         'estado': valor('concluida', 'en_proyecto'),
@@ -420,6 +417,153 @@ for _slug, _orden_anterior in {
 }.items():
     CORRECCIONES.setdefault(_slug, {})['orden'] = valor(
         _orden_anterior, _orden_anterior + 1)
+
+
+# --------------------------------------------------------------------------
+# Correcciones recibidas el 19/08/2026 (dos Words del estudio).
+# --------------------------------------------------------------------------
+#
+# Los tres Uala eran el punto mas grave: el Word abre con "SE MEZCLARON
+# PROYECTOS" y aclara que son obras distintas. Los nombres salen del Word y no
+# de la carpeta del Drive -que dice "82-Uala III (Gigena)" y llevo a nombrarla
+# mal-. Nicaragua I y II son las dos oficinas de la calle Nicaragua; Gigena es
+# la del Paseo Gigena.
+
+MEMORIA_IGUANAFIX = (
+    'Las oficinas de Iguanafix se conciben a partir de una arquitectura directa '
+    'y esencial, donde la materialidad expresa la identidad y el carácter '
+    'operativo de la empresa.\n\n'
+    'El proyecto utiliza placas de OSB en estado natural y estructuras tubulares '
+    'de acero a la vista, elementos propios del universo de la construcción '
+    'que se incorporan como parte del lenguaje arquitectónico. La '
+    'materialidad se presenta sin revestimientos ni artificios, poniendo en valor '
+    'su textura, lógica constructiva y condición funcional.\n\n'
+    'Las divisiones de vidrio y OSB organizan los distintos sectores de trabajo, '
+    'favoreciendo la transparencia, la integración visual y la dinámica '
+    'entre los equipos. A su vez, sistemas de estanterías modulares funcionan '
+    'como equipamiento, almacenamiento y elementos de división espacial.\n\n'
+    'La iluminación natural se complementa con un sistema puntual de spots '
+    'LED, enfatizando materiales y superficies. La comunicación gráfica '
+    'se integra a la arquitectura mediante vinilos aplicados sobre los planos de '
+    'vidrio.\n\n'
+    'El conjunto se plantea como un sistema flexible, modular y adaptable, capaz '
+    'de acompañar los cambios y el crecimiento de la compañía. Una '
+    'arquitectura en permanente transformación, donde materiales, estructura '
+    'y equipamiento construyen una identidad coherente con el espíritu de '
+    'Iguanafix.')
+
+MEMORIA_IGUANAFIX_EN = (
+    'The Iguanafix offices are conceived through a direct and essential '
+    'architectural approach, where materiality expresses the company’s '
+    'identity and operational character.\n\n'
+    'The project incorporates natural OSB panels and exposed tubular steel '
+    'structures, elements closely associated with the construction industry that '
+    'become an integral part of the architectural language. Materials are '
+    'presented without cladding or unnecessary finishes, highlighting their '
+    'texture, construction logic, and functional nature.\n\n'
+    'Glass and OSB partitions organize the different work areas, promoting '
+    'transparency, visual integration, and interaction between teams. Modular '
+    'shelving systems also serve as furniture, storage, and spatial dividers.\n\n'
+    'Natural light is complemented by a targeted LED spotlight system, '
+    'emphasizing materials and surfaces. Graphic communication is integrated '
+    'into the architecture through vinyl graphics applied directly to the glass '
+    'partitions.\n\n'
+    'The overall design is conceived as a flexible, modular, and adaptable '
+    'system, capable of evolving alongside the company’s changes and growth. '
+    'It is an architecture in constant transformation, where materials, '
+    'structure, and furniture come together to create an identity that is '
+    'consistent with the spirit of Iguanafix.')
+
+MEMORIA_PARFUMERIE = (
+    'En Parfumerie, la arquitectura se concibe como una herramienta para '
+    'construir y expresar el ADN de la marca, transformando más de treinta '
+    'años vinculados a la belleza y al cuidado personal en una experiencia '
+    'espacial contemporánea. El proyecto propone una identidad basada en la '
+    'sobriedad, la precisión y una elegancia contenida, donde cada material '
+    'participa de un mismo relato.\n\n'
+    'El GRC configura una secuencia rítmica de dispositivos de '
+    'exhibición que ordenan el espacio y otorgan identidad al perímetro. '
+    'En contraste, el mueble central de acero introduce una geometría '
+    'orgánica que articula el recorrido e invita al descubrimiento. El piso '
+    'de roble aporta calidez y una dimensión sensorial, mientras espejos, '
+    'molduras y gargantas de iluminación expanden sutilmente los '
+    'límites del espacio. La luz, precisa y silenciosa, acompaña al '
+    'producto sin competir con él.\n\n'
+    'Así, comprar deja de ser únicamente un acto comercial para '
+    'convertirse en un ritual de elección y cuidado. Materialidad, luz, '
+    'reflejos y recorridos construyen un lenguaje reconocible: una arquitectura '
+    'que traduce el ADN de Parfumerie y entiende la belleza y el consumo como '
+    'parte de un modo de vida.')
+
+MEMORIA_PARFUMERIE_EN = (
+    'At Parfumerie, architecture is conceived as a tool to shape and express the '
+    'brand’s DNA, translating more than thirty years of experience in beauty '
+    'and personal care into a contemporary spatial experience. The project '
+    'proposes an identity rooted in restraint, precision, and understated '
+    'elegance, where every material contributes to a unified narrative.\n\n'
+    'GRC defines a rhythmic sequence of display elements that organizes the space '
+    'and gives identity to its perimeter. In contrast, the central steel fixture '
+    'introduces an organic geometry that structures the circulation and '
+    'encourages discovery. Oak flooring brings warmth and a sensory dimension, '
+    'while mirrors, moldings, and recessed lighting details subtly expand the '
+    'perceived boundaries of the space. The lighting, precise and unobtrusive, '
+    'enhances the products without competing with them.\n\n'
+    'In this way, shopping moves beyond a purely commercial act to become a '
+    'ritual of selection and care. Materiality, light, reflections, and '
+    'circulation come together to create a recognizable language: an architecture '
+    'that translates Parfumerie’s DNA and understands beauty and consumption '
+    'as part of a way of life.')
+
+CORRECCIONES_19_08 = {
+    # Los tres Uala. Los nombres los fija el Word; el estado de Nicaragua II
+    # tambien ("OBRA CONCLUIDA").
+    'uala-gigena': {
+        'titulo': alguno(('Ualá Gigena', 'Ualá 1', 'Ualá III'),
+                         'Ualá Gigena'),
+    },
+    'uala-office': {
+        'titulo': alguno(('Ualá', 'Ualá 1'), 'Ualá Nicaragua I'),
+    },
+    'uala-ii': {
+        'titulo': alguno(('Ualá II', 'Ualá 2'), 'Ualá Nicaragua II'),
+        'estado': valor('en_proyecto', 'concluida'),
+    },
+
+    # Estados marcados en rojo sobre la ficha.
+    'cafe-artois':    {'estado': valor('concluida', 'en_proyecto')},
+    'kavak-oficinas': {'estado': valor('en_proyecto', 'concluida')},
+
+    # IguanaFix: estado, superficie y la memoria que subieron al Drive.
+    'iguanafix': {
+        'estado': valor('en_proyecto', 'concluida'),
+        'superficie': completar_vacio('320 m²'),
+        'memoria': completar_vacio(MEMORIA_IGUANAFIX),
+        'memoria_en': completar_vacio(MEMORIA_IGUANAFIX_EN),
+    },
+
+    # Parfumerie: solo faltaba la memoria; el resto de la ficha ya coincidia
+    # con la del Drive.
+    'parfumerie': {
+        'memoria': completar_vacio(MEMORIA_PARFUMERIE),
+        'memoria_en': completar_vacio(MEMORIA_PARFUMERIE_EN),
+    },
+
+    'luccianos-caballito': {'superficie': completar_vacio('220 m²')},
+
+    # "Sacar el arq de Luciano y josue. - Solo saca el arq, deja sus nombres."
+    # Se habian borrado los dos nombres enteros; van de vuelta, sin el titulo.
+    'cerveceria-austral': {
+        'equipo': valor(
+            ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
+             'Arq. Camila Lacarpia'],
+            ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
+             'Arq. Camila Lacarpia', 'Luciano Cichanowski', 'Josué Solano']),
+    },
+}
+
+for _slug, _campos in CORRECCIONES_19_08.items():
+    CORRECCIONES.setdefault(_slug, {}).update(_campos)
+
 
 
 def sumar_memorias_en_pendientes():

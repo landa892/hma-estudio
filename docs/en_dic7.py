@@ -23,9 +23,10 @@ PASA_EXACTO.update({
     'Accor',
     # Los dos premios que se sumaron el 12/08/2026. Son nombres propios.
     'Casa FOA', 'Archello',
-    # El estudio renombro la obra en su Drive el 19/08/2026: la carpeta pasa a
-    # ser "82-Ualá III (Gigena)". Es el nombre de la obra, no se traduce.
-    'Ualá III',
+    # Los tres Uala quedaron con su nombre definitivo el 19/08/2026: el Word
+    # aclara que son obras distintas -las dos de la calle Nicaragua y la del
+    # Paseo Gigena-. Son nombres propios, no se traducen.
+    'Ualá Gigena', 'Ualá Nicaragua I', 'Ualá Nicaragua II',
     # La plataforma italiana y su ciudad, en la fila que se sumo el
     # 19/08/2026. Nombres propios.
     'Archilovers', 'Bari',
