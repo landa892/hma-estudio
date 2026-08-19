@@ -25,7 +25,7 @@ CAT_ROTULO = {
     'gastronomico': 'Gastronómico',
     'residencial': 'Residencial',
     'oficinas': 'Oficinas',
-    'cultural': 'Cultural & institucional',
+    'cultural': 'Cultural & Institucional',
 }
 
 
@@ -129,6 +129,32 @@ def sincronizar_buscador(obras, slugs, verificar):
     return cambios
 
 
+def rotulo_en_fichas(obras, verificar):
+    """El rotulo de arriba del titulo, dentro de cada ficha.
+
+    El listado ya salia de la base, pero ese rotulo se habia cargado a mano y
+    quedo viejo: Accor y Novotel seguian diciendo "Hotelería & Comercial", de
+    antes de que el cliente pidiera separar las dos categorias.
+    """
+    cambios = []
+    for slug, o in sorted(obras.items()):
+        rotulo = escapar(CAT_ROTULO.get(o.get('categoria') or ''))
+        if not rotulo:
+            continue
+        ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+        if not os.path.isfile(ruta):
+            continue
+        h = io.open(ruta, encoding='utf-8').read()
+        m = re.search(r'<span class="eyebrow">(.*?)</span>', h)
+        if not m or m.group(1).strip() == rotulo:
+            continue
+        cambios.append('%-22s %s -> %s' % (slug, m.group(1).strip(), rotulo))
+        if not verificar:
+            io.open(ruta, 'w', encoding='utf-8', newline='\n').write(
+                h[:m.start(1)] + rotulo + h[m.end(1):])
+    return cambios
+
+
 def main(verificar, supabase):
     filas = desde_supabase() if supabase else desde_json()
     obras = {o['slug']: o for o in filas}
@@ -138,10 +164,15 @@ def main(verificar, supabase):
     cambios = cambios_tarjetas + cambios_filas
     slugs = set(c.split(':', 1)[0] for c in cambios)
     cambios_buscador = sincronizar_buscador(obras, slugs, verificar)
+    cambios_fichas = rotulo_en_fichas(obras, verificar)
     print('obras publicadas: %d   bloques sincronizados: %d' % (len(obras), len(cambios)))
     if cambios:
         print('  ' + ', '.join(cambios[:16]) + ('…' if len(cambios) > 16 else ''))
     print('entradas del buscador sincronizadas: %d' % cambios_buscador)
+    if cambios_fichas:
+        print('rotulo corregido en %d fichas:' % len(cambios_fichas))
+        for c in cambios_fichas:
+            print('  ' + c)
     if nuevo != html and not verificar:
         io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(nuevo)
     if verificar and cambios:
