@@ -23,6 +23,9 @@ PASA_EXACTO.update({
     'Accor',
     # Los dos premios que se sumaron el 12/08/2026. Son nombres propios.
     'Casa FOA', 'Archello',
+    # El estudio renombro la obra en su Drive el 19/08/2026: la carpeta pasa a
+    # ser "82-Ualá III (Gigena)". Es el nombre de la obra, no se traduce.
+    'Ualá III',
 })
 
 DIC.update({

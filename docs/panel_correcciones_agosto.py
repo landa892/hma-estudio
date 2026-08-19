@@ -31,6 +31,11 @@ def valor(viejo, nuevo):
     return lambda actual: nuevo if actual == viejo else actual
 
 
+def alguno(viejos, nuevo):
+    """Como valor(), pero acepta varios valores anteriores conocidos."""
+    return lambda actual: nuevo if actual in viejos else actual
+
+
 def completar_vacio(nuevo):
     return lambda actual: nuevo if not actual else actual
 
@@ -343,7 +348,11 @@ CORRECCIONES = {
     },
     'oficina-casa-luna': {
         'titulo': valor('Oficina + casa Luna', 'Casa Luna'),
-        'categoria': valor('oficinas', 'residencial'),
+        # El Word del 06/08 dice "oficina + casa luna esta en oficinas, no en
+        # residencial", igual que "manduca es gastronomico no hoteleria" y
+        # "kavak es oficina": el primer termino es el correcto. La regla
+        # anterior leyo la frase al reves y la mandaba a residencial.
+        'categoria': valor('residencial', 'oficinas'),
         'estado': valor('en_proyecto', 'concluida'),
         'equipo': valor(
             ['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
@@ -362,8 +371,12 @@ CORRECCIONES = {
              'Arq. Carmela Zuleta', 'Arq. Juliana Zorza', 'Arq. Samira Attar']),
     },
     'uala-gigena': {
-        'titulo': valor('Ualá Gigena', 'Ualá 1'),
-        'estado': valor('en_proyecto', 'concluida'),
+        # En el Drive del estudio la carpeta se llama "82-Ualá III (Gigena)"
+        # -renombrada por el cliente el 19/08/2026-, no "Ualá 1".
+        'titulo': alguno(('Ualá Gigena', 'Ualá 1'), 'Ualá III'),
+        # El Word del 11/08 dice "Uala gigena es proyecto". La regla anterior
+        # la daba por concluida, que es lo contrario.
+        'estado': valor('concluida', 'en_proyecto'),
         # Las fichas originales de Uala Gigena fueron creadas en 2022. El
         # cliente tambien marco ese ano en la revision final del contenido.
         'anio': valor('2024', '2022'),
@@ -377,7 +390,10 @@ CORRECCIONES = {
         'estado': valor('concluida', 'en_proyecto'),
     },
     'abasto-patio-comidas': {
-        'categoria': valor('gastronomico', 'comercial'),
+        # Ninguno de los dos Words pide mover esta obra. Es un patio de
+        # comidas y la ficha siempre dijo Gastronómico; la regla anterior la
+        # pasaba a Comercial sin respaldo. Se deshace.
+        'categoria': valor('comercial', 'gastronomico'),
     },
     'ph-loft-arias': {
         'estado': valor('en_proyecto', 'concluida'),
