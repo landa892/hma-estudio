@@ -330,7 +330,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Casa Luna",
-  "sub": "Residencial",
+  "sub": "Oficinas",
   "desc": "Oficina y vivienda · Luna 250, Buenos Aires · 250 m² cubiertos · 100 m² descubiertos · 2012–13",
   "url": "/proyectos/oficina-casa-luna/",
   "img": "/assets/gallery/oficina-casa-luna/1.webp"
