@@ -11,6 +11,13 @@
    de premios de cada ficha. Si manana se suma un premio a esa pagina y se
    vuelve a correr esto, la ficha se entera.
 
+   Tambien pone la estrellita de la tarjeta en /proyectos/. Esa marca salia de
+   un diccionario escrito a mano en docs/cambios_cliente_agosto.py y se
+   desincronizo: Novotel seguia mostrando el premio del concurso despues de que
+   se reatribuyera a Accor, y Accor y Fresco no mostraban el suyo. Ahora las dos
+   cosas -barra de la ficha y estrellita de la tarjeta- salen de la misma fuente
+   y no pueden discrepar.
+
    Lo que NO decide este script: que premio gano cada obra. Eso vive en
    /premios/ y se edita ahi. Si una obra no figura, aca no aparece: es
    preferible una ficha sin premio que un premio atribuido a la obra
@@ -26,6 +33,21 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PREMIOS = os.path.join(RAIZ, 'premios', 'index.html')
+
+LISTADO = os.path.join(RAIZ, 'proyectos', 'index.html')
+
+# En la tarjeta del listado el nombre largo no entra: se abrevia como lo venia
+# haciendo el sitio. Un premio que no figure aca sale con su nombre completo.
+ABREVIA = {
+    'A+ Awards — Architizer': 'Architizer A+',
+    'A+ Awards – Architizer': 'Architizer A+',
+    'Society of British and International Interior Design (SBID)': 'SBID',
+    'IIDA International Interior Design Awards': 'IIDA',
+    'Premios BIAR': 'BIAR',
+    'Premios Nacionales ARCH FADEA': 'ARQ-FADEA',
+    'Hospitality Design Awards': 'Hospitality Design',
+    '18ª Bienal Internacional de Arquitectura': 'Bienal Internacional de Arquitectura',
+}
 
 # La barra va entre las fotos a lo ancho y la grilla "Todas las fotos", que es
 # donde ya esta en las fichas que la tienen.
@@ -70,6 +92,70 @@ def barra(premios):
             '    </section>\n' % '\n'.join(items))
 
 
+def rotulo(premios):
+    """El texto corto de la tarjeta: los premios separados por punto medio."""
+    vistos, partes = set(), []
+    for nombre, _ in premios:
+        corto = ABREVIA.get(nombre, nombre)
+        if corto not in vistos:
+            vistos.add(corto)
+            partes.append(corto)
+    return ' \u00b7 '.join(partes)
+
+
+MARCA = re.compile(r'\n\s*<div class="p-awards">.*?</div>', re.S)
+TARJETA = re.compile(r'<a\b[^>]*class="project-card"[^>]*>.*?</a>', re.S)
+CIERRE_PLACA = '</div>\n            </div>'
+
+
+def estrellitas(mapa, verificar):
+    """Pone en cada tarjeta del listado la estrellita con sus premios.
+
+    Una obra que no figura en /premios/ pierde la marca. Es el caso de Novotel,
+    que la arrastraba desde antes de que su premio se reatribuyera a Accor.
+    """
+    html = io.open(LISTADO, encoding='utf-8').read()
+    antes = html
+    cambios = []
+
+    # De atras para adelante: cada reemplazo corre las posiciones siguientes.
+    for m in reversed(list(TARJETA.finditer(html))):
+        bloque = m.group(0)
+        s = re.search(r'data-slug="([^"]+)"', bloque)
+        if not s:
+            continue
+        slug = s.group(1)
+        texto = rotulo(mapa[slug]) if slug in mapa else ''
+        tenia = MARCA.search(bloque)
+
+        if texto:
+            nueva = '\n              <div class="p-awards">\u2605 %s</div>' % texto
+            if tenia:
+                nuevo = MARCA.sub(lambda _: nueva, bloque, count=1)
+            else:
+                # Va detras de la placa del nombre, como en las demas tarjetas.
+                corte = bloque.rfind(CIERRE_PLACA)
+                if corte < 0:
+                    continue
+                corte += len('</div>')
+                nuevo = bloque[:corte] + nueva + bloque[corte:]
+        elif tenia:
+            nuevo = MARCA.sub('', bloque, count=1)
+        else:
+            continue
+
+        if nuevo != bloque:
+            viejo = (re.sub(r'\s+', ' ', tenia.group(0)).strip()[:46]
+                     if tenia else '(sin marca)')
+            cambios.append('%-20s %s  ->  %s'
+                           % (slug, viejo, texto or '(sin premio)'))
+            html = html[:m.start()] + nuevo + html[m.end():]
+
+    if cambios and not verificar and html != antes:
+        io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(html)
+    return cambios
+
+
 def main(verificar):
     mapa = premios_por_obra()
     if not mapa:
@@ -111,8 +197,13 @@ def main(verificar):
             if BLOQUE.search(io.open(ruta, encoding='utf-8').read()):
                 sobran.append(slug)
 
+    marcas = estrellitas(mapa, verificar)
+
     print('fichas actualizadas: %d' % len(cambiadas))
     for c in cambiadas:
+        print('  ' + c)
+    print('estrellitas del listado: %d' % len(marcas))
+    for c in marcas:
         print('  ' + c)
     if sobran:
         print('\nOJO — tienen barra de premios y /premios/ no les atribuye '
