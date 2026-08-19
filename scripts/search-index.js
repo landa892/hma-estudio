@@ -18,7 +18,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Accor Hotels",
-  "sub": "Hotelería & Comercial",
+  "sub": "Hotelería",
   "desc": "Hotel — concurso internacional · São Paulo · 6.500 m² · 2018",
   "url": "/proyectos/accor-hotels/",
   "img": "/assets/covers/accor-hotels.webp"
@@ -114,7 +114,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Cien",
-  "sub": "Gastronómico",
+  "sub": "Comercial",
   "desc": "Club nocturno · Juana Manso 1890, Puerto Madero, Buenos Aires · 200 m² interiores y 100 m² exteriores · 2023",
   "url": "/proyectos/cien/",
   "img": "/assets/covers/cien.webp?v=20260812"
@@ -194,7 +194,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Hausscape",
-  "sub": "Hotelería & Comercial",
+  "sub": "Comercial",
   "desc": "Retail · 100 NE 38th St & NE 1st Ave, Design District, Miami, Florida · 345 m² · 2022",
   "url": "/proyectos/hausscape/",
   "img": "/assets/covers/hausscape.webp"
@@ -202,7 +202,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Hyatt · Ziva",
-  "sub": "Hotelería & Comercial",
+  "sub": "Hotelería",
   "desc": "Hotel · Barbados · 50.000 m² · 2026",
   "url": "/proyectos/hyatt-ziva/",
   "img": "/assets/covers/hyatt-ziva.webp?v=20260812b"
@@ -218,7 +218,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Indusparquet",
-  "sub": "Hotelería & Comercial",
+  "sub": "Comercial",
   "desc": "Showroom · Av. del Libertador 6366, Núñez, Buenos Aires · 324 m²",
   "url": "/proyectos/indusparquet/",
   "img": "/assets/covers/indusparquet.webp?v=20260817"
@@ -242,7 +242,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Kavak Hub",
-  "sub": "Hotelería & Comercial",
+  "sub": "Oficinas",
   "desc": "Hub comercial y oficinas · Shopping Dot Baires, Buenos Aires · 300 m² cubiertos y 15.000 m² de playa de estacionamiento · 2020",
   "url": "/proyectos/kavak-hub/",
   "img": "/assets/covers/kavak-hub.webp"
@@ -298,7 +298,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Manduca",
-  "sub": "Hotelería & Comercial",
+  "sub": "Gastronómico",
   "desc": "Mercado · Paseo La Plaza · Buenos Aires · 1.525 m² · 2022",
   "url": "/proyectos/manduca/",
   "img": "/assets/covers/manduca.webp"
@@ -314,7 +314,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Movistar Arena",
-  "sub": "Hotelería & Comercial",
+  "sub": "Comercial",
   "desc": "Áreas VIP · Buenos Aires, Argentina · 640 m² · 2024",
   "url": "/proyectos/movistar-arena/",
   "img": "/assets/covers/movistar-arena.webp?v=20260812b"
@@ -322,7 +322,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Novotel",
-  "sub": "Hotelería & Comercial",
+  "sub": "Hotelería",
   "desc": "Hotel · Av. Corrientes 1334, Buenos Aires · 1.486 m² · 2024",
   "url": "/proyectos/novotel/",
   "img": "/assets/covers/novotel.webp"
@@ -362,7 +362,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Parfumerie",
-  "sub": "Hotelería & Comercial",
+  "sub": "Comercial",
   "desc": "Retail · Terrazas de Mayo Shopping, Los Polvorines, Buenos Aires · 131 m² · 2025",
   "url": "/proyectos/parfumerie/",
   "img": "/assets/covers/parfumerie.webp?v=20260812b"
@@ -370,7 +370,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Patio de Comidas Abasto",
-  "sub": "Comercial",
+  "sub": "Gastronómico",
   "desc": "Patio de comidas · Av. Corrientes 3247, Buenos Aires · 294 m² (Patio Zorzal) · 1.300 m² (Patio Central) · 2020",
   "url": "/proyectos/abasto-patio-comidas/",
   "img": "/assets/gallery/abasto-patio-comidas/1.webp"
@@ -402,7 +402,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Plaza Mateo",
-  "sub": "Gastronómico",
+  "sub": "Comercial",
   "desc": "Sala de concierto, night club y restaurante — en proceso · Rambla Wilson y Av. Sarmiento, Montevideo · 950 m² de intervención general",
   "url": "/proyectos/plaza-mateo/",
   "img": "/assets/covers/plaza-mateo.webp"
@@ -410,7 +410,7 @@ window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
   "titulo": "Roket",
-  "sub": "Gastronómico",
+  "sub": "Comercial",
   "desc": "Club nocturno · Juan Manuel de Rosas 424, San Carlos de Bariloche, Río Negro · 2.000 m² · 2023",
   "url": "/proyectos/roket/",
   "img": "/assets/covers/roket.webp"

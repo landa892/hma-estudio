@@ -74,7 +74,13 @@ def reemplazar_clase(html, clase, obras):
         if clase == 'project-card':
             titulo_actual = (re.search(r'<div class="p-name">(.*?)</div>',
                                        bloque, re.S) or [None, ''])[1]
-            if cat_actual != cat:
+            # Se compara el rotulo contra si mismo y no contra data-cat: el
+            # sitio tenia tarjetas con la categoria correcta y el texto viejo
+            # -Novotel decia "Hotelería & Comercial" con data-cat="hoteleria"-,
+            # y atadas a data-cat esas nunca se corregian.
+            rotulo_actual = (re.search(r'<span class="card-cat">(.*?)</span>',
+                                       bloque, re.S) or [None, ''])[1]
+            if rotulo_actual != rotulo:
                 nuevo = re.sub(r'(<span class="card-cat">).*?(</span>)',
                                r'\g<1>%s\g<2>' % rotulo, nuevo,
                                count=1, flags=re.S)
@@ -91,7 +97,9 @@ def reemplazar_clase(html, clase, obras):
                 nuevo = re.sub(r'(<div class="plr-name">).*?(</div>)',
                                r'\g<1>%s\g<2>' % titulo, nuevo,
                                count=1, flags=re.S)
-            if cat_actual != cat:
+            rotulo_actual = (re.search(r'<div class="plr-cat">(.*?)</div>',
+                                       bloque, re.S) or [None, ''])[1]
+            if rotulo_actual != rotulo:
                 nuevo = re.sub(r'(<div class="plr-cat">).*?(</div>)',
                                r'\g<1>%s\g<2>' % rotulo, nuevo,
                                count=1, flags=re.S)
