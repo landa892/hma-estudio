@@ -4506,3 +4506,120 @@ html.lenis body {
   padding-top: 28px;
   border-top: 1px solid var(--line);
 }
+
+/* ---------- VISOR DE FOTOS ----------
+   El cliente pidio poder ampliar cualquier foto del catalogo (19/08/2026).
+   El visor lo arma scripts/main.js; aca va solo su apariencia. Monocromo,
+   como el resto del sitio: la foto manda y el resto se corre del medio. */
+.foto-ampliable {
+  cursor: zoom-in;
+}
+
+.gallery-grid__item[role="button"]:focus-visible,
+.project-row__photo[role="button"]:focus-visible,
+.memoria-editorial-row__photo[role="button"]:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 3px;
+}
+
+html.visor-abierto {
+  overflow: hidden;
+}
+
+.visor {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  background: rgba(0, 0, 0, .94);
+}
+
+.visor[hidden] {
+  display: none;
+}
+
+.visor__marco {
+  margin: 0;
+  max-width: min(1400px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.visor__marco img {
+  max-width: 100%;
+  /* El pie ocupa alto propio: sin este descuento la foto lo empuja fuera. */
+  max-height: calc(100vh - 110px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.visor__pie {
+  color: rgba(255, 255, 255, .72);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.visor__cerrar,
+.visor__paso {
+  background: none;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  line-height: 1;
+  padding: 12px;
+  opacity: .7;
+  transition: opacity .18s ease;
+}
+
+.visor__cerrar:hover,
+.visor__paso:hover,
+.visor__cerrar:focus-visible,
+.visor__paso:focus-visible {
+  opacity: 1;
+}
+
+.visor__cerrar:focus-visible,
+.visor__paso:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+.visor__cerrar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 2.4rem;
+}
+
+.visor__paso {
+  flex: 0 0 auto;
+  font-size: 3rem;
+}
+
+.visor__paso[hidden] {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .visor {
+    padding: 12px;
+  }
+
+  .visor__paso {
+    font-size: 2.2rem;
+    padding: 8px;
+  }
+
+  .visor__marco img {
+    max-height: calc(100vh - 130px);
+  }
+}

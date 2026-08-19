@@ -767,3 +767,98 @@ try {
     });
   });
 } catch (e) { console.error('galeria', e); }
+
+try {
+  /* ---------- VISOR DE FOTOS ----------
+     "Revisar todas las fotos del catálogo: En todos los proyectos/obras, al
+     hacer clic debería poder abrirse la imagen en mayor tamaño/hacer zoom"
+     (19/08/2026). El mismo pedido vuelve para la página de cada noticia:
+     "que sean clickeables y poder verlas amplificadas".
+
+     Se arma desde acá y no en el HTML para que valga en las 61 fichas sin
+     tocar página por página, y para que una obra nueva lo tenga sin hacer
+     nada. Las fotos siguen siendo <img> comunes: si este script no corre, la
+     página se ve igual, sólo que sin ampliar. */
+  const fotos = Array.from(document.querySelectorAll(
+    '.gallery-grid__item img, .project-row__photo img, .memoria-editorial-row__photo img'));
+
+  if (fotos.length) {
+    const visor = document.createElement('div');
+    visor.className = 'visor';
+    visor.setAttribute('role', 'dialog');
+    visor.setAttribute('aria-modal', 'true');
+    visor.setAttribute('aria-label', T('Foto ampliada', 'Enlarged photo'));
+    visor.hidden = true;
+    visor.innerHTML =
+      '<button class="visor__cerrar" type="button" aria-label="' +
+      T('Cerrar', 'Close') + '">&times;</button>' +
+      '<button class="visor__paso visor__paso--antes" type="button" aria-label="' +
+      T('Foto anterior', 'Previous photo') + '">&#8249;</button>' +
+      '<figure class="visor__marco"><img alt=""><figcaption class="visor__pie"></figcaption></figure>' +
+      '<button class="visor__paso visor__paso--despues" type="button" aria-label="' +
+      T('Foto siguiente', 'Next photo') + '">&#8250;</button>';
+    document.body.appendChild(visor);
+
+    const imagen = visor.querySelector('img');
+    const pie = visor.querySelector('.visor__pie');
+    const antes = visor.querySelector('.visor__paso--antes');
+    const despues = visor.querySelector('.visor__paso--despues');
+    let actual = 0;
+    let devolverFoco = null;
+
+    const mostrar = (i) => {
+      actual = (i + fotos.length) % fotos.length;
+      const foto = fotos[actual];
+      imagen.src = foto.currentSrc || foto.src;
+      imagen.alt = foto.alt || '';
+      pie.textContent = fotos.length > 1
+        ? (actual + 1) + ' / ' + fotos.length
+        : '';
+      // Con una sola foto los pasos no tienen a dónde ir.
+      antes.hidden = despues.hidden = fotos.length < 2;
+    };
+
+    const abrir = (i, origen) => {
+      devolverFoco = origen || null;
+      mostrar(i);
+      visor.hidden = false;
+      document.documentElement.classList.add('visor-abierto');
+      visor.querySelector('.visor__cerrar').focus();
+    };
+
+    const cerrar = () => {
+      visor.hidden = true;
+      document.documentElement.classList.remove('visor-abierto');
+      // La imagen queda en memoria si no se limpia el src.
+      imagen.removeAttribute('src');
+      if (devolverFoco) devolverFoco.focus();
+    };
+
+    fotos.forEach((foto, i) => {
+      foto.classList.add('foto-ampliable');
+      const disparo = foto.closest('figure') || foto;
+      // Las fotos de la memoria van dentro de un enlace en algunas fichas:
+      // ahí manda el enlace y el visor no se mete.
+      if (foto.closest('a')) return;
+      disparo.setAttribute('tabindex', '0');
+      disparo.setAttribute('role', 'button');
+      disparo.setAttribute('aria-label', T('Ampliar foto', 'Enlarge photo'));
+      disparo.addEventListener('click', () => abrir(i, disparo));
+      disparo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(i, disparo); }
+      });
+    });
+
+    visor.querySelector('.visor__cerrar').addEventListener('click', cerrar);
+    antes.addEventListener('click', () => mostrar(actual - 1));
+    despues.addEventListener('click', () => mostrar(actual + 1));
+    visor.addEventListener('click', (e) => { if (e.target === visor) cerrar(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (visor.hidden) return;
+      if (e.key === 'Escape') cerrar();
+      else if (e.key === 'ArrowLeft') mostrar(actual - 1);
+      else if (e.key === 'ArrowRight') mostrar(actual + 1);
+    });
+  }
+} catch (e) { console.error('visor', e); }
