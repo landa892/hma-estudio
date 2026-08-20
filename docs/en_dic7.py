@@ -10,6 +10,7 @@ regla y no como entrada del diccionario.
 """
 import re
 
+import en_dic
 import en_dic6
 from en_dic import DIC, PASA_EXACTO
 
@@ -176,16 +177,65 @@ DIC.update({
         'The central courtyard and the vertical garden bring natural light into the work areas.',
 })
 
+# Las etiquetas de la ficha de cada nota de prensa. Son de la pagina nueva
+# -una por nota- y todavia no habian pasado por el traductor.
+DIC.update({
+    'Medio': 'Medium',
+    'Link': 'Link',
+})
+
 # "Arq. Fernando Hitzig" -> "Arch. Fernando Hitzig". El nombre se copia tal
 # cual: traducirlo seria un error, no una omision.
 TITULO = re.compile(r'^Arq(?:\.|ta\.)? (.+)$')
-MEDIA = re.compile(r'^(.*?) — (foto|plano) (\d+)$')
+MEDIA = re.compile(r'^(.*?) — (foto|plano|imagen) (\d+)$')
+
+# Lo que aporta la pagina de cada nota de prensa. Los titulares y los nombres
+# de las publicaciones se citan como salieron: son la fuente, no texto del
+# sitio. Lo que si se traduce es lo que arma el sitio alrededor.
+PASA_EXACTO.update({
+    'G&amp;G Magazine', 'La Nación', 'Hospitality Design', 'Metalocus',
+    u'“Antiche Tentazioni, heladería”',
+    u'“Comer solo sin pedir perdón”',
+    u'“El nuevo restaurante de Belgrano en un patio lleno de plantas”',
+    u'“Entrevista a Hitzig Militello Architects”',
+    u'“Fogón, restaurante y bar en Riad, Arabia Saudí”',
+    u'“Stella Artois Stand / Hitzig Militello arquitectos”',
+    u'“The Nim Bar, fotografía de Federico Kulekdjian”',
+    u'“Un lugar para sentarse al aire libre en la normalidad pandémica: Williamsburg”',
+    u'“Williamsburg, espacio al aire libre en Buenos Aires”',
+})
+
+DIC.update({
+    # Las tres notas sin mes: la regla de abajo pide mes, y una regla que
+    # aceptara solo el ano se comeria cualquier frase que termine en ", 2019.".
+    u'Fogón, restaurante y bar en Riad, Arabia Saudí en Design Boom, 2019.':
+        u'Fogón, restaurante y bar en Riad, Arabia Saudí in Design Boom, 2019.',
+    u'Stella Artois Stand / Hitzig Militello arquitectos en ArchDaily, 2023.':
+        u'Stella Artois Stand / Hitzig Militello arquitectos in ArchDaily, 2023.',
+    u'The Nim Bar, fotografía de Federico Kulekdjian en Design Boom, 2018.':
+        u'The Nim Bar, fotografía de Federico Kulekdjian in Design Boom, 2018.',
+    # Paises del filtro de trabajos que faltaban.
+    'EE.UU.': 'USA',
+    'Reino Unido': 'United Kingdom',
+    u'España': 'Spain',
+})
+
+# La descripcion de cada nota de prensa: "<titular> en <medio>, <Mes> <ano>.".
+# El titular es de la publicacion y se deja como salio; lo que se traduce es
+# el armado -"en" y el mes-. Va como regla porque hay una por nota y crecen.
+FICHA_NOTA = re.compile(
+    r'^(.+) en (.+?), (%s)( \d{4})?\.$' % '|'.join(en_dic.MESES_LARGOS))
 
 
 def traducir(t):
+    m = FICHA_NOTA.match(t)
+    if m:
+        return u'%s in %s, %s%s.' % (m.group(1), m.group(2),
+                                     en_dic.MESES_LARGOS[m.group(3)],
+                                     m.group(4) or '')
     m = MEDIA.match(t)
     if m:
-        tipo = 'photo' if m.group(2) == 'foto' else 'plan'
+        tipo = {'foto': 'photo', 'plano': 'plan', 'imagen': 'image'}[m.group(2)]
         return '%s — %s %s' % (m.group(1), tipo, m.group(3))
     m = TITULO.match(t)
     if m:

@@ -39,7 +39,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="stylesheet" href="/styles/main.css?v=89">
+  <link rel="stylesheet" href="/styles/main.css?v=90">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
@@ -166,6 +166,19 @@
           <source src="/assets/video/estudio-hero.mp4" type="video/mp4">
         </video>
         <div class="hero-content-wrap">
+          <!-- El logo abre la portada y es el bloque mas grande de los tres.
+            El estudio pidio el 19/08/2026 repensar el inicio "con el logo HMA
+            como el encuadre mayor", porque en el tamano del encabezado, sobre
+            las paredes claras del video, no se distingue.
+            Va dibujado y no como el PNG de la cabecera: a este ancho un PNG de
+            349 px de lado se veria borroso. El trazado sale del propio
+            logo-mark-black.png y lo reproduce con 1,4% de diferencia, que es
+            el borde suavizado. -->
+          <svg class="hero-logo" viewBox="0 0 349 100" role="img"
+            aria-label="Hitzig Militello Arquitectos" focusable="false">
+            <path fill="currentColor"
+              d="M7 8h20v86H7zM45 43h16v16H45zM79 8h21v86H79zM142 8h23l19 32-12 19zM210 8h21v86h-21zM294 7l49 87h-24L281 27z" />
+          </svg>
           <h1 class="display-1 mt-16">Creating&nbsp;&amp; building ideas</h1>
           <p class="lede">Architecture and interior design for hotels, restaurants, offices and homes. More than two decades creating brand identities across Latin America, Europe, the Middle East and the US.</p>
         </div>
@@ -475,7 +488,7 @@
   <script src="/scripts/animations/textReveal.js?v=85"></script>
   <script src="/scripts/animations/heroAnimation.js?v=85"></script>
   <script src="/scripts/animations/scrollEffects.js?v=85"></script>
-  <script src="/scripts/main.js?v=87"></script>
+  <script src="/scripts/main.js?v=88"></script>
 </body>
 
 </html>

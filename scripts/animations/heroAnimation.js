@@ -66,6 +66,7 @@
       inner: '.hero-content-wrap',
       titulo: 'h1',
       sub: '.lede',
+      logo: '.hero-logo',
       pico: 1.4,
       obertura: true,
       escalaObertura: 1.58
@@ -134,6 +135,7 @@
 
   function obertura(seccion, titulo, lineas, sub, eyebrow, opts) {
     opts = opts || {};
+    var logo = opts.logo || null;
     var escenario = seccion.querySelector('.hero-stage') || seccion.querySelector('.banner-stage');
     var b = CFG.bp();
     /* Medido: a 1,7 el titulo se salia 27 px por la izquierda en 1440. El tope
@@ -186,6 +188,10 @@
     });
     if (sub) gsap.set(sub, { clipPath: 'inset(0 0 100% 0)', opacity: 0, y: 18 });
     if (eyebrow) gsap.set(eyebrow, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
+    /* El logo espera oculto: aparece cuando el titulo ya viaja a su sitio, no
+       al cargar. Si estuviera puesto desde el primer cuadro, el titulo emerge
+       grande y centrado justo encima y los dos se pisan. */
+    if (logo) gsap.set(logo, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
 
     /* 2. el titulo emerge, ya centrado y grande */
     if (lineas) {
@@ -206,7 +212,12 @@
       ease: 'power3.inOut'
     }, 2.6);
 
-    /* 5. la informacion secundaria, recien cuando el titulo ya llego */
+    /* 5. el logo se descubre de izquierda a derecha, con el titulo llegando */
+    if (logo) {
+      tl.to(logo, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1, ease: EASE.settle }, 3.4);
+    }
+
+    /* 6. la informacion secundaria, recien cuando el titulo ya llego */
     if (eyebrow) {
       tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, 3.7);
     }
@@ -265,7 +276,8 @@
          vez arranque desde cero y no desde el final. */
       var entrada = obertura(seccion, titulo, lineas, sub, eyebrow, {
         escala: cfg.escalaObertura,
-        delay: 0.1
+        delay: 0.1,
+        logo: cfg.logo ? seccion.querySelector(cfg.logo) : null
       });
 
       /* Callbacks explicitos en vez de toggleActions. Con toggleActions la

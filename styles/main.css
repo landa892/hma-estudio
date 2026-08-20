@@ -730,6 +730,34 @@ footer.site-footer {
   transform: translateY(0);
 }
 
+/* La portada, reordenada como pidio el estudio el 19/08/2026: tres bloques
+   apilados de mayor a menor y el logo arriba, ocupando el mayor.
+
+   Que sea el mayor obliga a bajar el titulo. Antes el titulo era el bloque
+   grande -628 x 232 medido en 1280- y para superarlo el logo hubiera tenido
+   que cruzar la pantalla entera. Con el titulo a escala de subtitulo la
+   relacion queda pareja: medido en 1280, el logo da 742 x 213, el titulo
+   497 x 103 y la bajada 707 x 93. El logo es el mayor de los tres en las dos
+   medidas, no solo en superficie, que es lo que se ve.
+
+   La sombra es la misma que lleva el texto, en version para dibujo: el logo
+   es blanco y el video tiene paredes y ventanas a contraluz. */
+.hero-logo {
+  display: block;
+  width: min(92%, clamp(260px, 58vw, 860px));
+  height: auto;
+  margin-bottom: 22px;
+  color: var(--white);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .85)) drop-shadow(0 2px 12px rgba(0, 0, 0, .55));
+}
+
+/* El titulo pasa a segundo bloque. El limite de caracteres por linea es lo
+   que lo mantiene en dos lineas y por debajo del logo tambien de ancho. */
+.hero-home--photo h1 {
+  font-size: clamp(1.35rem, 3.6vw, 3.2rem);
+  max-width: 16ch;
+}
+
 /* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com
    (.post-teaser-banner__content__claim usa text-shadow, no un overlay). */
 .hero-home--photo .eyebrow,
@@ -3557,11 +3585,13 @@ footer.site-footer {
 /* Los planos cierran la tanda que se ve de entrada. Son dibujos sobre
    blanco: se muestran enteros y no recortados como las fotos, porque
    recortar un plano es cortarle la planta. */
-/* Un plano ocupa dos columnas. En una sola mide 199 px de ancho y a ese
-   tamaño las lineas del dibujo no se distinguen: queda una mancha gris.
-   Con dos ronda los 400 y al menos se lee la planta. */
+/* Ocupan una celda igual que las fotos. Antes tomaban dos columnas y por
+   la misma proporcion salian del doble de alto, asi que la grilla mezclaba
+   dos tamanos de encuadre; el estudio pidio el 19/08/2026 que en todos los
+   trabajos las fotos y los archivos tengan el mismo. El dibujo chico no se
+   lee, pero desde que existe el visor alcanza con hacerle clic para verlo
+   entero y en grande. */
 .gallery-grid__item--plano {
-  grid-column: span 2;
   background: #fff;
   border: 1px solid var(--line);
 }
@@ -3691,16 +3721,13 @@ footer.site-footer {
   z-index: 1;
 }
 
-/* En la portada el tamaño de descanso es menor que el del resto del sitio: el
-   titulo llega a escala 1,4 en su pico, y de ahi sale el tamaño que se ve.
-   Si se dejara el clamp original, a 1,4 se saldria de pantalla y se cortaria. */
+/* El tamaño sale de .hero-home--photo h1; aca solo lo que hace falta para la
+   secuencia. El titulo llega a escala 1,4 en su pico y con 16ch por linea
+   entra holgado: 497 x 103 por 1,58 son 785 x 163, contra los 1101 x 590 que
+   deja el escenario en 1280. Sin limite de caracteres, en un telefono la
+   linea completa se sale y el escenario la recorta, porque escalar no vuelve
+   a partir el texto. */
 .gsap-active .hero-home--photo h1 {
-  font-size: clamp(1.9rem, 5.6vw, 5rem);
-  /* El limite de caracteres por linea es lo que hace que el titulo entre a
-     escala 1,4. Sin el, en un telefono la linea completa se sale de pantalla
-     y el escenario la recorta: escalar no vuelve a partir el texto. De paso,
-     dos lineas apiladas dan mas escalonado en la aparicion. */
-  max-width: 13ch;
   will-change: transform;
 }
 
