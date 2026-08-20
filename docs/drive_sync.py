@@ -182,6 +182,12 @@ LADO_FIRMA = 16
 # Entre esos dos numeros no cae nada, asi que el corte va ahi.
 IGUALES = 0.99
 ES = re.compile(r'(^|[^A-Za-z])ES([^A-Za-z]|$)')
+EN = re.compile(r'(^|[^A-Za-z])EN([^A-Za-z]|$)')
+
+
+def en_castellano(nombre):
+    """El mismo nombre con la marca de idioma cambiada a ES."""
+    return EN.sub(lambda m: m.group(1) + 'ES' + m.group(2), nombre)
 
 
 def firma(datos):
@@ -214,6 +220,21 @@ def sin_repetir(lista, abiertos):
     esa: el sitio en castellano es el original y el espejo en ingles usa las
     mismas imagenes.
     """
+    # Primero por el nombre, que es exacto: BIENAL-EN-1 y BIENAL-ES-1 son la
+    # misma lamina, y a veces la version en ingles y la castellana difieren lo
+    # bastante -0,97 entre ellas- como para que la comparacion de imagenes no
+    # las junte sin arriesgarse a juntar dos dibujos distintos, que llegan a
+    # 0,96. Si existe la castellana, la inglesa se va.
+    # Sin la extension: el estudio guarda "Plaza Mateo-EN-01.jpg" junto a
+    # "Plaza Mateo-ES-01.png", la misma lamina exportada de dos maneras.
+    def sin_extension(entrada):
+        return os.path.splitext(entrada.rsplit('/', 1)[-1])[0]
+
+    hay = set(sin_extension(e) for _, e in lista)
+    lista = [(z, e) for z, e in lista
+             if en_castellano(sin_extension(e)) == sin_extension(e)
+             or en_castellano(sin_extension(e)) not in hay]
+
     firmas = []
     for ruta_zip, entrada in lista:
         firmas.append(firma(abiertos[ruta_zip].read(entrada)))
