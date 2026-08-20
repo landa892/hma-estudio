@@ -124,7 +124,12 @@ input:focus-visible {
   font-size: .85rem;
   background: none;
   border: 0;
-  padding: 0;
+  /* El area para tocar, no el tamano del texto: el estudio entra al panel
+     desde el telefono y "Olvide mi contrasena" median veinte pixeles de alto,
+     la mitad de lo que necesita un dedo. El relleno vertical no mueve nada
+     porque el margen de arriba lo compensa. */
+  padding: 11px 0;
+  margin-bottom: -11px;
   cursor: pointer;
   text-decoration: underline;
   font: inherit;
@@ -831,7 +836,9 @@ textarea:focus-visible {
   transform: translateY(-50%);
   border: 0;
   background: none;
-  padding: 8px 10px;
+  /* Alto de dedo. Va dentro del campo, que mide 48, asi que crecer el relleno
+     no cambia el alto de la fila. */
+  padding: 13px 10px;
   font: inherit;
   font-size: .82rem;
   letter-spacing: .04em;
