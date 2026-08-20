@@ -32,6 +32,10 @@ MAPA_PORTADAS = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 SITIO = 'https://estudiohma.com'
 VISIBLES = 6
 TOPE = 15
+# Los planos llevan su propio tope, mas alto: no se cotizan ni se suben a
+# mano, salen del Drive y son los que son. Tostado tiene 35. Tiene que
+# coincidir con el de la migracion 0012.
+TOPE_PLANOS = 40
 
 
 def e(texto):
@@ -163,7 +167,7 @@ def planos_iniciales(obra, catalogo_planos):
     planos.json, y un plano nunca es portada de la obra.
     """
     filas = []
-    for plano in catalogo_planos.get(obra['slug']) or []:
+    for plano in (catalogo_planos.get(obra['slug']) or [])[:TOPE_PLANOS]:
         filas.append({
             'storage_path': '@seed:/assets/planos/%s/%d.webp' % (obra['slug'], plano['n']),
             'alt': '%s — plano %d' % (obra['titulo'], plano['n']),
