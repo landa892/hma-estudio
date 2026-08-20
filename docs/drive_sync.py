@@ -175,6 +175,66 @@ def imagenes(lista):
             if x[1].lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'))]
 
 
+LADO_FIRMA = 16
+# Medido sobre las 1393 imagenes del sitio: los pares que son la misma lamina
+# en dos idiomas -"ACCESS LEVEL" y "PLANTA DE ACCESO"- van de 0,9905 a 1, y el
+# par de dibujos distintos mas parecido, en la Bienal de Venecia, da 0,9892.
+# Entre esos dos numeros no cae nada, asi que el corte va ahi.
+IGUALES = 0.99
+ES = re.compile(r'(^|[^A-Za-z])ES([^A-Za-z]|$)')
+
+
+def firma(datos):
+    """Version chica y normalizada de la imagen, para comparar contenido."""
+    try:
+        im = Image.open(io.BytesIO(datos)).convert('L')
+        im = im.resize((LADO_FIRMA, LADO_FIRMA), Image.LANCZOS)
+    except Exception:
+        return None
+    p = list(im.getdata())
+    media = sum(p) / len(p)
+    desvio = (sum((v - media) ** 2 for v in p) / len(p)) ** 0.5 or 1.0
+    return [(v - media) / desvio for v in p]
+
+
+def parecido(a, b):
+    return sum(x * y for x, y in zip(a, b)) / len(a)
+
+
+def sin_repetir(lista, abiertos):
+    """Saca las laminas que son la misma, guardada dos veces.
+
+    El estudio arma cada plano en dos idiomas -MOSHU-ES-01 y MOSHU-EN-01 son
+    el mismo dibujo con los rotulos en castellano y en ingles-, y a veces la
+    misma lamina aparece ademas en dos carpetas. En la galeria se ven iguales,
+    asi que la ficha mostraba cada plano dos veces: es una de las fotos
+    repetidas que marco el cliente en Osten, Moshu, Stella Artois y la Bienal.
+
+    De cada grupo de iguales queda una sola, y si alguna es la castellana es
+    esa: el sitio en castellano es el original y el espejo en ingles usa las
+    mismas imagenes.
+    """
+    firmas = []
+    for ruta_zip, entrada in lista:
+        firmas.append(firma(abiertos[ruta_zip].read(entrada)))
+
+    elegidas = []
+    for i, f in enumerate(firmas):
+        if f is None:
+            continue
+        for k, j in enumerate(elegidas):
+            if firmas[j] is not None and parecido(f, firmas[j]) >= IGUALES:
+                # Ya hay una igual. Si esta es la castellana, toma su lugar.
+                nombre = lista[i][1].rsplit('/', 1)[-1]
+                previo = lista[j][1].rsplit('/', 1)[-1]
+                if ES.search(nombre) and not ES.search(previo):
+                    elegidas[k] = i
+                break
+        else:
+            elegidas.append(i)
+    return [lista[i] for i in sorted(elegidas)]
+
+
 def volcar(slug, tipo, lista, verificar, abiertos):
     """Reescribe una carpeta del sitio con lo que trae el Drive."""
     lista = sorted(imagenes(lista), key=lambda x: orden_natural(x[1]))
@@ -193,6 +253,8 @@ def volcar(slug, tipo, lista, verificar, abiertos):
                            'gallery' if tipo == 'fotos' else 'planos', slug)
     if verificar:
         return len(lista)
+
+    lista = sin_repetir(lista, abiertos)
 
     if os.path.isdir(carpeta):
         for viejo in glob.glob(os.path.join(carpeta, '*.webp')):
