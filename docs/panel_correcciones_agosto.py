@@ -568,6 +568,27 @@ CORRECCIONES_20_08 = {
     'roket': {
         'anio': valor('2024', '2023'),
     },
+    # El tercer Word contesta los dos metrajes que faltaban. Eran las dos
+    # unicas fichas del sitio sin superficie, porque el dato no estaba cargado
+    # en ningun lado.
+    'aire-libre': {
+        'superficie': completar_vacio('988 m\u00b2'),
+    },
+    'juan-valdez': {
+        'superficie': completar_vacio('177 m\u00b2'),
+    },
+    # "La memoria descriptiva de Comedor Diario: sacar esta obra". La obra se
+    # habia dado de alta el 20/08 con sus once fotos y su ficha tecnica, pero
+    # sin memoria, porque en el Drive no hay. El estudio prefiere no publicarla
+    # antes que publicarla sin texto.
+    #
+    # Se despublica y no se borra: los datos y las fotos quedan, y alcanza con
+    # volver publicada a true para que aparezca de nuevo. Del sitio la saca
+    # panel_sitio.py, que es el paso que borra las paginas de las obras que la
+    # base ya no publica.
+    'comedor-diario': {
+        'publicada': valor(True, False),
+    },
 }
 
 for _slug, _campos in CORRECCIONES_20_08.items():
