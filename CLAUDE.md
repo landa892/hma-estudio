@@ -1,0 +1,216 @@
+# El sitio de Hitzig Militello Arquitectos
+
+Sitio estático de un estudio de arquitectura. HTML, CSS y JS a mano, sin
+framework. Se publica en Vercel, en estudiohma.com. El contenido de las obras
+vive en una base Supabase y el sitio se arma en cada deploy.
+
+Esto es lo que hay que saber antes de tocar nada. Casi todo salió de
+equivocarse primero.
+
+---
+
+## Cómo se trabaja
+
+**Directo en `main`.** Nada de ramas ni de pull requests. Cada push a `main`
+dispara el deploy: **pushear es publicar.**
+
+El cliente es el estudio; el interlocutor es el desarrollador. Las correcciones
+llegan en documentos de Word con capturas marcadas a mano, y en audios. Cuando
+un Word dice "X es A, no B", **A es lo correcto** — ese patrón ya se leyó al
+revés una vez y se publicaron datos invertidos.
+
+---
+
+## Lo primero: el repositorio no es el sitio
+
+El build corre en Vercel, genera el HTML desde la base y **el resultado nunca
+vuelve al repositorio**. Por eso:
+
+- El HTML que ves en el repo puede estar viejo. No es la verdad.
+- **Un arreglo a mano en un HTML se pierde en el próximo deploy**, si ese dato
+  lo escribe el build.
+- Para cambiar contenido de una obra se toca `docs/panel_correcciones_agosto.py`,
+  que aplica correcciones a la base durante el build, cada una guardada contra
+  el valor viejo. Si el estudio edita ese campo desde el panel, la guarda deja
+  de coincidir y la corrección no lo pisa.
+
+### La regla de verificación
+
+**Verificar contra el sitio publicado.** Ni contra el repositorio ni contra la
+base. Las tres veces que se dio algo por terminado sin estarlo fue por mirar el
+lugar equivocado:
+
+- Se auditaron las galerías del repo y se informó que faltaban fotos. El Drive
+  las tenía; el repo era una importación vieja y parcial.
+- Se verificaron los textos contra la base y se dijo que estaban. La base los
+  tenía y **la página no los mostraba**.
+- Se dio un deploy por hecho sin mirar que había fallado.
+
+```bash
+curl -s https://estudiohma.com/proyectos/<slug>/ | grep -c "lo que sea"
+```
+
+### El patrón que se repite: el dato está y no se ve
+
+Pasó tres veces con distintos campos. El generador **sólo completaba lo que la
+página ya tenía**, así que un dato cargado después no llegaba nunca:
+
+- La ficha técnica no agregaba una fila que no existiera (IguanaFix tenía sus
+  320 m² en la base y la ficha no mostraba superficie).
+- La línea de datos bajo el título no la escribía nadie: 36 fichas sin año.
+- La última columna del listado tampoco: 16 filas con un guion.
+
+Ante un "falta este dato", **mirar primero si está en la base**. Si está, el
+problema es el generador, no el contenido.
+
+---
+
+## El build
+
+`docs/panel_build.py`, 18 pasos en orden:
+
+```
+panel_config · panel_correcciones_agosto · panel_alta · panel_galerias
+panel_generar · panel_sitio · panel_listado · panel_estados · panel_textos
+panel_home · obras_layout · planos_fichas · prensa_pagina · prensa_paginas
+en_gen · obras_orden · seo_gen · sitemap_gen
+```
+
+Variables de entorno en Vercel: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`,
+`SUPABASE_ANON_KEY`.
+
+Para leer la base desde acá alcanza la clave publicable, que es de sólo
+lectura. `panel_config.py` aborta si le pasan una de servicio.
+
+---
+
+## Trampas conocidas
+
+### El versionado de assets rompe los ids de YouTube
+
+Los archivos llevan `?v=N` para invalidar caché. **Nunca hacer un reemplazo
+general de `?v=N`**: pisa los ids de los videos de YouTube, que también son
+alfanuméricos. El reemplazo va acotado:
+
+```bash
+sed -i 's/main\.css?v=93/main.css?v=94/g'
+```
+
+Y después se controla que sigan los 18 ids distintos, todos de 11 caracteres.
+
+Ojo: `scripts/animations/*.js` y `scripts/config/gsap.js` **tienen su propia
+versión**. Se cambió `scrollEffects.js` y quedó en la versión vieja: a quien
+tuviera caché le seguía llegando el archivo sin el arreglo.
+
+### El panel de vista previa no corre animaciones
+
+No ejecuta `requestAnimationFrame`, así que las transiciones y las timelines de
+GSAP **no avanzan** y las capturas de pantalla fallan. Medir ahí da valores del
+primer cuadro: elementos en opacidad 0, campos en ancho 0. Antes de medir:
+
+```js
+if (window.gsap) gsap.globalTimeline.progress(1);
+// o, para transiciones de CSS:
+document.head.insertAdjacentHTML('beforeend',
+  '<style>*{transition:none !important;animation:none !important}</style>');
+```
+
+Ya hubo tres falsos positivos por esto.
+
+### Heredocs de bash con Python adentro
+
+Un `\n` o un `\d` dentro de una cadena que no sea `r'...'` se come la barra y
+corrompe el código generado. **Usar la herramienta Write** para cualquier
+script con expresiones regulares.
+
+---
+
+## Las galerías
+
+Cada obra tiene fotos en `assets/gallery/<slug>/`, planos en
+`assets/planos/<slug>/` y carátula en `assets/covers/<slug>.webp`.
+
+**El Drive del estudio es la fuente.** `docs/drive_sync.py` rehace todo desde
+los ZIP que baja Google Drive, sin descomprimirlos:
+
+```bash
+python docs/drive_sync.py --verificar     # no escribe, informa
+python docs/drive_sync.py --obra <slug>
+python docs/drive_sync.py --catalogos     # sólo pone al día los catálogos
+```
+
+Corre en la máquina del desarrollador: necesita Pillow y los ZIP en
+`HMA_DRIVE_ZIPS`. **Desde la nube no se puede.**
+
+Dos cosas que hace y conviene no romper:
+
+- **Descarta lo repetido.** El estudio guarda cada plano en dos idiomas — el
+  mismo dibujo con los rótulos en castellano y en inglés — y a veces la misma
+  foto dos veces. Se comparan las imágenes, no los nombres, con el corte en
+  0,99.
+- **Deja los catálogos al día** (`docs/planos.json` y las galerías de
+  `docs/panel_datos.json`) y saca de las fichas las figuras cuyo archivo ya no
+  existe. Sin eso, borrar un archivo deja una imagen rota: pasó con 18.
+
+### Sacar una foto de una galería
+
+Dos listas:
+
+- `docs/galeria_repetidas.json` — automática, la escribe
+  `docs/galeria_repetidas.py`. Son las fotos que **son** otra foto.
+- `docs/galeria_excluidas.json` — a mano, con el motivo escrito. Para las que
+  no están repetidas pero no van igual: dos tomas casi iguales, una lámina de
+  presentación.
+
+**La foto de apertura de una ficha no se toca nunca.** En varias obras la
+primera foto de la galería *es* la carátula, y la exclusión apunta a la
+repetición de más abajo. Sin esa salvedad se le cambia la foto principal a la
+obra.
+
+Y ojo: las galerías cuyas filas en la base son `@seed` **no las reescribe**
+`panel_galerias`, para no pisar lo que el estudio haya elegido. Viven en el
+HTML del repositorio. Por eso existe `sacar_excluidas_de_las_fichas()`.
+
+---
+
+## El espejo en inglés
+
+`docs/en_gen.py` **borra y regenera `en/` entero** desde las páginas en
+castellano. No se edita nada dentro de `en/`.
+
+Traduce con siete capas de diccionario (`docs/en_dic.py` … `en_dic7.py`). Todo
+texto visible nuevo tiene que tener su entrada, o el guion lo reporta como
+faltante. Lo que se agrega va en `en_dic7.py`.
+
+Las memorias son la excepción: se sacan antes de traducir y se reemplazan por
+la versión en inglés de la base, buscada por slug.
+
+```bash
+python docs/en_gen.py   # tiene que decir "sin faltantes"
+```
+
+---
+
+## Nombres y decisiones ya tomadas
+
+- Son **tres Ualá** distintos: **Ualá Gigena** (proyecto, 2022), **Ualá
+  Nicaragua I** (obra, 2017) y **Ualá Nicaragua II** (obra concluida). El
+  buscador automático los cruzaba; van fijos en `A_MANO`, en `drive_sync.py`.
+- **Novotel** va sin memoria descriptiva: su carpeta del Drive tiene sólo ficha
+  técnica. Decisión tomada, no es un pendiente.
+- **Abasto Patio de Comidas** es la única obra sin carpeta en el Drive.
+- El archivo `Elyaki - Memoria Descriptiva.doc` **contiene el texto de Mamba
+  Bar**, palabra por palabra. No es un título mal puesto. La ficha de Elyaki
+  tiene un texto propio que se queda.
+
+---
+
+## Escribir en este proyecto
+
+Los comentarios y los mensajes de commit van **en castellano**, sin tildes en
+el código y con tildes en el texto de las páginas. Explican **por qué**, no
+qué: casi todos los comentarios del repositorio cuentan qué se rompió y cómo se
+llegó al número que está escrito. Seguir esa línea.
+
+Los mensajes de commit son largos a propósito: cuentan el síntoma, la causa y
+la medición que confirma el arreglo.
