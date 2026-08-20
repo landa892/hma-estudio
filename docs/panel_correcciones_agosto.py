@@ -699,6 +699,67 @@ CORRECCIONES.setdefault('aire-libre', {}).update({
     'memoria_en': si_falta('Inspired by the old', MEMORIA_AIRE_LIBRE_EN),
 })
 
+MEMORIAS_DRIVE = os.path.join(RAIZ, 'docs', 'memorias_drive.json')
+
+
+def _mas_larga(nueva):
+    """Repone la memoria del Drive solo si la del sitio quedo mas corta.
+
+    Varias memorias entraron recortadas. Hyatt Ziva es el extremo: el Drive
+    tiene 1756 palabras repartidas en trece espacios -lobby, buffet, pool bar-
+    y en el sitio habian quedado 179, o sea el primer parrafo.
+
+    La condicion es que la del sitio sea mas corta: asi repone lo que falta y
+    no pisa una memoria que el estudio haya editado desde el panel ni las
+    correcciones que el cliente mando por Word.
+    """
+    def aplicar(actual):
+        if isinstance(actual, str) and len(actual.split()) >= len(nueva.split()) * 0.9:
+            return actual
+        return nueva
+    return aplicar
+
+
+def _cargar_memorias_drive():
+    if not os.path.isfile(MEMORIAS_DRIVE):
+        return
+    with io.open(MEMORIAS_DRIVE, encoding='utf-8') as archivo:
+        datos = json.load(archivo)
+    for slug, campos in datos.items():
+        if slug.startswith('_'):
+            continue
+        CORRECCIONES.setdefault(slug, {}).update(
+            (campo, _mas_larga(texto)) for campo, texto in campos.items() if texto)
+
+
+_cargar_memorias_drive()
+
+def reponer_arranque(cola, completo):
+    """Le devuelve a un parrafo el comienzo que perdio al importarse.
+
+    Aire Libre y Malabia llegaron con un parrafo empezando a mitad de frase.
+    No estaban partidos -eso lo arregla unir_parrafos_cortados-: les faltaban
+    las primeras palabras. Se compara contra el original del Drive.
+    """
+    def aplicar(actual):
+        if not isinstance(actual, str) or completo in actual:
+            return actual
+        return actual.replace(cola, completo, 1)
+    return aplicar
+
+
+# "En el 'encastre' entre patios y espacios interiores radica la expresion
+# maxima del proyecto." El sitio arrancaba en "entre patios". Sale de
+# HMA_M1918_Memoria descriptiva.docx, en la carpeta de Malabia del Drive.
+CORRECCIONES.setdefault('malabia', {}).update({
+    'memoria': reponer_arranque(
+        'entre patios y espacios interiores radica la expresión máxima',
+        'En el “encastre” entre patios y espacios interiores radica la expresión máxima'),
+    'memoria_en': reponer_arranque(
+        'between courtyards and interior spaces lies the fullest expression',
+        'In the “encastre” between courtyards and interior spaces lies the fullest expression'),
+})
+
 # Cierre valido de parrafo. Se incluyen las dos comillas tipograficas porque
 # PH El Salvador enumera pedidos del comitente entrecomillados y no llevan punto.
 CIERRE_PARRAFO = re.compile(u'[.!?…:;)”“"»]\\s*$')
