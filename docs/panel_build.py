@@ -13,11 +13,11 @@
                         encuentra el valor viejo; no pisa ediciones posteriores.
      3. panel_alta      crea la pagina de cada obra nueva y baja sus fotos.
                         Va antes del generador: si la pagina no existe, la saltea.
-     4. panel_galerias  conecta las fotos historicas y aplica portada y orden.
-                        Saltea las repetidas segun docs/galeria_repetidas.json,
-                        que se regenera a mano con docs/galeria_repetidas.py
-                        cuando cambian las fotos: ese paso necesita Pillow y
-                        aca no hay.
+     4. panel_galerias  conecta fotos y planos historicos y aplica portada y
+                        orden. Saltea las repetidas segun
+                        docs/galeria_repetidas.json, que se regenera a mano con
+                        docs/galeria_repetidas.py cuando cambian las fotos: ese
+                        paso necesita Pillow y aca no hay.
      5. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
      6. panel_sitio     saca del sitio las eliminadas o despublicadas.
      7. panel_listado   sincroniza titulo y categoria de cada tarjeta con la
@@ -29,6 +29,9 @@
     10. panel_home      pone las destacadas en los banners del home.
     11. obras_layout    garantiza que la portada abra cada ficha y deja una
                         composicion consistente para la memoria editorial.
+                        Los planos van en el paso 4: panel_galerias los trae
+                        como filas de obra_imagenes con tipo='plano', ya no
+                        hay un paso planos_fichas aparte.
     12. prensa_pagina   rearma el archivo completo de publicaciones.
     13. prensa_paginas  arma la pagina propia de cada nota y enlaza su
                         tarjeta. Va despues del archivo, que es quien
@@ -66,9 +69,6 @@ PASOS = [
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
-    # Va despues de obras_layout porque esa reordena las figuras de la
-    # galeria, y antes de en_gen para que el espejo en ingles ya los tenga.
-    ('los planos de cada ficha',     'planos_fichas.py', []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),

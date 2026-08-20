@@ -158,7 +158,7 @@
     }
 
     var fotos = o.publicada
-      ? DATOS.listarImagenes(id).then(function (lista) {
+      ? DATOS.listarImagenes(id, 'foto').then(function (lista) {
         if (!lista.length) {
           throw new Error('Para publicarla cargá al menos una foto y elegí una portada.');
         }

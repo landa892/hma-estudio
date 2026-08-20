@@ -167,7 +167,7 @@
         <!-- Sin obra guardada no hay a donde colgar las fotos: la ruta del
              archivo lleva el id, y todavia no existe. -->
         <p class="campo__ayuda" id="galeriaSinObra">
-          Guardá la obra y después vas a poder cargar las fotos.
+          Guardá la obra y después vas a poder cargar las fotos y los planos.
         </p>
 
         <div class="requisitos" id="ayudaFotos">
@@ -181,19 +181,50 @@
           </ul>
         </div>
 
-        <div id="galeria" class="oculto">
+        <div id="galeriaFotos" class="oculto">
           <div class="galeria__barra">
-            <button type="button" class="boton boton--compacto" id="subir">Agregar fotos</button>
+            <button type="button" class="boton boton--compacto" id="subirFotos">Agregar fotos</button>
             <span class="conteo" id="conteoFotos"></span>
           </div>
-          <input type="file" id="archivos"
+          <input type="file" id="archivosFotos"
             accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
 
-          <p class="campo__ayuda oculto" id="ayudaTope">
+          <p class="campo__ayuda oculto" id="ayudaTopeFotos">
             Llegaste al máximo de 15. Para subir otra, eliminá una.
           </p>
-          <div class="grilla-fotos" id="grilla"></div>
-          <p class="aviso" id="avisoGaleria" role="status" aria-live="polite"></p>
+          <div class="grilla-fotos" id="grillaFotos"></div>
+          <p class="aviso" id="avisoFotos" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Planos</h2>
+
+        <div class="requisitos" id="ayudaPlanos">
+          <strong>Requisitos de los planos</strong>
+          <ul>
+            <li>JPG, PNG o WebP; hasta 20 MB por archivo y 15 planos por obra.</li>
+            <li>Van después de las fotos en la galería pública, en el orden que
+              definas acá.</li>
+            <li>Se muestran enteros, sin recortar: no importa si son horizontales
+              o verticales.</li>
+            <li>El panel conserva la proporción, reduce el lado mayor a 1800 px y convierte a WebP al 82%.</li>
+          </ul>
+        </div>
+
+        <div id="galeriaPlanos" class="oculto">
+          <div class="galeria__barra">
+            <button type="button" class="boton boton--compacto" id="subirPlanos">Agregar planos</button>
+            <span class="conteo" id="conteoPlanos"></span>
+          </div>
+          <input type="file" id="archivosPlanos"
+            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
+
+          <p class="campo__ayuda oculto" id="ayudaTopePlanos">
+            Llegaste al máximo de 15. Para subir otro, eliminá uno.
+          </p>
+          <div class="grilla-fotos" id="grillaPlanos"></div>
+          <p class="aviso" id="avisoPlanos" role="status" aria-live="polite"></p>
         </div>
       </section>
 

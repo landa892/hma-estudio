@@ -108,9 +108,13 @@
 
   /* --- imagenes --------------------------------------------------------- */
 
-  function listarImagenes(obraId) {
-    return llamar('/obra_imagenes?select=*&obra_id=eq.'
-      + encodeURIComponent(obraId) + '&order=orden.asc');
+  /* tipo es opcional: sin el trae fotos y planos juntos. La ficha de edicion
+     siempre lo pasa (una galeria por tipo); validarRelacionados en obra.js lo
+     usa para exigir al menos una foto al publicar, sin contar los planos. */
+  function listarImagenes(obraId, tipo) {
+    return llamar('/obra_imagenes?select=*&obra_id=eq.' + encodeURIComponent(obraId)
+      + (tipo ? '&tipo=eq.' + encodeURIComponent(tipo) : '')
+      + '&order=orden.asc');
   }
 
   function borrarArchivos(rutas) {

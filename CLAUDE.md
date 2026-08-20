@@ -72,7 +72,7 @@ problema es el generador, no el contenido.
 ```
 panel_config · panel_correcciones_agosto · panel_alta · panel_galerias
 panel_generar · panel_sitio · panel_listado · panel_estados · panel_textos
-panel_home · obras_layout · planos_fichas · prensa_pagina · prensa_paginas
+panel_home · obras_layout · prensa_pagina · prensa_paginas
 en_gen · obras_orden · seo_gen · sitemap_gen
 ```
 
@@ -170,6 +170,19 @@ obra.
 Y ojo: las galerías cuyas filas en la base son `@seed` **no las reescribe**
 `panel_galerias`, para no pisar lo que el estudio haya elegido. Viven en el
 HTML del repositorio. Por eso existe `sacar_excluidas_de_las_fichas()`.
+
+### Los planos también están en el panel
+
+Antes vivían aparte del todo: sólo `docs/planos.json` + `assets/planos/`, y un
+paso de build (`planos_fichas.py`) los escribía directo en el HTML. El panel
+de edición no los mostraba porque no estaban en la base — no era un bug, era
+que el dato ni existía ahí.
+
+Ahora son filas de `obra_imagenes` con `tipo='plano'`, igual que las fotos
+(`tipo='foto'` es el default). `docs/planos.json` sigue siendo la entrada de
+`drive_sync.py`: cada plano nuevo del Drive se siembra solo en la base la
+próxima vez que corre `panel_galerias.py`, con el mismo mecanismo `@seed:` que
+usan las fotos heredadas. Llevan su propio cupo de 15, separado del de fotos.
 
 ---
 

@@ -85,9 +85,14 @@ def desde_supabase():
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
     obras = _pedir(url, clave, '/rest/v1/obras?select=*&publicada=is.true&order=orden.asc')
+    # Solo fotos: los planos (tipo='plano') no van en la grilla de arranque de
+    # una obra nueva, panel_galerias.py los suma en el paso siguiente del
+    # build. Sin este filtro se bajaban como si fueran fotos a
+    # assets/gallery/<slug>/, archivos que panel_galerias no reescribe (a esos
+    # nombres no apunta ninguna fila) y quedaban huerfanos.
     fotos = _pedir(url, clave,
                    '/rest/v1/obra_imagenes?select=obra_id,storage_path,orden,'
-                   'es_portada,ancho,alto&order=orden.asc')
+                   'es_portada,ancho,alto&tipo=eq.foto&order=orden.asc')
     porobra = {}
     for f in fotos:
         porobra.setdefault(f['obra_id'], []).append(f)

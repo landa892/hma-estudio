@@ -6,6 +6,13 @@ hace el primer cambio. En la base se carga una seleccion inicial de hasta 15
 fotos con el prefijo ``@seed:``. El panel cambia ese prefijo a ``@site:`` al
 reordenar, borrar, subir o elegir portada; desde entonces este generador toma la
 base como fuente y reescribe la galeria.
+
+Los planos entran igual, como filas de obra_imagenes con tipo='plano': la
+seleccion inicial sale de docs/planos.json (lo que arma drive_sync.py a mano
+desde el Drive) en vez de panel_datos.json, y llevan su propio cupo de 15,
+separado del de las fotos. Antes vivian aparte del todo -planos_fichas.py los
+escribia directo en el HTML, sin pasar por el panel- y por eso el formulario
+de edicion de una obra no los mostraba nunca.
 """
 import io
 import hashlib
@@ -18,6 +25,7 @@ import urllib.request
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATOS = os.path.join(RAIZ, 'docs', 'panel_datos.json')
+DATOS_PLANOS = os.path.join(RAIZ, 'docs', 'planos.json')
 LISTADO = os.path.join(RAIZ, 'proyectos', 'index.html')
 BUSCADOR = os.path.join(RAIZ, 'scripts', 'search-index.js')
 MAPA_PORTADAS = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
@@ -133,75 +141,121 @@ def seleccion_inicial(obra):
             'es_portada': publica == portada if portada else len(filas) == 0,
             'ancho': medidas[0],
             'alto': medidas[1],
+            'tipo': 'foto',
         })
     if filas and not any(f['es_portada'] for f in filas):
         filas[0]['es_portada'] = True
     return filas
 
 
-def sembrar(obras, por_slug, existentes, url, clave):
+def cargar_planos():
+    if not os.path.isfile(DATOS_PLANOS):
+        return {}
+    with io.open(DATOS_PLANOS, encoding='utf-8') as archivo:
+        return json.load(archivo)
+
+
+def planos_iniciales(obra, catalogo_planos):
+    """Misma idea que seleccion_inicial pero para los planos de drive_sync.py.
+
+    No hay deduplicado ni portada aca: drive_sync.py ya descarta las laminas
+    repetidas (el mismo plano en castellano e ingles) antes de escribir
+    planos.json, y un plano nunca es portada de la obra.
+    """
+    filas = []
+    for plano in catalogo_planos.get(obra['slug']) or []:
+        filas.append({
+            'storage_path': '@seed:/assets/planos/%s/%d.webp' % (obra['slug'], plano['n']),
+            'alt': '%s — plano %d' % (obra['titulo'], plano['n']),
+            'orden': len(filas),
+            'es_portada': False,
+            'ancho': plano.get('w'),
+            'alto': plano.get('h'),
+            'tipo': 'plano',
+        })
+    return filas
+
+
+TIPOS = (('foto', lambda obra, catalogo_planos: seleccion_inicial(obra)),
+         ('plano', lambda obra, catalogo_planos: planos_iniciales(obra, catalogo_planos)))
+
+
+def sembrar(obras, por_slug, existentes, url, clave, catalogo_planos):
     nuevas = []
-    ids_con_fotos = {f['obra_id'] for f in existentes}
+    tipos_con_filas = {}
+    for f in existentes:
+        tipos_con_filas.setdefault(f['obra_id'], set()).add(f['tipo'])
+
     for obra in obras:
         fila = por_slug.get(obra['slug'])
-        if not fila or fila['id'] in ids_con_fotos:
+        if not fila:
             continue
-        for foto in seleccion_inicial(obra):
-            foto['obra_id'] = fila['id']
-            nuevas.append(foto)
+        ya = tipos_con_filas.get(fila['id'], set())
+        for tipo, generar in TIPOS:
+            if tipo in ya:
+                continue
+            for imagen in generar(obra, catalogo_planos):
+                imagen['obra_id'] = fila['id']
+                nuevas.append(imagen)
     if nuevas:
         pedir(url, clave, '/rest/v1/obra_imagenes', 'POST', nuevas)
-        print('galerias historicas conectadas al panel: %d fotos' % len(nuevas))
+        print('galerias historicas conectadas al panel: %d imagenes' % len(nuevas))
     else:
         print('galerias historicas ya conectadas')
     return bool(nuevas)
 
 
-def sincronizar_semillas(obras, por_slug, existentes, url, clave):
+def sincronizar_semillas(obras, por_slug, existentes, url, clave, catalogo_planos):
     """Actualiza sólo selecciones heredadas que el estudio todavía no editó.
 
-    Si cambian las fotos locales de una obra, el panel no puede seguir mostrando
-    rutas @seed que ya no existen. Las galerías administradas (@site o Storage)
-    quedan fuera de esta sincronización para no pisar decisiones del estudio.
+    Si cambian las fotos o los planos locales de una obra, el panel no puede
+    seguir mostrando rutas @seed que ya no existen. Las galerías administradas
+    (@site o Storage) quedan fuera de esta sincronización para no pisar
+    decisiones del estudio. Fotos y planos se sincronizan por separado: que el
+    estudio haya tocado las fotos no debe congelar los planos heredados, ni al
+    revés.
     """
-    por_obra = {}
+    por_obra_tipo = {}
     for foto in existentes:
-        por_obra.setdefault(foto['obra_id'], []).append(foto)
+        por_obra_tipo.setdefault((foto['obra_id'], foto['tipo']), []).append(foto)
 
     actualizadas = 0
     for obra in obras:
         fila = por_slug.get(obra['slug'])
         if not fila:
             continue
-        actuales = sorted(por_obra.get(fila['id'], []), key=lambda f: f['orden'])
-        if not actuales or not all(f['storage_path'].startswith('@seed:') for f in actuales):
-            continue
-        deseadas = seleccion_inicial(obra)
-        firma_actual = [(f['storage_path'], f['orden'], bool(f['es_portada']),
-                         f.get('ancho'), f.get('alto')) for f in actuales]
-        firma_deseada = [(f['storage_path'], f['orden'], bool(f['es_portada']),
-                          f.get('ancho'), f.get('alto')) for f in deseadas]
-        if firma_actual == firma_deseada:
-            continue
-        pedir(url, clave, '/rest/v1/obra_imagenes?obra_id=eq.%s' % fila['id'], 'DELETE')
-        for foto in deseadas:
-            foto['obra_id'] = fila['id']
-        if deseadas:
-            pedir(url, clave, '/rest/v1/obra_imagenes', 'POST', deseadas)
-        actualizadas += 1
+        for tipo, generar in TIPOS:
+            actuales = sorted(por_obra_tipo.get((fila['id'], tipo), []), key=lambda f: f['orden'])
+            if not actuales or not all(f['storage_path'].startswith('@seed:') for f in actuales):
+                continue
+            deseadas = generar(obra, catalogo_planos)
+            firma_actual = [(f['storage_path'], f['orden'], bool(f['es_portada']),
+                             f.get('ancho'), f.get('alto')) for f in actuales]
+            firma_deseada = [(f['storage_path'], f['orden'], bool(f['es_portada']),
+                              f.get('ancho'), f.get('alto')) for f in deseadas]
+            if firma_actual == firma_deseada:
+                continue
+            pedir(url, clave, '/rest/v1/obra_imagenes?obra_id=eq.%s&tipo=eq.%s'
+                  % (fila['id'], tipo), 'DELETE')
+            for imagen in deseadas:
+                imagen['obra_id'] = fila['id']
+            if deseadas:
+                pedir(url, clave, '/rest/v1/obra_imagenes', 'POST', deseadas)
+            actualizadas += 1
     if actualizadas:
-        print('selecciones historicas actualizadas: %d obras' % actualizadas)
+        print('selecciones historicas actualizadas: %d galerias' % actualizadas)
     return bool(actualizadas)
 
 
-def resolver_foto(slug, foto, url):
+def resolver_imagen(slug, foto, url):
     ruta = foto['storage_path']
     if ruta.startswith('@seed:') or ruta.startswith('@site:'):
         publica = ruta.split(':', 1)[1]
     else:
-        carpeta = os.path.join(RAIZ, 'assets', 'gallery', slug)
+        carpeta_nombre = 'planos' if foto.get('tipo') == 'plano' else 'gallery'
+        carpeta = os.path.join(RAIZ, 'assets', carpeta_nombre, slug)
         os.makedirs(carpeta, exist_ok=True)
-        publica = '/assets/gallery/%s/panel-%s.webp' % (slug, foto['id'])
+        publica = '/assets/%s/%s/panel-%s.webp' % (carpeta_nombre, slug, foto['id'])
         local = ruta_local(publica)
         if not os.path.isfile(local):
             origen = url + '/storage/v1/object/public/obras/' + ruta
@@ -264,19 +318,30 @@ def bloque_grilla(titulo, fotos, planos):
             '      </div>\n    </section>\n' % ('\n'.join(items), boton))
 
 
-def actualizar_pagina(slug, titulo, fotos):
+def figuras_planos(titulo, planos):
+    """El HTML de la fila de planos, resuelta desde la base y no desde el
+    archivo: antes esta fila la escribia planos_fichas.py como paso aparte del
+    build y este generador la conservaba re-leyendola del HTML ya escrito."""
+    return [
+        '          <figure class="gallery-grid__item gallery-grid__item--plano">'
+        '<img src="%s" width="%s" height="%s" alt="%s" loading="lazy" decoding="async"></figure>'
+        % (plano['src'], plano['w'], plano['h'],
+           e(plano['alt'] or '%s — plano %d' % (titulo, i)))
+        for i, plano in enumerate(planos, 1)
+    ]
+
+
+def actualizar_pagina(slug, titulo, fotos, planos):
     ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
     if not os.path.isfile(ruta):
         return False
     html = io.open(ruta, encoding='utf-8').read()
     portada = next((f for f in fotos if f['portada']), fotos[0])
-    planos = re.findall(
-        r'<figure class="gallery-grid__item gallery-grid__item--plano">.*?</figure>',
-        html, flags=re.S)
     nuevo = re.sub(r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n',
                    lambda m: bloque_filas(m.group(0), titulo, fotos), html, count=1)
     nuevo = re.sub(r'(?s)\n    <section class="section no-border" id="galeria">.*?\n    </section>\n',
-                   lambda _: bloque_grilla(titulo, fotos, planos), nuevo, count=1)
+                   lambda _: bloque_grilla(titulo, fotos, figuras_planos(titulo, planos)),
+                   nuevo, count=1)
     nuevo = re.sub(r'(<meta property="og:image" content=")[^"]+',
                    r'\g<1>%s%s' % (SITIO, portada['src']), nuevo, count=1)
     if nuevo != html:
@@ -397,24 +462,50 @@ def main():
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
     catalogo = json.load(io.open(DATOS, encoding='utf-8'))
+    catalogo_planos = cargar_planos()
     obras = pedir(url, clave, '/rest/v1/obras?select=id,slug,titulo&publicada=is.true')
     por_slug = {o['slug']: o for o in obras}
-    fotos = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
-    sembradas = sembrar(catalogo, por_slug, fotos, url, clave)
-    sincronizadas = sincronizar_semillas(catalogo, por_slug, fotos, url, clave)
+    imagenes = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
+    sembradas = sembrar(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
+    sincronizadas = sincronizar_semillas(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
     if sembradas or sincronizadas:
-        fotos = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
+        imagenes = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
 
-    por_obra = {}
-    for foto in fotos:
-        por_obra.setdefault(foto['obra_id'], []).append(foto)
+    por_obra_tipo = {}
+    for imagen in imagenes:
+        por_obra_tipo.setdefault((imagen['obra_id'], imagen['tipo']), []).append(imagen)
+
+    def gestionada(filas):
+        return bool(filas) and not all(f['storage_path'].startswith('@seed:') for f in filas)
+
+    def sin_planos_todavia(slug):
+        """Si la ficha no tiene ningun plano dibujado, hay que escribirla.
+
+        Una obra recien dada de alta llega aca con su pagina creada por
+        panel_alta.py, que solo pone fotos, y con sus planos ya sembrados como
+        @seed. Sin esta salvedad la condicion de arriba la saltea por seed y la
+        obra se publica sin planos: le paso a Comedor Diario, que tenia dos.
+
+        A las demas no las toca. Sus fichas ya traen los planos escritos en el
+        HTML del repositorio y ahi la condicion de @seed sigue mandando.
+        """
+        ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+        if not os.path.isfile(ruta):
+            return False
+        return 'gallery-grid__item--plano' not in io.open(ruta, encoding='utf-8').read()
 
     portadas, cambiadas = {}, 0
     sobran_por_obra = fotos_fuera()
     for obra in obras:
-        filas = por_obra.get(obra['id'], [])
-        if not filas or all(f['storage_path'].startswith('@seed:') for f in filas):
+        filas_fotos = por_obra_tipo.get((obra['id'], 'foto'), [])
+        filas_planos = por_obra_tipo.get((obra['id'], 'plano'), [])
+        # Se reescribe la ficha si el estudio toco las fotos o los planos: antes
+        # alcanzaba con mirar las fotos porque era lo unico administrable.
+        if not (gestionada(filas_fotos) or gestionada(filas_planos)
+                or (filas_planos and sin_planos_todavia(obra['slug']))):
             continue
+        if not filas_fotos:
+            continue  # sin fotos no hay portada que mostrar
 
         # Las repetidas tambien se sacan de una galeria heredada del sitio
         # viejo. Esas filas llegan como @site: y sincronizar_semillas no las
@@ -425,14 +516,15 @@ def main():
         # marco con "foto repetida" el 19/08/2026.
         sobran = sobran_por_obra.get(obra['slug'], set())
         if sobran:
-            filas = [f for f in filas
+            filas_fotos = [f for f in filas_fotos
                      if f['es_portada']
                      or os.path.basename(f['storage_path']) not in sobran]
 
-        resueltas = [resolver_foto(obra['slug'], f, url) for f in filas]
-        if actualizar_pagina(obra['slug'], obra['titulo'], resueltas):
+        fotos_resueltas = [resolver_imagen(obra['slug'], f, url) for f in filas_fotos]
+        planos_resueltos = [resolver_imagen(obra['slug'], f, url) for f in filas_planos]
+        if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas, planos_resueltos):
             cambiadas += 1
-        portadas[obra['slug']] = next((f for f in resueltas if f['portada']), resueltas[0])
+        portadas[obra['slug']] = next((f for f in fotos_resueltas if f['portada']), fotos_resueltas[0])
         portadas[obra['slug']]['titulo'] = obra['titulo']
 
     sacar_excluidas_de_las_fichas()

@@ -480,7 +480,7 @@ select {
 .requisitos strong { color: var(--negro); }
 .requisitos ul { margin: 6px 0 0; padding-left: 18px; }
 .requisitos li + li { margin-top: 3px; }
-.requisitos + #galeria { margin-top: 14px; }
+.requisitos + #galeriaFotos, .requisitos + #galeriaPlanos { margin-top: 14px; }
 
 .ficha__titulo {
   font-size: .74rem;
