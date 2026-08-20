@@ -288,6 +288,86 @@ def volcar(slug, tipo, lista, verificar, abiertos):
     return puestas
 
 
+def sacar_figuras_huerfanas():
+    """Saca de cada ficha las figuras que apuntan a un archivo que ya no esta.
+
+    Las galerias de las obras que nunca pasaron por el panel viven en el HTML
+    del repositorio y ningun paso del build las vuelve a escribir. Cuando este
+    guion descarta una foto repetida, la figura se queda pidiendola y el sitio
+    publica una imagen rota.
+    """
+    figura = re.compile(r'\n?\s*<figure class="gallery-grid__item[^>]*>'
+                        r'<img src="([^"]+)"[^>]*>\s*</figure>')
+    tocadas = 0
+    sacadas = 0
+    for ficha in sorted(glob.glob(os.path.join(RAIZ, 'proyectos', '*', 'index.html'))):
+        html = io.open(ficha, encoding='utf-8').read()
+        fuera = []
+
+        def decidir(m):
+            local = os.path.join(RAIZ, *m.group(1).lstrip('/').split('/'))
+            if os.path.isfile(local):
+                return m.group(0)
+            fuera.append(m.group(1))
+            return ''
+
+        nuevo = figura.sub(decidir, html)
+        if fuera:
+            io.open(ficha, 'w', encoding='utf-8', newline='\n').write(nuevo)
+            tocadas += 1
+            sacadas += len(fuera)
+            print('  %-24s %s' % (os.path.basename(os.path.dirname(ficha)),
+                                  ', '.join(x.rsplit('/', 2)[-1] for x in fuera)))
+    print('figuras huerfanas sacadas: %d en %d fichas' % (sacadas, tocadas))
+
+
+def actualizar_catalogos():
+    """Deja docs/planos.json y las galerias de docs/panel_datos.json iguales a
+    lo que hay en disco.
+
+    Hace falta porque este guion borra archivos -las laminas repetidas en dos
+    idiomas, las fotos cargadas dos veces- y esos dos catalogos son los que
+    dicen que imagenes pide cada ficha. Sin actualizarlos, la ficha sigue
+    pidiendo un archivo que ya no existe y queda una imagen rota: paso con
+    dieciocho, en doce obras, y se vio recien en el sitio publicado.
+    """
+    planos = {}
+    for carpeta in sorted(glob.glob(os.path.join(RAIZ, 'assets', 'planos', '*'))):
+        slug = os.path.basename(carpeta)
+        lista = []
+        for n in range(1, 200):
+            ruta = os.path.join(carpeta, '%d.webp' % n)
+            if not os.path.isfile(ruta):
+                break
+            try:
+                w, h = Image.open(ruta).size
+            except Exception:
+                break
+            lista.append({'n': n, 'w': w, 'h': h})
+        if lista:
+            planos[slug] = lista
+
+    destino = os.path.join(RAIZ, 'docs', 'planos.json')
+    io.open(destino, 'w', encoding='utf-8', newline='\n').write(
+        json.dumps(planos, ensure_ascii=False, indent=1) + '\n')
+
+    datos = json.load(io.open(DATOS, encoding='utf-8'))
+    for obra in datos:
+        carpeta = os.path.join(RAIZ, 'assets', 'gallery', obra['slug'])
+        nombres = []
+        for n in range(1, 200):
+            if not os.path.isfile(os.path.join(carpeta, '%d.webp' % n)):
+                break
+            nombres.append('%d.webp' % n)
+        if nombres:
+            obra['galeria'] = nombres
+    io.open(DATOS, 'w', encoding='utf-8', newline='\n').write(
+        json.dumps(datos, ensure_ascii=False, indent=1) + '\n')
+
+    print('catalogos al dia: %d obras con planos, %d con galeria'
+          % (len(planos), sum(1 for o in datos if o.get('galeria'))))
+
+
 def main(verificar, solo):
     obras, archivos = indexar()
     pares, sueltas = emparejar(obras)
@@ -326,10 +406,19 @@ def main(verificar, solo):
     if verificar:
         print()
         print('(--verificar: no se escribio nada)')
+    else:
+        print()
+        actualizar_catalogos()
+        sacar_figuras_huerfanas()
     return 0
 
 
 if __name__ == '__main__':
+    # Solo los catalogos, sin volver a convertir las imagenes.
+    if '--catalogos' in sys.argv:
+        actualizar_catalogos()
+        sacar_figuras_huerfanas()
+        raise SystemExit(0)
     solo = None
     if '--obra' in sys.argv:
         solo = sys.argv[sys.argv.index('--obra') + 1]

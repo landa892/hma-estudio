@@ -34,8 +34,6 @@ def main():
             sin.append(slug)
             continue
         h = io.open(f, encoding='utf-8').read()
-        if MARCA in h:
-            continue
         m = re.search(r'(?s)(<div class="gallery-grid[^"]*"[^>]*>)(.*?)(\n        </div>)', h)
         if not m:
             sin.append(slug)
@@ -44,6 +42,12 @@ def main():
             (re.search(r'<h1 class="display-2 mt-14">(.*?)</h1>', h) or [None, slug])[1]).strip()
 
         items = re.findall(r'(?s)<figure class="gallery-grid__item.*?</figure>', m.group(2))
+        # La fila de planos que ya estuviera se descarta y se vuelve a armar.
+        # Antes esto se salteaba si la ficha ya tenia planos, y por eso una
+        # ficha con planos viejos se quedaba con ellos para siempre: cuando la
+        # sincronizacion con el Drive borro las laminas repetidas, doce fichas
+        # siguieron pidiendo archivos que ya no existian.
+        items = [x for x in items if MARCA not in x]
         # Los planos van despues de las fotos que se ven, antes de las ocultas.
         visibles = [x for x in items if 'is-extra' not in x]
         ocultas = [x for x in items if 'is-extra' in x]
