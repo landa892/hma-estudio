@@ -107,21 +107,36 @@
       (filas[item.offsetTop] = filas[item.offsetTop] || []).push(item);
     });
 
-    var paso = (opts.each || 0.06) * 100;
+    /* La aparicion es por tiempo y no por scroll.
+
+       Con scrub la opacidad iba atada a la posicion: una tarjeta empezaba a
+       verse cuando su borde superior llegaba al 88% de la pantalla y recien
+       estaba entera al 52%, o sea a la mitad. En una grilla de sesenta y dos
+       obras eso dejaba tres tarjetas visibles al entrar y cinco mil seiscientos
+       pixeles de gris debajo: parecia que el estudio tenia tres obras. Y con
+       scroll rapido quedaban a medias, porque el progreso seguia al scroll.
+       El cliente lo marco el 20/08/2026: "no cargan a la primera y parece que
+       tienen solo estas pocas obras".
+
+       Ahora cada tarjeta arranca un poco antes de asomar -106%, o sea medio
+       renglon por debajo del borde- y termina sola en siete decimas, sin
+       volver atras. Ese adelanto es lo que evita que el gris de la grilla se
+       vea mientras se baja: cuando la tarjeta entra, ya esta apareciendo. El escalonado por columna se mantiene, pero
+       como retardo en vez de como corrimiento del punto de disparo. */
+    var paso = opts.each || 0.06;
     return items.map(function (item) {
       var col = filas[item.offsetTop].indexOf(item);
-      var desfase = Math.min(col * paso, 12);
+      var desfase = Math.min(col * paso, 0.24);
       return gsap.timeline({
         scrollTrigger: {
           trigger: item,
-          start: 'top ' + (88 - desfase) + '%',
-          end: 'top ' + (52 - desfase) + '%',
-          scrub: 0.6,
+          start: 'top 106%',
+          toggleActions: 'play none none none',
           id: 'in:' + (seq++)
         }
       }).fromTo(item,
         { y: opts.distance || SUBE, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: EASE.settle }, 0);
+        { y: 0, opacity: 1, duration: 0.7, delay: desfase, ease: EASE.settle }, 0);
     });
   }
 
