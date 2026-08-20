@@ -4338,6 +4338,37 @@ html.lenis body {
    lado de la imagen, en parrafos separados. El pedido fue literal: que no
    quedara "un todo entero" sino agrupado en parrafitos, y que cada foto
    tuviera su texto al lado en vez de bandas sueltas sin leer. */
+/* El rotulo de la seccion, dentro de su columna de texto.
+
+   Antes flotaba arriba de toda la seccion, contra el borde izquierdo, y en
+   "Qué hacemos" quedaba ademas por encima de la linea. El estudio mando el
+   antes y el despues el 20/08/2026: el rotulo va al tope de la columna, con
+   su propia linea debajo, igual que las que separan los items de la lista. */
+.eyebrow--columna {
+  display: block;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Los dos socios: el enlace de LinkedIn al pie de la columna.
+
+   La bio de Militello ocupa dos renglones y la de Hitzig uno, asi que los dos
+   "LINKEDIN" quedaban a distinta altura. Con la columna en flex y el enlace
+   empujado por margin-top:auto, los dos caen a la misma linea sea cual sea el
+   largo de la bio. */
+.founder {
+  display: flex;
+  flex-direction: column;
+}
+
+.founder .founder-li {
+  margin-top: auto;
+  align-self: start;
+  padding-top: 12px;
+}
+
+
 .work-split__text .bloque-texto+.bloque-texto {
   margin-top: 26px;
 }
