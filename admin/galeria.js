@@ -15,7 +15,13 @@
 
   var LADO_MAX = 1800;      // el mismo tope que ya usan las galerias del sitio
   var CALIDAD = 0.82;
-  var TOPE = 15;             // lo que se cotizo para las fotos; los planos usan el mismo cupo, aparte
+  /* Cada galeria tiene su cupo, y tienen que coincidir con los de
+     limitar_imagenes_por_obra (migraciones 0011 y 0012). Las fotos son las
+     quince que se cotizaron. Los planos van a cuarenta: no se cotizan ni se
+     suben de a uno, salen del Drive y son los que son -Tostado tiene 35-.
+     Con un solo tope de quince, esa obra mostraba "35 de 15" y el boton de
+     subir quedaba deshabilitado para siempre. */
+  var TOPES = { foto: 15, plano: 40 };
   var TAMANO_MAX = 20 * 1024 * 1024;
   var TIPOS_ARCHIVO = ['image/jpeg', 'image/png', 'image/webp'];
   var LADO_LARGO_RECOMENDADO = 1600;
@@ -83,11 +89,11 @@
   /* La base contesta con el tope alcanzado, "imagenes" o "planos" segun el
      tipo (ver limitar_imagenes_por_obra en 0011_planos_panel.sql). */
   function traducirTope(mensaje) {
-    var m = /15 (imagenes|planos)/i.exec(mensaje || '');
+    var m = /(\d+) (imagenes|planos)/i.exec(mensaje || '');
     if (!m) return null;
-    return m[1].toLowerCase() === 'planos'
-      ? 'La obra ya llegó a los 15 planos.'
-      : 'La obra ya llegó a las 15 imágenes.';
+    return m[2].toLowerCase() === 'planos'
+      ? 'La obra ya llegó a los ' + m[1] + ' planos.'
+      : 'La obra ya llegó a las ' + m[1] + ' imágenes.';
   }
 
   function rest(ruta, opciones) {
@@ -122,6 +128,8 @@
   /* --- una galeria (fotos o planos) -------------------------------------- */
 
   function crearGaleria(cfg) {
+    var TOPE = TOPES[cfg.tipo];
+
     var obraId = null;
     var imagenes = [];
     var arrastrada = null;
@@ -533,7 +541,7 @@
     ayudaTope: 'ayudaTopePlanos',
     unidadPlural: 'planos',
     vacio: 'Todavía no hay planos.',
-    tope: 'a los 15 planos.',
+    tope: 'a los 40 planos.',
     subidaSingular: ' plano subido',
     subidaPlural: ' planos subidos',
     avisoEliminada: 'Plano eliminado.',

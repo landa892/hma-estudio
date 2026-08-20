@@ -45,12 +45,33 @@ def desde_supabase():
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
-    campos = 'slug,titulo,categoria,publicada,anio'
+    campos = 'slug,titulo,categoria,publicada,anio,superficie,ubicacion,tipologia'
     pedido = urllib.request.Request(
         url + '/rest/v1/obras?select=' + campos + '&publicada=is.true',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
     with urllib.request.urlopen(pedido, timeout=30) as respuesta:
         return json.loads(respuesta.read().decode('utf-8'))
+
+
+def ciudad(direccion):
+    p = [x.strip() for x in (direccion or '').replace('.', '').split(',') if x.strip()]
+    return p[-1] if p else ''
+
+
+def linea_de_datos(o):
+    """Tipo, ciudad, superficie y ano, que es lo que muestra cada fila y cada
+    tarjeta debajo del nombre.
+
+    No la escribia nadie desde la base. La clienta edito el ano de Osten Tower
+    de 2027 a 2024, lo vio bien en la ficha y en la ultima columna del listado,
+    y esta linea seguia diciendo 2027 con una superficie que tampoco era la de
+    la base. Un campo vacio no deja un hueco: no va.
+    """
+    partes = [o.get('tipologia') or '',
+              ciudad(o.get('ubicacion')),
+              (o.get('superficie') or '').split(' \u00b7 ')[0],
+              o.get('anio') or '']
+    return ''.join('<span>%s</span>' % escapar(p) for p in partes if p.strip())
 
 
 def reemplazar_clase(html, clase, obras):
@@ -88,6 +109,11 @@ def reemplazar_clase(html, clase, obras):
                 nuevo = re.sub(r'(<div class="p-name">).*?(</div>)',
                                r'\g<1>%s\g<2>' % titulo, nuevo,
                                count=1, flags=re.S)
+            meta = linea_de_datos(o)
+            if meta:
+                nuevo = re.sub(r'(?s)(<div class="p-meta">).*?(</div>)',
+                               lambda m: m.group(1) + meta + m.group(2),
+                               nuevo, count=1)
                 nuevo = re.sub(r'(<img\b[^>]*\balt=")[^"]*(")',
                                r'\g<1>%s\g<2>' % titulo, nuevo, count=1)
         else:
@@ -108,6 +134,11 @@ def reemplazar_clase(html, clase, obras):
             # guion aunque el ano estuviera cargado -y aunque apareciera en la
             # linea de datos de la misma fila-. El cliente lo marco el
             # 20/08/2026: "chequear hay muchos que no tienen los anos".
+            meta = linea_de_datos(o)
+            if meta:
+                nuevo = re.sub(r'(?s)(<div class="plr-meta">).*?(</div>)',
+                               lambda m: m.group(1) + meta + m.group(2),
+                               nuevo, count=1)
             anio = escapar(o.get('anio') or '')
             if anio:
                 anio_actual = (re.search(r'<div class="plr-loc">(.*?)</div>',
