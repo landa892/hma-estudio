@@ -11,6 +11,9 @@ dos causas distintas:
 
   2. La misma foto cargada dos veces dentro de la galeria, con distinto peso.
 
+  3. Un plano que esta en assets/planos/ y ademas suelto en la galeria, con lo
+     cual la ficha lo muestra dos veces: en la grilla y en el bloque de planos.
+
 Las dos se le escapaban al deduplicador de panel_galerias.py, que compara por
 SHA1: son la misma imagen guardada dos veces, asi que los bytes no coinciden.
 Aca se comparan las imagenes, no los archivos.
@@ -38,6 +41,10 @@ SALIDA = os.path.join(RAIZ, 'docs', 'galeria_repetidas.json')
 # Dos imagenes distintas de una misma obra comparten encuadre, luz y paleta, y
 # rondan 0.6-0.9. Recien arriba de 0.99 es la misma toma reguardada.
 UMBRAL = 0.99
+# Contra un plano el listón baja: es el mismo dibujo reguardado en otra medida
+# y da 0.977, pero dos planos distintos de una misma obra -planta y corte- no
+# pasan de 0.32, asi que no hay riesgo de confundirlos.
+UMBRAL_PLANO = 0.95
 LADO = 16
 
 
@@ -71,24 +78,34 @@ def repetidas_de(slug):
     nombres = sorted((n for n in os.listdir(carpeta) if n.endswith('.webp')),
                      key=orden_natural)
 
-    # La portada entra primera: es la que abre la ficha, asi que si una foto de
-    # la galeria la repite, la que sobra es la de la galeria.
+    # Entran primero la portada y los planos: son los que la ficha muestra
+    # aparte, asi que si una foto de la galeria repite alguno, la que sobra es
+    # la de la galeria. Los planos duplicados adentro de la galeria hacian que
+    # el mismo plano saliera dos veces en la misma pagina.
     vistas = []
     portada = os.path.join(PORTADAS, slug + '.webp')
     if os.path.isfile(portada):
         f = firma(portada)
         if f:
-            vistas.append(f)
+            vistas.append((f, UMBRAL))
+    planos = os.path.join(RAIZ, 'assets', 'planos', slug)
+    if os.path.isdir(planos):
+        for nombre in sorted(os.listdir(planos)):
+            if not nombre.endswith('.webp'):
+                continue
+            f = firma(os.path.join(planos, nombre))
+            if f:
+                vistas.append((f, UMBRAL_PLANO))
 
     sobran = []
     for nombre in nombres:
         actual = firma(os.path.join(carpeta, nombre))
         if actual is None:
             continue
-        if any(parecido(actual, vista) > UMBRAL for vista in vistas):
+        if any(parecido(actual, vista) > tope for vista, tope in vistas):
             sobran.append(nombre)
         else:
-            vistas.append(actual)
+            vistas.append((actual, UMBRAL))
     return sobran
 
 
