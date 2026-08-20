@@ -72,11 +72,27 @@ def E(t):
 # De donde salen los datos
 # ---------------------------------------------------------------------------
 
+_PAGINA = 1000
+
+
 def _pedir(url, clave, ruta):
-    pedido = urllib.request.Request(
-        url + ruta, headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
-    with urllib.request.urlopen(pedido, timeout=60) as r:
-        return json.loads(r.read().decode('utf-8'))
+    """Trae todas las filas. PostgREST corta en mil por pedido y no avisa."""
+    fuera, desde = [], 0
+    while True:
+        pedido = urllib.request.Request(
+            url + ruta,
+            headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                     'Range-Unit': 'items',
+                     'Range': '%d-%d' % (desde, desde + _PAGINA - 1)})
+        with urllib.request.urlopen(pedido, timeout=60) as r:
+            tanda = json.loads(r.read().decode('utf-8'))
+        if not tanda:
+            break
+        fuera.extend(tanda)
+        if len(tanda) < _PAGINA:
+            break
+        desde += _PAGINA
+    return fuera
 
 
 def desde_supabase():

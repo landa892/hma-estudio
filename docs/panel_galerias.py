@@ -63,15 +63,47 @@ def medidas_webp(ruta):
     return None
 
 
+PAGINA = 1000
+
+
 def pedir(url, clave, ruta, metodo='GET', cuerpo=None):
+    """Una consulta a la base, trayendo todas las filas.
+
+    PostgREST devuelve como mucho mil por pedido y no avisa: sin paginar, la
+    consulta de obra_imagenes se cortaba en silencio. Al sumarse los planos las
+    filas pasaron de 741 a 1231 y la Bienal de Venecia se publico con diez de
+    sus veintiun planos, porque el orden global dejaba los suyos del once en
+    adelante fuera del corte.
+
+    Solo se pagina en las lecturas: un PATCH o un POST no devuelven lista.
+    """
     datos = None if cuerpo is None else json.dumps(cuerpo).encode('utf-8')
-    pedido = urllib.request.Request(
-        url + ruta, data=datos, method=metodo,
-        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
-                 'Content-Type': 'application/json', 'Prefer': 'return=minimal'})
-    with urllib.request.urlopen(pedido, timeout=120) as respuesta:
-        crudo = respuesta.read()
-        return json.loads(crudo.decode('utf-8')) if crudo else None
+
+    def una(desde):
+        cabeceras = {'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                     'Content-Type': 'application/json', 'Prefer': 'return=minimal'}
+        if metodo == 'GET':
+            cabeceras['Range-Unit'] = 'items'
+            cabeceras['Range'] = '%d-%d' % (desde, desde + PAGINA - 1)
+        pedido = urllib.request.Request(url + ruta, data=datos, method=metodo,
+                                        headers=cabeceras)
+        with urllib.request.urlopen(pedido, timeout=120) as respuesta:
+            crudo = respuesta.read()
+            return json.loads(crudo.decode('utf-8')) if crudo else None
+
+    if metodo != 'GET':
+        return una(0)
+
+    fuera, desde = [], 0
+    while True:
+        tanda = una(desde)
+        if not tanda:
+            break
+        fuera.extend(tanda)
+        if len(tanda) < PAGINA:
+            break
+        desde += PAGINA
+    return fuera
 
 
 def ruta_local(publica):
