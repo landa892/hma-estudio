@@ -51,11 +51,19 @@ def escapar_atributo(t):
     return escapar(t).replace('"', '&quot;')
 
 
+# El orden en que van las filas de la ficha tecnica. Solo se usa para
+# ubicar una fila que haya que agregar; las que ya estan no se mueven.
+ORDEN_SPECS = ['Estado', 'Tipo', 'Ubicación', 'País', 'Superficie', 'Año',
+               'Comitente', 'Fotografía', 'Equipo']
+
+
 def bloque_ficha(o, html):
     """Arma la ficha respetando el orden de rotulos que ya tiene la pagina.
 
     El orden no es igual en todas: algunas muestran Comitente y otras no. Se
     lee el orden actual y se completan los valores, en vez de imponer uno.
+    Si la base tiene un dato para el que la pagina no tiene fila, la fila se
+    agrega en el lugar que le toca; las que ya estaban no se mueven.
     """
     # Se guarda tambien la clase de cada fila: la del equipo lleva una propia
     # (spec-row--team) y reescribirla sin ella le cambia el estilo.
@@ -75,11 +83,31 @@ def bloque_ficha(o, html):
         'Equipo': '<br>'.join(escapar(x) for x in (o.get('equipo') or [])),
     }
 
+    orden = [re.sub(r'\s+', ' ', r).strip() for r in rotulos]
+    if any(rot not in valor for rot in orden):
+        return None          # rotulo que el generador no conoce: no se toca
+
+    # Y se suma la fila que la pagina no tenia pero la base si.
+    #
+    # Antes esto solo completaba los rotulos ya presentes, con lo cual un dato
+    # cargado despues de armada la ficha no llegaba nunca a verse: IguanaFix
+    # tenia sus 320 m2 en la base y la ficha no mostraba superficie, que es
+    # justo lo que el cliente habia pedido agregar. Lo mismo con los 220 m2 de
+    # Lucciano's Caballito, el comitente de Osten FOA y Parfumerie y el
+    # fotografo de Comedor Diario.
+    #
+    # La fila nueva entra en el lugar que le toca segun ORDEN_SPECS, sin mover
+    # las que ya estaban: el orden no es igual en todas las fichas y no se
+    # impone uno.
+    for rot in ORDEN_SPECS:
+        if rot in orden or not valor.get(rot):
+            continue
+        posterior = [i for i, r in enumerate(orden)
+                     if ORDEN_SPECS.index(r) > ORDEN_SPECS.index(rot)]
+        orden.insert(posterior[0] if posterior else len(orden), rot)
+
     filas = []
-    for r in rotulos:
-        rot = re.sub(r'\s+', ' ', r).strip()
-        if rot not in valor:
-            return None      # rotulo que el generador no conoce: no se toca
+    for rot in orden:
         v = valor[rot]
         if rot != 'Equipo':
             v = escapar(v)
@@ -108,6 +136,30 @@ def bloque_memoria(o):
             '        <div class="memoria-cuerpo%s reveal">\n%s\n        </div>%s\n'
             '      </div>\n'
             '    </section>\n' % ('' if plegable else ' is-open', cuerpo, boton))
+
+
+def ciudad(direccion):
+    p = [x.strip() for x in (direccion or '').replace('.', '').split(',') if x.strip()]
+    return p[-1] if p else ''
+
+
+def bloque_meta(o):
+    """La linea de datos que va debajo del titulo: tipo, ciudad, superficie y ano.
+
+    Se rehace entera desde la base. Antes no la escribia nadie -quedo como la
+    dejaron los guiones que armaron el sitio- y en treinta y seis fichas venia
+    incompleta: casi todas sin el ano, y IguanaFix, Lucciano's Caballito, Uala
+    Nicaragua I y II, Aire Libre y Juan Valdez tampoco mostraban los metros
+    cuadrados. Justamente los metros son lo que el cliente pidio agregar el
+    19/08/2026.
+
+    Un campo vacio no deja un hueco: simplemente no va.
+    """
+    partes = [o.get('tipologia') or '',
+              ciudad(o.get('ubicacion')),
+              (o.get('superficie') or '').split(' \u00b7 ')[0],
+              o.get('anio') or '']
+    return ''.join('<span>%s</span>' % escapar(p) for p in partes if p.strip())
 
 
 def aplicar(o, html):
@@ -161,6 +213,15 @@ def aplicar(o, html):
             lambda m: m.group(1) + filas + m.group(2), html, count=1)
         if not n:
             problemas.append('no encuentro la ficha')
+        html = nuevo
+
+    # --- la linea de datos debajo del titulo ---
+    meta = bloque_meta(o)
+    if meta:
+        nuevo, n = re.subn(r'(?s)(<div class="project-meta-row">).*?(</div>)',
+                           lambda m: m.group(1) + meta + m.group(2), html, count=1)
+        if not n:
+            problemas.append('no encuentro la linea de datos')
         html = nuevo
 
     # --- memoria ---

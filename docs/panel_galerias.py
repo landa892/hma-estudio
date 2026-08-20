@@ -330,10 +330,25 @@ def main():
         por_obra.setdefault(foto['obra_id'], []).append(foto)
 
     portadas, cambiadas = {}, 0
+    sobran_por_obra = fotos_fuera()
     for obra in obras:
         filas = por_obra.get(obra['id'], [])
         if not filas or all(f['storage_path'].startswith('@seed:') for f in filas):
             continue
+
+        # Las repetidas tambien se sacan de una galeria heredada del sitio
+        # viejo. Esas filas llegan como @site: y sincronizar_semillas no las
+        # toca, para no pisar lo que el estudio haya elegido; pero @site: no es
+        # una eleccion del estudio -lo que el estudio elige entra por Storage-,
+        # es lo que habia antes. La Bienal de Venecia quedaba mostrando su
+        # caratula dos veces por esto, y es una de las obras que el cliente
+        # marco con "foto repetida" el 19/08/2026.
+        sobran = sobran_por_obra.get(obra['slug'], set())
+        if sobran:
+            filas = [f for f in filas
+                     if f['es_portada']
+                     or os.path.basename(f['storage_path']) not in sobran]
+
         resueltas = [resolver_foto(obra['slug'], f, url) for f in filas]
         if actualizar_pagina(obra['slug'], obra['titulo'], resueltas):
             cambiadas += 1
