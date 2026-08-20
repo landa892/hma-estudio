@@ -66,6 +66,9 @@ PASOS = [
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
+    # Va despues de obras_layout porque esa reordena las figuras de la
+    # galeria, y antes de en_gen para que el espejo en ingles ya los tenga.
+    ('los planos de cada ficha',     'planos_fichas.py', []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),

@@ -734,6 +734,43 @@ def _cargar_memorias_drive():
 
 _cargar_memorias_drive()
 
+MEMORIAS_ORIGINALES = os.path.join(RAIZ, 'docs', 'memorias_originales.json')
+
+
+def _cargar_memorias_originales():
+    """Repone la memoria del Drive donde el sitio publicaba una traduccion.
+
+    Tres obras -Manduca, Kavak Hub y Mamba Bar- tenian su memoria traducida de
+    ida y vuelta: el texto salio del castellano del estudio, paso por el ingles
+    y volvio. Se nota en el vocabulario, que deja de ser el del estudio -en
+    Manduca "porteños" habia quedado en "vecinos", "callejuelas" en "callejones"
+    y "vieja aldea" en "antiguo pueblo"- y en Kavak Hub habia dejado ademas dos
+    errores de gramatica a la vista: "El primero paso" y "el desarrollo lo
+    grafico".
+
+    El primer Word del 19/08/2026 pide lo contrario: "Utiliza las memorias
+    descriptivas originales de cada proyecto. Que estan buenas para usarlas".
+
+    No entra por _mas_larga porque una traduccion mide casi lo mismo que su
+    original -Kavak Hub tenia 241 palabras contra 250- y esa condicion nunca se
+    cumplia. Entra por texto_normalizado, que compara contra el texto traducido
+    palabra por palabra: si el estudio lo edita desde el panel deja de
+    coincidir, y entonces no se pisa.
+    """
+    if not os.path.isfile(MEMORIAS_ORIGINALES):
+        return
+    with io.open(MEMORIAS_ORIGINALES, encoding='utf-8') as archivo:
+        datos = json.load(archivo)
+    for slug, campos in datos.items():
+        if slug.startswith('_'):
+            continue
+        viejo, nuevo = campos.get('viejo'), campos.get('nuevo')
+        if viejo and nuevo:
+            CORRECCIONES.setdefault(slug, {})['memoria'] = texto_normalizado(viejo, nuevo)
+
+
+_cargar_memorias_originales()
+
 def reponer_arranque(cola, completo):
     """Le devuelve a un parrafo el comienzo que perdio al importarse.
 
