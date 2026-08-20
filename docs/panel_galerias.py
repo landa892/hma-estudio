@@ -14,6 +14,7 @@ separado del de las fotos. Antes vivian aparte del todo -planos_fichas.py los
 escribia directo en el HTML, sin pasar por el panel- y por eso el formulario
 de edicion de una obra no los mostraba nunca.
 """
+import glob
 import io
 import hashlib
 import json
@@ -32,6 +33,11 @@ MAPA_PORTADAS = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 SITIO = 'https://estudiohma.com'
 VISIBLES = 6
 TOPE = 15
+# Las fotos grandes del cuerpo de la ficha, las que van intercaladas con el
+# texto. El estudio las bajo a tres el 20/08/2026: "en todos los casos, solo
+# tres imagenes principales, una de ellas, la primera, es la tapa". La
+# galeria completa sigue mostrando todas mas abajo.
+PRINCIPALES = 3
 # Los planos llevan su propio tope, mas alto: no se cotizan ni se suben a
 # mano, salen del Drive y son los que son. Tostado tiene 35. Tiene que
 # coincidir con el de la migracion 0012.
@@ -313,6 +319,7 @@ def bloque_filas(actual, titulo, fotos):
     portada = next((foto for foto in fotos if foto['portada']), fotos[0])
     fotos = [portada] + [foto for foto in fotos if foto is not portada]
     filas = re.findall(r'(?s)      <div class="project-row.*?\n      </div>', actual)
+    filas = filas[:PRINCIPALES]
     if not filas:
         filas = ['      <div class="project-row project-row--sola reveal">\n'
                  '        <div class="project-row__photo"><img></div>\n      </div>'] * 3
@@ -492,6 +499,46 @@ def sacar_excluidas_de_las_fichas():
         print('fichas con fotos excluidas: %d obras, %d cambios' % (tocadas, sacadas))
 
 
+def recortar_principales():
+    """Deja tres fotos grandes en el cuerpo de cada ficha.
+
+    "En todos los casos. Solo tres imagenes principales (una de ellas, la
+    primera es la tapa)", del tercer Word del 20/08/2026. La mayoria de las
+    fichas traia seis, que estiraban la pagina a lo largo.
+
+    Se recorta aca y no solo en bloque_filas porque esa funcion corre unicamente
+    sobre las fichas que el build reescribe, y son las menos: las galerias
+    heredadas viven en el HTML del repositorio.
+
+    Lo que se saca son filas de foto con su frase al lado -la bajada de la obra
+    y las lineas del estudio, "mas de doscientos proyectos construidos"-. La
+    memoria descriptiva no esta ahi: va en su propia seccion, mas abajo, y no
+    se toca. La galeria completa tampoco: sigue mostrando todas las fotos.
+    """
+    fila = re.compile(r'(?s)\n      <div class="project-row.*?\n      </div>')
+    tocadas = sacadas = 0
+    for ruta in sorted(glob.glob(os.path.join(RAIZ, 'proyectos', '*', 'index.html'))):
+        html = io.open(ruta, encoding='utf-8').read()
+        m = re.search(r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n', html)
+        if not m:
+            continue
+        filas = fila.findall(m.group(0))
+        if len(filas) <= PRINCIPALES:
+            continue
+        cuerpo = m.group(0)
+        for sobra in filas[PRINCIPALES:]:
+            cuerpo = cuerpo.replace(sobra, '', 1)
+        io.open(ruta, 'w', encoding='utf-8', newline='\n').write(
+            html[:m.start()] + cuerpo + html[m.end():])
+        tocadas += 1
+        sacadas += len(filas) - PRINCIPALES
+        print('  %-24s %d -> %d' % (os.path.basename(os.path.dirname(ruta)),
+                                    len(filas), PRINCIPALES))
+    if tocadas:
+        print('fichas recortadas a %d fotos principales: %d (%d filas menos)'
+              % (PRINCIPALES, tocadas, sacadas))
+
+
 def main():
     url = os.environ.get('SUPABASE_URL', '').rstrip('/')
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
@@ -564,6 +611,7 @@ def main():
         portadas[obra['slug']]['titulo'] = obra['titulo']
 
     sacar_excluidas_de_las_fichas()
+    recortar_principales()
 
     if portadas:
         actualizar_listado(portadas)
