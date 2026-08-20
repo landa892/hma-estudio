@@ -29,6 +29,7 @@ import io
 import json
 import os
 import re
+import struct
 import sys
 import urllib.request
 
@@ -135,13 +136,45 @@ def bajar_fotos(slug, imagenes, base_storage):
     return fuera
 
 
+def medidas_webp(ruta):
+    """Ancho y alto leyendo la cabecera del WebP. Sin Pillow, que en el build
+    de Vercel no esta."""
+    try:
+        with io.open(ruta, 'rb') as archivo:
+            cab = archivo.read(30)
+    except OSError:
+        return None
+    if len(cab) < 30 or cab[:4] != b'RIFF' or cab[8:12] != b'WEBP':
+        return None
+    if cab[12:16] == b'VP8X':
+        w = cab[24] | (cab[25] << 8) | (cab[26] << 16)
+        h = cab[27] | (cab[28] << 8) | (cab[29] << 16)
+        return w + 1, h + 1
+    if cab[12:16] == b'VP8 ':
+        w, h = struct.unpack('<HH', cab[26:30])
+        return w & 0x3FFF, h & 0x3FFF
+    if cab[12:16] == b'VP8L':
+        bits = struct.unpack('<I', cab[21:25])[0]
+        return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+    return None
+
+
 def fotos_del_disco(slug):
-    """Para el modo sin base: lo que ya haya en assets/gallery/<slug>/."""
+    """Lo que ya haya en assets/gallery/<slug>/, medido de verdad.
+
+    Se usa en el modo sin base y tambien como respaldo del modo con base: una
+    obra puede llegar al sitio por dos caminos. Si el estudio la carga por el
+    panel, sus fotos estan en Storage; si se sincroniza desde el Drive, estan
+    en el repositorio y Storage no sabe nada de ellas. Comedor Diario entro por
+    el segundo camino y sin este respaldo se publicaba sin galeria.
+    """
     d = os.path.join(RAIZ, 'assets', 'gallery', slug)
     fuera = []
-    for n in range(1, 16):
-        if os.path.isfile(os.path.join(d, '%d.webp' % n)):
-            fuera.append({'n': n, 'w': 1800, 'h': 1200})
+    for n in range(1, 41):
+        medidas = medidas_webp(os.path.join(d, '%d.webp' % n))
+        if not medidas:
+            break
+        fuera.append({'n': n, 'w': medidas[0], 'h': medidas[1]})
     return fuera
 
 
@@ -260,6 +293,16 @@ def crear_pagina(molde, o, fotos):
     # La grilla del molde trae sus planos; los de otra obra no van aca.
     h = re.sub(r'(?s)\n    <section class="section no-border" id="galeria">.*?\n    </section>\n',
                lambda _: bloque_grilla(slug, titulo, fotos), h, count=1)
+
+    # Y la barra de premios del molde: son los premios de la obra que se uso
+    # de plantilla. Una obra recien dada de alta no tiene ninguno, y dejarla
+    # le atribuia a la obra nueva el premio de la vieja. Ademas es lo que
+    # rompia el build: el control de abajo encontraba "benedetta" en el
+    # nombre del sello, abortaba con SystemExit y se caia el deploy entero.
+    # Si la obra gana un premio, se carga en /premios/ y premios_en_fichas.py
+    # le arma la barra.
+    h = re.sub(r'(?s)\n    <section class="award-bar">.*?\n    </section>\n',
+               '\n', h, count=1)
 
     # El dominio se fuerza en vez de heredarse del molde: una obra nueva no tiene
     # por que arrastrar el host que tuviera la ficha que se uso de plantilla, y
@@ -381,6 +424,13 @@ def main(verificar, supabase):
             continue
         fotos = (bajar_fotos(o['slug'], o.get('_fotos') or [], base_storage)
                  if supabase else fotos_del_disco(o['slug']))
+        if not fotos:
+            # Storage no la conoce: puede haber entrado por el Drive, y entonces
+            # sus fotos ya estan en el repositorio.
+            fotos = fotos_del_disco(o['slug'])
+            if fotos:
+                print('  %s: %d fotos del repositorio, no del panel'
+                      % (o['slug'], len(fotos)))
         if not fotos:
             print('  aviso: %s no tiene fotos; la pagina sale sin galeria'
                   % o['slug'])
