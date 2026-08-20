@@ -49,7 +49,6 @@ ANCHO_PORTADA = 1200
 # Carpetas del Drive que no tienen obra en el sitio. Se listan para que el
 # informe no las de por perdidas cada vez.
 SIN_OBRA = {
-    '36-Comedor Diario': 'obra que todavia no esta en el sitio',
     '90-Supervielle': 'obra nueva, sin textos cargados',
 }
 
@@ -61,6 +60,7 @@ A_MANO = {
     '82-Ualá III (Gigena)': 'uala-gigena',
     '37-Uala 2': 'uala-ii',
     '36-Uala': 'uala-office',
+    '36-Comedor Diario': 'comedor-diario',
     '00 Vilela': 'atelier-vilela',
     '26-The Birra - Roca 63': 'the-birra',
     '71-Ziva Hyatt': 'hyatt-ziva',

@@ -27,6 +27,9 @@ PASA_EXACTO.update({
     # aclara que son obras distintas -las dos de la calle Nicaragua y la del
     # Paseo Gigena-. Son nombres propios, no se traducen.
     'Ualá Gigena', 'Ualá Nicaragua I', 'Ualá Nicaragua II',
+    # Obra que se publica el 20/08/2026, desde su carpeta del Drive.
+    'Comedor Diario', 'Alfredo Doisenbant', 'Arq. Julieta Setton',
+    'Arq. Marcela Bernat',
     # La plataforma italiana y su ciudad, en la fila que se sumo el
     # 19/08/2026. Nombres propios.
     'Archilovers', 'Bari',
@@ -63,6 +66,10 @@ DIC.update({
     'Espacio seleccionado': 'Selected space',
     'Seleccionada': 'Selected',
     'Ámsterdam': 'Amsterdam',
+    'Restaurante y café de 280 m² sobre la calle Nicaragua, Buenos Aires.':
+        'Restaurant and cafe of 280 m² on Nicaragua street, Buenos Aires.',
+    'Restaurante y café': 'Restaurant and cafe',
+    'Anteproyecto:': 'Schematic design:',
     'Elegida Best Project 2022 por la plataforma italiana.':
         'Chosen as Best Project 2022 by the Italian platform.',
 })
