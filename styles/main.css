@@ -4387,10 +4387,20 @@ html.lenis body {
    Cerrada ocupa lo que un boton mas, asi que la barra no cambia de alto ni
    empuja la grilla; abierta corre los filtros hacia la izquierda y queda
    pegada al borde derecho, sobre el mismo eje que las fotos. */
+/* Se abre moviendo la segunda columna de la grilla y no el ancho del campo.
+   Animar width obliga al navegador a recalcular el renglon entero en cada
+   cuadro; la pista de la grilla hace el mismo recorrido sin ese costo. */
 .buscador-obras {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 0;
   align-items: center;
   gap: 6px;
+  overflow: hidden;
+  transition: grid-template-columns .22s ease;
+}
+
+.buscador-obras.is-open {
+  grid-template-columns: auto clamp(7rem, 18vw, 12rem);
 }
 
 .buscador-obras__lupa {
@@ -4416,7 +4426,8 @@ html.lenis body {
 /* El campo no se saca del arbol: se achica. Asi la transicion existe y el
    lector de pantalla lo sigue encontrando por su etiqueta. */
 .buscador-obras__campo {
-  width: 0;
+  width: 100%;
+  min-width: 0;
   padding: 0;
   border: 0;
   border-bottom: 1px solid transparent;
@@ -4428,11 +4439,10 @@ html.lenis body {
   color: var(--black);
   opacity: 0;
   pointer-events: none;
-  transition: width .22s ease, opacity .22s ease, border-color .22s ease;
+  transition: opacity .22s ease, border-color .22s ease;
 }
 
 .buscador-obras.is-open .buscador-obras__campo {
-  width: clamp(7rem, 18vw, 12rem);
   padding: 2px 0;
   border-bottom-color: var(--black);
   opacity: 1;
@@ -4458,8 +4468,8 @@ html.lenis body {
 }
 
 @media (max-width: 640px) {
-  .buscador-obras.is-open .buscador-obras__campo {
-    width: 8rem;
+  .buscador-obras.is-open {
+    grid-template-columns: auto 8rem;
   }
 }
 
