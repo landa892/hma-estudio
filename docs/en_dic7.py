@@ -184,6 +184,17 @@ DIC.update({
     'Link': 'Link',
 })
 
+# La lupa de Trabajos y del archivo de prensa. El placeholder dice solo
+# "Buscar", que ya estaba traducido; estas son las etiquetas que lee un lector
+# de pantalla y el aviso de que no hubo resultados.
+DIC.update({
+    'Buscar un trabajo': 'Search the works',
+    u'Buscar una publicaci\u00f3n': 'Search the archive',
+    u'No hay trabajos que coincidan con la b\u00fasqueda.':
+        'No works match your search.',
+})
+
+
 # "Arq. Fernando Hitzig" -> "Arch. Fernando Hitzig". El nombre se copia tal
 # cual: traducirlo seria un error, no una omision.
 TITULO = re.compile(r'^Arq(?:\.|ta\.)? (.+)$')

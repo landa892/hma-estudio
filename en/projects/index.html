@@ -28,7 +28,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.css?v=91">
+  <link rel="stylesheet" href="/styles/main.css?v=92">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/">
@@ -163,9 +163,27 @@
               <button class="active" data-view="grid">Grilla</button>
               <button data-view="list">Lista</button>
             </div>
+            <!-- Buscar dentro de Trabajos. Va al final de la barra para quedar
+            sobre el borde derecho de la grilla, en el mismo eje que las fotos.
+            Lo pidio el estudio el 20/08/2026: "estaria bueno que haya una
+            lupita para buscar cada proyecto, idealmente que este a eje con los
+            textos/imagenes". -->
+          <div class="buscador-obras" id="buscadorObras">
+            <button type="button" class="buscador-obras__lupa" aria-expanded="false"
+              aria-controls="buscadorObrasCampo" aria-label="Search the works">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" />
+              </svg>
+            </button>
+            <input type="search" id="buscadorObrasCampo" class="buscador-obras__campo"
+              placeholder="Search" autocomplete="off" aria-label="Search the works">
+          </div>
           </div>
         </div>
 
+        <p class="sin-resultados" id="sinResultados" hidden role="status">No works match your search.</p>
         <div class="project-grid active" id="projectGrid">
 
           <a href="/en/projects/osten-tower/" class="project-card" data-cat="residencial" data-slug="osten-tower"
@@ -1602,9 +1620,9 @@
   <script src="/scripts/vendor/lenis.min.js"></script>
   <script src="/scripts/config/gsap.js?v=85"></script>
   <script src="/scripts/animations/textReveal.js?v=85"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=85"></script>
-  <script src="/scripts/animations/scrollEffects.js?v=85"></script>
-  <script src="/scripts/main.js?v=89"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=86"></script>
+  <script src="/scripts/animations/scrollEffects.js?v=86"></script>
+  <script src="/scripts/main.js?v=90"></script>
 </body>
 
 </html>

@@ -1190,6 +1190,12 @@ footer.site-footer {
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
+  /* Cuando la barra no entra en un renglon, este grupo baja al siguiente. Sin
+     esto quedaba pegado a la izquierda, porque space-between no gobierna una
+     linea con un solo elemento. Con margin-left auto sigue contra el borde
+     derecho, en el mismo eje que la grilla, que es donde el estudio pidio la
+     lupa el 20/08/2026. */
+  margin-left: auto;
 }
 
 .estado-toggle {
@@ -4357,6 +4363,107 @@ html.lenis body {
    "LINKEDIN" quedaban a distinta altura. Con la columna en flex y el enlace
    empujado por margin-top:auto, los dos caen a la misma linea sea cual sea el
    largo de la bio. */
+/* Las solapas del archivo de prensa y su lupa, en un mismo renglon: la lupa
+   contra el borde derecho, en el eje de los recuadros. */
+.press-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.press-barra .press-tabs {
+  margin-bottom: 0;
+}
+
+.press-barra .buscador-obras {
+  margin-left: auto;
+}
+
+/* ---------- BUSCAR DENTRO DE TRABAJOS Y DE PRENSA ----------
+
+   Una lupa que abre un campo al costado, en la misma barra que los filtros.
+   Cerrada ocupa lo que un boton mas, asi que la barra no cambia de alto ni
+   empuja la grilla; abierta corre los filtros hacia la izquierda y queda
+   pegada al borde derecho, sobre el mismo eje que las fotos. */
+.buscador-obras {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.buscador-obras__lupa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--black);
+  cursor: pointer;
+  opacity: .55;
+  transition: opacity .15s ease;
+}
+
+.buscador-obras__lupa:hover,
+.buscador-obras.is-open .buscador-obras__lupa {
+  opacity: 1;
+}
+
+/* El campo no se saca del arbol: se achica. Asi la transicion existe y el
+   lector de pantalla lo sigue encontrando por su etiqueta. */
+.buscador-obras__campo {
+  width: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  font-family: inherit;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--black);
+  opacity: 0;
+  pointer-events: none;
+  transition: width .22s ease, opacity .22s ease, border-color .22s ease;
+}
+
+.buscador-obras.is-open .buscador-obras__campo {
+  width: clamp(7rem, 18vw, 12rem);
+  padding: 2px 0;
+  border-bottom-color: var(--black);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.buscador-obras__campo::placeholder {
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+/* La cruz que Chrome y Safari le ponen solos al type=search desentona con el
+   resto de la barra, que no tiene ningun control con relleno. */
+.buscador-obras__campo::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+/* Cuando la busqueda no encuentra nada, en lugar de una grilla vacia. */
+.sin-resultados {
+  padding: 40px 0 8px;
+  color: var(--gray-dark);
+  font-size: .95rem;
+}
+
+@media (max-width: 640px) {
+  .buscador-obras.is-open .buscador-obras__campo {
+    width: 8rem;
+  }
+}
+
+
 .founder {
   display: flex;
   flex-direction: column;

@@ -1,10 +1,27 @@
 <!-- Fuente del archivo cronologico de Prensa. docs/prensa_pagina.py
      inserta este bloque en las dos paginas que muestran el listado. -->
 
-        <div class="press-tabs" id="pressTabs">
-          <button class="press-tab active" data-group="all">Todos</button>
-          <button class="press-tab" data-group="prensa">Prensa</button>
-          <button class="press-tab" data-group="news">News</button>
+        <!-- Buscar dentro del archivo. Mismo control que en Trabajos: el
+          estudio lo pidio en los dos lados el 20/08/2026, "lo mismo en el
+          sector de prensa asi se pueda buscar la que uno le interese". -->
+        <div class="press-barra">
+          <div class="press-tabs" id="pressTabs">
+            <button class="press-tab active" data-group="all">Todos</button>
+            <button class="press-tab" data-group="prensa">Prensa</button>
+            <button class="press-tab" data-group="news">News</button>
+          </div>
+          <div class="buscador-obras" id="buscadorPrensa">
+            <button type="button" class="buscador-obras__lupa" aria-expanded="false"
+              aria-controls="buscadorPrensaCampo" aria-label="Buscar una publicación">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" />
+              </svg>
+            </button>
+            <input type="search" id="buscadorPrensaCampo" class="buscador-obras__campo"
+              placeholder="Buscar" autocomplete="off" aria-label="Buscar una publicación">
+          </div>
         </div>
 
         <div class="press-filter-bar" id="pressYears">

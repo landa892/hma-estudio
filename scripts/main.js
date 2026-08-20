@@ -253,15 +253,39 @@ try {
        cosa. Por eso se aplican juntos en una sola pasada. */
     let cat = 'all';
     let estado = 'all';
+    let texto = '';
+
+    /* Sin tildes y en minusculas, para que "hoteleria" encuentre "Hotelería"
+       y "uala" encuentre "Ualá". */
+    const plano = t => (t || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    /* Se busca sobre todo lo que la tarjeta ya muestra: nombre, tipologia,
+       ciudad, superficie, año y el rotulo de categoria. Se calcula una sola
+       vez por tarjeta y queda guardado. */
+    const textoDe = c => {
+      if (!c.dataset.buscable) c.dataset.buscable = plano(c.textContent);
+      return c.dataset.buscable;
+    };
 
     const aplicar = () => {
+      let visibles = 0;
       document.querySelectorAll('[data-cat]').forEach(c => {
         const fueraDeCat = cat === 'concursos'
           ? c.dataset.concurso !== 'true'
           : cat !== 'all' && c.dataset.cat !== cat;
         const fueraDeEstado = estado !== 'all' && c.dataset.estado !== estado;
-        c.classList.toggle('hidden', fueraDeCat || fueraDeEstado);
+        const fueraDelTexto = texto !== '' && !textoDe(c).includes(texto);
+        const fuera = fueraDeCat || fueraDeEstado || fueraDelTexto;
+        c.classList.toggle('hidden', fuera);
+        if (!fuera) visibles++;
       });
+      const aviso = document.getElementById('sinResultados');
+      /* La grilla y la lista tienen cada una su copia de las obras, asi que
+         visibles viene contado dos veces cuando las dos existen. */
+      if (aviso) aviso.hidden = visibles > 0;
     };
 
     filterBtns.forEach(btn => {
@@ -282,6 +306,39 @@ try {
       });
     });
 
+    /* ---------- la lupa ---------- */
+    const buscador = document.getElementById('buscadorObras');
+    const campo = document.getElementById('buscadorObrasCampo');
+    if (buscador && campo) {
+      const lupa = buscador.querySelector('.buscador-obras__lupa');
+      const abrir = () => {
+        buscador.classList.add('is-open');
+        lupa.setAttribute('aria-expanded', 'true');
+        campo.focus();
+      };
+      const cerrar = () => {
+        buscador.classList.remove('is-open');
+        lupa.setAttribute('aria-expanded', 'false');
+        if (campo.value) { campo.value = ''; texto = ''; aplicar(); }
+      };
+      lupa.addEventListener('click', () => {
+        if (buscador.classList.contains('is-open')) cerrar(); else abrir();
+      });
+      campo.addEventListener('input', () => {
+        texto = plano(campo.value.trim());
+        aplicar();
+      });
+      campo.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { cerrar(); lupa.focus(); }
+      });
+      /* Al salir del campo sin nada escrito se cierra sola, para que la barra
+         vuelva a su ancho. Con texto escrito queda abierta: si no, el usuario
+         perderia el filtro al hacer clic en una tarjeta. */
+      campo.addEventListener('blur', () => {
+        if (!campo.value) cerrar();
+      });
+    }
+
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('cat');
     if (catParam) {
@@ -293,12 +350,18 @@ try {
       const btn = document.querySelector(`#estadoToggle button[data-estado-filtro="${CSS.escape(estadoParam)}"]`);
       if (btn) btn.click();
     }
-    const q = (params.get('q') || '').trim().toLowerCase();
+    /* ?q= es el mismo filtro, no uno aparte: antes tapaba tarjetas por su
+       cuenta y el primer clic en cualquier boton lo borraba. */
+    const q = (params.get('q') || '').trim();
     if (q) {
-      document.querySelectorAll('[data-cat]').forEach(c => {
-        const name = (c.querySelector('.p-name, .plr-name')?.textContent || '').toLowerCase();
-        if (!name.includes(q)) c.classList.add('hidden');
-      });
+      texto = plano(q);
+      if (campo) {
+        campo.value = q;
+        buscador.classList.add('is-open');
+        buscador.querySelector('.buscador-obras__lupa')
+          .setAttribute('aria-expanded', 'true');
+      }
+      aplicar();
     }
   }
 } catch (e) { console.error('filter', e); }
@@ -604,13 +667,27 @@ try {
     const rows = Array.from(feed.querySelectorAll('.press-row'));
     let grupo = 'all';
     let anio = 'all';
+    let texto = '';
     let limite = loadMore ? 12 : Number.POSITIVE_INFINITY;
+
+    const plano = t => (t || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    /* Cada fila trae el titular, la obra, el medio y el pais, asi que buscar
+       sobre su texto alcanza para encontrar por cualquiera de los cuatro. */
+    const textoDe = r => {
+      if (!r.dataset.buscable) r.dataset.buscable = plano(r.textContent);
+      return r.dataset.buscable;
+    };
 
     function aplicar() {
       let coincidencias = 0;
       rows.forEach(r => {
         const ok = (grupo === 'all' || r.dataset.group === grupo) &&
-          (anio === 'all' || r.dataset.year === anio);
+          (anio === 'all' || r.dataset.year === anio) &&
+          (texto === '' || textoDe(r).includes(texto));
         if (ok) coincidencias++;
         r.hidden = !ok || coincidencias > limite;
       });
@@ -634,6 +711,39 @@ try {
         count.textContent = coincidencias === 1 ? `1 ${singular}` : `${coincidencias} ${que}`;
       }
       if (loadMore) loadMore.hidden = coincidencias <= limite;
+    }
+
+    const buscador = document.getElementById('buscadorPrensa');
+    const campo = document.getElementById('buscadorPrensaCampo');
+    if (buscador && campo) {
+      const lupa = buscador.querySelector('.buscador-obras__lupa');
+      const abrir = () => {
+        buscador.classList.add('is-open');
+        lupa.setAttribute('aria-expanded', 'true');
+        campo.focus();
+      };
+      const cerrar = () => {
+        buscador.classList.remove('is-open');
+        lupa.setAttribute('aria-expanded', 'false');
+        if (campo.value) { campo.value = ''; texto = ''; limite = 12; aplicar(); }
+      };
+      lupa.addEventListener('click', () => {
+        if (buscador.classList.contains('is-open')) cerrar(); else abrir();
+      });
+      campo.addEventListener('input', () => {
+        texto = plano(campo.value.trim());
+        /* Buscando se muestran todas las coincidencias, sin el tope de doce:
+           el boton de "ver mas" tiene sentido para recorrer el archivo entero,
+           no para una busqueda que ya devuelve poco. */
+        limite = texto ? Number.POSITIVE_INFINITY : 12;
+        aplicar();
+      });
+      campo.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { cerrar(); lupa.focus(); }
+      });
+      campo.addEventListener('blur', () => {
+        if (!campo.value) cerrar();
+      });
     }
 
     tabs.forEach(tab => tab.addEventListener('click', () => {
