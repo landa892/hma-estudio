@@ -50,6 +50,20 @@ lugar equivocado:
 curl -s https://estudiohma.com/proyectos/<slug>/ | grep -c "lo que sea"
 ```
 
+### La clave pública sólo ve lo publicado
+
+Leer la base desde acá con la clave publicable **no muestra los borradores**.
+No es una limitación del código: es la política de lectura de
+`0001_esquema.sql`, `using (publicada)`, y su comentario lo dice — "no salen ni
+siquiera consultando la API a mano: es el punto del modo borrador".
+
+Así que una obra despublicada **desaparece de todas mis consultas**, y contar
+obras contra esa clave da lo que ve un visitante, no lo que hay. Ya me llevó
+puesto una vez: Comedor Diario quedó en borrador, mi consulta devolvió 61 de 62
+y di por hecho que alguien la había borrado del panel. Estaba intacta.
+
+Para cualquier cosa que involucre borradores, la fuente es el panel, no la API.
+
 ### El patrón que se repite: el dato está y no se ve
 
 Pasó tres veces con distintos campos. El generador **sólo completaba lo que la
@@ -67,13 +81,14 @@ problema es el generador, no el contenido.
 
 ## El build
 
-`docs/panel_build.py`, 18 pasos en orden:
+`docs/panel_build.py`, 17 pasos en orden:
 
 ```
 panel_config · panel_correcciones_agosto · panel_alta · panel_galerias
-panel_generar · panel_sitio · panel_listado · panel_estados · panel_textos
-panel_home · obras_layout · prensa_pagina · prensa_paginas
-en_gen · obras_orden · seo_gen · sitemap_gen
+panel_generar · panel_sitio · panel_listado · panel_estados
+panel_textos · panel_home · obras_layout · prensa_pagina
+prensa_paginas · en_gen · obras_orden · seo_gen
+sitemap_gen
 ```
 
 Variables de entorno en Vercel: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`,
