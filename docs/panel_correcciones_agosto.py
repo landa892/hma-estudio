@@ -751,6 +751,14 @@ def _cargar_memorias_originales():
     El primer Word del 19/08/2026 pide lo contrario: "Utiliza las memorias
     descriptivas originales de cada proyecto. Que estan buenas para usarlas".
 
+    La Bienal de Venecia entra por otro motivo: su texto no estaba traducido
+    sino recortado a la mitad. El archivo del estudio trae las dos versiones
+    una detras de la otra -castellano hasta el renglon "Abstract", ingles
+    despues- y el sitio publicaba 350 palabras de las 802 que tiene la parte en
+    castellano: faltaban los cinco cruces de inteligencias con sus obras y sus
+    materiales, y el apartado de materiales. Por eso esta entrada repone
+    tambien el campo en ingles.
+
     No entra por _mas_larga porque una traduccion mide casi lo mismo que su
     original -Kavak Hub tenia 241 palabras contra 250- y esa condicion nunca se
     cumplia. Entra por texto_normalizado, que compara contra el texto traducido
@@ -764,9 +772,11 @@ def _cargar_memorias_originales():
     for slug, campos in datos.items():
         if slug.startswith('_'):
             continue
-        viejo, nuevo = campos.get('viejo'), campos.get('nuevo')
-        if viejo and nuevo:
-            CORRECCIONES.setdefault(slug, {})['memoria'] = texto_normalizado(viejo, nuevo)
+        for campo, par in (('memoria', ('viejo', 'nuevo')),
+                           ('memoria_en', ('viejo_en', 'nuevo_en'))):
+            antes, despues = campos.get(par[0]), campos.get(par[1])
+            if antes and despues:
+                CORRECCIONES.setdefault(slug, {})[campo] = texto_normalizado(antes, despues)
 
 
 _cargar_memorias_originales()
