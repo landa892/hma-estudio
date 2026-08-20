@@ -561,6 +561,19 @@ CORRECCIONES_19_08 = {
     },
 }
 
+# Tercer Word, del 20/08/2026.
+CORRECCIONES_20_08 = {
+    # "CORREGIR ANO PROYECTO ROKET (2023)". Lo confirma el Drive, donde la
+    # carpeta 81-Roket cuelga del ano 2023.
+    'roket': {
+        'anio': valor('2024', '2023'),
+    },
+}
+
+for _slug, _campos in CORRECCIONES_20_08.items():
+    CORRECCIONES.setdefault(_slug, {}).update(_campos)
+
+
 for _slug, _campos in CORRECCIONES_19_08.items():
     CORRECCIONES.setdefault(_slug, {}).update(_campos)
 

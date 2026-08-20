@@ -311,6 +311,86 @@ def actualizar_buscador(portadas):
         crudo[:inicio] + json.dumps(indice, ensure_ascii=False, indent=1) + ';\n')
 
 
+def sacar_excluidas_de_las_fichas():
+    """Borra de cada ficha las fotos que fotos_fuera() manda sacar.
+
+    Hace falta porque la galeria de una obra que nunca paso por el panel vive
+    en el HTML del repositorio y el paso de arriba no la reescribe: sus filas
+    en la base son @seed y ahi se hace continue, para no pisar lo que el
+    estudio haya elegido. Una exclusion nueva quedaba anotada en el JSON y no
+    se veia en el sitio.
+
+    Dos reglas que valen la pena entender:
+
+    La foto de apertura no se toca nunca. Es la primera project-row__photo de
+    la ficha y en varias obras es justamente la copia de la caratula que la
+    lista manda excluir; la exclusion apunta a la repeticion de mas abajo, no
+    a la apertura. seleccion_inicial hace la misma salvedad.
+
+    En las demas filas editoriales la foto no se borra, se cambia. Cada fila
+    es un texto con su imagen al lado, y borrarla dejaria el texto solo. Entra
+    la primera foto de la galeria que no este excluida ni usada en otra fila,
+    con sus medidas reales, porque el ancho y el alto del HTML reservan el
+    lugar antes de que la imagen cargue.
+    """
+    figura = re.compile(r'\n?\s*<figure class="gallery-grid__item[^>]*>'
+                        r'<img src="([^"]+)"[^>]*>\s*</figure>')
+    editorial = re.compile(r'<div class="project-row__photo"><img src="([^"]+)"[^>]*>')
+    fuera = fotos_fuera()
+    tocadas = sacadas = 0
+    for slug, sobran in sorted(fuera.items()):
+        ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+        if not sobran or not os.path.isfile(ruta):
+            continue
+        html = io.open(ruta, encoding='utf-8').read()
+        mia = '/assets/gallery/%s/' % slug
+        cambios = []
+
+        usadas = set(editorial.findall(html))
+        libres = [m.group(1) for m in figura.finditer(html)
+                  if mia in m.group(1)
+                  and os.path.basename(m.group(1)) not in sobran
+                  and m.group(1) not in usadas]
+
+        vistas = [0]
+
+        def cambiar(m):
+            vistas[0] += 1
+            url = m.group(1)
+            # La primera es la apertura de la ficha.
+            if vistas[0] == 1 or mia not in url:
+                return m.group(0)
+            if os.path.basename(url) not in sobran or not libres:
+                return m.group(0)
+            nuevo_url = libres.pop(0)
+            medidas = medidas_webp(ruta_local(nuevo_url))
+            trozo = m.group(0).replace(url, nuevo_url)
+            if medidas:
+                trozo = re.sub(r'width="\d+" height="\d+"',
+                               'width="%d" height="%d"' % medidas, trozo, count=1)
+            cambios.append('%s por %s' % (os.path.basename(url),
+                                          os.path.basename(nuevo_url)))
+            return trozo
+
+        nuevo = editorial.sub(cambiar, html)
+
+        def borrar(m):
+            url = m.group(1)
+            if mia in url and os.path.basename(url) in sobran:
+                cambios.append('%s fuera de la grilla' % os.path.basename(url))
+                return ''
+            return m.group(0)
+
+        nuevo = figura.sub(borrar, nuevo)
+        if cambios:
+            io.open(ruta, 'w', encoding='utf-8', newline='\n').write(nuevo)
+            tocadas += 1
+            sacadas += len(cambios)
+            print('  %-24s %s' % (slug, '; '.join(cambios)))
+    if sacadas:
+        print('fichas con fotos excluidas: %d obras, %d cambios' % (tocadas, sacadas))
+
+
 def main():
     url = os.environ.get('SUPABASE_URL', '').rstrip('/')
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
@@ -354,6 +434,8 @@ def main():
             cambiadas += 1
         portadas[obra['slug']] = next((f for f in resueltas if f['portada']), resueltas[0])
         portadas[obra['slug']]['titulo'] = obra['titulo']
+
+    sacar_excluidas_de_las_fichas()
 
     if portadas:
         actualizar_listado(portadas)

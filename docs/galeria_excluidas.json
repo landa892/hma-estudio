@@ -1,5 +1,9 @@
 {
  "_ayuda": "Fotos que existen en assets/gallery/ pero no van en la galeria publica, por un motivo que no es estar repetidas -de eso se ocupa galeria_repetidas.json, que se genera solo-. Este se escribe a mano: la clave es el slug de la obra y cada entrada dice que archivo se saca y por que.",
-
- "_por_que_esta_vacio": "El 19/08/2026 habia tres exclusiones en clasico-quilmes: dos laminas de presentacion con la frase 'UNA PEQUEÑA SEDE DE NUESTRA CERVECERIA' compuesta a lo ancho, que la grilla recortaba, y un moodboard de referencias. Al sincronizar las galerias contra el Drive el 20/08/2026 esas laminas desaparecieron: no estaban en el Drive, eran basura de la importacion vieja. La carpeta del estudio tiene once fotos y ninguna lamina. Las exclusiones se sacaron porque ya apuntaban a fotos legitimas -la numeracion cambio al rehacer la galeria-."
+ "roket": [
+  {
+   "archivo": "1.webp",
+   "por_que": "Es el mismo salon y el mismo angulo que la caratula: la misma arana y la misma perspectiva, una con gente y otra vacia. No son la misma foto -se parecen 0,70, lejos del 0,99 que busca galeria_repetidas.py- pero en la ficha salen una detras de la otra. El cliente lo marco el 20/08/2026: \"foto muy repetitiva\". Queda la caratula, que es la que tiene gente."
+  }
+ ]
 }

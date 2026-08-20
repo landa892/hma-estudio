@@ -45,7 +45,7 @@ def desde_supabase():
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
-    campos = 'slug,titulo,categoria,publicada'
+    campos = 'slug,titulo,categoria,publicada,anio'
     pedido = urllib.request.Request(
         url + '/rest/v1/obras?select=' + campos + '&publicada=is.true',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
@@ -103,6 +103,19 @@ def reemplazar_clase(html, clase, obras):
                 nuevo = re.sub(r'(<div class="plr-cat">).*?(</div>)',
                                r'\g<1>%s\g<2>' % rotulo, nuevo,
                                count=1, flags=re.S)
+            # La ultima columna de la fila es el ano. Nadie la escribia desde
+            # la base, asi que dieciseis de las sesenta y dos mostraban un
+            # guion aunque el ano estuviera cargado -y aunque apareciera en la
+            # linea de datos de la misma fila-. El cliente lo marco el
+            # 20/08/2026: "chequear hay muchos que no tienen los anos".
+            anio = escapar(o.get('anio') or '')
+            if anio:
+                anio_actual = (re.search(r'<div class="plr-loc">(.*?)</div>',
+                                         bloque, re.S) or [None, ''])[1]
+                if anio_actual.strip() != anio:
+                    nuevo = re.sub(r'(<div class="plr-loc">).*?(</div>)',
+                                   r'\g<1>%s\g<2>' % anio, nuevo,
+                                   count=1, flags=re.S)
         if nuevo != bloque:
             cambios.append(slug_m.group(1) + ':' + clase)
         return nuevo
