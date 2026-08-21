@@ -274,6 +274,18 @@ Y ojo: las galerías cuyas filas en la base son `@seed` **no las reescribe**
 `panel_galerias`, para no pisar lo que el estudio haya elegido. Viven en el
 HTML del repositorio. Por eso existe `sacar_excluidas_de_las_fichas()`.
 
+### Los borradores también se siembran
+
+`panel_galerias` pide **todas** las obras, no sólo las publicadas. Antes pedía
+`publicada=is.true` y eso dejaba sin salida a una obra nueva que entra por el
+Drive: el panel exige al menos una foto para publicar, las fotos se las carga
+ese paso, y ese paso no la miraba por no estar publicada. Había que tocar la
+base a mano. Le pasó a Banco Supervielle el 21/08/2026.
+
+Sembrar un borrador no lo muestra en ningún lado. La página y la tarjeta las
+escribe el bucle siguiente, que **sigue mirando sólo las publicadas** — y así
+tiene que quedar.
+
 ### Los planos también están en el panel
 
 Antes vivían aparte del todo: sólo `docs/planos.json` + `assets/planos/`, y un

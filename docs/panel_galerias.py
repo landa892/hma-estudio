@@ -546,7 +546,17 @@ def main():
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
     catalogo = json.load(io.open(DATOS, encoding='utf-8'))
     catalogo_planos = cargar_planos()
-    obras = pedir(url, clave, '/rest/v1/obras?select=id,slug,titulo&publicada=is.true')
+    # Tambien las que estan en borrador. Antes se pedian solo las publicadas y
+    # eso dejaba a una obra nueva sin salida: el panel exige al menos una foto
+    # para publicar, y las fotos se las carga este paso, que no la miraba por
+    # no estar publicada. Una obra que entra por el Drive -sus fotos estan en el
+    # repositorio y Storage no sabe nada de ellas- no tenia forma de publicarse
+    # desde el panel, habia que tocar la base a mano. Le paso a Banco
+    # Supervielle el 21/08/2026.
+    #
+    # Sembrar un borrador no lo muestra en ningun lado: la pagina y la tarjeta
+    # las escribe el bucle de mas abajo, que sigue mirando solo las publicadas.
+    obras = pedir(url, clave, '/rest/v1/obras?select=id,slug,titulo,publicada')
     por_slug = {o['slug']: o for o in obras}
     imagenes = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
     sembradas = sembrar(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
@@ -579,7 +589,9 @@ def main():
 
     portadas, cambiadas = {}, 0
     sobran_por_obra = fotos_fuera()
-    for obra in obras:
+    # Las paginas y las tarjetas, solo de las publicadas: un borrador no tiene
+    # pagina que actualizar ni tarjeta en el listado.
+    for obra in [o for o in obras if o['publicada']]:
         filas_fotos = por_obra_tipo.get((obra['id'], 'foto'), [])
         filas_planos = por_obra_tipo.get((obra['id'], 'plano'), [])
         # Se reescribe la ficha si el estudio toco las fotos o los planos: antes
