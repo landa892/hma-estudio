@@ -48,6 +48,12 @@
     var items = [];
     cambios.obras.forEach(function (o) {
       items.push({ texto: frase(o.titulo, o.ultimo_cambio), cuando: o.updated_at,
+                   // Una obra en borrador tambien cuenta como pendiente -si la
+                   // acaban de despublicar, sigue en la web hasta el proximo
+                   // build-, pero no hay que prometer que publicar la va a
+                   // mostrar. Sin esta marca el aviso dice "todavia no esta en
+                   // la web" de algo que no va a aparecer igual.
+                   borrador: !o.publicada,
                    href: '/admin/obra?id=' + encodeURIComponent(o.id) });
     });
     cambios.textos.forEach(function (t) {
@@ -88,6 +94,12 @@
       a.href = i.href;
       a.textContent = i.texto;
       li.appendChild(a);
+      if (i.borrador) {
+        var marca = document.createElement('span');
+        marca.className = 'pendientes__borrador';
+        marca.textContent = ' borrador';
+        li.appendChild(marca);
+      }
       var cuando = document.createElement('span');
       cuando.className = 'pendientes__cuando';
       // El espacio va en el texto y no solo en el margen: sin el, un lector

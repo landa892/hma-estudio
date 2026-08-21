@@ -187,7 +187,7 @@
     if (!desde) return Promise.resolve({ obras: [], textos: [] });
     var d = encodeURIComponent(desde);
     return Promise.all([
-      llamar('/obras?select=id,slug,titulo,ultimo_cambio,updated_at'
+      llamar('/obras?select=id,slug,titulo,ultimo_cambio,publicada,updated_at'
         + '&updated_at=gt.' + d + '&order=updated_at.desc'),
       llamar('/textos?select=clave,rotulo,seccion,updated_at'
         + '&updated_at=gt.' + d + '&order=updated_at.desc'),

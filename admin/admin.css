@@ -258,6 +258,17 @@ input:focus-visible {
 .pendientes__lista a:hover,
 .pendientes__lista a:focus-visible { text-decoration-color: currentColor; }
 
+.pendientes__borrador {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border: 1px solid var(--linea);
+  background: var(--blanco);
+  color: var(--gris);
+  font-size: .74rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
 .pendientes__cuando,
 .pendientes__mas { color: var(--gris); font-size: .82rem; }
 .pendientes__cuando { margin-left: 6px; }
