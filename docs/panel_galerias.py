@@ -22,6 +22,7 @@ import os
 import re
 import struct
 import sys
+import urllib.error
 import urllib.request
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,26 @@ PRINCIPALES = 3
 # mano, salen del Drive y son los que son. Tostado tiene 35. Tiene que
 # coincidir con el de la migracion 0012.
 TOPE_PLANOS = 40
+
+
+def migracion_editorial_disponible(url, clave):
+    """La 0014 se aplica a mano; el deploy anterior tiene que seguir andando.
+
+    Sin esta comprobacion, subir TOPE de 15 a 30 hace que la primera
+    sincronizacion borre una seleccion heredada y que el trigger viejo rechace
+    la reposicion. La columna premios pertenece a la misma migracion y sirve
+    como marca inequivoca, sin depender de contar filas ni de sus contenidos.
+    """
+    pedido = urllib.request.Request(
+        url + '/rest/v1/obras?select=premios&limit=1',
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+    try:
+        with urllib.request.urlopen(pedido, timeout=120):
+            return True
+    except urllib.error.HTTPError as error:
+        if error.code in (400, 404):
+            return False
+        raise
 
 
 def e(texto):
@@ -536,10 +557,14 @@ def recortar_principales():
 
 
 def main():
+    global TOPE
     url = os.environ.get('SUPABASE_URL', '').rstrip('/')
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
+    if not migracion_editorial_disponible(url, clave):
+        TOPE = 15
+        print('migracion 0014 pendiente: galerias en modo compatible de 15 fotos')
     catalogo = json.load(io.open(DATOS, encoding='utf-8'))
     catalogo_planos = cargar_planos()
     # Tambien las que estan en borrador. Antes se pedian solo las publicadas y
