@@ -197,6 +197,19 @@ script con expresiones regulares.
 Cada obra tiene fotos en `assets/gallery/<slug>/`, planos en
 `assets/planos/<slug>/` y carátula en `assets/covers/<slug>.webp`.
 
+**Para saber que hay en el Drive, se mira el Drive en vivo**, no los ZIP:
+
+    https://drive.google.com/drive/u/0/folders/1QNmL8LKI_QOkZ46azge0sNLlxltbKJ9B
+
+Las descargas envejecen en horas. El 20/08/2026 el ZIP era de las 01:34 y entre
+las 15:09 y las 16:37 el estudio subio la carpeta de Abasto entera —la unica
+obra que no tenia—, la memoria de Supervielle y la de Elyaki. Contra el ZIP las
+tres figuraban como pendientes del estudio, y las tres ya estaban.
+
+Los textos se leen enteros desde ahi. Las fotos y los planos no: pesan
+megabytes y no se bajan sin sesion, asi que para imagenes sigue haciendo falta
+la descarga.
+
 **El Drive del estudio es la fuente.** `docs/drive_sync.py` rehace todo desde
 los ZIP que baja Google Drive, sin descomprimirlos:
 
