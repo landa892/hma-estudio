@@ -16,8 +16,8 @@
   var LADO_MAX = 1800;      // el mismo tope que ya usan las galerias del sitio
   var CALIDAD = 0.82;
   /* Cada galeria tiene su cupo, y tienen que coincidir con los de
-     limitar_imagenes_por_obra (migraciones 0011 y 0012). Las fotos son las
-     quince que se cotizaron. Los planos van a cuarenta: no se cotizan ni se
+     limitar_imagenes_por_obra (migraciones 0014 y 0015). Las fotos van a
+     treinta. Los planos van a cuarenta: no se cotizan ni se
      suben de a uno, salen del Drive y son los que son -Tostado tiene 35-.
      Con un solo tope de quince, esa obra mostraba "35 de 15" y el boton de
      subir quedaba deshabilitado para siempre. */
@@ -391,7 +391,7 @@
       var hechas = 0;
       $(cfg.subir).disabled = true;
 
-      // De a una y no todas juntas: quince fotos en paralelo desde un
+      // De a una y no todas juntas: treinta fotos en paralelo desde un
       // telefono saturan la subida y encima no se puede mostrar por donde va.
       var siguiente = function (i) {
         if (i >= lista.length) {

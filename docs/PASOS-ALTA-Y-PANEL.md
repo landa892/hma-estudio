@@ -391,5 +391,5 @@ Nada de esto rompe el sitio. Son huecos que se ven si se buscan.
 - **"Comitente" vacío en las 61 obras** — el sitio nunca mostró ese campo. El
   panel lo tiene; cuando haya varios cargados se enciende en el sitio con un
   cambio chico
-- **Ualá II es la única obra con crédito de fotografía**, y el cliente pidió no
-  mostrar créditos de foto en ninguna
+- **Los créditos se cargan desde Fotógrafo** y se publican únicamente en obras
+  concluidas con fotos reales; los proyectos y renders no muestran el renglón

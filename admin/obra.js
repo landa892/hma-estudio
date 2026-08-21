@@ -45,6 +45,7 @@
     $('comitente').value = o.comitente || '';
     $('tipologia').value = o.tipologia || '';
     $('categoria').value = o.categoria || '';
+    $('fotografia').value = o.fotografia || '';
     $('equipo').value = (o.equipo || []).join('\n');
     $('bajada').value = o.bajada || '';
     $('memoria').value = o.memoria || '';
@@ -60,12 +61,20 @@
     contarMemoria('memoria', 'contadorMemoria');
     contarMemoria('memoriaEn', 'contadorMemoriaEn');
     verBanner();
+    verFotografia();
   }
 
   /* Los campos del banner solo tienen sentido si la obra va al home. Mostrarlos
      siempre haria pensar que toda obra tiene banner. */
   function verBanner() {
     $('camposBanner').classList.toggle('oculto', !$('destacada').checked);
+  }
+
+  /* El credito no corresponde a proyectos que solo muestran renders. Se
+     conserva el valor al cambiar de estado, pero el campo y el generador solo
+     lo exponen cuando la obra esta concluida. */
+  function verFotografia() {
+    $('campoFotografia').classList.toggle('oculto', $('estado').value !== 'concluida');
   }
 
   function actualizarEnlacePublico() {
@@ -90,6 +99,7 @@
       comitente: texto('comitente'),
       tipologia: texto('tipologia'),
       categoria: $('categoria').value || null,
+      fotografia: texto('fotografia'),
       // Una linea por nombre. Se limpian las vacias que deja copiar y pegar.
       equipo: $('equipo').value.split('\n')
         .map(function (x) { return x.trim(); })
@@ -141,6 +151,7 @@
     comitente: 'el comitente',
     tipologia: 'el tipo',
     categoria: 'la categoría',
+    fotografia: 'el fotógrafo',
     equipo: 'el equipo',
     bajada: 'la bajada',
     memoria: 'la memoria',
@@ -363,6 +374,7 @@
       });
     });
     $('destacada').addEventListener('change', verBanner);
+    $('estado').addEventListener('change', verFotografia);
     $('publicada').addEventListener('change', actualizarEnlacePublico);
     $('formObra').addEventListener('submit', guardar);
 
@@ -384,6 +396,7 @@
       contarBajada();
       contarMemoria('memoria', 'contadorMemoria');
       contarMemoria('memoriaEn', 'contadorMemoriaEn');
+      verFotografia();
       $('titulo').focus();
       return;
     }

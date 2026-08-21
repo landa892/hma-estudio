@@ -60,7 +60,13 @@ def formato_editorial(t):
 # El orden en que van las filas de la ficha tecnica. Solo se usa para
 # ubicar una fila que haya que agregar; las que ya estan no se mueven.
 ORDEN_SPECS = ['Estado', 'Tipo', 'Ubicación', 'País', 'Superficie', 'Año',
-               'Comitente', 'Fotografía', 'Equipo']
+               'Comitente', 'Fotógrafo', 'Equipo']
+
+
+def rotulo_spec(rotulo):
+    """Normaliza el nombre anterior del credito al pedido por el estudio."""
+    limpio = re.sub(r'\s+', ' ', rotulo).strip()
+    return 'Fotógrafo' if limpio == 'Fotografía' else limpio
 
 
 def bloque_ficha(o, html):
@@ -76,7 +82,7 @@ def bloque_ficha(o, html):
     filas_actuales = re.findall(
         r'<div class="(spec-row[^"]*)"><dt>(.*?)</dt>', html, re.S)
     rotulos = [r for _, r in filas_actuales]
-    clases = dict((re.sub(r'\s+', ' ', r).strip(), c) for c, r in filas_actuales)
+    clases = dict((rotulo_spec(r), c) for c, r in filas_actuales)
     valor = {
         'Estado': ESTADOS.get(o['estado'], ''),
         'Tipo': o.get('tipologia') or '',
@@ -85,11 +91,14 @@ def bloque_ficha(o, html):
         'Superficie': o.get('superficie') or '',
         'Año': o.get('anio') or '',
         'Comitente': o.get('comitente') or '',
-        'Fotografía': o.get('fotografia') or '',
+        # El credito solo corresponde a obras terminadas con fotos reales. Un
+        # valor viejo no debe hacer aparecer el renglon en un proyecto/render.
+        'Fotógrafo': (o.get('fotografia') or '') if o['estado'] == 'concluida' else '',
         'Equipo': '<br>'.join(escapar(x) for x in (o.get('equipo') or [])),
     }
 
-    orden = [re.sub(r'\s+', ' ', r).strip() for r in rotulos]
+    orden = [rotulo_spec(r) for r in rotulos]
+    orden = [r for r in orden if r != 'Fotógrafo' or valor['Fotógrafo']]
     if any(rot not in valor for rot in orden):
         return None          # rotulo que el generador no conoce: no se toca
 

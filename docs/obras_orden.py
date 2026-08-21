@@ -35,6 +35,11 @@ ORDEN_A_MANO = {
         'juan-valdez',
         'novotel',
         'fehgra',
+        # Orden marcado por el estudio el 21/08/2026 en la captura de la
+        # grilla: FEHGRA, Movistar Arena, Cien y Roket.
+        'movistar-arena',
+        'cien',
+        'roket',
     ))
 }
 

@@ -5,10 +5,11 @@
 1. Entrar en `https://estudiohma.com/admin`.
 2. Abrir **Obras** y elegir **Nueva obra**.
 3. Completar la ficha y guardarla como borrador.
-4. Cargar las fotos del cuerpo sin límite y hasta 30 imágenes en la galería. El panel las convierte a WebP y reduce su tamaño.
-5. Reordenar las imágenes y elegir una portada.
-6. Activar **Publicada** y guardar.
-7. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
+4. Si es una obra concluida con fotos reales, completar **Fotógrafo**. En proyectos y renders el campo no aparece en la ficha pública.
+5. Cargar las fotos del cuerpo sin límite y hasta 30 imágenes en la galería. El panel las convierte a WebP y reduce su tamaño.
+6. Reordenar las imágenes y elegir una portada.
+7. Activar **Publicada** y guardar.
+8. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
 
 ### Preparar las imágenes
 
@@ -28,7 +29,7 @@
 ## Obra existente
 
 Abrirla desde Obras, editar sus datos o galería y guardar. Las fotos históricas
-aparecen como una selección inicial de hasta 15; el sitio conserva su galería
+aparecen como una selección inicial de hasta 30; el sitio conserva su galería
 anterior hasta que se hace el primer cambio de fotos.
 
 ## Home y textos

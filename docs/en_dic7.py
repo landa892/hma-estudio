@@ -151,6 +151,7 @@ DIC.update({
     # --- rotulos de la ficha ---
     'Equipo': 'Team',
     'Fotografía': 'Photography',
+    'Fotógrafo': 'Photographer',
     'Dirección de obra:': 'Site management:',
     'Documentación de obra:': 'Construction documentation:',
     'Project manager:': 'Project manager:',
