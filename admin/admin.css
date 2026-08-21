@@ -14,6 +14,7 @@
      guardar sin publicar es un estado normal, solo hay que verlo. */
   --atencion: #8a5a00;
   --atencion-fondo: #fdf6e6;
+  --atencion-linea: #e7d5aa;
 }
 
 * { box-sizing: border-box; }
@@ -204,7 +205,11 @@ input:focus-visible {
   gap: 24px;
   margin: 18px 0 22px;
   padding: 14px 16px;
-  border-left: 3px solid var(--negro);
+  /* El mismo recuadro que .resumen y .tabla. Antes era un filete de 3 px en el
+     borde izquierdo, que en este archivo aparecia tres veces contra las
+     veinticinco del borde fino: la excepcion, no la convencion. */
+  border: 1px solid var(--linea);
+  border-radius: 8px;
   background: var(--blanco);
 }
 
@@ -227,7 +232,11 @@ input:focus-visible {
 .pendientes {
   margin: 18px 0 22px;
   padding: 14px 16px;
-  border-left: 3px solid var(--atencion);
+  /* Mismo recuadro que el resto del panel; lo que dice "esto pide atencion" es
+     el color, no el grosor: borde y fondo en la gama calida, y el titulo en
+     ambar. Asi se distingue de los otros dos avisos sin cambiar de forma. */
+  border: 1px solid var(--atencion-linea);
+  border-radius: 8px;
   background: var(--atencion-fondo);
 }
 
@@ -283,7 +292,7 @@ input:focus-visible {
    publicado" es justamente el dato que alguien viene a buscar. Pero baja el
    tono, que no compita con lo que si necesita atencion. */
 .pendientes--aldia {
-  border-left-color: var(--ok);
+  border-color: var(--linea);
   background: var(--blanco);
 }
 
@@ -551,7 +560,8 @@ select {
 .nota-flujo {
   margin: 0 0 18px;
   padding: 13px 15px;
-  border-left: 3px solid var(--negro);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
   background: var(--blanco);
   color: var(--gris);
   font-size: .84rem;
