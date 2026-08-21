@@ -1,5 +1,22 @@
+-- ANTES QUE NADA: esta migracion necesita es_admin_hma(), que crea la 0009.
+-- El 20/08/2026 se corrio aca y fallo con "function es_admin_hma() does not
+-- exist": la 0009 nunca se habia aplicado en la base del estudio, aunque la
+-- 0010, la 0011 y la 0012 si. Se saltea una y las siguientes no avisan.
+--
+-- El chequeo esta primero para que el error diga que hacer en vez de nombrar
+-- una funcion que nadie recuerda de donde sale.
+do $guarda$
+begin
+  if to_regprocedure('public.es_admin_hma()') is null then
+    raise exception
+      'Falta es_admin_hma(): corre antes 0009_seguridad_panel.sql y despues esta.';
+  end if;
+end
+$guarda$;
+
+
 -- Que el panel pueda avisar "esto lo guardaste y todavia no esta en la web".
--- Ejecutar despues de 0012_cupo_de_planos.sql.
+-- Ejecutar despues de 0009_seguridad_panel.sql y 0012_cupo_de_planos.sql.
 --
 -- El problema que resuelve: guardar y publicar son dos pasos distintos, y no
 -- hay nada que lo recuerde. Alguien edita una bajada un martes, cierra el

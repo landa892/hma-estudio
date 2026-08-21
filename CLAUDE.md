@@ -64,6 +64,29 @@ y di por hecho que alguien la había borrado del panel. Estaba intacta.
 
 Para cualquier cosa que involucre borradores, la fuente es el panel, no la API.
 
+### Las migraciones se aplican a mano, y una faltaba
+
+`supabase/migrations/` es el orden en que hay que correrlas, no la prueba de
+que se corrieron. Se ejecutan a mano en el editor SQL del panel de Supabase, y
+saltearse una no deja rastro: las siguientes se aplican igual.
+
+Pasó el 20/08/2026. La 0013 fallo con `function es_admin_hma() does not exist`
+porque la **0009 nunca se habia aplicado**, aunque la 0010, la 0011 y la 0012
+si. Mientras tanto la base siguio con las reglas de escritura de la 0001, que
+son mucho mas abiertas que las que el repositorio da por hechas.
+
+Antes de dar por sentado que una migracion esta puesta, preguntarle a la base.
+Con la clave publicable alcanza para ver si existe una columna o una tabla:
+
+```bash
+curl -s -H "apikey: $CLAVE" "$URL/rest/v1/obras?select=ultimo_cambio&limit=1"
+# 400 con "column obras.ultimo_cambio does not exist" -> la 0013 no esta
+```
+
+La 0013 arranca con un `do $$` que revienta con un mensaje en castellano si le
+falta la 0009. Vale la pena repetir ese patron en cualquier migracion que
+dependa de otra.
+
 ### Guardar y publicar son dos pasos, y el panel ahora lo dice
 
 La confusión más cara del panel: alguien guarda una bajada, entra al sitio y la
