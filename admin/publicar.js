@@ -48,6 +48,9 @@
       setTimeout(function () {
         boton.disabled = false;
         boton.textContent = 'Publicar cambios';
+        // A esta altura el build deberia haber terminado y anotado la
+        // publicacion, asi que el aviso de cambios pendientes ya puede irse.
+        if (window.PENDIENTES) PENDIENTES.revisar();
       }, 120000);
     }).catch(function (e) {
       boton.disabled = false;

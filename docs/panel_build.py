@@ -75,6 +75,9 @@ PASOS = [
     ('el orden cronologico',         'obras_orden.py',   []),
     ('los datos estructurados SEO',  'seo_gen.py',       []),
     ('el sitemap',                   'sitemap_gen.py',   []),
+    # Ultimo: deja anotada la fecha contra la que el panel compara para
+    # avisar que hay cambios guardados sin publicar. Ver panel_publicado.py.
+    ('la marca de publicado',        'panel_publicado.py', []),
 ]
 
 

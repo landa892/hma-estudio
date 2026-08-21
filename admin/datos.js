@@ -81,14 +81,36 @@
   }
 
   function crearObra(obra) {
-    return llamar('/obras', { method: 'POST', body: obra, devolver: true })
-      .then(function (filas) { return filas[0]; });
+    return sinColumnaNueva(obra, function (cuerpo) {
+      return llamar('/obras', { method: 'POST', body: cuerpo, devolver: true });
+    }).then(function (filas) { return filas[0]; });
   }
 
   function actualizarObra(id, cambios) {
-    return llamar('/obras?id=eq.' + encodeURIComponent(id),
-      { method: 'PATCH', body: cambios, devolver: true })
-      .then(function (filas) { return filas[0]; });
+    return sinColumnaNueva(cambios, function (cuerpo) {
+      return llamar('/obras?id=eq.' + encodeURIComponent(id),
+        { method: 'PATCH', body: cuerpo, devolver: true });
+    }).then(function (filas) { return filas[0]; });
+  }
+
+  /* ultimo_cambio es la frase que alimenta el aviso de cambios sin publicar, y
+     la agrego la migracion 0013. El panel se publica con un deploy y la
+     migracion se corre a mano, asi que hay una ventana en la que el codigo ya
+     manda la columna y la base todavia no la tiene. Sin esto, en esa ventana
+     no se podria guardar ninguna obra: la base rechaza el cuerpo entero por un
+     campo que solo sirve para un cartel.
+
+     Se reintenta una vez sin el campo. Cuando la migracion este corrida esto
+     no se ejecuta nunca. */
+  function sinColumnaNueva(cuerpo, enviar) {
+    return enviar(cuerpo).catch(function (e) {
+      if (!/ultimo_cambio/.test(e.message) || !('ultimo_cambio' in cuerpo)) throw e;
+      var copia = {};
+      Object.keys(cuerpo).forEach(function (k) {
+        if (k !== 'ultimo_cambio') copia[k] = cuerpo[k];
+      });
+      return enviar(copia);
+    });
   }
 
   /* Borrar la obra borra sus filas de imagenes por el cascade, pero NO los
@@ -140,6 +162,40 @@
     });
   }
 
+  /* --- lo guardado que todavia no esta en la web ------------------------- */
+
+  /* El sitio publico son archivos, asi que guardar no alcanza: hasta que
+     alguien aprieta "Publicar cambios" y el build corre, lo guardado vive solo
+     en la base. Estas dos funciones son las que dejan avisarlo.
+
+     La fecha contra la que se compara la escribe el ultimo paso del build
+     (docs/panel_publicado.py), no el boton: si el build falla, no hay marca y
+     el aviso se queda puesto, que es lo correcto. */
+
+  function ultimaPublicacion() {
+    return llamar('/publicaciones?select=publicada_en&order=publicada_en.desc&limit=1')
+      .then(function (filas) {
+        return filas && filas.length ? filas[0].publicada_en : null;
+      });
+  }
+
+  /* Obras y textos tocados despues de esa fecha. Las obras traen ultimo_cambio,
+     que es la frase que escribio el panel al guardar ("la bajada y el año") o
+     el trigger de la galeria ("las fotos"). Puede venir vacia -por ejemplo si
+     el cambio lo hizo el generador- y el aviso funciona igual, sin el detalle. */
+  function cambiosSinPublicar(desde) {
+    if (!desde) return Promise.resolve({ obras: [], textos: [] });
+    var d = encodeURIComponent(desde);
+    return Promise.all([
+      llamar('/obras?select=id,slug,titulo,ultimo_cambio,updated_at'
+        + '&updated_at=gt.' + d + '&order=updated_at.desc'),
+      llamar('/textos?select=clave,rotulo,seccion,updated_at'
+        + '&updated_at=gt.' + d + '&order=updated_at.desc'),
+    ]).then(function (r) {
+      return { obras: r[0] || [], textos: r[1] || [] };
+    });
+  }
+
   /* --- utilidades ------------------------------------------------------- */
 
   /* La direccion web de la obra. Se propone a partir del titulo pero queda
@@ -185,6 +241,8 @@
     borrarObra: borrarObra,
     listarImagenes: listarImagenes,
     borrarArchivos: borrarArchivos,
+    ultimaPublicacion: ultimaPublicacion,
+    cambiosSinPublicar: cambiosSinPublicar,
     proponerSlug: proponerSlug,
     ESTADOS: ESTADOS,
     CATEGORIAS: CATEGORIAS,

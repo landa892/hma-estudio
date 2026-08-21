@@ -10,6 +10,10 @@
   --blanco: #fff;
   --error: #b3261e;
   --ok: #1c6b3a;
+  /* Para lo que hay que hacer y todavia no se hizo. No es un error:
+     guardar sin publicar es un estado normal, solo hay que verlo. */
+  --atencion: #8a5a00;
+  --atencion-fondo: #fdf6e6;
 }
 
 * { box-sizing: border-box; }
@@ -208,6 +212,76 @@ input:focus-visible {
 .pasos-panel p { margin: 0; color: var(--gris); font-size: .84rem; }
 .pasos-panel a { color: var(--negro); font-size: .84rem; white-space: nowrap; }
 
+/* El cartel de la ficha: hay algo tocado que todavia no se guardo. Es al lado
+   del boton Guardar, asi que tiene que caber en una linea. */
+.sin-guardar {
+  color: var(--atencion);
+  font-size: .84rem;
+  font-weight: 600;
+}
+
+/* --- cambios guardados sin publicar --------------------------------------- */
+
+/* El aviso que nombra lo que quedo en la base y todavia no salio a la web.
+   Vive arriba del listado, cerca del boton que lo resuelve. */
+.pendientes {
+  margin: 18px 0 22px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--atencion);
+  background: var(--atencion-fondo);
+}
+
+.pendientes__titulo {
+  margin: 0 0 8px;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--atencion);
+}
+
+.pendientes__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.pendientes__lista li { font-size: .88rem; }
+
+.pendientes__lista a {
+  color: var(--negro);
+  text-decoration-color: var(--linea);
+  text-underline-offset: 3px;
+}
+
+.pendientes__lista a:hover,
+.pendientes__lista a:focus-visible { text-decoration-color: currentColor; }
+
+.pendientes__cuando,
+.pendientes__mas { color: var(--gris); font-size: .82rem; }
+.pendientes__cuando { margin-left: 6px; }
+
+.pendientes__pie {
+  margin: 10px 0 0;
+  color: var(--gris);
+  font-size: .82rem;
+}
+
+/* Cuando no hay nada pendiente el aviso no desaparece: decir "esta todo
+   publicado" es justamente el dato que alguien viene a buscar. Pero baja el
+   tono, que no compita con lo que si necesita atencion. */
+.pendientes--aldia {
+  border-left-color: var(--ok);
+  background: var(--blanco);
+}
+
+.pendientes--aldia .pendientes__titulo {
+  margin: 0;
+  font-weight: 400;
+  color: var(--gris);
+}
+
 .herramientas {
   display: flex;
   gap: 12px;
@@ -383,6 +457,7 @@ select {
 
   .resumen { grid-template-columns: repeat(2, 1fr); }
   .pasos-panel { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .pendientes__lista { gap: 6px; flex-direction: column; }
   .resumen__dato:nth-child(2) { border-right: 0; }
   .resumen__dato:nth-child(-n + 2) { border-bottom: 1px solid var(--linea); }
 
@@ -729,6 +804,14 @@ textarea:focus-visible {
   .foto__accion {
     padding: 12px 6px;
     font-size: .82rem;
+  }
+
+  /* Los nombres del aviso son enlaces a la ficha. En una linea de texto miden
+     19 px de alto, que con el dedo se erra. El inline-block es lo que hace que
+     el relleno cuente para el area que se toca. */
+  .pendientes__lista a {
+    display: inline-block;
+    padding: 5px 0;
   }
 }
 

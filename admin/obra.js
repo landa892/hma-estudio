@@ -124,6 +124,67 @@
     return o;
   }
 
+  /* --- que cambio ------------------------------------------------------- */
+
+  /* Como se llama cada campo cuando hay que nombrarlo en una frase. Sirve para
+     dos cosas: el aviso de "sin guardar" de esta pantalla y la frase que se
+     guarda en la base para que el listado pueda decir "Roket (la bajada)". */
+  var NOMBRES = {
+    titulo: 'el título',
+    slug: 'la dirección web',
+    ubicacion: 'la ubicación',
+    pais: 'el país',
+    anio: 'el año',
+    superficie: 'la superficie',
+    comitente: 'el comitente',
+    tipologia: 'el tipo',
+    categoria: 'la categoría',
+    equipo: 'el equipo',
+    bajada: 'la bajada',
+    memoria: 'la memoria',
+    memoria_en: 'la memoria en inglés',
+    estado: 'el estado',
+    destacada: 'si va al home',
+    banner_rotulo: 'el rótulo del banner',
+    banner_rotulo_en: 'el rótulo del banner en inglés',
+    publicada: 'la publicación',
+  };
+
+  function camposCambiados() {
+    if (esNueva) return [];
+    var ahora = recoger();
+    var antes = comparable(original);
+    return Object.keys(ahora).filter(function (k) {
+      return JSON.stringify(ahora[k]) !== JSON.stringify(antes[k]);
+    });
+  }
+
+  /* "la bajada y el año", "el título, la memoria y 3 campos más". Se corta en
+     tres porque el aviso vive en una linea al lado del boton. */
+  function enPalabras(campos) {
+    var nombres = campos.map(function (k) { return NOMBRES[k] || k; });
+    if (!nombres.length) return '';
+    if (nombres.length > 3) {
+      var resto = nombres.length - 2;
+      nombres = nombres.slice(0, 2).concat(
+        [resto + (resto === 1 ? ' campo más' : ' campos más')]);
+    }
+    if (nombres.length === 1) return nombres[0];
+    return nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1];
+  }
+
+  /* El cartelito al lado de Guardar. */
+  function verSinGuardar() {
+    var el = $('sinGuardar');
+    var campos = esNueva ? [] : camposCambiados();
+    var hay = esNueva ? hayCambios() : campos.length > 0;
+    el.classList.toggle('oculto', !hay);
+    if (!hay) return;
+    el.textContent = esNueva
+      ? 'Sin guardar'
+      : 'Sin guardar: ' + enPalabras(campos);
+  }
+
   /* --- validacion ------------------------------------------------------- */
 
   function validar(o) {
@@ -213,6 +274,15 @@
     $('guardar').textContent = 'Guardando…';
     avisar('', 'ok');
 
+    // Que se toco, en castellano, para que el listado pueda decir "Roket (la
+    // bajada)". Se calcula antes de guardar, que es cuando todavia hay contra
+    // que comparar, y se suma al cuerpo despues de validar: recoger() no lo
+    // devuelve a proposito, porque entonces hayCambios() compararia un campo
+    // que el formulario no muestra y la obra se veria siempre modificada.
+    o.ultimo_cambio = esNueva
+      ? 'la obra nueva'
+      : (enPalabras(camposCambiados()) || null);
+
     var promesa = validarRelacionados(o).then(function () {
       return esNueva
         ? DATOS.crearObra(o)
@@ -236,6 +306,7 @@
         GALERIA.iniciar(id);
       }
       actualizarEnlacePublico();
+      verSinGuardar();
       avisar(o.publicada
         ? 'Guardada. Para verla en el sitio, publicá los cambios desde Obras.'
         : 'Guardada como borrador.', 'ok');
@@ -280,6 +351,11 @@
     $('destacada').addEventListener('change', verBanner);
     $('publicada').addEventListener('change', actualizarEnlacePublico);
     $('formObra').addEventListener('submit', guardar);
+
+    // Un solo escuchador para todo el formulario. input cubre lo que se
+    // escribe y change lo que se elige o se tilda.
+    $('formObra').addEventListener('input', verSinGuardar);
+    $('formObra').addEventListener('change', verSinGuardar);
 
     // Salir con cambios sin guardar es la forma mas facil de perder una
     // memoria entera recien escrita.

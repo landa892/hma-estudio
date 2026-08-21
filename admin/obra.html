@@ -283,6 +283,10 @@
         <a class="boton boton--compacto boton--claro oculto" href="#" id="verObra"
           target="_blank" rel="noopener">Ver obra</a>
         <a class="enlace" href="/admin/obras" id="cancelar">Cancelar</a>
+        <!-- Aparece en cuanto se toca algo y nombra que se toco. Sin esto el
+             unico aviso de que hay cambios sin guardar llega al salir de la
+             pagina, cuando ya es tarde para leerlo con calma. -->
+        <span class="sin-guardar oculto" id="sinGuardar"></span>
         <span class="aviso" id="aviso" role="status" aria-live="polite"></span>
       </div>
     </form>
