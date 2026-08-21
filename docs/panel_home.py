@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Pone en los banners del home las obras que el estudio marco como destacadas.
 
-   La casilla "destacada" del panel se guardaba y no cambiaba nada. El home
-   cierra con tres banners de obra —Indusparquet, Parfumerie y Hyatt Ziva hoy— y
-   no habia forma de cambiar cual sale.
+   La casilla "destacada" del panel se guardaba y no cambiaba nada. Cuando el
+   home incluye banners de obra, este paso mantiene hasta tres sincronizados
+   con la seleccion del estudio.
 
    Lo que hace: toma las obras publicadas y destacadas, ordenadas por su orden, y
    reescribe esos tres banners con la primera, la segunda y la tercera.
@@ -49,8 +49,8 @@ HOME = os.path.join(RAIZ, 'index.html')
 DESTINO_EN = os.path.join(RAIZ, 'docs', 'en_textos_banner.json')
 PORTADAS_PANEL = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 
-# Cuantos banners de este molde hay en el home. Si algun dia se suma o se saca
-# uno, este numero y el home se mueven juntos.
+# Cuantos banners admite el molde cuando esta presente. El cliente pidio sacar
+# los tres del Inicio el 21/08/2026; cero banners es por eso un estado valido.
 RANURAS = 3
 
 
@@ -204,6 +204,12 @@ def main(verificar, supabase):
 
     html = io.open(HOME, encoding='utf-8').read()
     idents = BANNER.findall(html)
+    if not idents:
+        print('\nEl home no incluye banners de obra: se conserva la seleccion '
+              'del panel sin mostrarla en Inicio.')
+        if not verificar:
+            io.open(DESTINO_EN, 'w', encoding='utf-8', newline='\n').write('{}\n')
+        return 0
     if len(idents) != RANURAS:
         print('\nERROR: encontre %d banners de este molde en el home y esperaba '
               '%d. No se toca nada.' % (len(idents), RANURAS))
