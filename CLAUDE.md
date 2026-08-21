@@ -232,6 +232,29 @@ Dos cosas que hace y conviene no romper:
   `docs/panel_datos.json`) y saca de las fichas las figuras cuyo archivo ya no
   existe. Sin eso, borrar un archivo deja una imagen rota: pasó con 18.
 
+### Rehacer una galería renumera los archivos, y eso miente
+
+`drive_sync.py` deja la carpeta con `1.webp … N.webp`. Si antes había otra
+cantidad, **los mismos nombres pasan a ser otras fotos**, y todo lo que hable de
+"6.webp" empieza a mentir sin avisar. Pasó con Abasto el 20/08/2026: las doce
+exclusiones que `galeria_repetidas.json` tenía calculadas sobre las dieciséis
+fotos viejas taparon fotos nuevas que no tenían nada que ver, y la ficha quedó
+mostrando dos de cinco.
+
+Después de rehacer una galería van dos pasos, siempre:
+
+```bash
+python docs/galeria_repetidas.py       # compara imagenes, no nombres
+python docs/ficha_desde_base.py <slug> # escribe la ficha con lo que dice la base
+```
+
+El segundo existe porque `panel_galerias` **no reescribe** las fichas cuyas
+filas son todas `@seed:` —esa galería es la selección heredada y pisarla en el
+build borraría lo que el estudio eligió—. `sacar_figuras_huerfanas()` saca las
+figuras cuyo archivo ya no está, pero no agrega las que faltan, así que la mitad
+que suma hay que correrla a mano. Usa `actualizar_pagina()`, la misma función
+del build, para que el marcado salga idéntico al de las demás fichas.
+
 ### Sacar una foto de una galería
 
 Dos listas:
