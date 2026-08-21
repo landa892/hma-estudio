@@ -34,6 +34,8 @@ LISTADO = os.path.join(RAIZ, 'prensa', 'index.html')
 MOLDE = os.path.join(RAIZ, 'proyectos', 'nim-bar', 'index.html')
 IMAGENES = os.path.join(RAIZ, 'assets', 'prensa')
 SITIO = 'https://estudiohma.com'
+TARJETAS_INICIO = '<!-- PRENSA-TARJETAS-INICIO -->'
+TARJETAS_FIN = '<!-- PRENSA-TARJETAS-FIN -->'
 
 
 def e(texto):
@@ -145,11 +147,13 @@ def galeria(nota):
         m = medidas(os.path.join(carpeta, nombre))
         if not m:
             continue
+        carga = 'eager' if i == 1 else 'lazy'
         fotos.append(
             '          <figure class="gallery-grid__item"><img '
             'src="/assets/prensa/%s/%s" width="%d" height="%d" alt="%s — '
-            'imagen %d" loading="lazy" decoding="async"></figure>'
-            % (nota['slug'], nombre, m[0], m[1], ea(nota['titulo']), i))
+            'imagen %d" loading="%s" decoding="async"></figure>'
+            % (nota['slug'], nombre, m[0], m[1], ea(nota['titulo']), i,
+               carga))
     if not fotos:
         return ''
     return ('\n    <section class="section no-border" id="galeria">\n'
@@ -203,42 +207,39 @@ def nombre_de_obra(slug):
     return nombre
 
 
-def enlazar_tarjetas(notas, verificar):
-    """Cada tarjeta del listado pasa a llevar a la pagina de su nota."""
+def tarjeta(nota):
+    """Tarjeta de portada generada desde la misma fuente que su ficha."""
+    tapa = nota.get('tapa') or ''
+    ruta_tapa = os.path.join(RAIZ, tapa.lstrip('/').replace('/', os.sep))
+    m = medidas(ruta_tapa) or (900, 600)
+    pais = (' — ' + nota['pais']) if nota.get('pais') else ''
+    return ('              <a class="press-card" href="/prensa/%s/">\n'
+            '                <div class="press-img"><img src="%s" width="%d" height="%d" '
+            'alt="%s%s" loading="lazy" decoding="async"></div>\n'
+            '                <div class="press-body">\n'
+            '                  <div class="press-outlet">%s%s</div>\n'
+            '                  <div class="press-title">%s</div>\n'
+            '                  <div class="press-date">%s</div>\n'
+            '                </div>\n'
+            '              </a>'
+            % (nota['slug'], ea(tapa), m[0], m[1], ea(nota['medio']),
+               ea(pais), e(nota['medio']), e(pais), e(nota['titulo']),
+               e(nota.get('fecha', ''))))
+
+
+def actualizar_tarjetas(notas, verificar):
+    """Rehace las tapas sin depender de cierres HTML heredados a mano."""
     html = io.open(LISTADO, encoding='utf-8').read()
-    inicio = html.index('press-featured')
-    fin = html.index('PRENSA-ARCHIVO')
-    tramo = html[inicio:fin]
-
-    cortes = [m.start() for m in
-              re.finditer(r'<(?:a|div)[^>]*class="press-card"', tramo)]
-    cortes.append(len(tramo))
-    por_titulo = {n['titulo']: n for n in notas}
-
-    piezas, cambios = [tramo[:cortes[0]]], []
-    for i in range(len(cortes) - 1):
-        bloque = tramo[cortes[i]:cortes[i + 1]]
-        m = re.search(r'class="press-title"[^>]*>([^<]*)', bloque)
-        nota = por_titulo.get(m.group(1).strip()) if m else None
-        if not nota:
-            piezas.append(bloque)
-            continue
-        destino = '/prensa/%s/' % nota['slug']
-        # La tarjeta puede venir como <div> (las que no abrian nada) o como
-        # <a> apuntando al medio; en los dos casos pasa a abrir la pagina.
-        nuevo = re.sub(r'^<(?:a|div)[^>]*class="press-card"[^>]*>',
-                       '<a class="press-card" href="%s">' % destino,
-                       bloque, count=1)
-        nuevo = re.sub(r'</div>(\s*)$', r'</a>\1', nuevo, count=1)
-        if nuevo != bloque:
-            cambios.append(nota['slug'])
-        piezas.append(nuevo)
-
-    nuevo_tramo = ''.join(piezas)
-    if nuevo_tramo != tramo and not verificar:
-        io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(
-            html[:inicio] + nuevo_tramo + html[fin:])
-    return cambios
+    if TARJETAS_INICIO not in html or TARJETAS_FIN not in html:
+        raise SystemExit('Faltan las marcas de tarjetas en prensa/index.html')
+    bloque = (TARJETAS_INICIO + '\n' + '\n'.join(tarjeta(n) for n in notas)
+              + '\n              ' + TARJETAS_FIN)
+    patron = re.escape(TARJETAS_INICIO) + r'.*?' + re.escape(TARJETAS_FIN)
+    nuevo = re.sub(patron, lambda _: bloque, html, count=1, flags=re.S)
+    cambio = nuevo != html
+    if cambio and not verificar:
+        io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(nuevo)
+    return len(notas) if cambio else 0
 
 
 def main(verificar):
@@ -267,11 +268,11 @@ def main(verificar):
                 os.makedirs(carpeta)
             io.open(ruta, 'w', encoding='utf-8', newline='\n').write(pagina)
 
-    enlaces = enlazar_tarjetas(notas, verificar)
+    tarjetas = actualizar_tarjetas(notas, verificar)
 
     print('notas: %d   paginas escritas: %d   con galeria: %d'
           % (len(notas), len(escritas), con_galeria))
-    print('tarjetas enlazadas a su pagina: %d' % len(enlaces))
+    print('tarjetas de portada actualizadas: %d' % tarjetas)
     if sin_link:
         print('\nsin link a la nota online (no llevan la fila "Link"): %s'
               % ', '.join(sin_link))
