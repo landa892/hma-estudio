@@ -223,6 +223,16 @@ DIC.update({
         'Accor Hotels Design &amp; Technical Summit',
     'German Design Awards · SBID · Restaurant &amp; Bar Design Awards':
         'German Design Awards · SBID · Restaurant &amp; Bar Design Awards',
+
+    # Banco Supervielle entra desde la base durante el build: su pagina no
+    # existe todavia cuando se genera el espejo local por primera vez.
+    'Banco Supervielle': 'Banco Supervielle',
+    'Banco y Workplace': 'Banking and Workplace',
+    'Provincia de Buenos Aires': 'Buenos Aires Province',
+    'Las nuevas oficinas del banco, en lamas de madera y curvas cálidas.':
+        "The bank's new offices, shaped by timber slats and warm curves.",
+    'S. Fernández 198 esq. Laprida San Isidro, Provincia de Buenos Aires':
+        'S. Fernandez 198 at Laprida, San Isidro, Buenos Aires Province',
 })
 
 # La lupa de Trabajos y del archivo de prensa. El placeholder dice solo
