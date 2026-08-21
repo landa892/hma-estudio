@@ -1,17 +1,6 @@
 {
  "abasto-patio-comidas": [
-  "3.webp",
-  "4.webp",
-  "6.webp",
-  "7.webp",
-  "8.webp",
-  "9.webp",
-  "10.webp",
-  "11.webp",
-  "12.webp",
-  "13.webp",
-  "14.webp",
-  "16.webp"
+  "2.webp"
  ],
  "accor-hotels": [
   "2.webp"
@@ -27,6 +16,9 @@
  ],
  "atelier-vilela": [
   "1.webp"
+ ],
+ "banco-supervielle": [
+  "4.webp"
  ],
  "benedetta": [
   "13.webp"

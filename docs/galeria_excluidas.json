@@ -5,11 +5,5 @@
    "archivo": "1.webp",
    "por_que": "Es el mismo salon y el mismo angulo que la caratula: la misma arana y la misma perspectiva, una con gente y otra vacia. No son la misma foto -se parecen 0,70, lejos del 0,99 que busca galeria_repetidas.py- pero en la ficha salen una detras de la otra. El cliente lo marco el 20/08/2026: \"foto muy repetitiva\". Queda la caratula, que es la que tiene gente."
   }
- ],
- "abasto-patio-comidas": [
-  {
-   "archivo": "2.webp",
-   "por_que": "Es la caratula, guardada dos veces: el Drive la tiene como 01-Pics/ABASTO_02.png y otra vez como 03-Caratula/\"Copia de ABASTO_02.png\". Se parecen 1,0000. En la ficha salia la misma imagen dos veces, que es lo que el cliente marco en Roket el 20/08/2026 como \"foto muy repetitiva\". Queda la caratula; el archivo no se borra para no correr la numeracion de la galeria."
-  }
  ]
 }
