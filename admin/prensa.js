@@ -280,12 +280,24 @@
 
   function pintarLista() {
     var lista = $('listaPrensa');
+    var consulta = (($('buscarPrensa') && $('buscarPrensa').value) || '')
+      .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     lista.textContent = '';
     if (!filas.length) {
       lista.textContent = 'Todavía no hay publicaciones cargadas.';
       return;
     }
-    filas.forEach(function (fila) {
+    var visibles = filas.filter(function (fila) {
+      if (!consulta) return true;
+      return [fila.titulo, fila.medio, fila.pais, fila.fecha, fila.obra]
+        .join(' ').toLowerCase().normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '').indexOf(consulta) !== -1;
+    });
+    if (!visibles.length) {
+      lista.textContent = 'No hay publicaciones que coincidan con la búsqueda.';
+      return;
+    }
+    visibles.forEach(function (fila) {
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'prensa-admin-item';
@@ -410,6 +422,7 @@
       HMA.salir().then(function () { location.replace('/admin/'); });
     });
     $('nueva').addEventListener('click', limpiar);
+    $('buscarPrensa').addEventListener('input', pintarLista);
     $('formPrensa').addEventListener('submit', guardar);
     $('eliminar').addEventListener('click', eliminar);
     $('titulo').addEventListener('input', function () {

@@ -38,6 +38,24 @@ Sólo puede haber tres obras destacadas. Una destacada debe estar publicada y
 tener rótulo de banner en castellano e inglés. Los textos de Home, Estudio y
 Contacto se editan desde **Textos**.
 
+Las tarjetas de Instagram, LinkedIn y YouTube se revisan desde **Novedades**.
+LinkedIn y YouTube intentan mostrar la publicación más reciente de manera
+automática; los datos del panel funcionan como respaldo si la red no responde.
+
+## Prensa
+
+1. Entrar en **Prensa** y usar el buscador para encontrar una publicación.
+2. Completar título, medio, fecha, tipo y año. El orden menor aparece primero.
+3. Si existe una nota original, pegar su enlace externo: la tarjeta abrirá esa
+   página directamente.
+4. Si no existe un enlace externo, cargar una portada y las capturas legibles;
+   el sitio creará una página interna para recorrerlas.
+5. Guardar y pulsar **Publicar cambios** desde el listado de Obras.
+
+Las imágenes de prensa siguen las mismas recomendaciones de calidad que las
+obras. Para páginas escaneadas conviene usar archivos verticales de al menos
+1400 px de alto, sin bordes del navegador ni capturas de WhatsApp.
+
 ## Borradores y acceso
 
 Una obra sin **Publicada** no aparece en el sitio. Para retirarla temporalmente,

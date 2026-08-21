@@ -45,7 +45,7 @@ def desde_supabase():
     clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
     if not url or not clave:
         raise SystemExit('Faltan SUPABASE_URL y SUPABASE_SERVICE_KEY en el entorno.')
-    campos = 'slug,titulo,categoria,publicada,anio,superficie,ubicacion,tipologia'
+    campos = 'slug,titulo,categoria,publicada,anio,superficie,ubicacion,tipologia,orden'
     pedido = urllib.request.Request(
         url + '/rest/v1/obras?select=' + campos + '&publicada=is.true',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
@@ -89,6 +89,15 @@ def reemplazar_clase(html, clase, obras):
         rotulo = escapar(CAT_ROTULO.get(cat, ''))
         cat_actual = (re.search(r'data-cat="([^"]*)"', bloque) or [None, ''])[1]
         nuevo = bloque
+        orden = o.get('orden')
+        if orden is not None:
+            if 'data-order=' in nuevo:
+                nuevo = re.sub(r'data-order="[^"]*"', 'data-order="%s"' % orden,
+                               nuevo, count=1)
+            else:
+                nuevo = nuevo.replace('data-slug="%s"' % slug_m.group(1),
+                                      'data-slug="%s" data-order="%s"'
+                                      % (slug_m.group(1), orden), 1)
         if cat_actual != cat:
             nuevo = re.sub(r'data-cat="[^"]*"', 'data-cat="%s"' % cat,
                            nuevo, count=1)

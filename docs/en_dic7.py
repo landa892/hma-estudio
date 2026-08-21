@@ -281,6 +281,13 @@ DIC.update({
     'EE.UU.': 'USA',
     'Reino Unido': 'United Kingdom',
     u'España': 'Spain',
+    u'Nuestro proyecto VIP Lounge Movistar Arena fue distinguido con una Mención Especial en la categoría Commercial Interiors de los Architizer A+ Awards 2026.':
+        'Our VIP Lounge Movistar Arena project received a Special Mention in the Commercial Interiors category of the 2026 Architizer A+ Awards.',
+    u'Leonardo Militello y Fernando Hitzig repasan dos décadas de trayectoria y el proceso creativo del espacio VIP gastronómico del Movistar Arena.':
+        'Leonardo Militello and Fernando Hitzig look back on two decades of work and the creative process behind the Movistar Arena VIP hospitality space.',
+    u'Leonardo Militello y Fernando Hitzig cuentan cómo diseñan espacios que generan experiencia.':
+        'Leonardo Militello and Fernando Hitzig explain how they design experience-led spaces.',
+    u'Conferencias y prensa': 'Conferences and press',
 })
 
 # La descripcion de cada nota de prensa: "<titular> en <medio>, <Mes> <ano>.".

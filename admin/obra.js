@@ -298,9 +298,16 @@
       : (enPalabras(camposCambiados()) || null);
 
     var promesa = validarRelacionados(o).then(function () {
-      return esNueva
-        ? DATOS.crearObra(o)
-        : DATOS.actualizarObra(id, o);
+      if (!esNueva) return DATOS.actualizarObra(id, o);
+      // Una obra nueva entra al final del orden que ve el estudio. Si quedara
+      // null, el panel y el sitio no tendrian una posicion comun que mover.
+      return DATOS.listarObras().then(function (obras) {
+        o.orden = obras.reduce(function (maximo, obra) {
+          var n = Number(obra.orden);
+          return Number.isFinite(n) ? Math.max(maximo, n) : maximo;
+        }, -1) + 1;
+        return DATOS.crearObra(o);
+      });
     });
 
     promesa.then(function (fila) {

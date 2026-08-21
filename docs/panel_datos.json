@@ -98,7 +98,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 9,
+  "orden": -12,
   "premios": null,
   "portada": "/assets/covers/aire-libre.webp",
   "galeria": [
@@ -330,7 +330,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 10,
+  "orden": -11,
   "premios": null,
   "portada": "/assets/covers/bienal-venecia.webp",
   "galeria": [
@@ -546,7 +546,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 4,
+  "orden": -16,
   "premios": null,
   "portada": "/assets/covers/cceba.webp",
   "galeria": [
@@ -584,7 +584,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 1,
+  "orden": -18,
   "premios": null,
   "portada": "/assets/covers/cerveceria-austral.webp",
   "galeria": [
@@ -628,7 +628,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 18,
+  "orden": -2,
   "premios": "Surface Design Awards",
   "portada": "/assets/covers/cien.webp",
   "galeria": [
@@ -765,7 +765,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 11,
+  "orden": -10,
   "premios": null,
   "portada": "/assets/covers/edificio-del-plata.webp",
   "galeria": [
@@ -855,7 +855,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 12,
+  "orden": -4,
   "premios": null,
   "portada": "/assets/covers/fehgra.webp",
   "galeria": [
@@ -1133,7 +1133,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": true,
-  "orden": 13,
+  "orden": -8,
   "premios": null,
   "portada": "/assets/covers/hyatt-ziva.webp",
   "galeria": [
@@ -1230,7 +1230,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": true,
-  "orden": 2,
+  "orden": -19,
   "premios": null,
   "portada": "/assets/covers/indusparquet.webp",
   "galeria": [
@@ -1277,7 +1277,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 3,
+  "orden": -17,
   "premios": null,
   "portada": "/assets/covers/iol.webp",
   "galeria": [
@@ -1313,7 +1313,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 14,
+  "orden": -6,
   "premios": null,
   "portada": "/assets/covers/juan-valdez.webp",
   "galeria": [
@@ -1758,7 +1758,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 15,
+  "orden": -3,
   "premios": "Architizer A+ · LIV Hospitality Design Awards",
   "portada": "/assets/covers/movistar-arena.webp",
   "galeria": [
@@ -1849,7 +1849,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 16,
+  "orden": -5,
   "premios": "Accor Hotels Design & Technical Summit",
   "portada": "/assets/covers/novotel.webp",
   "galeria": [
@@ -1936,7 +1936,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 5,
+  "orden": -13,
   "premios": "Casa FOA 2025",
   "portada": "/assets/covers/osten-foa.webp",
   "galeria": [
@@ -1989,7 +1989,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 0,
+  "orden": -9,
   "premios": null,
   "portada": "/assets/covers/osten-tower.webp",
   "galeria": [
@@ -2076,7 +2076,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": true,
-  "orden": 6,
+  "orden": -14,
   "premios": null,
   "portada": "/assets/covers/parfumerie.webp",
   "galeria": [
@@ -2118,7 +2118,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 7,
+  "orden": -7,
   "premios": null,
   "portada": "/assets/covers/people.webp",
   "galeria": [
@@ -2293,7 +2293,7 @@
   "estado": "concluida",
   "publicada": true,
   "destacada": false,
-  "orden": 17,
+  "orden": -1,
   "premios": null,
   "portada": "/assets/covers/roket.webp",
   "galeria": [
@@ -2372,7 +2372,7 @@
   "estado": "en_proyecto",
   "publicada": true,
   "destacada": false,
-  "orden": 8,
+  "orden": -15,
   "premios": null,
   "portada": "/assets/covers/templo-mikdash.webp",
   "galeria": [
@@ -2753,7 +2753,7 @@
    "6.webp"
   ],
   "portada": "/assets/covers/banco-supervielle.webp",
-  "orden": 0,
+  "orden": -20,
   "banner_rotulo": null,
   "banner_rotulo_en": null,
   "fotografia": null,

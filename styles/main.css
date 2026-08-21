@@ -744,18 +744,25 @@ footer.site-footer {
    es blanco y el video tiene paredes y ventanas a contraluz. */
 .hero-logo {
   display: block;
-  width: min(92%, clamp(260px, 58vw, 860px));
+  width: min(92%, 760px);
   height: auto;
   margin-bottom: 22px;
   color: var(--white);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .85)) drop-shadow(0 2px 12px rgba(0, 0, 0, .55));
 }
 
-/* El titulo pasa a segundo bloque. El limite de caracteres por linea es lo
-   que lo mantiene en dos lineas y por debajo del logo tambien de ancho. */
+/* Logo, titular y bajada comparten eje. El titular queda en una sola linea,
+   como marco el estudio, sin competir con la marca. */
 .hero-home--photo h1 {
-  font-size: clamp(1.35rem, 3.6vw, 3.2rem);
-  max-width: 16ch;
+  width: min(92%, 760px);
+  max-width: none;
+  font-size: 2.65rem;
+  white-space: nowrap;
+}
+
+.hero-home--photo .lede {
+  width: min(92%, 760px);
+  max-width: 760px;
 }
 
 /* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com
@@ -888,7 +895,7 @@ footer.site-footer {
 }
 
 .project-banner--split {
-  min-height: 100vh;
+  min-height: 82vh;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
@@ -899,7 +906,7 @@ footer.site-footer {
 
 .project-banner--split__media,
 .project-banner--split__copy {
-  min-height: 100vh;
+  min-height: 82vh;
   display: flex;
   align-items: center;
 }
@@ -964,7 +971,7 @@ footer.site-footer {
 
 .project-banner--youtube__media {
   position: relative;
-  min-height: 100vh;
+  min-height: 82vh;
   justify-content: center;
   padding: clamp(28px, 5vw, 72px);
   overflow: visible;
@@ -1003,15 +1010,15 @@ footer.site-footer {
 }
 
 .project-banner--linkedin__media {
-  min-height: 100vh;
+  min-height: 82vh;
   overflow: hidden;
   background: #f2f2f2;
 }
 
 .project-banner--linkedin__image {
-  width: min(88%, 760px);
-  aspect-ratio: 1567 / 1004;
-  max-height: 72vh;
+  width: min(92%, 760px);
+  aspect-ratio: 16 / 9;
+  max-height: 62vh;
   object-fit: cover;
   box-shadow: 0 14px 36px rgba(0, 0, 0, .12);
   transition: transform .45s ease;
@@ -1019,6 +1026,19 @@ footer.site-footer {
 
 .project-banner--linkedin__media:hover .project-banner--linkedin__image {
   transform: scale(1.02);
+}
+
+#section-1 .project-banner--split__image {
+  width: min(92%, 760px);
+  aspect-ratio: 16 / 9;
+  max-height: 62vh;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .hero-home--photo h1 {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1070,10 +1090,20 @@ footer.site-footer {
     width: 100%;
     max-height: 46vh;
   }
+
+  #section-1 .project-banner--split__image {
+    width: 100%;
+    max-height: 46vh;
+  }
+
+  .hero-home--photo h1 {
+    width: 100%;
+    font-size: 1.35rem;
+  }
 }
 
 .banner-interlude {
-  padding: 140px 32px;
+  padding: 82px 32px;
   max-width: 680px;
   margin: 0 auto;
   text-align: center;
@@ -1778,12 +1808,11 @@ footer.site-footer {
   }
 }
 
-/* En Medios hay nueve notas: una grilla de tres columnas les da a todas el
-   mismo ancho y evita que la ultima fila se agrande para llenar el espacio.
-   Se aplica solo a Prensa; los videos conservan su composicion propia. */
+/* Las notas tienen la jerarquia compacta de Nuestro canal. El estudio pidio
+   seis por fila en escritorio y que "Seguir viendo" continue aca mismo. */
 #prensaFeed {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-auto-rows: 1fr;
 }
 
@@ -1798,7 +1827,7 @@ footer.site-footer {
   display: flex;
   flex: 1;
   flex-direction: column;
-  min-height: 132px;
+  min-height: 112px;
 }
 
 #prensaFeed .press-date {
@@ -1806,7 +1835,13 @@ footer.site-footer {
   padding-top: 12px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1180px) {
+  #prensaFeed {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
   #prensaFeed {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1875,6 +1910,19 @@ footer.site-footer {
 
 .press-archive-link {
   margin-top: 24px;
+}
+
+.press-archive-link[hidden],
+.press-load-more[hidden] {
+  display: none;
+}
+
+.press-archive-home {
+  padding-top: 72px;
+}
+
+.press-archive-home .press-barra {
+  margin-top: 22px;
 }
 
 .press-load-more {
@@ -3979,13 +4027,13 @@ html.lenis body {
 /* El mismo mecanismo sirve para las galerias de obra y para la grilla de
    videos: se muestran las primeras y el resto espera detras del boton. */
 .gallery-grid__item.is-extra,
-.press-featured>.is-extra {
+#prensaFeed > .press-card.is-extra {
   display: none;
 }
 
 .gallery-grid.is-open .gallery-grid__item.is-extra,
-.press-featured.is-open>.is-extra {
-  display: block;
+#prensaFeed.is-open > .press-card.is-extra {
+  display: flex;
 }
 
 .gallery-more {
@@ -4762,22 +4810,21 @@ html.lenis body {
   display: none !important;
 }
 
-.press-card .press-body {
-  position: relative;
-  padding-right: 38px;
-}
-
 .press-card__link {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  width: auto;
+  min-height: 26px;
+  margin-top: 10px;
+  padding: 5px 8px;
   border: 1px solid currentColor;
-  font-size: .68rem;
-  line-height: 1;
+  font-size: .6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .col-sub--videos {

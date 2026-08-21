@@ -25,26 +25,29 @@
      8. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
                         con el estado de la base. Va despues de las altas y las
                         bajas, que son las que agregan y sacan tarjetas.
-     9. panel_textos    escribe los textos fijos de home, estudio y contacto.
-    10. panel_home      pone las destacadas en los banners del home.
-    11. obras_layout    garantiza que la portada abra cada ficha y deja una
+     9. panel_novedades siembra y escribe los respaldos de Instagram,
+                        LinkedIn y YouTube que se editan desde el panel.
+    10. panel_textos    escribe los textos fijos de home, estudio y contacto.
+    11. panel_home      pone las destacadas en los banners del home.
+    12. obras_layout    garantiza que la portada abra cada ficha y deja una
                         composicion consistente para la memoria editorial.
                         Los planos van en el paso 4: panel_galerias los trae
                         como filas de obra_imagenes con tipo='plano', ya no
                         hay un paso planos_fichas aparte.
-    12. panel_prensa    sincroniza las publicaciones editables del panel.
-    13. prensa_pagina   rearma el archivo completo de publicaciones.
-    14. prensa_paginas  arma la pagina propia de cada nota y enlaza su
+    13. panel_prensa    sincroniza las publicaciones editables del panel.
+    14. prensa_pagina   rearma el archivo completo de publicaciones.
+    15. prensa_paginas  arma la pagina propia de cada nota y enlaza su
                         tarjeta. Va despues del archivo, que es quien
                         rehace el listado.
-    15. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+    16. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    16. obras_orden     ordena grilla y lista por el ano final, tanto en
+    17. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    17. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    18. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    18. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    19. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    20. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -67,6 +70,7 @@ PASOS = [
     ('las obras que ya no van',      'panel_sitio.py',   ['--supabase']),
     ('las tarjetas del listado',     'panel_listado.py', ['--supabase']),
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),
+    ('las novedades del Inicio',     'panel_novedades.py', ['--supabase']),
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),

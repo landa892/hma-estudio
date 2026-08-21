@@ -209,7 +209,7 @@ def nombre_de_obra(slug):
     return nombre
 
 
-def tarjeta(nota):
+def tarjeta(nota, indice):
     """Tarjeta de portada generada desde la misma fuente que su ficha."""
     tapa = nota.get('tapa') or ''
     ruta_tapa = os.path.join(RAIZ, tapa.lstrip('/').replace('/', os.sep))
@@ -217,19 +217,24 @@ def tarjeta(nota):
     pais = (' — ' + nota['pais']) if nota.get('pais') else ''
     anio = re.search(r'\b(20\d{2}|19\d{2})\b', nota.get('fecha', ''))
     anio = anio.group(1) if anio else ''
-    return ('              <a class="press-card" data-year="%s" href="/prensa/%s/">\n'
+    externa = bool(nota.get('link'))
+    href = nota.get('link') if externa else '/prensa/%s/' % nota['slug']
+    atributos = ' target="_blank" rel="noopener"' if externa else ''
+    extra = ' is-extra' if indice >= 6 else ''
+    rotulo = 'Ver noticia' if externa else 'Ver publicación'
+    return ('              <a class="press-card%s" data-year="%s" href="%s"%s>\n'
             '                <div class="press-img"><img src="%s" width="%d" height="%d" '
             'alt="%s%s" loading="lazy" decoding="async"></div>\n'
             '                <div class="press-body">\n'
             '                  <div class="press-outlet">%s%s</div>\n'
             '                  <div class="press-title">%s</div>\n'
             '                  <div class="press-date">%s</div>\n'
-            '                  <span class="press-card__link" aria-hidden="true">↗</span>\n'
+            '                  <span class="press-card__link">%s <span aria-hidden="true">↗</span></span>\n'
             '                </div>\n'
             '              </a>'
-            % (anio, nota['slug'], ea(tapa), m[0], m[1], ea(nota['medio']),
+            % (extra, anio, ea(href), atributos, ea(tapa), m[0], m[1], ea(nota['medio']),
                ea(pais), e(nota['medio']), e(pais), e(nota['titulo']),
-               e(nota.get('fecha', ''))))
+               e(nota.get('fecha', '')), rotulo))
 
 
 def actualizar_tarjetas(notas, verificar):
@@ -237,7 +242,7 @@ def actualizar_tarjetas(notas, verificar):
     html = io.open(LISTADO, encoding='utf-8').read()
     if TARJETAS_INICIO not in html or TARJETAS_FIN not in html:
         raise SystemExit('Faltan las marcas de tarjetas en prensa/index.html')
-    bloque = (TARJETAS_INICIO + '\n' + '\n'.join(tarjeta(n) for n in notas)
+    bloque = (TARJETAS_INICIO + '\n' + '\n'.join(tarjeta(n, i) for i, n in enumerate(notas))
               + '\n              ' + TARJETAS_FIN)
     patron = re.escape(TARJETAS_INICIO) + r'.*?' + re.escape(TARJETAS_FIN)
     nuevo = re.sub(patron, lambda _: bloque, html, count=1, flags=re.S)

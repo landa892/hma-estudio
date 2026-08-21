@@ -39,7 +39,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="stylesheet" href="/styles/main.css?v=94">
+  <link rel="stylesheet" href="/styles/main.css?v=95">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/">
@@ -147,8 +147,9 @@
   <nav class="scroll-dots" id="scrollDots" aria-label="Section navigation">
     <button data-target="section-hero" class="active" aria-label="Go to home"><span
         class="dot-label">Home</span></button>
+    <button data-target="section-1" aria-label="Go to Instagram"><span class="dot-label">Instagram</span></button>
     <button data-target="section-3" aria-label="Go to LinkedIn"><span class="dot-label">LinkedIn</span></button>
-    <button data-target="section-5" aria-label="Go to News"><span class="dot-label">News</span></button>
+    <button data-target="section-5" aria-label="Go to YouTube"><span class="dot-label">YouTube</span></button>
     <button data-target="section-contacto" aria-label="Go to contact"><span class="dot-label">Let's talk</span></button>
   </nav>
 
@@ -197,11 +198,11 @@
       <!-- Columna izquierda -->
       <div class="project-banner--split__media">
 
-        <a href="https://www.instagram.com/p/DYANnd0CXnT/?igsh=MWZ3emhvd3dzZW9nbw==" target="_blank" rel="noopener"
+        <a href="https://www.instagram.com/p/DYANnd0CXnT/" data-instagram-link target="_blank" rel="noopener"
           class="project-banner--split__link">
 
-          <img src="/assets/covers/movistar-arena.webp?v=20260812b" width="1600" height="1600"
-            alt="Movistar Arena VIP Lounge" class="project-banner--split__image">
+          <img src="/assets/covers/movistar-arena.webp" width="1600" height="1600"
+            alt="Movistar Arena VIP Lounge" data-instagram-image class="project-banner--split__image">
         </a>
 
       </div>
@@ -209,26 +210,14 @@
       <!-- Columna derecha -->
       <div class="project-banner--split__copy">
 
-        <span class="eyebrow">Award-winning work</span>
+        <span class="eyebrow eyebrow--seccion">Instagram</span>
 
-        <h2 class="display-3">
-          Movistar Arena
-        </h2>
+        <h2 class="display-3" data-instagram-title>Movistar Arena</h2>
 
-        <h3 class="project-banner--split__award">
-          Architizer A+ Awards 2026 – Special Mention
-        </h3>
-
-        <div class="lede project-banner--split__lede">
-
-          <p>
-            Our project <strong>Movistar Arena VIP Lounge</strong> received a Special Mention in the category <em>Commercial Interiors</em>.
-          </p>
-
-          <p style="margin-top:14px;">
-            The programme champions the best architecture worldwide, highlighting meaningful design that improves everyday life. Being judged by a top-tier international jury underlines how much this distinction is worth.
-          </p>
-        </div>
+        <p class="lede project-banner--split__lede" data-instagram-text>Our VIP Lounge Movistar Arena project received a Special Mention in the Commercial Interiors category of the 2026 Architizer A+ Awards.</p>
+        <a class="btn link-arrow mt-24" data-instagram-link
+          href="https://www.instagram.com/p/DYANnd0CXnT/"
+          target="_blank" rel="noopener">View post</a>
 
       </div>
 
@@ -251,7 +240,7 @@
       <div class="project-banner--split__copy">
         <span class="eyebrow eyebrow--seccion">LinkedIn</span>
         <h2 class="display-3" data-linkedin-title>The studio behind Movistar Arena</h2>
-        <p class="lede project-banner--split__lede" data-linkedin-text>Leonardo Militello and Fernando Hitzig revisit two decades of practice, the studio's working method and the creative process behind Movistar Arena's hospitality VIP lounge.</p>
+        <p class="lede project-banner--split__lede" data-linkedin-text>Leonardo Militello and Fernando Hitzig look back on two decades of work and the creative process behind the Movistar Arena VIP hospitality space.</p>
         <a class="btn link-arrow mt-24"
           href="https://www.linkedin.com/posts/hitzig-militello-arquitectos_dise%C3%B1amos-el-vip-del-movistar-arena-para-activity-7474580879424671744--V-b" data-linkedin-link
           target="_blank" rel="noopener">View post</a>
@@ -266,9 +255,9 @@
 
     <!-- CUADRADITO 6: NOVEDADES YOUTUBE (LAYOUT 50/50) -->
     <div class="project-banner project-banner--split project-banner--youtube reveal" id="section-5">
-      <a href="https://www.youtube.com/watch?v=EalBF9mvgRI" target="_blank" rel="noopener"
+      <a href="https://www.youtube.com/watch?v=EalBF9mvgRI" data-youtube-link target="_blank" rel="noopener"
         class="project-banner--split__media project-banner--youtube__media" aria-label="See la entrevista en el podcast Ladrillo">
-        <img src="/assets/video/podcast-ladrillo.webp" width="1280" height="720"
+        <img src="/assets/video/podcast-ladrillo.webp" width="1280" height="720" data-youtube-image
           alt="Leonardo Militello and Fernando Hitzig on the Ladrillo podcast" class="project-banner--youtube__image" loading="lazy"
           decoding="async">
         <svg class="project-banner--youtube__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -278,8 +267,10 @@
       </a>
       <div class="project-banner--split__copy">
         <span class="eyebrow eyebrow--seccion">Studio news</span>
-        <h2 class="display-3">Interview with @LadrilloInfo</h2>
-        <p class="lede project-banner--split__lede">Leonardo Militello and Fernando Hitzig, architects and founders of HMA Estudio, explain how they design spaces that create experience: from the Movistar Arena VIP area to restaurants, hotels and offices. They talk about their storytelling method, construction costs in Argentina, and why an office does not have to be a children's ball pit.</p>
+        <h2 class="display-3" data-youtube-title>Interview with @LadrilloInfo</h2>
+        <p class="lede project-banner--split__lede" data-youtube-text>Leonardo Militello and Fernando Hitzig explain how they design experience-led spaces.</p>
+        <a class="btn link-arrow mt-24" data-youtube-link href="https://www.youtube.com/watch?v=EalBF9mvgRI"
+          target="_blank" rel="noopener">Watch on YouTube</a>
       </div>
     </div>
 
@@ -457,7 +448,8 @@
   <script src="/scripts/animations/heroAnimation.js?v=87"></script>
   <script src="/scripts/animations/scrollEffects.js?v=86"></script>
   <script src="/scripts/linkedin-latest.js?v=1"></script>
-  <script src="/scripts/main.js?v=91"></script>
+  <script src="/scripts/home-latest.js?v=1"></script>
+  <script src="/scripts/main.js?v=92"></script>
 </body>
 
 </html>

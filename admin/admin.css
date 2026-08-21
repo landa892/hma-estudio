@@ -361,6 +361,31 @@ input:focus-visible {
   flex-wrap: wrap;
 }
 
+.panel-intro {
+  max-width: 72ch;
+  margin: 0 0 18px;
+  color: var(--gris);
+  font-size: .94rem;
+  line-height: 1.55;
+}
+
+.busqueda-panel {
+  flex: 1 1 240px;
+  min-width: min(240px, 100%);
+}
+
+.busqueda-panel input {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  background: var(--blanco);
+  color: var(--negro);
+  font: inherit;
+  font-size: 16px;
+}
+
 .resumen {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -467,6 +492,53 @@ select {
 .tabla__acciones {
   white-space: nowrap;
   text-align: right;
+}
+
+.tabla__orden {
+  white-space: nowrap;
+}
+
+.orden-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--linea);
+  background: var(--blanco);
+  color: var(--negro);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.orden-btn + .orden-btn {
+  border-left: 0;
+}
+
+.orden-btn:hover:not(:disabled),
+.orden-btn:focus-visible {
+  background: var(--negro);
+  color: var(--blanco);
+}
+
+.orden-btn:disabled {
+  color: var(--gris);
+  cursor: default;
+}
+
+.novedades-panel {
+  display: grid;
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.novedad-form__preview {
+  display: block;
+  width: min(100%, 560px);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-top: 14px;
+  border: 1px solid var(--linea);
+  background: #f4f4f4;
 }
 
 .tabla__acciones .enlace + .enlace { margin-left: 14px; }

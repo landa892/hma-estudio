@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novedades del Inicio — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://*.supabase.co https://i.ytimg.com; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <a class="barra__volver" href="/admin/obras">← Obras</a>
+    <h1 class="barra__titulo">Novedades del Inicio</h1>
+    <span class="barra__quien" id="quien"></span>
+    <a class="barra__ayuda" href="/admin/ayuda#novedades">Guía de uso</a>
+    <a class="barra__sitio" href="/" target="_blank" rel="noopener">Ver Inicio</a>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido contenido--angosto" id="contenido">
+    <p class="campo__ayuda">Instagram se actualiza desde acá. LinkedIn y YouTube se actualizan solos cuando
+      sus servicios responden; los datos guardados acá son el respaldo que evita que el Inicio quede vacío.
+      Después de guardar, publicá los cambios desde Obras.</p>
+    <div id="cargando" class="vacio">Cargando novedades…</div>
+    <div id="formularios" class="novedades-panel oculto"></div>
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/novedades.js"></script>
+</body>
+</html>

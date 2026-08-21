@@ -86,11 +86,19 @@ def slug_de(bloque):
     return m.group(1) if m else ''
 
 
+def orden_de(bloque):
+    m = re.search(r'data-order="(-?\d+)"', bloque)
+    return int(m.group(1)) if m else None
+
+
 def clave_de(bloque):
+    orden = orden_de(bloque)
+    if orden is not None:
+        return (0, orden, 0, '')
     slug = slug_de(bloque)
     if slug in ORDEN_A_MANO:
-        return (0, ORDEN_A_MANO[slug], 0, '')
-    return (1, 9999, -anio_de(bloque), nombre_de(bloque))
+        return (1, ORDEN_A_MANO[slug], 0, '')
+    return (2, 9999, -anio_de(bloque), nombre_de(bloque))
 
 
 def ordenar(p, route):

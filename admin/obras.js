@@ -5,6 +5,7 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var todas = [];
+  var moviendo = false;
 
   function resumir() {
     $('totalObras').textContent = todas.length;
@@ -72,6 +73,30 @@
       }
       tr.appendChild(estado);
 
+      var orden = document.createElement('td');
+      orden.className = 'tabla__orden';
+      orden.dataset.rotulo = 'Orden';
+      var indice = todas.indexOf(o);
+      var subir = document.createElement('button');
+      subir.type = 'button';
+      subir.className = 'orden-btn';
+      subir.textContent = '↑';
+      subir.title = 'Subir en Trabajos';
+      subir.setAttribute('aria-label', 'Subir ' + o.titulo + ' en Trabajos');
+      subir.disabled = moviendo || indice <= 0;
+      subir.addEventListener('click', function () { mover(o, -1); });
+      orden.appendChild(subir);
+      var bajar = document.createElement('button');
+      bajar.type = 'button';
+      bajar.className = 'orden-btn';
+      bajar.textContent = '↓';
+      bajar.title = 'Bajar en Trabajos';
+      bajar.setAttribute('aria-label', 'Bajar ' + o.titulo + ' en Trabajos');
+      bajar.disabled = moviendo || indice >= todas.length - 1;
+      bajar.addEventListener('click', function () { mover(o, 1); });
+      orden.appendChild(bajar);
+      tr.appendChild(orden);
+
       var acciones = document.createElement('td');
       acciones.className = 'tabla__acciones';
       acciones.dataset.rotulo = 'Acciones';
@@ -107,6 +132,44 @@
     $('conteo').textContent = lista.length === todas.length
       ? todas.length + ' obras'
       : lista.length + ' de ' + todas.length + ' obras';
+  }
+
+  /* Intercambia dos posiciones reales, aunque haya un filtro activo. Si el
+     listado heredado trae ordenes nulos o repetidos, primero lo normaliza: es
+     preferible una escritura mas larga una sola vez a que dos tarjetas queden
+     empatadas y el build las publique en un orden impredecible. */
+  function mover(obra, direccion) {
+    if (moviendo) return;
+    var desde = todas.indexOf(obra);
+    var hasta = desde + direccion;
+    if (desde < 0 || hasta < 0 || hasta >= todas.length) return;
+
+    moviendo = true;
+    var otra = todas[hasta];
+    todas[desde] = otra;
+    todas[hasta] = obra;
+    var cambios = [];
+    todas.forEach(function (fila, indice) {
+      if (fila.orden !== indice) {
+        fila.orden = indice;
+        cambios.push(DATOS.actualizarObra(fila.id, {
+          orden: indice,
+          ultimo_cambio: 'el orden en Trabajos',
+        }));
+      }
+    });
+    filtrar();
+    avisar('Guardando el orden…', 'ok');
+
+    Promise.all(cambios).then(function () {
+      moviendo = false;
+      filtrar();
+      avisar('Orden guardado. Publicá los cambios para verlo en la web.', 'ok');
+    }).catch(function (e) {
+      moviendo = false;
+      avisar(e.message, 'error');
+      cargar();
+    });
   }
 
   function filtrar() {

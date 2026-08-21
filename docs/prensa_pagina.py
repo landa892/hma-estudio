@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Genera el archivo completo de prensa en su propia pagina.
+"""Genera e inserta el archivo completo de prensa.
 
-La portada de Prensa muestra las notas con tapa y enlaza a este segundo nivel,
-que conserva el archivo completo con filtros. Antes el mismo archivo tambien se
-inyectaba debajo de las tapas: repetia el contenido y contradecia el recorrido
-que pidio el estudio en los audios del 20/08/2026.
+La correccion del 21/08/2026 reemplaza el segundo nivel: "Seguir viendo" debe
+continuar en la misma pagina, y las clases y conferencias deben quedar como
+lista antes de Nuestro canal. /prensa/publicaciones/ se conserva por los links
+ya compartidos y por SEO, pero deja de ser el recorrido principal.
 
     python docs/prensa_pagina.py
 """
@@ -35,12 +35,27 @@ def contenido_listado():
     return bloque.strip()
 
 
-def limpiar_portada(molde):
-    """Retira el archivo duplicado que vivia debajo de las nueve tapas."""
-    if MARCA_INICIO in molde and MARCA_FIN in molde:
-        patron = re.escape(MARCA_INICIO) + r'.*?' + re.escape(MARCA_FIN)
-        return re.sub(patron, '', molde, count=1, flags=re.S)
-    return molde
+def bloque_portada(listado):
+    return '''%s
+    <section class="section press-archive-home" id="archivo-prensa">
+      <div class="container">
+        <div class="section-head section-head--eje">
+          <div>
+            <h2 class="display-3 mt-10">Conferencias y prensa</h2>
+          </div>
+        </div>
+%s
+      </div>
+    </section>
+    %s''' % (MARCA_INICIO, listado, MARCA_FIN)
+
+
+def actualizar_portada(molde, listado):
+    if MARCA_INICIO not in molde or MARCA_FIN not in molde:
+        raise SystemExit('Faltan las marcas del archivo en prensa/index.html')
+    patron = re.escape(MARCA_INICIO) + r'.*?' + re.escape(MARCA_FIN)
+    return re.sub(patron, lambda _: bloque_portada(listado), molde,
+                  count=1, flags=re.S)
 
 
 def main():
@@ -74,7 +89,7 @@ def main():
                   count=1)
 
     listado = contenido_listado()
-    portada = limpiar_portada(molde)
+    portada = actualizar_portada(molde, listado)
     io.open(ORIGEN, 'w', encoding='utf-8', newline='\n').write(portada)
     main = '''<main id="main">
     <section class="hero-home pb-32">

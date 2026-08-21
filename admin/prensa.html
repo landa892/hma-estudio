@@ -23,8 +23,14 @@
   </header>
 
   <main class="contenido" id="contenido">
+    <p class="panel-intro">Administrá las notas destacadas de Prensa. Podés cargar una portada,
+      ordenar imágenes internas, enlazar la publicación original y dejarla en borrador hasta que esté lista.</p>
     <div class="herramientas">
       <button type="button" class="boton boton--compacto" id="nueva">Nueva publicación</button>
+      <label class="busqueda-panel" for="buscarPrensa">
+        <span class="sr-only">Buscar una publicación</span>
+        <input type="search" id="buscarPrensa" placeholder="Buscar noticia o medio" autocomplete="off">
+      </label>
       <a class="enlace" href="/admin/obras">Publicar cambios desde Obras</a>
     </div>
     <p class="aviso" id="avisoLista" role="status" aria-live="polite"></p>

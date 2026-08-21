@@ -214,6 +214,12 @@ En Supabase → **SQL Editor**. Pegar y ejecutar **en este orden**, de a uno:
 | 7 | `supabase/migrations/0007_correcciones_cliente_agosto.sql` | correcciones de fichas y memorias |
 | 8 | `supabase/migrations/0008_memorias_ingles.sql` | completa las seis memorias en inglés |
 | 9 | `supabase/migrations/0009_seguridad_panel.sql` | restringe la edición al correo del estudio y limita el home a tres destacadas |
+| 10 | `supabase/migrations/0010_contacto_titulo.sql` | habilita el título editable de contacto |
+| 11 | `supabase/migrations/0011_planos_panel.sql` | incorpora los planos al editor de obras |
+| 12 | `supabase/migrations/0012_cupo_de_planos.sql` | separa el cupo de planos del de fotografías |
+| 13 | `supabase/migrations/0013_aviso_de_cambios.sql` | registra cambios guardados que todavía no fueron publicados |
+| 14 | `supabase/migrations/0014_cuerpo_premios_y_prensa.sql` | habilita fotos de cuerpo, premios y el panel de Prensa |
+| 15 | `supabase/migrations/0015_cupo_de_fotos.sql` | permite 30 fotos de galería, 40 planos y fotos de cuerpo sin límite |
 
 El orden importa: cada uno usa lo que creó el anterior.
 
@@ -272,7 +278,7 @@ Vercel → **Settings → Build & Development Settings → Build Command**:
 python3 docs/panel_build.py
 ```
 
-Los quince pasos viven en ese script y no encadenados con `&&` en la casilla por
+Los veinte pasos viven en ese script y no encadenados con `&&` en la casilla por
 una razón concreta: **Vercel admite 256 caracteres en el comando de build** y la
 cadena completa mide más del doble. De paso, en el log se ve en qué paso falló,
 que en una sola línea de shell no se ve.
@@ -283,7 +289,7 @@ Y una variable más:
 
 Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 
-### Qué hace cada paso, y por qué en ese orden (son trece)
+### Qué hace cada paso, y por qué en ese orden (son veinte)
 
 | Paso | Qué hace |
 |---|---|
@@ -293,15 +299,20 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_galerias.py` | Conecta hasta 30 fotos de galería, las fotos del cuerpo y los planos de cada obra con el panel; aplica orden, portada, altas y bajas desde la primera edición. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
 | `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas, incluidos portada, galería, planos y enlaces que quedarían apuntando a una ficha inexistente. |
+| `panel_listado.py` | Sincroniza cada tarjeta con los datos y el orden definidos desde el panel. |
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |
+| `panel_novedades.py` | Actualiza los respaldos editables de Instagram, LinkedIn y YouTube del Inicio. |
 | `panel_textos.py` | Escribe los 11 textos fijos de home, estudio y contacto. |
 | `panel_home.py` | Pone las obras destacadas en los tres banners del home. |
 | `obras_layout.py` | Coloca la carátula como primera imagen de cada ficha y mantiene esa regla después de cambiar la portada desde el panel. |
-| `prensa_pagina.py` | Genera `/prensa/publicaciones/` desde `docs/prensa-listado.html`, el archivo cronológico completo de prensa. |
+| `panel_prensa.py` | Sincroniza publicaciones, imágenes, enlaces y orden editados desde Prensa. |
+| `prensa_pagina.py` | Integra el archivo cronológico en la página principal de Prensa. |
+| `prensa_paginas.py` | Genera la ficha interna de cada nota que no tiene un enlace externo. |
 | `en_gen.py` | Rehace `/en/` de cero y traduce lo que dejaron los pasos anteriores. |
 | `obras_orden.py` | Ordena grilla y lista por año final, en ambos idiomas. **Va después de `en_gen.py`** para que una obra nueva quede en la misma posición cronológica en los dos listados. |
 | `seo_gen.py` | Actualiza datos estructurados, títulos sociales y breadcrumbs con el contenido definitivo. |
-| `sitemap_gen.py` | Rearma el sitemap leyendo las páginas en castellano y el espejo inglés ya generado. **Va último** para incluir ambas versiones. |
+| `sitemap_gen.py` | Rearma el sitemap leyendo las páginas en castellano y el espejo inglés ya generado. |
+| `panel_publicado.py` | Anota el build terminado; va último para que el panel pueda distinguir entre guardar y publicar. |
 
 Si un paso falla, el deploy se corta y el sitio anterior sigue en pie: Vercel
 no publica un build que no terminó.

@@ -817,6 +817,36 @@ CORRECCIONES.setdefault('banco-supervielle', {}).update({
     ]),
 })
 
+# El orden que marco el estudio el 21/08 tiene que ser tambien el orden del
+# panel. Se usan valores negativos para insertar esta tanda delante del orden
+# heredado sin renumerar sesenta obras. La guarda contra el valor viejo hace
+# que sea una correccion unica: cuando el estudio lo cambie con las flechas del
+# panel, el build no vuelve a imponer esta lista.
+ORDEN_21_08 = (
+    ('banco-supervielle', (None, 0), -20),
+    ('indusparquet', (2,), -19),
+    ('cerveceria-austral', (1,), -18),
+    ('iol', (3,), -17),
+    ('cceba', (4,), -16),
+    ('templo-mikdash', (8,), -15),
+    ('parfumerie', (6,), -14),
+    ('osten-foa', (5,), -13),
+    ('aire-libre', (9,), -12),
+    ('bienal-venecia', (10,), -11),
+    ('edificio-del-plata', (11,), -10),
+    ('osten-tower', (0,), -9),
+    ('hyatt-ziva', (13,), -8),
+    ('people', (7,), -7),
+    ('juan-valdez', (14,), -6),
+    ('novotel', (16,), -5),
+    ('fehgra', (12,), -4),
+    ('movistar-arena', (15,), -3),
+    ('cien', (18,), -2),
+    ('roket', (17,), -1),
+)
+for _slug, _anteriores, _nuevo in ORDEN_21_08:
+    CORRECCIONES.setdefault(_slug, {})['orden'] = alguno(_anteriores, _nuevo)
+
 MEMORIAS_ORIGINALES = os.path.join(RAIZ, 'docs', 'memorias_originales.json')
 
 

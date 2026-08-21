@@ -786,15 +786,30 @@ try {
   const visualFeed = document.getElementById('prensaFeed');
   if (visualYears.length && visualFeed) {
     const cards = Array.from(visualFeed.querySelectorAll('.press-card[data-year]'));
+    const more = document.getElementById('prensaVisualMas');
+    let abierto = false;
+    let anioVisual = 'all';
+
+    const aplicarVisual = () => {
+      cards.forEach(card => {
+        card.hidden = anioVisual !== 'all' && card.dataset.year !== anioVisual;
+      });
+      visualFeed.classList.toggle('is-open', abierto || anioVisual !== 'all');
+      if (more) more.hidden = abierto || anioVisual !== 'all' || cards.length <= 6;
+      if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+
     visualYears.forEach(btn => btn.addEventListener('click', () => {
       visualYears.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const year = btn.dataset.year;
-      cards.forEach(card => {
-        card.hidden = year !== 'all' && card.dataset.year !== year;
-      });
-      if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
+      anioVisual = btn.dataset.year;
+      aplicarVisual();
     }));
+    if (more) more.addEventListener('click', () => {
+      abierto = true;
+      aplicarVisual();
+    });
+    aplicarVisual();
   }
 } catch (e) { console.error('press-visual-filters', e); }
 

@@ -57,6 +57,10 @@
     if (/30 imagenes/i.test(crudo)) {
       return 'La obra ya llegó al máximo de 30 imágenes de galería.';
     }
+    if (/15 (imagenes|imágenes)/i.test(crudo)) {
+      return 'La base todavía conserva el límite anterior de 15 imágenes. '
+        + 'Hay que aplicar la actualización 0015 antes de continuar.';
+    }
     if (status === 401 || status === 403) {
       return 'Tu sesión venció. Volvé a entrar.';
     }
@@ -66,10 +70,10 @@
   /* --- obras ------------------------------------------------------------ */
 
   function listarObras() {
-    // Sin año primero no: van al final. Postgres ordena los nulos al final con
-    // nullslast, y despues por año descendente, que es el orden del sitio.
+    // Este es tambien el orden de Trabajos. Desde el 21/08 se edita con las
+    // flechas del listado y el build lo respeta sin volver a ordenar por año.
     return llamar('/obras?select=' + CAMPOS_LISTA
-      + '&order=anio.desc.nullslast,titulo.asc');
+      + '&order=orden.asc.nullslast,titulo.asc');
   }
 
   function traerObra(id) {
