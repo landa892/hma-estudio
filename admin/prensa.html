@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prensa — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <a class="barra__volver" href="/admin/obras">← Obras</a>
+    <h1 class="barra__titulo">Prensa</h1>
+    <span class="barra__quien" id="quien"></span>
+    <a class="barra__ayuda" href="/admin/ayuda#prensa">Guía de uso</a>
+    <a class="barra__sitio" href="/prensa/" target="_blank" rel="noopener">Ver prensa</a>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido" id="contenido">
+    <div class="herramientas">
+      <button type="button" class="boton boton--compacto" id="nueva">Nueva publicación</button>
+      <a class="enlace" href="/admin/obras">Publicar cambios desde Obras</a>
+    </div>
+    <p class="aviso" id="avisoLista" role="status" aria-live="polite"></p>
+
+    <div class="prensa-panel">
+      <section class="ficha prensa-panel__lista" aria-labelledby="listaTitulo">
+        <h2 class="ficha__titulo" id="listaTitulo">Publicaciones destacadas</h2>
+        <div id="listaPrensa" class="prensa-admin-lista"></div>
+      </section>
+
+      <form id="formPrensa" class="ficha prensa-panel__form oculto">
+        <h2 class="ficha__titulo" id="formTitulo">Nueva publicación</h2>
+        <input type="hidden" id="publicacionId">
+        <input type="hidden" id="storagePath">
+
+        <div class="campo">
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" maxlength="180" required>
+          <p class="campo__ayuda">Título exacto de la nota. Recomendado: hasta 12 palabras.</p>
+        </div>
+        <div class="dupla">
+          <div class="campo">
+            <label for="medio">Medio</label>
+            <input type="text" id="medio" maxlength="100" required placeholder="Ej.: La Nación">
+          </div>
+          <div class="campo">
+            <label for="pais">País</label>
+            <input type="text" id="pais" maxlength="60" placeholder="Ej.: Argentina">
+          </div>
+        </div>
+        <div class="dupla">
+          <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input type="text" id="fecha" maxlength="40" placeholder="Ej.: Agosto 2026">
+          </div>
+          <div class="campo">
+            <label for="orden">Orden</label>
+            <input type="number" id="orden" min="0" max="999" value="0">
+            <p class="campo__ayuda">0 aparece primero; luego 1, 2, 3…</p>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="link">Enlace a la nota</label>
+          <input type="url" id="link" maxlength="500" placeholder="https://…">
+          <p class="campo__ayuda">Dejalo vacío si la publicación existe sólo impresa.</p>
+        </div>
+        <div class="dupla">
+          <div class="campo">
+            <label for="obra">Obra relacionada</label>
+            <input type="text" id="obra" maxlength="80" placeholder="Ej.: movistar-arena">
+            <p class="campo__ayuda">Dirección corta de la obra, sin /proyectos/.</p>
+          </div>
+          <div class="campo">
+            <label for="slug">Dirección web</label>
+            <input type="text" id="slug" maxlength="80" pattern="[a-z0-9-]+" required>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="imagenPrensa">Imagen de portada</label>
+          <input type="file" id="imagenPrensa" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+          <p class="campo__ayuda">Horizontal, ideal 1800 × 1200 px y mínimo 1600 × 900 px. El panel la optimiza a WebP.</p>
+          <div id="previewPrensa" class="prensa-admin-preview oculto"></div>
+        </div>
+
+        <div class="campo prensa-admin-galeria">
+          <label>Imágenes de la publicación</label>
+          <p class="campo__ayuda">Escaneos o fotos internas que el visitante podrá ampliar. JPG, PNG o
+            WebP de hasta 20 MB; ideal 1800 px o más en el lado mayor. Se muestran completas y en este orden.</p>
+          <p class="campo__ayuda" id="prensaGaleriaSinGuardar">Guardá primero la publicación para cargar sus imágenes.</p>
+          <div id="prensaGaleria" class="oculto">
+            <div class="galeria__barra">
+              <button type="button" class="boton boton--compacto" id="subirPrensaGaleria">Agregar imágenes</button>
+              <span class="conteo" id="conteoPrensaGaleria"></span>
+            </div>
+            <input type="file" id="archivosPrensaGaleria"
+              accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
+            <div class="grilla-fotos" id="grillaPrensaGaleria"></div>
+            <p class="aviso" id="avisoPrensaGaleria" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <label class="check"><input type="checkbox" id="publicada" checked> Publicada en el sitio</label>
+        <div class="acciones">
+          <button type="submit" class="boton boton--compacto" id="guardar">Guardar</button>
+          <button type="button" class="enlace enlace--riesgo oculto" id="eliminar">Eliminar publicación</button>
+          <p class="aviso" id="avisoForm" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/prensa.js"></script>
+</body>
+</html>

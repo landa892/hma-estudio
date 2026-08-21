@@ -18,6 +18,12 @@ Tres claves aparecen en estos pasos. Dos son públicas y una no.
 Lo mismo con `YOUTUBE_API_KEY`, `RESEND_API_KEY` y la URL del deploy hook:
 se cargan directo en Vercel, no se pegan en una conversación.
 
+La novedad de LinkedIn usa `LINKEDIN_ACCESS_TOKEN`,
+`LINKEDIN_ORGANIZATION_URN` y, opcionalmente, `LINKEDIN_API_VERSION`. LinkedIn
+restringe la lectura de publicaciones de organizaciones a aplicaciones
+aprobadas con `r_organization_social`. Mientras esas variables no estén, el
+home conserva la última publicación cargada como respaldo y no queda vacío.
+
 ---
 
 # A · Dar de alta la página
@@ -284,7 +290,7 @@ Esta es la clave secreta de la tabla de arriba. Va **sólo acá**.
 | `panel_config.py` | Escribe `admin/config.js` desde las variables. Sin esto el panel publicado no conecta con nada. |
 | `panel_correcciones_agosto.py` | Migra los valores viejos marcados por el cliente. Es condicional: no pisa una edición posterior hecha desde el panel. |
 | `panel_alta.py` | Crea la página de cada obra nueva y baja sus fotos de Storage. **Va antes que el generador**: si la página no existe, el generador la saltea. |
-| `panel_galerias.py` | Conecta hasta 15 fotos de cada obra histórica con el panel y aplica orden, portada, altas y bajas desde la primera edición. |
+| `panel_galerias.py` | Conecta hasta 30 fotos de galería, las fotos del cuerpo y los planos de cada obra con el panel; aplica orden, portada, altas y bajas desde la primera edición. |
 | `panel_generar.py` | Rellena título, bajada, ficha y memoria en todas las páginas publicadas. |
 | `panel_sitio.py` | Saca del sitio las obras eliminadas o despublicadas, incluidos portada, galería, planos y enlaces que quedarían apuntando a una ficha inexistente. |
 | `panel_estados.py` | Pone el sello "Obra"/"Proyecto" del listado de acuerdo con el estado de la base. **Va después de las altas y las bajas**, que son las que agregan y sacan tarjetas. |

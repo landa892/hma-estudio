@@ -128,8 +128,9 @@ def ficha(nota):
     if nota.get('link'):
         # "ESTE RENGLON SOLO APARECE SI EXISTE LA NOTICIA DE FORMA DIGITAL".
         filas.append(('Link',
-                      '<a href="%s" target="_blank" rel="noopener">%s</a>'
-                      % (ea(nota['link']), e(nota['link']))))
+                      '<a class="btn link-arrow press-article__source" '
+                      'href="%s" target="_blank" rel="noopener">'
+                      'Ver noticia</a>' % ea(nota['link'])))
     return '\n'.join(
         '          <div class="spec-row"><dt>%s</dt><dd>%s</dd></div>' % f
         for f in filas)
@@ -161,7 +162,8 @@ def galeria(nota):
             '        <div class="section-head"><div><span class="eyebrow">'
             'Galería</span><h2 class="display-3 mt-10">Todas las fotos</h2>'
             '</div></div>\n'
-            '        <div class="gallery-grid reveal">\n%s\n        </div>\n'
+            '        <div class="gallery-grid gallery-grid--prensa reveal">'
+            '\n%s\n        </div>\n'
             '      </div>\n    </section>\n' % '\n'.join(fotos))
 
 
@@ -213,16 +215,19 @@ def tarjeta(nota):
     ruta_tapa = os.path.join(RAIZ, tapa.lstrip('/').replace('/', os.sep))
     m = medidas(ruta_tapa) or (900, 600)
     pais = (' — ' + nota['pais']) if nota.get('pais') else ''
-    return ('              <a class="press-card" href="/prensa/%s/">\n'
+    anio = re.search(r'\b(20\d{2}|19\d{2})\b', nota.get('fecha', ''))
+    anio = anio.group(1) if anio else ''
+    return ('              <a class="press-card" data-year="%s" href="/prensa/%s/">\n'
             '                <div class="press-img"><img src="%s" width="%d" height="%d" '
             'alt="%s%s" loading="lazy" decoding="async"></div>\n'
             '                <div class="press-body">\n'
             '                  <div class="press-outlet">%s%s</div>\n'
             '                  <div class="press-title">%s</div>\n'
             '                  <div class="press-date">%s</div>\n'
+            '                  <span class="press-card__link" aria-hidden="true">↗</span>\n'
             '                </div>\n'
             '              </a>'
-            % (nota['slug'], ea(tapa), m[0], m[1], ea(nota['medio']),
+            % (anio, nota['slug'], ea(tapa), m[0], m[1], ea(nota['medio']),
                ea(pais), e(nota['medio']), e(pais), e(nota['titulo']),
                e(nota.get('fecha', ''))))
 

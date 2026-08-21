@@ -2,14 +2,14 @@
 """Conecta las galerias historicas y las nuevas con el panel.
 
 Las obras anteriores al panel conservan su galeria publica hasta que el estudio
-hace el primer cambio. En la base se carga una seleccion inicial de hasta 15
+hace el primer cambio. En la base se carga una seleccion inicial de hasta 30
 fotos con el prefijo ``@seed:``. El panel cambia ese prefijo a ``@site:`` al
 reordenar, borrar, subir o elegir portada; desde entonces este generador toma la
 base como fuente y reescribe la galeria.
 
 Los planos entran igual, como filas de obra_imagenes con tipo='plano': la
 seleccion inicial sale de docs/planos.json (lo que arma drive_sync.py a mano
-desde el Drive) en vez de panel_datos.json, y llevan su propio cupo de 15,
+desde el Drive) en vez de panel_datos.json, y llevan su propio cupo de 40,
 separado del de las fotos. Antes vivian aparte del todo -planos_fichas.py los
 escribia directo en el HTML, sin pasar por el panel- y por eso el formulario
 de edicion de una obra no los mostraba nunca.
@@ -32,11 +32,10 @@ BUSCADOR = os.path.join(RAIZ, 'scripts', 'search-index.js')
 MAPA_PORTADAS = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 SITIO = 'https://estudiohma.com'
 VISIBLES = 6
-TOPE = 15
-# Las fotos grandes del cuerpo de la ficha, las que van intercaladas con el
-# texto. El estudio las bajo a tres el 20/08/2026: "en todos los casos, solo
-# tres imagenes principales, una de ellas, la primera, es la tapa". La
-# galeria completa sigue mostrando todas mas abajo.
+TOPE = 30
+# Las fichas heredadas conservan tres fotos principales. Cuando el estudio
+# carga fotos de cuerpo desde el panel, esas filas pasan a ser la seleccion
+# explicita y no llevan limite.
 PRINCIPALES = 3
 # Los planos llevan su propio tope, mas alto: no se cotizan ni se suben a
 # mano, salen del Drive y son los que son. Tostado tiene 35. Tiene que
@@ -314,17 +313,15 @@ def resolver_imagen(slug, foto, url):
     }
 
 
-def bloque_filas(actual, titulo, fotos):
-    """Conserva los textos intercalados y cambia solamente sus fotografias."""
+def bloque_filas(actual, titulo, fotos, cuerpo):
+    """Portada mas cuerpo administrado; sin cuerpo, conserva el legado."""
     portada = next((foto for foto in fotos if foto['portada']), fotos[0])
     fotos = [portada] + [foto for foto in fotos if foto is not portada]
-    filas = re.findall(r'(?s)      <div class="project-row.*?\n      </div>', actual)
-    filas = filas[:PRINCIPALES]
-    if not filas:
-        filas = ['      <div class="project-row project-row--sola reveal">\n'
-                 '        <div class="project-row__photo"><img></div>\n      </div>'] * 3
+    seleccion = [portada] + cuerpo if cuerpo else fotos[:PRINCIPALES]
+    filas = ['      <div class="project-row project-row--sola reveal">\n'
+             '        <div class="project-row__photo"><img></div>\n      </div>'] * len(seleccion)
     nuevas = []
-    for i, (fila, foto) in enumerate(zip(filas, fotos), 1):
+    for i, (fila, foto) in enumerate(zip(filas, seleccion), 1):
         carga = ('loading="eager" decoding="async" fetchpriority="high"'
                  if i == 1 else 'loading="lazy" decoding="async"')
         img = '<img src="%s" width="%s" height="%s" alt="%s" %s>' % (
@@ -355,8 +352,7 @@ def bloque_grilla(titulo, fotos, planos):
                  % (len(fotos), len(fotos), len(fotos)))
     return ('\n    <section class="section no-border" id="galeria">\n'
             '      <div class="container">\n'
-            '        <div class="section-head"><div><span class="eyebrow">Galería</span>'
-            '<h2 class="display-3 mt-10">Todas las fotos</h2></div></div>\n'
+            '        <div class="section-head"><h2 class="display-3">Galería</h2></div>\n'
             '        <div class="gallery-grid reveal">\n%s\n        </div>%s\n'
             '      </div>\n    </section>\n' % ('\n'.join(items), boton))
 
@@ -374,14 +370,14 @@ def figuras_planos(titulo, planos):
     ]
 
 
-def actualizar_pagina(slug, titulo, fotos, planos):
+def actualizar_pagina(slug, titulo, fotos, cuerpo, planos):
     ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
     if not os.path.isfile(ruta):
         return False
     html = io.open(ruta, encoding='utf-8').read()
     portada = next((f for f in fotos if f['portada']), fotos[0])
     nuevo = re.sub(r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n',
-                   lambda m: bloque_filas(m.group(0), titulo, fotos), html, count=1)
+                   lambda m: bloque_filas(m.group(0), titulo, fotos, cuerpo), html, count=1)
     nuevo = re.sub(r'(?s)\n    <section class="section no-border" id="galeria">.*?\n    </section>\n',
                    lambda _: bloque_grilla(titulo, fotos, figuras_planos(titulo, planos)),
                    nuevo, count=1)
@@ -593,10 +589,11 @@ def main():
     # pagina que actualizar ni tarjeta en el listado.
     for obra in [o for o in obras if o['publicada']]:
         filas_fotos = por_obra_tipo.get((obra['id'], 'foto'), [])
+        filas_cuerpo = por_obra_tipo.get((obra['id'], 'cuerpo'), [])
         filas_planos = por_obra_tipo.get((obra['id'], 'plano'), [])
         # Se reescribe la ficha si el estudio toco las fotos o los planos: antes
         # alcanzaba con mirar las fotos porque era lo unico administrable.
-        if not (gestionada(filas_fotos) or gestionada(filas_planos)
+        if not (gestionada(filas_fotos) or filas_cuerpo or gestionada(filas_planos)
                 or (filas_planos and sin_planos_todavia(obra['slug']))):
             continue
         if not filas_fotos:
@@ -616,14 +613,17 @@ def main():
                      or os.path.basename(f['storage_path']) not in sobran]
 
         fotos_resueltas = [resolver_imagen(obra['slug'], f, url) for f in filas_fotos]
+        cuerpo_resuelto = [resolver_imagen(obra['slug'], f, url) for f in filas_cuerpo]
         planos_resueltos = [resolver_imagen(obra['slug'], f, url) for f in filas_planos]
-        if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas, planos_resueltos):
+        if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas,
+                             cuerpo_resuelto, planos_resueltos):
             cambiadas += 1
         portadas[obra['slug']] = next((f for f in fotos_resueltas if f['portada']), fotos_resueltas[0])
         portadas[obra['slug']]['titulo'] = obra['titulo']
 
     sacar_excluidas_de_las_fichas()
-    recortar_principales()
+    # Las fichas heredadas ya quedaron recortadas. No se recorta de nuevo:
+    # las filas de tipo cuerpo son una seleccion editorial explicita.
 
     if portadas:
         actualizar_listado(portadas)

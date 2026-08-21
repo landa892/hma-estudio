@@ -146,23 +146,63 @@
 
         <div class="campo">
           <label for="memoria">Memoria descriptiva</label>
+          <div class="editor-barra" aria-label="Formato de la memoria">
+            <button type="button" class="boton boton--mini" data-negrita="memoria"><b>B</b> Negrita</button>
+          </div>
           <textarea id="memoria" rows="12" aria-describedby="ayudaMemoria"></textarea>
           <p class="campo__ayuda" id="ayudaMemoria">Texto completo en castellano. Recomendado: 3 a 8
-            párrafos y 150 a 600 palabras. Deja una línea vacía entre párrafos; no pegues títulos,
-            viñetas ni enlaces. <span id="contadorMemoria"></span></p>
+            párrafos y 150 a 600 palabras. Dejá una línea vacía entre párrafos. Seleccioná texto y usá
+            <b>Negrita</b> para destacarlo; el sitio lo publica justificado. <span id="contadorMemoria"></span></p>
         </div>
 
         <div class="campo">
           <label for="memoriaEn">Memoria en inglés</label>
+          <div class="editor-barra" aria-label="Formato de la memoria en inglés">
+            <button type="button" class="boton boton--mini" data-negrita="memoriaEn"><b>B</b> Negrita</button>
+          </div>
           <textarea id="memoriaEn" rows="8" aria-describedby="ayudaMemoriaEn"></textarea>
           <p class="campo__ayuda" id="ayudaMemoriaEn">Traducción completa de la memoria, conservando los
             mismos párrafos. Si queda vacía, la página en inglés se publicará sin memoria.
             <span id="contadorMemoriaEn"></span></p>
         </div>
+
+        <div class="campo">
+          <label for="premios">Premios y distinciones de esta obra</label>
+          <textarea id="premios" rows="3" maxlength="500"
+            placeholder="Ej.: A+ Awards 2026 — Mención especial"></textarea>
+          <p class="campo__ayuda">Uno por línea. Se muestra en la ficha y enlaza con la sección general
+            de Premios. Dejalo vacío si la obra no tiene distinciones.</p>
+        </div>
       </section>
 
       <section class="ficha">
-        <h2 class="ficha__titulo">Fotos</h2>
+        <h2 class="ficha__titulo">Fotos del cuerpo</h2>
+
+        <div class="requisitos">
+          <strong>Imágenes que acompañan la memoria</strong>
+          <ul>
+            <li>Sin límite de cantidad. El sitio las alterna automáticamente a izquierda y derecha.</li>
+            <li>Ideal: 1800 × 1200 px; mínimo recomendado: 1600 × 900 px.</li>
+            <li>Usá fotografías nítidas, sin texto ni capturas. El orden de acá es el orden del relato.</li>
+            <li>Se optimizan a WebP y se adaptan solas en computadora, tablet y celular.</li>
+          </ul>
+        </div>
+
+        <div id="galeriaCuerpo" class="oculto">
+          <div class="galeria__barra">
+            <button type="button" class="boton boton--compacto" id="subirCuerpo">Agregar al cuerpo</button>
+            <span class="conteo" id="conteoCuerpo"></span>
+          </div>
+          <input type="file" id="archivosCuerpo"
+            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
+          <p class="campo__ayuda oculto" id="ayudaTopeCuerpo"></p>
+          <div class="grilla-fotos" id="grillaCuerpo"></div>
+          <p class="aviso" id="avisoCuerpo" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="ficha">
+        <h2 class="ficha__titulo">Galería y portada</h2>
 
         <!-- Sin obra guardada no hay a donde colgar las fotos: la ruta del
              archivo lleva el id, y todavia no existe. -->
@@ -173,7 +213,7 @@
         <div class="requisitos" id="ayudaFotos">
           <strong>Requisitos de las imágenes</strong>
           <ul>
-            <li>JPG, PNG o WebP; hasta 20 MB por archivo y 15 imágenes por obra.</li>
+            <li>JPG, PNG o WebP; hasta 20 MB por archivo y 30 imágenes por obra.</li>
             <li>Ideal: 1800 × 1200 px. Mínimo recomendado: 1600 × 900 px.</li>
             <li>Portada horizontal, nítida y sin texto. Evitá capturas y archivos de WhatsApp.</li>
             <li>El panel conserva la proporción, reduce el lado mayor a 1800 px y convierte a WebP al 82%.</li>
@@ -190,7 +230,7 @@
             accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
 
           <p class="campo__ayuda oculto" id="ayudaTopeFotos">
-            Llegaste al máximo de 15. Para subir otra, eliminá una.
+            Llegaste al máximo de 30. Para subir otra, eliminá una.
           </p>
           <div class="grilla-fotos" id="grillaFotos"></div>
           <p class="aviso" id="avisoFotos" role="status" aria-live="polite"></p>

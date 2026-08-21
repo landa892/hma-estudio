@@ -5,7 +5,7 @@
 1. Entrar en `https://estudiohma.com/admin`.
 2. Abrir **Obras** y elegir **Nueva obra**.
 3. Completar la ficha y guardarla como borrador.
-4. Cargar hasta 15 imágenes. El panel las convierte a WebP y reduce su tamaño.
+4. Cargar las fotos del cuerpo sin límite y hasta 30 imágenes en la galería. El panel las convierte a WebP y reduce su tamaño.
 5. Reordenar las imágenes y elegir una portada.
 6. Activar **Publicada** y guardar.
 7. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
@@ -22,7 +22,7 @@
   usa en el listado y, si la obra está destacada, también en el home.
 - Orden: la primera foto debe presentar la obra; después conviene alternar
   vistas generales y detalles. Se puede arrastrar cada imagen para reordenarla.
-- Límite: 15 imágenes por obra. Antes de publicar, revisar la vista previa en
+- Límite: 30 imágenes de galería por obra; las fotos del cuerpo no tienen límite. Antes de publicar, revisar la vista previa en
   computadora y celular.
 
 ## Obra existente

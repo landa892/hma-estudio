@@ -54,8 +54,8 @@
     if (/una_portada/i.test(crudo)) {
       return 'La obra ya tiene una portada elegida.';
     }
-    if (/15 imagenes/i.test(crudo)) {
-      return 'La obra ya llegó al máximo de 15 imágenes.';
+    if (/30 imagenes/i.test(crudo)) {
+      return 'La obra ya llegó al máximo de 30 imágenes de galería.';
     }
     if (status === 401 || status === 403) {
       return 'Tu sesión venció. Volvé a entrar.';
@@ -93,23 +93,20 @@
     }).then(function (filas) { return filas[0]; });
   }
 
-  /* ultimo_cambio es la frase que alimenta el aviso de cambios sin publicar, y
-     la agrego la migracion 0013. El panel se publica con un deploy y la
-     migracion se corre a mano, asi que hay una ventana en la que el codigo ya
-     manda la columna y la base todavia no la tiene. Sin esto, en esa ventana
-     no se podria guardar ninguna obra: la base rechaza el cuerpo entero por un
-     campo que solo sirve para un cartel.
-
-     Se reintenta una vez sin el campo. Cuando la migracion este corrida esto
-     no se ejecuta nunca. */
+  /* Las migraciones se corren a mano y el panel puede publicarse primero. En
+     esa ventana no debe bloquearse la edicion de los campos que ya existian.
+     Se quita solamente la columna nueva que la propia respuesta nombra. */
   function sinColumnaNueva(cuerpo, enviar) {
     return enviar(cuerpo).catch(function (e) {
-      if (!/ultimo_cambio/.test(e.message) || !('ultimo_cambio' in cuerpo)) throw e;
+      var columna = ['ultimo_cambio', 'premios'].find(function (nombre) {
+        return e.message.indexOf(nombre) !== -1 && nombre in cuerpo;
+      });
+      if (!columna) throw e;
       var copia = {};
       Object.keys(cuerpo).forEach(function (k) {
-        if (k !== 'ultimo_cambio') copia[k] = cuerpo[k];
+        if (k !== columna) copia[k] = cuerpo[k];
       });
-      return enviar(copia);
+      return sinColumnaNueva(copia, enviar);
     });
   }
 

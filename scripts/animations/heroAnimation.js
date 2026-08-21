@@ -181,48 +181,74 @@
       gsap.set(titulo, { willChange: 'auto' });
     });
 
-    gsap.set(titulo, {
-      x: viajeX, y: viajeY, scale: escala,
-      transformOrigin: 'center center',
-      willChange: 'transform'
-    });
     if (sub) gsap.set(sub, { clipPath: 'inset(0 0 100% 0)', opacity: 0, y: 18 });
     if (eyebrow) gsap.set(eyebrow, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
-    /* El logo espera oculto: aparece cuando el titulo ya viaja a su sitio, no
-       al cargar. Si estuviera puesto desde el primer cuadro, el titulo emerge
-       grande y centrado justo encima y los dos se pisan. */
-    if (logo) gsap.set(logo, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
-
-    /* 2. el titulo emerge, ya centrado y grande */
-    if (lineas) {
-      var ap = TR.emerge(lineas, { blur: 10, stagger: 0.16 });
-      ap.duration(1.5);
-      tl.add(ap, 0);
-    } else {
-      gsap.set(titulo, { opacity: 0, filter: 'blur(10px)' });
-      tl.to(titulo, { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: EASE.reveal }, 0);
-    }
-
-    /* 3. sostiene: el hueco entre 1.5 y 2.6 es la espera */
-
-    /* 4. viaja a su sitio y se achica */
-    tl.to(titulo, {
-      x: 0, y: 0, scale: 1,
-      duration: 1.5,
-      ease: 'power3.inOut'
-    }, 2.6);
-
-    /* 5. el logo se descubre de izquierda a derecha, con el titulo llegando */
     if (logo) {
-      tl.to(logo, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1, ease: EASE.settle }, 3.4);
+      /* En el home el gesto pertenece a la marca: HMA aparece grande en el
+         centro, sostiene y viaja a su lugar definitivo. El claim entra recien
+         despues. Antes hacia ese recorrido el titulo y el logo aparecia al
+         final, que era exactamente el orden inverso al pedido. */
+      gsap.set(logo, { clearProps: 'transform' });
+      var cajaLogo = logo.getBoundingClientRect();
+      var escalaLogo = Math.min(
+        b.mobile ? 1.18 : 1.34,
+        (re.width * (b.mobile ? 0.88 : 0.74)) / Math.max(cajaLogo.width, 1),
+        (re.height * 0.38) / Math.max(cajaLogo.height, 1)
+      );
+      var viajeLogoX = (re.left + re.width / 2) - (cajaLogo.left + cajaLogo.width / 2);
+      var viajeLogoY = (re.top + re.height / 2) - (cajaLogo.top + cajaLogo.height / 2);
+
+      gsap.set(logo, {
+        x: viajeLogoX, y: viajeLogoY, scale: escalaLogo,
+        clipPath: 'inset(0 100% 0 0)', opacity: 0,
+        transformOrigin: 'center center', willChange: 'transform'
+      });
+      tl.to(logo, {
+        clipPath: 'inset(0 0% 0 0)', opacity: 1,
+        duration: 1.25, ease: EASE.reveal
+      }, 0);
+      tl.to(logo, {
+        x: 0, y: 0, scale: 1,
+        duration: 1.5, ease: 'power3.inOut'
+      }, 2.15);
+
+      if (lineas) {
+        var claim = TR.emerge(lineas, { blur: 10, stagger: 0.16 });
+        claim.duration(1.15);
+        tl.add(claim, 3.45);
+      } else {
+        gsap.set(titulo, { opacity: 0, filter: 'blur(10px)' });
+        tl.to(titulo, { opacity: 1, filter: 'blur(0px)', duration: 1.15, ease: EASE.reveal }, 3.45);
+      }
+    } else {
+      /* Los banners sin logo conservan su presentacion: el titulo es el que
+         emerge en el centro y luego aterriza en su posicion. */
+      gsap.set(titulo, {
+        x: viajeX, y: viajeY, scale: escala,
+        transformOrigin: 'center center',
+        willChange: 'transform'
+      });
+      if (lineas) {
+        var ap = TR.emerge(lineas, { blur: 10, stagger: 0.16 });
+        ap.duration(1.5);
+        tl.add(ap, 0);
+      } else {
+        gsap.set(titulo, { opacity: 0, filter: 'blur(10px)' });
+        tl.to(titulo, { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: EASE.reveal }, 0);
+      }
+      tl.to(titulo, {
+        x: 0, y: 0, scale: 1,
+        duration: 1.5,
+        ease: 'power3.inOut'
+      }, 2.6);
     }
 
-    /* 6. la informacion secundaria, recien cuando el titulo ya llego */
+    /* La informacion secundaria entra cuando marca y titulo ya se leen. */
     if (eyebrow) {
-      tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, 3.7);
+      tl.to(eyebrow, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: EASE.settle }, logo ? 4.2 : 3.7);
     }
     if (sub) {
-      tl.to(sub, { clipPath: 'inset(0 0 0% 0)', opacity: 1, y: 0, duration: 0.9, ease: EASE.settle }, 3.9);
+      tl.to(sub, { clipPath: 'inset(0 0 0% 0)', opacity: 1, y: 0, duration: 0.9, ease: EASE.settle }, logo ? 4.45 : 3.9);
     }
 
     return tl;

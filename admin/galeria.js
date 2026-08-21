@@ -5,8 +5,8 @@
    foto sale de 8 MB. Subir eso llena el almacenamiento en dos obras y deja la
    pagina lenta para siempre, porque despues se sirve tal cual.
 
-   Fotos y planos son dos galerias independientes -tipo='foto' y tipo='plano'
-   en obra_imagenes, cada una con su propio cupo de 15- pero comparten toda
+   Galeria, cuerpo y planos son colecciones independientes en obra_imagenes.
+   Las fotos del cuerpo no tienen cupo; galeria y planos si.
    esta logica: crearGaleria() arma una instancia por tipo, solo cambia que
    los planos no tienen portada. */
 
@@ -21,7 +21,7 @@
      suben de a uno, salen del Drive y son los que son -Tostado tiene 35-.
      Con un solo tope de quince, esa obra mostraba "35 de 15" y el boton de
      subir quedaba deshabilitado para siempre. */
-  var TOPES = { foto: 15, plano: 40 };
+  var TOPES = { foto: 30, cuerpo: null, plano: 40 };
   var TAMANO_MAX = 20 * 1024 * 1024;
   var TIPOS_ARCHIVO = ['image/jpeg', 'image/png', 'image/webp'];
   var LADO_LARGO_RECOMENDADO = 1600;
@@ -221,10 +221,10 @@
       });
 
       $(cfg.conteo).textContent = imagenes.length
-        ? imagenes.length + ' de ' + TOPE + ' ' + cfg.unidadPlural
+        ? imagenes.length + (TOPE ? ' de ' + TOPE : '') + ' ' + cfg.unidadPlural
         : cfg.vacio;
-      $(cfg.subir).disabled = imagenes.length >= TOPE;
-      $(cfg.ayudaTope).classList.toggle('oculto', imagenes.length < TOPE);
+      $(cfg.subir).disabled = !!TOPE && imagenes.length >= TOPE;
+      $(cfg.ayudaTope).classList.toggle('oculto', !TOPE || imagenes.length < TOPE);
     }
 
     function boton(texto, titulo, deshabilitado, alTocar, clase) {
@@ -377,7 +377,7 @@
         return;
       }
 
-      var lugar = TOPE - imagenes.length;
+      var lugar = TOPE ? TOPE - imagenes.length : lista.length;
       var sobran = 0;
       if (lista.length > lugar) {
         sobran = lista.length - lugar;
@@ -395,7 +395,7 @@
       // telefono saturan la subida y encima no se puede mostrar por donde va.
       var siguiente = function (i) {
         if (i >= lista.length) {
-          $(cfg.subir).disabled = imagenes.length >= TOPE;
+          $(cfg.subir).disabled = !!TOPE && imagenes.length >= TOPE;
           pintar();
           var texto = hechas + (hechas === 1 ? cfg.subidaSingular : cfg.subidaPlural);
           if (sobran) texto += '. ' + sobran + ' quedaron afuera por el tope de ' + TOPE + '.';
@@ -522,12 +522,31 @@
     ayudaTope: 'ayudaTopeFotos',
     unidadPlural: 'imágenes',
     vacio: 'Todavía no hay fotos.',
-    tope: 'a las 15 imágenes.',
+    tope: 'a las 30 imágenes.',
     subidaSingular: ' foto subida',
     subidaPlural: ' fotos subidas',
     avisoEliminada: 'Foto eliminada.',
     confirmarBorrado: '¿Eliminar esta foto? No se puede deshacer.',
     rotuloEliminar: 'Eliminar la foto',
+  });
+
+  var CUERPO = crearGaleria({
+    tipo: 'cuerpo',
+    conPortada: false,
+    grilla: 'grillaCuerpo',
+    subir: 'subirCuerpo',
+    archivos: 'archivosCuerpo',
+    conteo: 'conteoCuerpo',
+    aviso: 'avisoCuerpo',
+    ayudaTope: 'ayudaTopeCuerpo',
+    unidadPlural: 'imágenes en el cuerpo',
+    vacio: 'Todavía no hay fotos en el cuerpo.',
+    tope: '',
+    subidaSingular: ' foto subida al cuerpo',
+    subidaPlural: ' fotos subidas al cuerpo',
+    avisoEliminada: 'Foto del cuerpo eliminada.',
+    confirmarBorrado: '¿Eliminar esta foto del cuerpo? No se puede deshacer.',
+    rotuloEliminar: 'Eliminar la foto del cuerpo',
   });
 
   var PLANOS = crearGaleria({
@@ -552,9 +571,10 @@
   window.GALERIA = {
     iniciar: function (id) {
       $('galeriaFotos').classList.remove('oculto');
+      $('galeriaCuerpo').classList.remove('oculto');
       $('galeriaPlanos').classList.remove('oculto');
       $('galeriaSinObra').classList.add('oculto');
-      return Promise.all([FOTOS.iniciar(id), PLANOS.iniciar(id)]);
+      return Promise.all([FOTOS.iniciar(id), CUERPO.iniciar(id), PLANOS.iniciar(id)]);
     },
   };
 })();

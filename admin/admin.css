@@ -85,7 +85,9 @@ label {
 
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="url"],
+input[type="number"] {
   width: 100%;
   padding: 11px 12px;
   border: 1px solid var(--linea);
@@ -102,6 +104,55 @@ input:focus-visible {
   outline: 2px solid var(--negro);
   outline-offset: 1px;
   border-color: var(--negro);
+}
+
+/* --- prensa ------------------------------------------------------------- */
+
+.prensa-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, .8fr) minmax(380px, 1.2fr);
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.prensa-panel__lista,
+.prensa-panel__form { min-width: 0; }
+
+.prensa-admin-lista { display: grid; gap: 8px; }
+
+.prensa-admin-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  background: var(--blanco);
+  color: var(--negro);
+  text-align: left;
+  cursor: pointer;
+}
+
+.prensa-admin-item:hover { border-color: var(--negro); }
+.prensa-admin-item img { width: 82px; aspect-ratio: 4 / 3; object-fit: cover; background: var(--fondo); }
+.prensa-admin-item strong,
+.prensa-admin-item small { display: block; }
+.prensa-admin-item small { margin-top: 3px; color: var(--gris); }
+
+.prensa-admin-preview { margin-top: 10px; }
+.prensa-admin-preview img {
+  display: block;
+  width: min(100%, 420px);
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid var(--linea);
+}
+
+@media (max-width: 780px) {
+  .prensa-panel { grid-template-columns: 1fr; }
 }
 
 .campo + .campo { margin-top: 16px; }
@@ -628,6 +679,19 @@ textarea:focus-visible {
   margin: 6px 0 0;
   font-size: .82rem;
   color: var(--gris);
+}
+
+.editor-barra {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+.boton--mini {
+  width: auto;
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: .78rem;
 }
 
 .obligatorio {

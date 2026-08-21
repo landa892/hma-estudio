@@ -51,6 +51,12 @@ def escapar_atributo(t):
     return escapar(t).replace('"', '&quot;')
 
 
+def formato_editorial(t):
+    """Escapa todo y admite solamente **negrita** desde el panel."""
+    seguro = escapar(t)
+    return re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', seguro)
+
+
 # El orden en que van las filas de la ficha tecnica. Solo se usa para
 # ubicar una fila que haya que agregar; las que ya estan no se mueven.
 ORDEN_SPECS = ['Estado', 'Tipo', 'Ubicación', 'País', 'Superficie', 'Año',
@@ -125,7 +131,7 @@ def bloque_memoria(o):
     if not parrafos:
         return ''
     plegable = len(parrafos) > 2
-    cuerpo = '\n'.join('          <p>%s</p>' % escapar(p) for p in parrafos)
+    cuerpo = '\n'.join('          <p>%s</p>' % formato_editorial(p) for p in parrafos)
     boton = ''
     if plegable:
         boton = ('\n        <button class="memoria-more gallery-more" type="button"\n'
@@ -160,6 +166,20 @@ def bloque_meta(o):
               (o.get('superficie') or '').split(' \u00b7 ')[0],
               o.get('anio') or '']
     return ''.join('<span>%s</span>' % escapar(p) for p in partes if p.strip())
+
+
+def bloque_premios(o):
+    texto = (o.get('premios') or '').strip()
+    if not texto:
+        return ''
+    return ('    <section class="project-awards-panel">\n'
+            '      <div class="container">\n'
+            '        <span class="eyebrow">Reconocimientos</span>\n'
+            '        <h2 class="display-3 mt-10">Premios y distinciones</h2>\n'
+            '        <p class="project-awards-panel__text mt-16">%s</p>\n'
+            '        <a class="btn link-arrow mt-16" href="/premios/">Ver premios</a>\n'
+            '      </div>\n'
+            '    </section>\n' % formato_editorial(texto))
 
 
 def aplicar(o, html):
@@ -237,6 +257,17 @@ def aplicar(o, html):
             html = html.replace(ancla, nueva + '\n' + ancla, 1)
         else:
             problemas.append('no hay donde poner la memoria')
+
+    actual_premios = re.search(
+        r'(?s)\n    <section class="project-awards-panel">.*?\n    </section>\n', html)
+    premios = bloque_premios(o)
+    if actual_premios:
+        html = (html[:actual_premios.start()] + ('\n' + premios if premios else '\n')
+                + html[actual_premios.end():])
+    elif premios:
+        ancla = '    <section class="project-gallery">'
+        if ancla in html:
+            html = html.replace(ancla, premios + '\n' + ancla, 1)
 
     return html, problemas
 

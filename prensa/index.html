@@ -28,7 +28,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.css?v=93">
+  <link rel="stylesheet" href="/styles/main.css?v=94">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/prensa/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/press/">
@@ -147,79 +147,105 @@
     <section class="section no-border" id="medios">
       <div class="container">
 
+        <div class="section-head section-head--eje prensa-cabecera">
+          <div>
+            <span class="eyebrow eyebrow--seccion">Publicaciones</span>
+            <h2 class="display-3 mt-10">Prensa</h2>
+          </div>
+        </div>
+
+        <div class="press-filter-bar press-filter-bar--visual" id="prensaVisualYears" aria-label="Filtrar publicaciones por año">
+          <button class="filter-btn active" data-year="all">Todos</button>
+          <button class="filter-btn" data-year="2026">2026</button>
+          <button class="filter-btn" data-year="2025">2025</button>
+          <button class="filter-btn" data-year="2023">2023</button>
+          <button class="filter-btn" data-year="2020">2020</button>
+          <button class="filter-btn" data-year="2019">2019</button>
+          <button class="filter-btn" data-year="2018">2018</button>
+        </div>
+
         <div class="prensa-destacada">
             <div class="press-featured reveal" id="prensaFeed">
               <!-- PRENSA-TARJETAS-INICIO -->
-              <a class="press-card" href="/prensa/comer-solo-sin-pedir-perdon/">
+              <a class="press-card" data-year="2026" href="/prensa/comer-solo-sin-pedir-perdon/">
                 <div class="press-img"><img src="/assets/press/newsweek-2026.webp" width="843" height="596" alt="Newsweek Argentina" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Newsweek Argentina</div>
                   <div class="press-title">Comer solo sin pedir perdón</div>
                   <div class="press-date">Mayo 2026</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno/">
+              <a class="press-card" data-year="2025" href="/prensa/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno/">
                 <div class="press-img"><img src="/assets/press/lanacion-airelibre.webp" width="900" height="637" alt="La Nación — Argentina" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">La Nación — Argentina</div>
                   <div class="press-title">El nuevo restaurante de Belgrano en un patio lleno de plantas</div>
                   <div class="press-date">Febrero 2025</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/antiche-tentazioni-heladeria/">
+              <a class="press-card" data-year="2023" href="/prensa/antiche-tentazioni-heladeria/">
                 <div class="press-img"><img src="/assets/press/gyg-magazine.webp" width="730" height="641" alt="G&amp;G Magazine — Italia" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">G&amp;G Magazine — Italia</div>
                   <div class="press-title">Antiche Tentazioni, heladería</div>
                   <div class="press-date">Febrero 2023</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/stella-artois-stand-hitzig-militello-arquitectos/">
+              <a class="press-card" data-year="2023" href="/prensa/stella-artois-stand-hitzig-militello-arquitectos/">
                 <div class="press-img"><img src="/assets/press/archdaily-stellaartois.webp" width="862" height="921" alt="ArchDaily — Reino Unido" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">ArchDaily — Reino Unido</div>
                   <div class="press-title">Stella Artois Stand / Hitzig Militello arquitectos</div>
                   <div class="press-date">2023</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/un-lugar-para-sentarse-al-aire-libre-en-la/">
+              <a class="press-card" data-year="2020" href="/prensa/un-lugar-para-sentarse-al-aire-libre-en-la/">
                 <div class="press-img"><img src="/assets/press/metalocus-williamsburg.webp" width="900" height="588" alt="Metalocus — España" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Metalocus — España</div>
                   <div class="press-title">Un lugar para sentarse al aire libre en la normalidad pandémica: Williamsburg</div>
                   <div class="press-date">Octubre 2020</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/williamsburg-espacio-al-aire-libre-en-buenos-aires/">
+              <a class="press-card" data-year="2020" href="/prensa/williamsburg-espacio-al-aire-libre-en-buenos-aires/">
                 <div class="press-img"><img src="/assets/press/designboom-williamsburg.webp" width="900" height="702" alt="Design Boom" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Design Boom</div>
                   <div class="press-title">Williamsburg, espacio al aire libre en Buenos Aires</div>
                   <div class="press-date">Octubre 2020</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/entrevista-a-hitzig-militello-architects/">
+              <a class="press-card" data-year="2019" href="/prensa/entrevista-a-hitzig-militello-architects/">
                 <div class="press-img"><img src="/assets/press/hospitalitydesign-entrevista.webp" width="900" height="760" alt="Hospitality Design — EE.UU." loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Hospitality Design — EE.UU.</div>
                   <div class="press-title">Entrevista a Hitzig Militello Architects</div>
                   <div class="press-date">Mayo 2019</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/fogon-restaurante-y-bar-en-riad-arabia-saudi/">
+              <a class="press-card" data-year="2019" href="/prensa/fogon-restaurante-y-bar-en-riad-arabia-saudi/">
                 <div class="press-img"><img src="/assets/press/designboom-fogon.webp" width="818" height="545" alt="Design Boom" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Design Boom</div>
                   <div class="press-title">Fogón, restaurante y bar en Riad, Arabia Saudí</div>
                   <div class="press-date">2019</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
-              <a class="press-card" href="/prensa/the-nim-bar-fotografia-de-federico-kulekdjian/">
+              <a class="press-card" data-year="2018" href="/prensa/the-nim-bar-fotografia-de-federico-kulekdjian/">
                 <div class="press-img"><img src="/assets/press/designboom-nimbar.webp" width="900" height="600" alt="Design Boom" loading="lazy" decoding="async"></div>
                 <div class="press-body">
                   <div class="press-outlet">Design Boom</div>
                   <div class="press-title">The Nim Bar, fotografía de Federico Kulekdjian</div>
                   <div class="press-date">2018</div>
+                  <span class="press-card__link" aria-hidden="true">↗</span>
                 </div>
               </a>
               <!-- PRENSA-TARJETAS-FIN -->
@@ -239,12 +265,15 @@
     <section class="section pt-32 pb-32" id="videos">
       <div class="container">
         <div class="section-head section-head--eje">
-          <h2 class="display-3">Nuestro canal</h2>
+          <div>
+            <span class="eyebrow eyebrow--seccion">Videos</span>
+            <h2 class="display-3 mt-10">Nuestro canal</h2>
+          </div>
           <a href="https://www.youtube.com/@HMAEstudio" target="_blank" rel="noopener" class="btn link-arrow">Ir al
             canal</a>
         </div>
 
-        <h3 class="col-sub">Últimos videos del canal</h3>
+        <h3 class="col-sub col-sub--videos">Últimos videos del canal</h3>
         <div id="youtubeEntrevistas" class="press-featured">
           <a class="press-card" href="https://www.youtube.com/watch?v=9Z2Q4iS2Ip0" target="_blank" rel="noopener">
             <div class="press-img"><img src="https://i.ytimg.com/vi/9Z2Q4iS2Ip0/sddefault.jpg" width="1280" height="720" alt="El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | HMA Estudio"
@@ -407,9 +436,9 @@
   <script src="/scripts/vendor/lenis.min.js"></script>
   <script src="/scripts/config/gsap.js?v=85"></script>
   <script src="/scripts/animations/textReveal.js?v=85"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=86"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=87"></script>
   <script src="/scripts/animations/scrollEffects.js?v=86"></script>
-  <script src="/scripts/main.js?v=90"></script>
+  <script src="/scripts/main.js?v=91"></script>
 </body>
 
 </html>

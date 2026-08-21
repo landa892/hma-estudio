@@ -2500,14 +2500,14 @@ footer.site-footer {
   }
 }
 
-/* Titulo "en hueco": solo contorno, como el SEARCH de mvrdv */
+/* El buscador comparte la tipografia editorial del resto del sitio. El titulo
+   calado que tenia antes parecia pertenecer a otra identidad visual. */
 .search-page__title {
   text-align: center;
-  font-size: clamp(2.6rem, 9vw, 5.5rem);
-  text-transform: uppercase;
-  letter-spacing: .02em;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--gray);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: .98;
+  letter-spacing: 0;
+  color: var(--black);
   margin-bottom: 32px;
 }
 
@@ -3613,6 +3613,40 @@ footer.site-footer {
   transform: scale(1.04);
 }
 
+/* Los recortes de prensa son documentos para leer, no miniaturas de una obra.
+   Van grandes y completos; el visor conserva el zoom para inspeccionarlos. */
+.gallery-grid--prensa {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  align-items: start;
+}
+
+.gallery-grid--prensa .gallery-grid__item {
+  aspect-ratio: auto;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.gallery-grid--prensa .gallery-grid__item img {
+  height: auto;
+  object-fit: contain;
+}
+
+.gallery-grid--prensa .gallery-grid__item:hover img {
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .gallery-grid--prensa {
+    grid-template-columns: 1fr;
+  }
+}
+
+.press-article__source {
+  width: max-content;
+  font-size: .72rem;
+}
+
 .founder-li {
   display: inline-block;
   margin-top: 12px;
@@ -4034,6 +4068,16 @@ html.lenis body {
 
 .memoria-editorial-row--reverse .memoria-editorial-row__photo {
   order: -1;
+}
+
+.memoria-editorial-row--solo-foto {
+  grid-template-columns: 1fr;
+  min-height: 0;
+}
+
+.memoria-editorial-row--solo-foto .memoria-editorial-row__photo {
+  order: 0;
+  aspect-ratio: 16 / 9;
 }
 
 .memoria-cuerpo:not(.is-open) > .memoria-editorial-row--extra {
@@ -4658,6 +4702,118 @@ html.lenis body {
 
 .socios-texto>p+p {
   margin-top: 16px;
+}
+
+/* --- ajuste editorial general pedido por el estudio --------------------
+   Se justifica la prosa, no los controles ni los rotulos. Una sola escala
+   compartida evita que cada seccion parezca pertenecer a una pagina distinta. */
+.lede,
+.project-row__text p,
+.memoria-cuerpo > p,
+.memoria-editorial-row__text > p,
+.work-split__text p,
+.socios-texto p,
+.founder p,
+.award-row__desc,
+.project-banner--split__text p,
+.press-note__copy p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.work-split__text p,
+.socios-texto p,
+.founder p {
+  font-size: clamp(1rem, .3vw + .94rem, 1.08rem);
+  line-height: 1.68;
+}
+
+/* Enfoque y socios forman una misma secuencia; antes dos paddings completos
+   dejaban un vacio que parecia el final de la pagina. */
+.estudio-enfoque {
+  padding-bottom: clamp(28px, 4vw, 52px);
+}
+
+.estudio-fundadores {
+  padding-top: clamp(28px, 4vw, 52px);
+}
+
+.work-split--reverse {
+  align-items: start;
+}
+
+.work-split--reverse .work-split__text,
+.work-split--reverse .work-split__photo {
+  align-self: start;
+}
+
+/* Las tapas de Prensa conservan exactamente la misma caja, incluso al
+   filtrar: ninguna nota se ensancha para rellenar una fila incompleta. */
+.prensa-cabecera {
+  margin-bottom: 22px;
+}
+
+.press-filter-bar--visual {
+  margin-bottom: 28px;
+}
+
+#prensaFeed > .press-card[hidden] {
+  display: none !important;
+}
+
+.press-card .press-body {
+  position: relative;
+  padding-right: 38px;
+}
+
+.press-card__link {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid currentColor;
+  font-size: .68rem;
+  line-height: 1;
+}
+
+.col-sub--videos {
+  margin: 0 0 18px;
+  padding: 10px 0;
+  border-top: 1px solid var(--black);
+  border-bottom: 1px solid var(--line);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Premios usa los mismos ejes tipograficos que Prensa. */
+.award-row__desc {
+  display: block;
+  max-width: 62ch;
+  font-size: clamp(.9rem, .2vw + .86rem, 1rem);
+  line-height: 1.58;
+}
+
+/* En fichas largas el siguiente bloque ya no queda separado por una pantalla
+   vacia, en especial en Osten Coffee Shop. */
+.project-memoria + .section,
+.project-memoria + .section.no-border {
+  padding-top: clamp(32px, 4vw, 58px);
+}
+
+.project-awards-panel {
+  padding: 0 0 clamp(38px, 5vw, 72px);
+}
+
+.project-awards-panel__text {
+  max-width: 70ch;
+  white-space: pre-line;
+  text-align: justify;
+  line-height: 1.65;
 }
 
 @media (max-width: 800px) {

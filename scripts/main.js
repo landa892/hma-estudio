@@ -779,6 +779,26 @@ try {
 } catch (e) { console.error('press-filters', e); }
 
 try {
+  /* Las tapas de Prensa usan el mismo criterio temporal que el archivo
+     completo. El filtro vive aca porque estas nueve tarjetas tambien se
+     regeneran desde docs/prensa_datos.json en cada publicacion. */
+  const visualYears = document.querySelectorAll('#prensaVisualYears .filter-btn');
+  const visualFeed = document.getElementById('prensaFeed');
+  if (visualYears.length && visualFeed) {
+    const cards = Array.from(visualFeed.querySelectorAll('.press-card[data-year]'));
+    visualYears.forEach(btn => btn.addEventListener('click', () => {
+      visualYears.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const year = btn.dataset.year;
+      cards.forEach(card => {
+        card.hidden = year !== 'all' && card.dataset.year !== year;
+      });
+      if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
+    }));
+  }
+} catch (e) { console.error('press-visual-filters', e); }
+
+try {
   /* ---------- MEMORIA DE OBRA CON FILAS EDITORIALES ----------
      La memoria real ya existe en cada ficha. Las filas que venian despues
      repetian textos institucionales, asi que usamos solamente sus fotos y
@@ -792,7 +812,7 @@ try {
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
     const fotos = Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
-    const cantidad = Math.min(6, parrafos.length, fotos.length);
+    const cantidad = Math.min(parrafos.length, fotos.length);
 
     if (cantidad) {
       const fragmento = document.createDocumentFragment();
@@ -820,6 +840,15 @@ try {
         fila.append(texto, foto);
         fragmento.appendChild(fila);
       }
+      fotos.slice(cantidad).forEach((origen) => {
+        const fila = document.createElement('div');
+        fila.className = 'memoria-editorial-row memoria-editorial-row--solo-foto';
+        const foto = origen.cloneNode(true);
+        foto.className = 'memoria-editorial-row__photo';
+        foto.removeAttribute('style');
+        fila.appendChild(foto);
+        fragmento.appendChild(fila);
+      });
       memoria.replaceChildren(fragmento);
       memoria.classList.add('memoria-cuerpo--intercalada');
       memoria.classList.remove('reveal');

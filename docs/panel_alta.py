@@ -240,8 +240,7 @@ def bloque_grilla(slug, titulo, fotos):
                  % (len(fotos), len(fotos), len(fotos)))
     return ('\n    <section class="section no-border" id="galeria">\n'
             '      <div class="container">\n'
-            '        <div class="section-head"><div><span class="eyebrow">Galería</span>'
-            '<h2 class="display-3 mt-10">Todas las fotos</h2></div></div>\n'
+            '        <div class="section-head"><h2 class="display-3">Galería</h2></div>\n'
             '        <div class="gallery-grid reveal">\n%s\n        </div>%s\n'
             '      </div>\n    </section>\n' % (items, boton))
 

@@ -184,6 +184,47 @@ DIC.update({
     'Link': 'Link',
 })
 
+# Textos incorporados por las correcciones finales de agosto. Los nombres de
+# premios y organizaciones se conservan: son denominaciones propias.
+DIC.update({
+    'Buenos Aires · São Paulo · Montevideo · Miami · Madrid':
+        'Buenos Aires · São Paulo · Montevideo · Miami · Madrid',
+    'Argentina · Brasil · Uruguay · Estados Unidos · España':
+        'Argentina · Brazil · Uruguay · United States · Spain',
+    'Locales de Tostado Café Club en Buenos Aires, São Paulo, Montevideo, Miami y Madrid.':
+        'Tostado Café Club venues in Buenos Aires, São Paulo, Montevideo, Miami and Madrid.',
+    '1.470 m² cubiertos': '1,470 m² covered area',
+    '300 m² interior': '300 m² interior',
+    '310 m² planta baja': '310 m² ground floor',
+    '240 m² cubiertos': '240 m² covered area',
+    'Comitente': 'Client',
+    'Socios fundadores': 'Founding partners',
+    'Publicaciones': 'Publications',
+    'Videos': 'Videos',
+    'Filtrar publicaciones por año': 'Filter publications by year',
+    'Bienal Internacional de Arquitectura': 'International Architecture Biennial',
+    'St Michael': 'St Michael',
+    'BIAR': 'BIAR',
+    'GNV Group': 'GNV Group',
+    'Bienal SCA-CPAU · Restaurant &amp; Bar Design Awards':
+        'Bienal SCA-CPAU · Restaurant &amp; Bar Design Awards',
+    'IIDA · Next Landmark Awards': 'IIDA · Next Landmark Awards',
+    'SBID · Restaurant &amp; Bar Design Awards':
+        'SBID · Restaurant &amp; Bar Design Awards',
+    'Architizer A+ · Surface Design · Hospitality Design · ARQ-FADEA':
+        'Architizer A+ · Surface Design · Hospitality Design · ARQ-FADEA',
+    'Prix Versailles · Surface Design Awards':
+        'Prix Versailles · Surface Design Awards',
+    'Architizer A+ · LIV Hospitality Design Awards':
+        'Architizer A+ · LIV Hospitality Design Awards',
+    'Prix Versailles · Restaurant &amp; Bar Design Awards':
+        'Prix Versailles · Restaurant &amp; Bar Design Awards',
+    'Accor Hotels Design &amp; Technical Summit':
+        'Accor Hotels Design &amp; Technical Summit',
+    'German Design Awards · SBID · Restaurant &amp; Bar Design Awards':
+        'German Design Awards · SBID · Restaurant &amp; Bar Design Awards',
+})
+
 # La lupa de Trabajos y del archivo de prensa. El placeholder dice solo
 # "Buscar", que ya estaba traducido; estas son las etiquetas que lee un lector
 # de pantalla y el aviso de que no hubo resultados.

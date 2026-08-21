@@ -72,7 +72,7 @@ def main_markup(english=False):
         "read_more": "Keep reading" if english else "Seguir leyendo",
         "read_less": "Read less" if english else "Leer menos",
         "gallery": "Gallery" if english else "Galería",
-        "all_photos": "All photos" if english else "Todas las fotos",
+        "all_photos": "Gallery" if english else "Galería",
         "show": "View all 28 photos" if english else "Ver las 28 fotos",
         "hide": "Show fewer photos" if english else "Ver menos fotos",
         "portfolio": "Portfolio",

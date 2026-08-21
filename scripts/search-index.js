@@ -1,7 +1,7 @@
 window.HMA_SEARCH_INDEX = [
  {
   "tipo": "Proyecto",
-  "titulo": "Ualá II",
+  "titulo": "Ualá Nicaragua II",
   "sub": "Oficinas",
   "desc": "Diseño interior de oficinas · Buenos Aires · 757 m² · 2019–2020",
   "url": "/proyectos/uala-ii/",
@@ -457,7 +457,7 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
-  "titulo": "Ualá",
+  "titulo": "Ualá Nicaragua I",
   "sub": "Oficinas",
   "desc": "Reforma de oficinas · Buenos Aires · 2017",
   "url": "/proyectos/uala-office/",
@@ -465,7 +465,7 @@ window.HMA_SEARCH_INDEX = [
  },
  {
   "tipo": "Proyecto",
-  "titulo": "Ualá 1",
+  "titulo": "Ualá Gigena",
   "sub": "Oficinas",
   "desc": "Oficinas · Paseo Gigena, Av. Dorrego y Av. del Libertador, Buenos Aires · 9.002 m²",
   "url": "/proyectos/uala-gigena/",

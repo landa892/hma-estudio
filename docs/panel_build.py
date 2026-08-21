@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Arma el sitio desde la base. Es lo unico que corre el build de Vercel.
 
-   Los quince pasos podrian ir encadenados con && en la casilla de Vercel, pero el
+   Los pasos podrian ir encadenados con && en la casilla de Vercel, pero el
    comando de build admite 256 caracteres y esa cadena mide mas del doble. Aca
    ademas se ve en el log donde falla, que en una sola linea de shell no se ve.
 
@@ -32,18 +32,19 @@
                         Los planos van en el paso 4: panel_galerias los trae
                         como filas de obra_imagenes con tipo='plano', ya no
                         hay un paso planos_fichas aparte.
-    12. prensa_pagina   rearma el archivo completo de publicaciones.
-    13. prensa_paginas  arma la pagina propia de cada nota y enlaza su
+    12. panel_prensa    sincroniza las publicaciones editables del panel.
+    13. prensa_pagina   rearma el archivo completo de publicaciones.
+    14. prensa_paginas  arma la pagina propia de cada nota y enlaza su
                         tarjeta. Va despues del archivo, que es quien
                         rehace el listado.
-    13. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+    15. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    14. obras_orden     ordena grilla y lista por el ano final, tanto en
+    16. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    15. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    17. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    16. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    18. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -69,6 +70,7 @@ PASOS = [
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
+    ('las publicaciones del panel',  'panel_prensa.py',  []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),
     ('el sitio en ingles',           'en_gen.py',        []),

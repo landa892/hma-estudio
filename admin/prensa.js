@@ -1,0 +1,431 @@
+/* Publicaciones destacadas de Prensa. La tabla y el bucket siguen protegidos
+   por las mismas reglas que Obras; esta pantalla solo ofrece la interfaz. */
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var REST = HMA.BASE + '/rest/v1';
+  var filas = [];
+  var imagenes = [];
+
+  function aviso(id, texto, tipo) {
+    var el = $(id);
+    el.textContent = texto || '';
+    el.className = 'aviso' + (texto ? ' aviso--' + tipo : '');
+  }
+
+  function rest(ruta, opciones) {
+    opciones = opciones || {};
+    return HMA.token().then(function (token) {
+      var cabeceras = {
+        apikey: HMA.CLAVE,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      };
+      if (opciones.devolver) cabeceras.Prefer = 'return=representation';
+      return fetch(REST + ruta, {
+        method: opciones.method || 'GET',
+        headers: cabeceras,
+        body: opciones.body ? JSON.stringify(opciones.body) : undefined,
+      }).then(function (r) {
+        return r.text().then(function (texto) {
+          var datos = null;
+          try { datos = texto ? JSON.parse(texto) : null; } catch (e) {}
+          if (!r.ok) {
+            var mensaje = (datos && datos.message) || '';
+            if (/prensa_(publicaciones|imagenes)/.test(mensaje)) {
+              mensaje = 'Falta activar la actualización de Prensa en la base. Avisale al administrador.';
+            }
+            throw new Error(mensaje || 'No pudimos guardar la publicación.');
+          }
+          return datos;
+        });
+      });
+    });
+  }
+
+  function slug(texto) {
+    return (texto || '').toLowerCase().normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '').slice(0, 80);
+  }
+
+  function urlImagen(ruta) {
+    if (!ruta) return '';
+    if (/^(blob:|data:|https?:)/.test(ruta)) return ruta;
+    if (/^@site:/.test(ruta)) return ruta.replace(/^@site:/, '');
+    return HMA.BASE + '/storage/v1/object/public/obras/' + ruta;
+  }
+
+  function optimizar(archivo) {
+    if (!/^image\/(jpeg|png|webp)$/.test(archivo.type) || archivo.size > 20 * 1024 * 1024) {
+      return Promise.reject(new Error('Usá una imagen JPG, PNG o WebP de hasta 20 MB.'));
+    }
+    return createImageBitmap(archivo, { imageOrientation: 'from-image' }).then(function (bmp) {
+      var escala = Math.min(1, 1800 / Math.max(bmp.width, bmp.height));
+      var ancho = Math.round(bmp.width * escala);
+      var alto = Math.round(bmp.height * escala);
+      var canvas = document.createElement('canvas');
+      canvas.width = ancho;
+      canvas.height = alto;
+      canvas.getContext('2d').drawImage(bmp, 0, 0, ancho, alto);
+      bmp.close();
+      return new Promise(function (resolver, rechazar) {
+        canvas.toBlob(function (blob) {
+          if (!blob) return rechazar(new Error('No pudimos procesar la imagen.'));
+          resolver({ blob: blob, ancho: ancho, alto: alto });
+        }, 'image/webp', .82);
+      });
+    });
+  }
+
+  function subirImagen(archivo) {
+    return optimizar(archivo).then(function (opt) {
+      var ruta = 'prensa/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.webp';
+      return HMA.token().then(function (token) {
+        return fetch(HMA.BASE + '/storage/v1/object/obras/' + ruta, {
+          method: 'POST',
+          headers: {
+            apikey: HMA.CLAVE,
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'image/webp',
+            'x-upsert': 'false',
+          },
+          body: opt.blob,
+        }).then(function (r) {
+          if (!r.ok) throw new Error('No pudimos subir la imagen.');
+          return ruta;
+        });
+      });
+    });
+  }
+
+  function subirImagenInterna(archivo, publicacionId) {
+    return optimizar(archivo).then(function (opt) {
+      var ruta = 'prensa/' + publicacionId + '/' + Date.now() + '-'
+        + Math.random().toString(36).slice(2, 8) + '.webp';
+      return HMA.token().then(function (token) {
+        return fetch(HMA.BASE + '/storage/v1/object/obras/' + ruta, {
+          method: 'POST',
+          headers: {
+            apikey: HMA.CLAVE,
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'image/webp',
+            'x-upsert': 'false',
+          },
+          body: opt.blob,
+        }).then(function (r) {
+          if (!r.ok) throw new Error('No pudimos subir la imagen.');
+          return { ruta: ruta, ancho: opt.ancho, alto: opt.alto };
+        });
+      });
+    });
+  }
+
+  function borrarImagen(ruta) {
+    if (!ruta || /^@site:/.test(ruta)) return Promise.resolve();
+    return HMA.token().then(function (token) {
+      return fetch(HMA.BASE + '/storage/v1/object/obras', {
+        method: 'DELETE',
+        headers: {
+          apikey: HMA.CLAVE,
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prefixes: [ruta] }),
+      });
+    });
+  }
+
+  function pintarPreview(ruta) {
+    var caja = $('previewPrensa');
+    caja.textContent = '';
+    if (!ruta) return caja.classList.add('oculto');
+    var img = document.createElement('img');
+    img.src = urlImagen(ruta);
+    img.alt = 'Vista previa de la portada';
+    caja.appendChild(img);
+    caja.classList.remove('oculto');
+  }
+
+  function botonImagen(texto, titulo, deshabilitado, alTocar, clase) {
+    var boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = clase || 'foto__flecha';
+    boton.textContent = texto;
+    boton.title = titulo;
+    boton.setAttribute('aria-label', titulo);
+    boton.disabled = !!deshabilitado;
+    boton.addEventListener('click', alTocar);
+    return boton;
+  }
+
+  function pintarImagenes() {
+    var grilla = $('grillaPrensaGaleria');
+    grilla.textContent = '';
+    imagenes.forEach(function (fila, indice) {
+      var tarjeta = document.createElement('figure');
+      tarjeta.className = 'foto';
+      var img = document.createElement('img');
+      img.src = urlImagen(fila.storage_path);
+      img.alt = fila.alt || 'Imagen de la publicación';
+      img.loading = 'lazy';
+      tarjeta.appendChild(img);
+      if (fila.ancho && fila.alto) {
+        var datos = document.createElement('span');
+        datos.className = 'foto__datos';
+        datos.textContent = fila.ancho + ' × ' + fila.alto + ' px';
+        tarjeta.appendChild(datos);
+      }
+      var pie = document.createElement('figcaption');
+      pie.className = 'foto__pie';
+      pie.appendChild(botonImagen('‹', 'Mover antes', indice === 0, function () {
+        moverImagen(indice, indice - 1);
+      }));
+      pie.appendChild(botonImagen('›', 'Mover después', indice === imagenes.length - 1, function () {
+        moverImagen(indice, indice + 1);
+      }));
+      pie.appendChild(botonImagen('Eliminar', 'Eliminar esta imagen', false, function () {
+        eliminarImagen(fila);
+      }, 'foto__accion foto__accion--riesgo'));
+      tarjeta.appendChild(pie);
+      grilla.appendChild(tarjeta);
+    });
+    $('conteoPrensaGaleria').textContent = imagenes.length
+      ? imagenes.length + ' imágenes' : 'Todavía no hay imágenes internas.';
+  }
+
+  function cargarImagenes(publicacionId) {
+    imagenes = [];
+    if (!publicacionId) {
+      $('prensaGaleria').classList.add('oculto');
+      $('prensaGaleriaSinGuardar').classList.remove('oculto');
+      pintarImagenes();
+      return Promise.resolve();
+    }
+    $('prensaGaleria').classList.remove('oculto');
+    $('prensaGaleriaSinGuardar').classList.add('oculto');
+    return rest('/prensa_imagenes?select=*&publicacion_id=eq.'
+      + encodeURIComponent(publicacionId) + '&order=orden.asc,created_at.asc')
+      .then(function (datos) {
+        imagenes = datos || [];
+        pintarImagenes();
+      }).catch(function (e) {
+        aviso('avisoPrensaGaleria', e.message, 'error');
+      });
+  }
+
+  function moverImagen(desde, hasta) {
+    if (hasta < 0 || hasta >= imagenes.length) return;
+    var movida = imagenes.splice(desde, 1)[0];
+    imagenes.splice(hasta, 0, movida);
+    pintarImagenes();
+    aviso('avisoPrensaGaleria', 'Guardando el orden…', 'ok');
+    Promise.all(imagenes.map(function (fila, indice) {
+      fila.orden = indice;
+      return rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id), {
+        method: 'PATCH', body: { orden: indice },
+      });
+    })).then(function () {
+      aviso('avisoPrensaGaleria', 'Orden guardado.', 'ok');
+    }).catch(function (e) {
+      aviso('avisoPrensaGaleria', e.message, 'error');
+      cargarImagenes($('publicacionId').value);
+    });
+  }
+
+  function eliminarImagen(fila) {
+    if (!confirm('¿Eliminar esta imagen? No se puede deshacer.')) return;
+    rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id), { method: 'DELETE' })
+      .then(function () { return borrarImagen(fila.storage_path); })
+      .then(function () { return cargarImagenes($('publicacionId').value); })
+      .then(function () { aviso('avisoPrensaGaleria', 'Imagen eliminada.', 'ok'); })
+      .catch(function (e) { aviso('avisoPrensaGaleria', e.message, 'error'); });
+  }
+
+  function agregarImagenes(archivos) {
+    var publicacionId = $('publicacionId').value;
+    if (!publicacionId || !archivos.length) return;
+    var fallos = [];
+    var cadena = Promise.resolve();
+    Array.prototype.forEach.call(archivos, function (archivo) {
+      cadena = cadena.then(function () {
+        aviso('avisoPrensaGaleria', 'Optimizando ' + archivo.name + '…', 'ok');
+        var subida;
+        return subirImagenInterna(archivo, publicacionId).then(function (datos) {
+          subida = datos;
+          return rest('/prensa_imagenes', {
+            method: 'POST', devolver: true,
+            body: {
+              publicacion_id: publicacionId,
+              storage_path: datos.ruta,
+              alt: $('titulo').value.trim() + ' — imagen ' + (imagenes.length + 1),
+              orden: imagenes.length,
+              ancho: datos.ancho,
+              alto: datos.alto,
+            },
+          });
+        }).catch(function (e) {
+          if (subida) borrarImagen(subida.ruta).catch(function () {});
+          fallos.push(archivo.name + ': ' + e.message);
+        }).then(function () { return cargarImagenes(publicacionId); });
+      });
+    });
+    cadena.then(function () {
+      aviso('avisoPrensaGaleria', fallos.length
+        ? 'No se pudieron cargar: ' + fallos.join(', ')
+        : 'Imágenes guardadas. Publicá los cambios desde Obras.', fallos.length ? 'error' : 'ok');
+    });
+  }
+
+  function pintarLista() {
+    var lista = $('listaPrensa');
+    lista.textContent = '';
+    if (!filas.length) {
+      lista.textContent = 'Todavía no hay publicaciones cargadas.';
+      return;
+    }
+    filas.forEach(function (fila) {
+      var boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'prensa-admin-item';
+      var img = document.createElement('img');
+      img.src = urlImagen(fila.storage_path);
+      img.alt = '';
+      boton.appendChild(img);
+      var texto = document.createElement('span');
+      texto.innerHTML = '<strong></strong><small></small>';
+      texto.querySelector('strong').textContent = fila.titulo;
+      texto.querySelector('small').textContent = fila.medio + (fila.fecha ? ' · ' + fila.fecha : '')
+        + (fila.publicada ? '' : ' · Borrador');
+      boton.appendChild(texto);
+      boton.addEventListener('click', function () { editar(fila); });
+      lista.appendChild(boton);
+    });
+  }
+
+  function limpiar() {
+    $('formPrensa').reset();
+    $('publicacionId').value = '';
+    $('storagePath').value = '';
+    $('orden').value = filas.length;
+    $('publicada').checked = true;
+    $('formTitulo').textContent = 'Nueva publicación';
+    $('eliminar').classList.add('oculto');
+    pintarPreview('');
+    cargarImagenes('');
+    aviso('avisoForm', '', 'ok');
+    $('formPrensa').classList.remove('oculto');
+    $('titulo').focus();
+  }
+
+  function editar(fila) {
+    ['id', 'titulo', 'medio', 'pais', 'fecha', 'link', 'obra', 'slug', 'orden'].forEach(function (campo) {
+      var id = campo === 'id' ? 'publicacionId' : campo;
+      $(id).value = fila[campo] == null ? '' : fila[campo];
+    });
+    $('storagePath').value = fila.storage_path || '';
+    $('publicada').checked = !!fila.publicada;
+    $('formTitulo').textContent = 'Editar publicación';
+    $('eliminar').classList.remove('oculto');
+    pintarPreview(fila.storage_path);
+    cargarImagenes(fila.id);
+    $('formPrensa').classList.remove('oculto');
+    aviso('avisoForm', '', 'ok');
+    $('formPrensa').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function datosFormulario(ruta) {
+    return {
+      titulo: $('titulo').value.trim(),
+      medio: $('medio').value.trim(),
+      pais: $('pais').value.trim() || null,
+      fecha: $('fecha').value.trim() || null,
+      link: $('link').value.trim() || null,
+      obra: $('obra').value.trim() || null,
+      slug: $('slug').value.trim(),
+      orden: Number($('orden').value) || 0,
+      publicada: $('publicada').checked,
+      storage_path: ruta || null,
+    };
+  }
+
+  function guardar(ev) {
+    ev.preventDefault();
+    var id = $('publicacionId').value;
+    var anterior = $('storagePath').value;
+    var archivo = $('imagenPrensa').files[0];
+    if (!archivo && !anterior) return aviso('avisoForm', 'Elegí una imagen de portada.', 'error');
+    $('guardar').disabled = true;
+    aviso('avisoForm', archivo ? 'Optimizando y subiendo la portada…' : 'Guardando…', 'ok');
+    var nuevaRuta = anterior;
+    (archivo ? subirImagen(archivo) : Promise.resolve(anterior)).then(function (ruta) {
+      nuevaRuta = ruta;
+      var cuerpo = datosFormulario(ruta);
+      return rest('/prensa_publicaciones' + (id ? '?id=eq.' + encodeURIComponent(id) : ''), {
+        method: id ? 'PATCH' : 'POST', body: cuerpo, devolver: true,
+      });
+    }).then(function (guardadas) {
+      var guardada = guardadas && guardadas[0];
+      if (guardada) {
+        $('publicacionId').value = guardada.id;
+        $('storagePath').value = guardada.storage_path || nuevaRuta;
+        $('formTitulo').textContent = 'Editar publicación';
+        $('eliminar').classList.remove('oculto');
+      }
+      if (archivo && anterior && anterior !== nuevaRuta) borrarImagen(anterior).catch(function () {});
+      aviso('avisoForm', 'Guardado. Publicalo desde la pantalla Obras.', 'ok');
+      return Promise.all([cargar(), cargarImagenes($('publicacionId').value)]);
+    }).catch(function (e) {
+      if (archivo && nuevaRuta !== anterior) borrarImagen(nuevaRuta).catch(function () {});
+      aviso('avisoForm', e.message, 'error');
+    }).finally(function () { $('guardar').disabled = false; });
+  }
+
+  function eliminar() {
+    var id = $('publicacionId').value;
+    if (!id || !confirm('¿Eliminar esta publicación? No se puede deshacer.')) return;
+    var ruta = $('storagePath').value;
+    var rutasInternas = imagenes.map(function (fila) { return fila.storage_path; });
+    rest('/prensa_publicaciones?id=eq.' + encodeURIComponent(id), { method: 'DELETE' })
+      .then(function () {
+        return Promise.all([borrarImagen(ruta)].concat(rutasInternas.map(borrarImagen)));
+      })
+      .then(function () { limpiar(); return cargar(); })
+      .catch(function (e) { aviso('avisoForm', e.message, 'error'); });
+  }
+
+  function cargar() {
+    return rest('/prensa_publicaciones?select=*&order=orden.asc,created_at.desc').then(function (datos) {
+      filas = datos || [];
+      pintarLista();
+      aviso('avisoLista', filas.length + ' publicaciones cargadas.', 'ok');
+    }).catch(function (e) { aviso('avisoLista', e.message, 'error'); });
+  }
+
+  HMA.exigirSesion().then(function () {
+    var sesion = HMA.sesion();
+    $('quien').textContent = sesion && sesion.email ? sesion.email : '';
+    $('salir').addEventListener('click', function () {
+      HMA.salir().then(function () { location.replace('/admin/'); });
+    });
+    $('nueva').addEventListener('click', limpiar);
+    $('formPrensa').addEventListener('submit', guardar);
+    $('eliminar').addEventListener('click', eliminar);
+    $('titulo').addEventListener('input', function () {
+      if (!$('publicacionId').value) $('slug').value = slug($('titulo').value);
+    });
+    $('imagenPrensa').addEventListener('change', function () {
+      var archivo = $('imagenPrensa').files[0];
+      if (archivo) pintarPreview(URL.createObjectURL(archivo));
+    });
+    $('subirPrensaGaleria').addEventListener('click', function () {
+      $('archivosPrensaGaleria').click();
+    });
+    $('archivosPrensaGaleria').addEventListener('change', function (ev) {
+      agregarImagenes(ev.target.files);
+      ev.target.value = '';
+    });
+    return cargar();
+  }).catch(function () {});
+})();

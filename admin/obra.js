@@ -49,6 +49,7 @@
     $('bajada').value = o.bajada || '';
     $('memoria').value = o.memoria || '';
     $('memoriaEn').value = o.memoria_en || '';
+    $('premios').value = o.premios || '';
     $('estado').value = o.estado || 'en_proyecto';
     $('destacada').checked = !!o.destacada;
     $('bannerRotulo').value = o.banner_rotulo || '';
@@ -96,6 +97,7 @@
       bajada: texto('bajada'),
       memoria: texto('memoria'),
       memoria_en: texto('memoriaEn'),
+      premios: texto('premios'),
       estado: $('estado').value,
       destacada: $('destacada').checked,
       banner_rotulo: texto('bannerRotulo'),
@@ -143,6 +145,7 @@
     bajada: 'la bajada',
     memoria: 'la memoria',
     memoria_en: 'la memoria en inglés',
+    premios: 'los premios',
     estado: 'el estado',
     destacada: 'si va al home',
     banner_rotulo: 'el rótulo del banner',
@@ -347,6 +350,17 @@
     });
     $('memoriaEn').addEventListener('input', function () {
       contarMemoria('memoriaEn', 'contadorMemoriaEn');
+    });
+    document.querySelectorAll('[data-negrita]').forEach(function (boton) {
+      boton.addEventListener('click', function () {
+        var campo = $(boton.dataset.negrita);
+        var inicio = campo.selectionStart;
+        var fin = campo.selectionEnd;
+        var elegido = campo.value.slice(inicio, fin) || 'texto destacado';
+        campo.setRangeText('**' + elegido + '**', inicio, fin, 'select');
+        campo.dispatchEvent(new Event('input', { bubbles: true }));
+        campo.focus();
+      });
     });
     $('destacada').addEventListener('change', verBanner);
     $('publicada').addEventListener('change', actualizarEnlacePublico);

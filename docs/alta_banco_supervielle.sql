@@ -5,9 +5,7 @@
 -- fotos, los planos, la caratula y el catalogo ya estan en el repositorio.
 --
 -- Entra como BORRADOR a proposito. Tiene memoria en los dos idiomas, seis
--- fotos y cuatro planos, pero en el Drive no hay ficha tecnica, asi que
--- superficie, ubicacion, comitente y tipologia van vacias. Cuando el estudio
--- las mande se completan desde el panel y se publica con la casilla, sin SQL.
+-- fotos, cuatro planos y la ficha tecnica que el estudio agrego al Drive.
 --
 -- El anio sale de la carpeta del Drive: 90-Supervielle cuelga de "2026", el
 -- mismo criterio con el que se confirmo el 2023 de Roket.
@@ -44,11 +42,12 @@ insert into obras (
   'Argentina',
   'en_proyecto',
   'Las nuevas oficinas del banco, en lamas de madera y curvas cálidas.',
+  '550 m²',
+  'S. Fernández 198 esq. Laprida, San Isidro, Provincia de Buenos Aires',
   null,
-  null,
-  null,
-  null,
-  '{}',
+  'Banco + workplace',
+  array['Arq. Fernando Hitzig', 'Arq. Leonardo Militello',
+        'Arq. Pilar Velasco', 'Arq. Julieta Leibovich'],
   false,
   false,
   '130 años de solidez traducidos en arquitectura. Las nuevas oficinas de Supervielle equilibran tradición y transformación digital en un lenguaje visual cohesivo.

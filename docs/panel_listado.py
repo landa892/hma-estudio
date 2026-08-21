@@ -190,6 +190,19 @@ def rotulo_en_fichas(obras, verificar):
     """
     cambios = []
     for slug, o in sorted(obras.items()):
+        # IOL ya dice que son oficinas en la ficha tecnica. El estudio pidio
+        # sacar ese rotulo repetido de arriba del titulo.
+        if slug == 'iol':
+            ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+            if os.path.isfile(ruta):
+                h = io.open(ruta, encoding='utf-8').read()
+                nuevo = re.sub(r'\s*<span class="eyebrow">.*?</span>', '', h,
+                               count=1, flags=re.S)
+                if nuevo != h:
+                    cambios.append('%-22s rotulo superior fuera' % slug)
+                    if not verificar:
+                        io.open(ruta, 'w', encoding='utf-8', newline='\n').write(nuevo)
+            continue
         rotulo = escapar(CAT_ROTULO.get(o.get('categoria') or ''))
         if not rotulo:
             continue

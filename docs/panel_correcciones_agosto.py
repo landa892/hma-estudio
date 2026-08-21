@@ -291,9 +291,18 @@ CORRECCIONES = {
             'cover — none of those variables was fixed in this project.'),
     },
     'tostado': {
-        'bajada': valor(
-            'Local de Tostado Café Club en Miami.',
-            'Locales de Tostado Café Club en Argentina, Uruguay, Miami y São Paulo.'),
+        'bajada': alguno(
+            ('Local de Tostado Café Club en Miami.',
+             'Locales de Tostado Café Club en Argentina, Uruguay, Miami y São Paulo.'),
+            'Locales de Tostado Café Club en Buenos Aires, São Paulo, Montevideo, Miami y Madrid.'),
+        # La ficha agrupaba todas las sucursales bajo Miami. El estudio marco
+        # que la obra representa cinco ciudades y deben verse todas.
+        'ubicacion': valor(
+            'Miami, Florida',
+            'Buenos Aires · São Paulo · Montevideo · Miami · Madrid'),
+        'pais': valor(
+            'Estados Unidos',
+            'Argentina · Brasil · Uruguay · Estados Unidos · España'),
     },
     'hausscape': {
         'equipo': valor(
@@ -791,6 +800,22 @@ def _cargar_memorias_drive():
 
 
 _cargar_memorias_drive()
+
+# La ficha tecnica aparecio despues en la carpeta 90-Supervielle del Drive.
+# Solo completa los campos vacios para no pisar una edicion posterior del
+# estudio desde el panel.
+CORRECCIONES.setdefault('banco-supervielle', {}).update({
+    'superficie': completar_vacio('550 m²'),
+    'ubicacion': completar_vacio(
+        'S. Fernández 198 esq. Laprida, San Isidro, Provincia de Buenos Aires'),
+    'tipologia': completar_vacio('Banco + workplace'),
+    'equipo': completar_vacio([
+        'Arq. Fernando Hitzig',
+        'Arq. Leonardo Militello',
+        'Arq. Pilar Velasco',
+        'Arq. Julieta Leibovich',
+    ]),
+})
 
 MEMORIAS_ORIGINALES = os.path.join(RAIZ, 'docs', 'memorias_originales.json')
 
