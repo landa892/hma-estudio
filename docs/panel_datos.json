@@ -2721,5 +2721,37 @@
   ],
   "banner_rotulo": null,
   "banner_rotulo_en": null
+ },
+ {
+  "slug": "banco-supervielle",
+  "titulo": "Banco Supervielle",
+  "anio": "2026",
+  "categoria": "oficinas",
+  "pais": "Argentina",
+  "estado": "en_proyecto",
+  "bajada": "Las nuevas oficinas del banco, en lamas de madera y curvas cálidas.",
+  "memoria": "130 años de solidez traducidos en arquitectura. Las nuevas oficinas de Supervielle equilibran tradición y transformación digital en un lenguaje visual cohesivo.\n\nLa madera nobilísima en lamas verticales cubre divisiones interiores y revestimientos, comunicando permanencia y calidez. No es decorativa: estructura el espacio, organiza flujos, genera privacidad visual sin clausurar.\n\nCurvaturas sinuosas en cielo raso expresan modernidad, movimiento, transformación digital. Integran iluminación lineal cálida que orquesta la experiencia del usuario sin fatiga visual.\n\nPaleta identitaria de terra cotta, cuero caramelo y marrones cálidos humaniza cada zona. Sofás en cuero, sillas terra cotta, pantallas digitales integradas en muros de madera. La tecnología nunca domina; siempre está contextualizada.\n\nEspacios diferenciados: salas concentradas, lounges circulares, circulaciones como experiencia. Luz natural + artificial en 3000K generan calidez. Plantas humanizadas. Cada zona respira el mismo idioma arquitectónico: sobriedad elegante.\n\nResultado: no es showroom de lujo ni austero banco tradicional. Es demostración silenciosa de que solidez y modernidad, tiempo largo y cambio rápido, coexisten naturalmente. Arquitectura de confianza.",
+  "memoria_en": "130 years of solidity translated into architecture. Supervielle’s new offices balance tradition and digital transformation in a cohesive visual language.\n\nNoble wood in vertical slats covers interior partitions and claddings, conveying permanence and warmth. It is not decorative: it structures the space, organises flows and creates visual privacy without closing it off.\n\nSinuous curves in the ceiling express modernity, movement and digital transformation. They integrate warm linear lighting that orchestrates the user experience without visual fatigue.\n\nAn identity palette of terracotta, caramel leather and warm browns humanises every area. Leather sofas, terracotta chairs, digital screens integrated into wooden walls. Technology never dominates; it is always contextualised.\n\nDifferentiated spaces: focused meeting rooms, circular lounges, circulations as experience. Natural and artificial light at 3000K create warmth. Plants humanise. Every area breathes the same architectural language: elegant restraint.\n\nThe result is neither a luxury showroom nor an austere traditional bank. It is a quiet demonstration that solidity and modernity, long time and fast change, coexist naturally. Architecture of trust.",
+  "superficie": null,
+  "ubicacion": null,
+  "comitente": null,
+  "tipologia": null,
+  "equipo": [],
+  "destacada": false,
+  "publicada": false,
+  "galeria": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ],
+  "portada": "/assets/covers/banco-supervielle.webp",
+  "orden": 0,
+  "banner_rotulo": null,
+  "banner_rotulo_en": null,
+  "fotografia": null,
+  "premios": null
  }
 ]
