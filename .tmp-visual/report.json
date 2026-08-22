@@ -1,0 +1,417 @@
+[
+  {
+    "sizeName": "desktop",
+    "name": "inicio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de Arquitectura en Buenos Aires | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [],
+    "visibleOverflow": [
+      "VIDEO.hero-video"
+    ],
+    "h1": "Creando & construyendo ideas"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "estudio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de arquitectura e interiorismo en Buenos Aires | HMA",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Quiénes somos"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "prensa",
+    "status": 200,
+    "errors": [],
+    "title": "Prensa | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Prensa"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "premios",
+    "status": 200,
+    "errors": [],
+    "title": "Premios y distinciones | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Premios ydistinciones"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "trabajos",
+    "status": 200,
+    "errors": [],
+    "title": "Proyectos de arquitectura e interiorismo | Hitzig Militello",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [],
+    "visibleOverflow": [
+      "SPAN."
+    ],
+    "h1": "Trabajos"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "tostado",
+    "status": 200,
+    "errors": [],
+    "title": "Tostado Café Club | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Tostado Café Club"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "hyatt",
+    "status": 200,
+    "errors": [],
+    "title": "Hyatt · Ziva | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Hyatt · Ziva"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "osten-foa",
+    "status": 200,
+    "errors": [],
+    "title": "Osten Coffee Shop — Casa FOA | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Osten Coffee Shop —Casa FOA"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "prensa-fogon",
+    "status": 200,
+    "errors": [],
+    "title": "Fogón, restaurante y bar en Riad, Arabia Saudí | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“Fogón, restaurante ybar en Riad, ArabiaSaudí”"
+  },
+  {
+    "sizeName": "desktop",
+    "name": "prensa-nim",
+    "status": 200,
+    "errors": [],
+    "title": "The Nim Bar, fotografía de Federico Kulekdjian | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“The Nim Bar,fotografía de FedericoKulekdjian”"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "inicio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de Arquitectura en Buenos Aires | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [],
+    "visibleOverflow": [
+      "VIDEO.hero-video"
+    ],
+    "h1": "Creando & construyendo ideas"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "estudio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de arquitectura e interiorismo en Buenos Aires | HMA",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Quiénes somos"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "prensa",
+    "status": 200,
+    "errors": [],
+    "title": "Prensa | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Prensa"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "premios",
+    "status": 200,
+    "errors": [],
+    "title": "Premios y distinciones | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Premios ydistinciones"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "trabajos",
+    "status": 200,
+    "errors": [],
+    "title": "Proyectos de arquitectura e interiorismo | Hitzig Militello",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [],
+    "visibleOverflow": [
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN."
+    ],
+    "h1": "Trabajos"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "tostado",
+    "status": 200,
+    "errors": [],
+    "title": "Tostado Café Club | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Tostado Café Club"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "hyatt",
+    "status": 200,
+    "errors": [],
+    "title": "Hyatt · Ziva | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Hyatt · Ziva"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "osten-foa",
+    "status": 200,
+    "errors": [],
+    "title": "Osten Coffee Shop — Casa FOA | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Osten Coffee Shop —Casa FOA"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "prensa-fogon",
+    "status": 200,
+    "errors": [],
+    "title": "Fogón, restaurante y bar en Riad, Arabia Saudí | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“Fogón, restaurante ybar en Riad, ArabiaSaudí”"
+  },
+  {
+    "sizeName": "tablet",
+    "name": "prensa-nim",
+    "status": 200,
+    "errors": [],
+    "title": "The Nim Bar, fotografía de Federico Kulekdjian | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 820,
+    "scrollWidth": 820,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“The Nim Bar,fotografía de FedericoKulekdjian”"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "inicio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de Arquitectura en Buenos Aires | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [],
+    "visibleOverflow": [
+      "VIDEO.hero-video"
+    ],
+    "h1": "Creando & construyendo ideas"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "estudio",
+    "status": 200,
+    "errors": [],
+    "title": "Estudio de arquitectura e interiorismo en Buenos Aires | HMA",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Quiénes somos"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "prensa",
+    "status": 200,
+    "errors": [],
+    "title": "Prensa | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Prensa"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "premios",
+    "status": 200,
+    "errors": [],
+    "title": "Premios y distinciones | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [],
+    "visibleOverflow": [],
+    "h1": "Premios ydistinciones"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "trabajos",
+    "status": 200,
+    "errors": [],
+    "title": "Proyectos de arquitectura e interiorismo | Hitzig Militello",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [],
+    "visibleOverflow": [
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN.",
+      "SPAN."
+    ],
+    "h1": "Trabajos"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "tostado",
+    "status": 200,
+    "errors": [],
+    "title": "Tostado Café Club | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Tostado Café Club"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "hyatt",
+    "status": 200,
+    "errors": [],
+    "title": "Hyatt · Ziva | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Hyatt · Ziva"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "osten-foa",
+    "status": 200,
+    "errors": [],
+    "title": "Osten Coffee Shop — Casa FOA | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "Osten Coffee Shop— Casa FOA"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "prensa-fogon",
+    "status": 200,
+    "errors": [],
+    "title": "Fogón, restaurante y bar en Riad, Arabia Saudí | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“Fogón, restaurantey bar en Riad, ArabiaSaudí”"
+  },
+  {
+    "sizeName": "mobile",
+    "name": "prensa-nim",
+    "status": 200,
+    "errors": [],
+    "title": "The Nim Bar, fotografía de Federico Kulekdjian | Prensa | Hitzig Militello Arquitectos",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "broken": [
+      null
+    ],
+    "visibleOverflow": [],
+    "h1": "“The Nim Bar,fotografía deFederico Kulekdjian”"
+  }
+]

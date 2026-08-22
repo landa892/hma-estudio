@@ -1015,8 +1015,15 @@ footer.site-footer {
   background: #f2f2f2;
 }
 
+/* height:auto no es de adorno. aspect-ratio solo decide la altura cuando la
+   altura es automatica, y este <img> lo reemplaza en vivo el script que trae la
+   ultima publicacion de LinkedIn: entraba con height="1600" y el encuadre salia
+   cuadrado -464x446 contra los 464x261 de Instagram y de YouTube-, que es lo
+   que el Word del 21/08 marca con "que el encuadre de LINKEDIN sea igual que el
+   de instagram y el de youtube". Asi manda el CSS, venga la foto que venga. */
 .project-banner--linkedin__image {
   width: min(92%, 760px);
+  height: auto;
   aspect-ratio: 16 / 9;
   max-height: 62vh;
   object-fit: cover;

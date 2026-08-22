@@ -61,10 +61,12 @@ def fila_desde_json(nota, orden):
     }
 
 
-def tapa_local(url, clave, fila):
+def tapa_local(url, clave, fila, respaldo=''):
     ruta = fila.get('storage_path') or ''
     if ruta.startswith('@site:'):
         return ruta[len('@site:'):]
+    if not ruta and respaldo:
+        return respaldo
     if not ruta:
         return ''
     os.makedirs(ASSETS, exist_ok=True)
@@ -177,6 +179,28 @@ def main():
     for imagen in imagenes:
         imagenes_por_publicacion.setdefault(imagen['publicacion_id'], []).append(imagen)
 
+    # Una tapa @site: que apunta a un archivo que ya no esta en el repositorio
+    # se corrige con la que dice el JSON. Pasa cuando se rehace el archivo de
+    # prensa: la siembra vieja guardo /assets/press/newsweek-2026.webp y al
+    # regenerar las tapas quedaron con el nombre del slug, asi que seis
+    # tarjetas salieron publicadas con la imagen rota.
+    for fila in filas:
+        ruta = fila.get('storage_path') or ''
+        if not ruta.startswith('@site:'):
+            continue
+        archivo = ruta[len('@site:'):]
+        if os.path.isfile(os.path.join(RAIZ, archivo.lstrip('/').replace('/', os.sep))):
+            continue
+        nueva = (por_slug.get(fila['slug'], {}) or {}).get('tapa') or ''
+        destino = ('@site:' + nueva) if nueva else None
+        pedir(url, clave,
+              '/rest/v1/prensa_publicaciones?slug=eq.'
+              + urllib.parse.quote(fila['slug'], safe=''),
+              metodo='PATCH', cuerpo={'storage_path': destino})
+        fila['storage_path'] = destino
+        print('prensa: tapa corregida en %s (%s ya no existe)'
+              % (fila['slug'], archivo))
+
     activas = []
     for fila in filas:
         if not fila.get('publicada'):
@@ -192,7 +216,7 @@ def main():
             'pais': fila.get('pais') or '',
             'fecha': fila.get('fecha') or '',
             'link': fila.get('link') or '',
-            'tapa': tapa_local(url, clave, fila),
+            'tapa': tapa_local(url, clave, fila, vieja.get('tapa', '')),
             # Las galerias historicas siguen en el repo; las nuevas llevan
             # nombres panel-* y se descargan arriba en cada build.
             'imagenes': internas or vieja.get('imagenes', []),
