@@ -4770,11 +4770,13 @@ html.lenis body {
   hyphens: auto;
 }
 
-.work-split__text p,
+.work-split__text .bloque-texto p,
+.work-split--proceso .work-split__text .bloque-texto p,
 .socios-texto p,
 .founder p {
   font-size: clamp(1rem, .3vw + .94rem, 1.08rem);
   line-height: 1.68;
+  font-family: inherit;
 }
 
 /* Enfoque y socios forman una misma secuencia; antes dos paddings completos
