@@ -67,7 +67,7 @@
 
         <div class="dupla">
           <div class="campo">
-            <label for="ubicacion">Ubicación</label>
+            <label for="ubicacion">Ubicación <span class="obligatorio">obligatorio para publicar</span></label>
             <input type="text" id="ubicacion" maxlength="160"
               placeholder="Ej. Palermo, Buenos Aires" aria-describedby="ayudaUbicacion">
             <p class="campo__ayuda" id="ayudaUbicacion">Dirección o ciudad que se mostrará en la ficha.
@@ -84,14 +84,14 @@
 
         <div class="dupla">
           <div class="campo">
-            <label for="anio">Año</label>
+            <label for="anio">Año <span class="obligatorio">obligatorio para publicar</span></label>
             <input type="text" id="anio" maxlength="20" placeholder="2025 o 2024–2025"
               aria-describedby="ayudaAnio">
             <p class="campo__ayuda" id="ayudaAnio">Un año de cuatro cifras o un rango con raya. Ejemplos:
               2026 o 2025–2026.</p>
           </div>
           <div class="campo">
-            <label for="superficie">Superficie</label>
+            <label for="superficie">Superficie <span class="obligatorio">obligatorio para publicar</span></label>
             <input type="text" id="superficie" maxlength="120" placeholder="325 m²"
               aria-describedby="ayudaSuperficie">
             <p class="campo__ayuda" id="ayudaSuperficie">Incluí número y unidad. Ejemplos: 325 m² o
@@ -108,7 +108,7 @@
               vacío si no corresponde o no puede publicarse.</p>
           </div>
           <div class="campo">
-            <label for="tipologia">Tipología</label>
+            <label for="tipologia">Tipología <span class="obligatorio">obligatorio para publicar</span></label>
             <input type="text" id="tipologia" maxlength="80" placeholder="Ej. Restaurante y bar"
               aria-describedby="ayudaTipologia">
             <p class="campo__ayuda" id="ayudaTipologia">Tipo específico que leerá el visitante en la ficha.
@@ -344,7 +344,7 @@
   <script src="/admin/api.js"></script>
   <script src="/admin/datos.js"></script>
   <script src="/admin/galeria.js"></script>
-  <script src="/admin/obra.js"></script>
+  <script src="/admin/obra.js?v=2"></script>
 </body>
 
 </html>

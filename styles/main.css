@@ -2293,13 +2293,14 @@ footer.site-footer {
 
 .award-row .award-row__logo--plain {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .award-platform {
   font-size: clamp(.8rem, 1.1vw, 1rem);
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .award-row--recognition .award-row__res {
@@ -2875,6 +2876,7 @@ footer.site-footer {
   display: grid;
   grid-template-columns: 78px 2fr 280px 160px 1fr 120px;
   gap: 24px;
+  align-items: start;
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
   width: 100%;

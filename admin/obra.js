@@ -216,6 +216,18 @@
     if (o.publicada && !o.categoria) {
       return 'Para publicarla elegí una categoría. Es la que usa el filtro de Trabajos.';
     }
+    if (o.publicada && !o.tipologia) {
+      return 'Para publicarla completá la tipología. Se muestra debajo del nombre en Trabajos.';
+    }
+    if (o.publicada && !o.ubicacion) {
+      return 'Para publicarla completá la ubicación. Se muestra en la tarjeta de Trabajos.';
+    }
+    if (o.publicada && !o.superficie) {
+      return 'Para publicarla completá la superficie. Incluí el número y la unidad, por ejemplo 325 m².';
+    }
+    if (o.publicada && !o.anio) {
+      return 'Para publicarla completá el año. Usá cuatro cifras o un rango, por ejemplo 2025–2026.';
+    }
     if (o.destacada && !o.publicada) {
       return 'Para mostrarla en el home, la obra primero tiene que estar publicada.';
     }

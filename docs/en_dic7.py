@@ -200,6 +200,11 @@ DIC.update({
     '240 m² cubiertos': '240 m² covered area',
     'Comitente': 'Client',
     'Socios fundadores': 'Founding partners',
+    'Aire Libre: arquitectura y naturaleza': 'Aire Libre: architecture and nature',
+    'Aire Libre, proyecto de Hitzig Militello Arquitectos':
+        'Aire Libre, a project by Hitzig Militello Architects',
+    'Inspirado en los antiguos invernaderos ingleses, Aire Libre combina recursos industriales, vegetación y coctelería en más de 900 m².':
+        'Inspired by historic English greenhouses, Aire Libre combines industrial materials, vegetation and cocktail culture across more than 900 m².',
     'Publicaciones': 'Publications',
     'Videos': 'Videos',
     'Filtrar publicaciones por año': 'Filter publications by year',

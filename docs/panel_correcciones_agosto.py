@@ -220,6 +220,55 @@ TEXTOS_CORRECCIONES = {
         'es': texto_normalizado(PRESENTACION_ANTERIOR_ES, PRESENTACION_NUEVA_ES),
         'en': texto_normalizado(PRESENTACION_ANTERIOR_EN, PRESENTACION_NUEVA_EN),
     },
+    'home.linkedin_titulo': {
+        'es': valor('El estudio detrás del Movistar Arena',
+                    'Aire Libre: arquitectura y naturaleza'),
+        'en': valor('The studio behind Movistar Arena',
+                    'Aire Libre: architecture and nature'),
+    },
+    'home.linkedin_texto': {
+        'es': alguno((
+            'Leonardo Militello y Fernando Hitzig repasan dos décadas de '
+            'trayectoria y el proceso creativo del espacio VIP gastronómico del '
+            'Movistar Arena.',
+            'Leonardo Militello y Fernando Hitzig repasan dos décadas de '
+            'trayectoria, el método de trabajo del estudio y el proceso creativo '
+            'del espacio VIP gastronómico del Movistar Arena.'),
+            'Inspirado en los antiguos invernaderos ingleses, Aire Libre combina '
+            'recursos industriales, vegetación y coctelería en más de 900 m².'),
+        'en': alguno((
+            'Leonardo Militello and Fernando Hitzig look back on two decades of '
+            'work and the creative process behind the Movistar Arena VIP '
+            'hospitality space.',
+            'Leonardo Militello and Fernando Hitzig look back on two decades of '
+            'work, the studio’s methodology and the creative process behind the '
+            'Movistar Arena VIP hospitality space.'),
+            'Inspired by historic English greenhouses, Aire Libre combines '
+            'industrial materials, vegetation and cocktail culture across more '
+            'than 900 m².'),
+    },
+    'home.linkedin_url': {
+        'es': valor(
+            'https://www.linkedin.com/posts/hitzig-militello-arquitectos_'
+            'dise%C3%B1amos-el-vip-del-movistar-arena-para-activity-'
+            '7474580879424671744--V-b',
+            'https://www.linkedin.com/posts/hitzig-militello-arquitectos_'
+            'interiordesign-dise%C3%B1odeinteriores-architecture-activity-'
+            '7311051799749128194-7TTX'),
+        'en': valor(
+            'https://www.linkedin.com/posts/hitzig-militello-arquitectos_'
+            'dise%C3%B1amos-el-vip-del-movistar-arena-para-activity-'
+            '7474580879424671744--V-b',
+            'https://www.linkedin.com/posts/hitzig-militello-arquitectos_'
+            'interiordesign-dise%C3%B1odeinteriores-architecture-activity-'
+            '7311051799749128194-7TTX'),
+    },
+    'home.linkedin_imagen': {
+        'es': valor('@site:/assets/covers/movistar-arena.webp',
+                    '@site:/assets/covers/aire-libre.webp'),
+        'en': valor('@site:/assets/covers/movistar-arena.webp',
+                    '@site:/assets/covers/aire-libre.webp'),
+    },
 }
 
 

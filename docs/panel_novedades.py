@@ -32,20 +32,19 @@ DEFAULTS = {
         'imagen': ('@site:/assets/covers/movistar-arena.webp',) * 2,
     },
     'linkedin': {
-        'titulo': ('El estudio detrás del Movistar Arena',
-                   'The studio behind Movistar Arena'),
+        'titulo': ('Aire Libre: arquitectura y naturaleza',
+                   'Aire Libre: architecture and nature'),
         'texto': (
-            'Leonardo Militello y Fernando Hitzig repasan dos décadas de '
-            'trayectoria y el proceso creativo del espacio VIP gastronómico del '
-            'Movistar Arena.',
-            'Leonardo Militello and Fernando Hitzig look back on two decades of '
-            'work and the creative process behind the Movistar Arena VIP '
-            'hospitality space.'),
+            'Inspirado en los antiguos invernaderos ingleses, Aire Libre combina '
+            'recursos industriales, vegetación y coctelería en más de 900 m².',
+            'Inspired by historic English greenhouses, Aire Libre combines '
+            'industrial materials, vegetation and cocktail culture across more '
+            'than 900 m².'),
         'url': (
             'https://www.linkedin.com/posts/hitzig-militello-arquitectos_'
-            'dise%C3%B1amos-el-vip-del-movistar-arena-para-activity-'
-            '7474580879424671744--V-b',) * 2,
-        'imagen': ('@site:/assets/covers/movistar-arena.webp',) * 2,
+            'interiordesign-dise%C3%B1odeinteriores-architecture-activity-'
+            '7311051799749128194-7TTX',) * 2,
+        'imagen': ('@site:/assets/covers/aire-libre.webp',) * 2,
     },
     'youtube': {
         'titulo': ('Entrevista con @LadrilloInfo', 'Interview with @LadrilloInfo'),

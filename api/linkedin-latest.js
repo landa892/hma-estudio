@@ -5,10 +5,10 @@
 // publicacion editorial que ya trae en el HTML: nunca queda un bloque vacio.
 const FALLBACK = {
   automatic: false,
-  title: "El estudio detrás del Movistar Arena",
-  text: "Leonardo Militello y Fernando Hitzig repasan dos décadas de trayectoria, el método de trabajo del estudio y el proceso creativo del espacio VIP gastronómico del Movistar Arena.",
-  url: "https://www.linkedin.com/posts/hitzig-militello-arquitectos_dise%C3%B1amos-el-vip-del-movistar-arena-para-activity-7474580879424671744--V-b",
-  image: "/assets/covers/movistar-arena.webp",
+  title: "Aire Libre: arquitectura y naturaleza",
+  text: "Inspirado en los antiguos invernaderos ingleses, Aire Libre combina recursos industriales, vegetación y coctelería en más de 900 m².",
+  url: "https://www.linkedin.com/posts/hitzig-militello-arquitectos_interiordesign-dise%C3%B1odeinteriores-architecture-activity-7311051799749128194-7TTX",
+  image: "/assets/covers/aire-libre.webp",
 };
 
 const VERSION = process.env.LINKEDIN_API_VERSION || "202606";
