@@ -1866,6 +1866,21 @@ footer.site-footer {
   overflow: hidden;
 }
 
+/* Veinticuatro publicaciones no dejaron escaneo ni en el Drive ni en el
+   repositorio. Antes de esto el hueco quedaba transparente y la tarjeta se
+   veia partida al medio; con el gris tenue se lee como una tapa que falta y
+   no como un error de carga. */
+.press-card .press-img--vacia {
+  background: var(--gray-bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.press-card .press-obra {
+  font-size: .68rem;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
 .press-card img {
   width: 100%;
   height: 100%;
@@ -2048,6 +2063,28 @@ footer.site-footer {
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 8px;
+}
+
+/* En un telefono los veintidos años del archivo se envolvian en cinco
+   renglones: 244px de botones antes de ver una sola publicacion. El Word del
+   21/08 lo marca dos veces -"OJO CON LOS ESPACIOS", "los vacios tienen que ser
+   proporcionales, que no sean muy grandes"-. Como tira de un solo renglon que
+   se desliza, ocupa lo que ocupa un boton y se lee como en la maqueta. */
+@media (max-width: 768px) {
+  .press-filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .press-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .press-filter-bar .filter-btn {
+    flex: 0 0 auto;
+  }
 }
 
 /* ========================================================================

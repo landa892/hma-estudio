@@ -293,21 +293,118 @@ DIC.update({
     u'Leonardo Militello y Fernando Hitzig cuentan cómo diseñan espacios que generan experiencia.':
         'Leonardo Militello and Fernando Hitzig explain how they design experience-led spaces.',
     u'Conferencias y prensa': 'Conferences and press',
+    u'Conferencias y clases': 'Conferences and classes',
+    u'Novedades': 'News',
+    u'Publicación': 'Publication',
+    u'Ver publicación': 'View publication',
+    u'Buscar una publicación': 'Search a publication',
+    u'Buscar una conferencia': 'Search a talk',
+    u'Filtrar publicaciones por año': 'Filter publications by year',
+    # Los rotulos de la lista de conferencias, que salen del CV.
+    u'Conferencia': 'Talk',
+    u'Charla': 'Talk',
+    u'Docencia': 'Teaching',
+    u'Clase magistral': 'Masterclass',
+    u'Podcast': 'Podcast',
+    u'Exposicion': 'Exhibition',
+    u'Exposición': 'Exhibition',
+    u'Jurado': 'Jury',
+    u'Novedad': 'News',
+    # Los paises que trae el archivo de prensa y todavia no estaban.
+    u'Corea': 'Korea', u'Corea del Sur': 'South Korea', u'India': 'India',
+    u'China': 'China', u'Francia': 'France', u'Alemania': 'Germany',
+    u'España': 'Spain', u'Mexico': 'Mexico', u'México': 'Mexico',
+    u'Colombia': 'Colombia', u'Peru': 'Peru', u'Perú': 'Peru',
+    u'Uruguay': 'Uruguay', u'Japon': 'Japan', u'Japón': 'Japan',
+    u'Reino Unido': 'United Kingdom', u'Emiratos Arabes Unidos':
+        'United Arab Emirates', u'Rusia': 'Russia', u'Turquia': 'Turkey',
+    u'Turquía': 'Turkey', u'Polonia': 'Poland', u'Holanda': 'Netherlands',
+    u'Paises Bajos': 'Netherlands', u'Países Bajos': 'Netherlands',
+    u'Portugal': 'Portugal', u'Canada': 'Canada', u'Canadá': 'Canada',
+    u'Australia': 'Australia', u'Suiza': 'Switzerland', u'Austria': 'Austria',
+    u'Belgica': 'Belgium', u'Bélgica': 'Belgium', u'Grecia': 'Greece',
+    u'Israel': 'Israel', u'Singapur': 'Singapore', u'Tailandia': 'Thailand',
+    u'Indonesia': 'Indonesia', u'Vietnam': 'Vietnam',
+    u'Republica Checa': 'Czech Republic', u'República Checa': 'Czech Republic',
+    u'argentina': 'Argentina', u'USA': 'USA', u'UK': 'UK', u'EEUU': 'USA',
+    u'US': 'US', u'Hungria': 'Hungary', u'Hungría': 'Hungary',
+    u'Sudáfrica': 'South Africa', u'Sudafrica': 'South Africa',
 })
 
-# La descripcion de cada nota de prensa: "<titular> en <medio>, <Mes> <ano>.".
+
+def _nombres_propios_de_prensa():
+    """Los medios y los titulares de las 210 publicaciones, que no se traducen.
+
+    Estan en los datos y no en las plantillas, asi que enumerarlos a mano seria
+    una lista que hay que tocar cada vez que el estudio carga una nota. Se leen
+    del mismo JSON del que salen las tarjetas: una publicacion nueva entra sola
+    y en_gen deja de reportarla como faltante.
+    """
+    import io
+    import json
+    import os
+
+    fuera = set()
+    aqui = os.path.dirname(os.path.abspath(__file__))
+
+    def sumar(valor):
+        valor = (valor or '').strip()
+        if not valor:
+            return
+        # En el HTML el & viaja escapado, asi que "Bosch & Cia" del JSON nunca
+        # coincidiria con el "Bosch &amp; Cia" que el traductor esta mirando.
+        for texto in (valor, valor.replace('&', '&amp;')):
+            fuera.add(texto)
+            # En las fichas el titular va entre comillas tipograficas.
+            fuera.add(u'“%s”' % texto)
+
+    for archivo, campos in (('prensa_datos.json', ('medio', 'titulo')),
+                            ('prensa_novedades.json', ('titulo', 'detalle'))):
+        ruta = os.path.join(aqui, archivo)
+        if not os.path.isfile(ruta):
+            continue
+        for fila in json.load(io.open(ruta, encoding='utf-8')):
+            for campo in campos:
+                sumar(fila.get(campo))
+            # El rotulo de la tarjeta es "<medio> — <pais>": el pais si se
+            # traduce, pero el par armado tambien aparece entero.
+            if fila.get('medio') and fila.get('pais'):
+                sumar(u'%s — %s' % (fila['medio'], fila['pais']))
+    return fuera
+
+
+PASA_EXACTO.update(_nombres_propios_de_prensa())
+
+# La descripcion de cada nota de prensa: "<titular> en <medio>, <fecha>.".
 # El titular es de la publicacion y se deja como salio; lo que se traduce es
 # el armado -"en" y el mes-. Va como regla porque hay una por nota y crecen.
-FICHA_NOTA = re.compile(
-    r'^(.+) en (.+?), (%s)( \d{4})?\.$' % '|'.join(en_dic.MESES_LARGOS))
+#
+# La fecha viene de cinco formas, porque es un campo que el estudio cargo a
+# mano durante veinte años: "Mayo 2026", "May 2017", "2013", "21.04.2026". La
+# primera version solo aceptaba los meses largos en castellano y dejaba sin
+# traducir la descripcion de las ciento veintidos notas restantes.
+#
+# Y ademas hay rangos: "Feb 2014 - Jul 2014 - May 2017" y "Junio- Agosto 2012".
+# Por eso la fecha se acepta como un tramo de meses, años y separadores, y la
+# traduccion se hace mes por mes sobre lo que haya.
+UN_MES = r'(?:%s)' % '|'.join(en_dic.MESES_LARGOS)
+FECHA_NOTA = (r'(?:%s|[A-Za-z]{3,10}|\d{1,4})'
+              r'(?:[\s./-]+(?:%s|[A-Za-z]{3,10}|\d{1,4}))*' % (UN_MES, UN_MES))
+FICHA_NOTA = re.compile(r'^(.+) en (.+?), (%s)\.$' % FECHA_NOTA)
+
+_MES_SUELTO = re.compile(r'\b(%s)\b' % UN_MES)
+
+
+def _fecha_en_ingles(fecha):
+    """Traduce los meses que esten en castellano; el resto queda como vino."""
+    return _MES_SUELTO.sub(lambda m: en_dic.MESES_LARGOS[m.group(1)], fecha)
 
 
 def traducir(t):
     m = FICHA_NOTA.match(t)
     if m:
-        return u'%s in %s, %s%s.' % (m.group(1), m.group(2),
-                                     en_dic.MESES_LARGOS[m.group(3)],
-                                     m.group(4) or '')
+        return u'%s in %s, %s.' % (m.group(1), m.group(2),
+                                   _fecha_en_ingles(m.group(3)))
     m = MEDIA.match(t)
     if m:
         tipo = {'foto': 'photo', 'plano': 'plan', 'imagen': 'image'}[m.group(2)]

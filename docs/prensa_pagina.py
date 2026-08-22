@@ -1,20 +1,32 @@
 # -*- coding: utf-8 -*-
-"""Genera e inserta el archivo completo de prensa.
+"""Arma la lista de conferencias y clases que va debajo de las tarjetas.
 
-La correccion del 21/08/2026 reemplaza el segundo nivel: "Seguir viendo" debe
-continuar en la misma pagina, y las clases y conferencias deben quedar como
-lista antes de Nuestro canal. /prensa/publicaciones/ se conserva por los links
-ya compartidos y por SEO, pero deja de ser el recorrido principal.
+El Word del 21/08/2026 parte Prensa en dos. Las publicaciones pasan a ser
+tarjetas -eso lo hace prensa_paginas.py-. Y aparte: "OJO CON LAS CLASES Y
+CONFERENCIAS. Esas si vamos a tener que ponerlas en lista como esta", con la
+captura de la lista que el sitio ya tenia.
+
+Hasta ahora esa lista mezclaba las dos cosas: sesenta y seis filas donde las
+publicaciones convivian con las clases. Ahora las publicaciones estan arriba en
+tarjeta y aca quedan solamente las clases, las conferencias y las charlas, que
+salen de docs/prensa_novedades.json -del CV extendido, seccion "EXPERIENCIA
+ACADEMICA, CONFERENCIAS Y SEMINARIOS WEB"-.
+
+docs/prensa-listado.html se conserva sin usar: son las sesenta y seis filas
+como estaban, por si el estudio quiere reponer alguna. /prensa/publicaciones/
+tambien se conserva, con las mismas filas, por los links ya compartidos.
 
     python docs/prensa_pagina.py
 """
 import io
+import json
 import os
 import re
 
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIGEN = os.path.join(RAIZ, 'prensa', 'index.html')
+NOVEDADES = os.path.join(RAIZ, 'docs', 'prensa_novedades.json')
 LISTADO = os.path.join(RAIZ, 'docs', 'prensa-listado.html')
 DESTINO = os.path.join(RAIZ, 'prensa', 'publicaciones', 'index.html')
 MARCA_INICIO = '<!-- PRENSA-ARCHIVO-INICIO -->'
@@ -25,7 +37,108 @@ def leer(ruta):
     return io.open(ruta, encoding='utf-8').read()
 
 
+def e(texto):
+    return ((texto or '').replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;'))
+
+
+def ea(texto):
+    return e(texto).replace('"', '&quot;')
+
+
+def fila(novedad):
+    """Una fila: el rubro a la izquierda, el titulo en negrita, el año a la derecha.
+
+    Es el mismo marcado que usaban las filas del archivo -press-row con pr-date,
+    pr-text y pr-outlet-, para que la lista se vea igual que en la captura del
+    Word y para no tocar el CSS ni el filtro por año, que ya andan.
+    """
+    titulo = e(novedad['titulo'])
+    if novedad.get('link'):
+        titulo = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                  % (ea(novedad['link']), titulo))
+    detalle = ''
+    if novedad.get('detalle') and novedad['detalle'] != novedad['titulo']:
+        detalle = ' <span class="pr-detalle">%s</span>' % e(novedad['detalle'])
+    return ('          <div class="press-row" data-group="news" data-year="%s">'
+            '<div class="pr-date">%s</div>'
+            '<div class="pr-text"><b>%s</b>%s</div>'
+            '<div class="pr-outlet">%s</div></div>'
+            % (ea(novedad['anio']), e(novedad['rubro'].capitalize()), titulo,
+               detalle, ea(novedad['anio'])))
+
+
+def barra_de_anios(anios):
+    """Los años que existen, y solamente esos.
+
+    Estaban escritos a mano y no coincidian con el contenido: la barra ofrecia
+    años sin ninguna fila y se filtraba a una lista vacia.
+    """
+    botones = ['          <button class="filter-btn active" data-year="all">'
+               'Todos los años</button>']
+    for anio in anios:
+        botones.append('          <button class="filter-btn" data-year="%s">'
+                       '%s</button>' % (anio, anio))
+    return '\n'.join(botones)
+
+
+def buscador():
+    return '''        <div class="press-barra">
+          <div class="buscador-obras" id="buscadorPrensa">
+            <button type="button" class="buscador-obras__lupa" aria-expanded="false"
+              aria-controls="buscadorPrensaCampo" aria-label="Buscar una conferencia">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" />
+              </svg>
+            </button>
+            <input type="search" id="buscadorPrensaCampo" class="buscador-obras__campo"
+              placeholder="Buscar" autocomplete="off" aria-label="Buscar una conferencia">
+          </div>
+        </div>'''
+
+
+def bloque_portada(novedades):
+    anios = sorted({n['anio'] for n in novedades if n['anio']}, reverse=True)
+    filas = '\n'.join(fila(n) for n in novedades)
+    return '''%s
+    <section class="section press-archive-home" id="archivo-prensa">
+      <div class="container">
+        <div class="section-head section-head--eje">
+          <div>
+            <span class="eyebrow eyebrow--seccion">Novedades</span>
+            <h2 class="display-3 mt-10">Conferencias y clases</h2>
+          </div>
+        </div>
+%s
+
+        <div class="press-filter-bar" id="pressYears">
+%s
+        </div>
+
+        <p class="press-count" id="pressCount" role="status" aria-live="polite"></p>
+
+        <div class="press-feed" id="pressFeed">
+%s
+        </div>
+
+        <button type="button" class="btn link-arrow press-load-more" id="pressLoadMore">Seguir viendo</button>
+      </div>
+    </section>
+    %s''' % (MARCA_INICIO, buscador(), barra_de_anios(anios), filas, MARCA_FIN)
+
+
+def actualizar_portada(molde, novedades):
+    if MARCA_INICIO not in molde or MARCA_FIN not in molde:
+        raise SystemExit('Faltan las marcas del archivo en prensa/index.html')
+    patron = re.escape(MARCA_INICIO) + r'.*?' + re.escape(MARCA_FIN)
+    return re.sub(patron, lambda _: bloque_portada(novedades), molde,
+                  count=1, flags=re.S)
+
+
 def contenido_listado():
+    """Las sesenta y seis filas viejas, para /prensa/publicaciones/."""
     bloque = leer(LISTADO)
     bloque = re.sub(r'^<!--.*?-->', '', bloque, count=1, flags=re.S).strip()
     bloque = bloque.replace('<section class="section no-border pt-32">', '')
@@ -35,30 +148,13 @@ def contenido_listado():
     return bloque.strip()
 
 
-def bloque_portada(listado):
-    return '''%s
-    <section class="section press-archive-home" id="archivo-prensa">
-      <div class="container">
-        <div class="section-head section-head--eje">
-          <div>
-            <h2 class="display-3 mt-10">Conferencias y prensa</h2>
-          </div>
-        </div>
-%s
-      </div>
-    </section>
-    %s''' % (MARCA_INICIO, listado, MARCA_FIN)
-
-
-def actualizar_portada(molde, listado):
-    if MARCA_INICIO not in molde or MARCA_FIN not in molde:
-        raise SystemExit('Faltan las marcas del archivo en prensa/index.html')
-    patron = re.escape(MARCA_INICIO) + r'.*?' + re.escape(MARCA_FIN)
-    return re.sub(patron, lambda _: bloque_portada(listado), molde,
-                  count=1, flags=re.S)
-
-
 def main():
+    if not os.path.isfile(NOVEDADES):
+        raise SystemExit('Falta docs/prensa_novedades.json. Lo escribe '
+                         'docs/prensa_desde_fuentes.py en la maquina del '
+                         'desarrollador.')
+    novedades = json.load(io.open(NOVEDADES, encoding='utf-8'))
+
     molde = leer(ORIGEN)
     head = molde[:molde.index('<body>')]
     cuerpo = molde[molde.index('<body>'):]
@@ -88,10 +184,11 @@ def main():
                   r'\1Publicaciones | Hitzig Militello Arquitectos\2', head,
                   count=1)
 
-    listado = contenido_listado()
-    portada = actualizar_portada(molde, listado)
+    portada = actualizar_portada(molde, novedades)
     io.open(ORIGEN, 'w', encoding='utf-8', newline='\n').write(portada)
-    main = '''<main id="main">
+
+    listado = contenido_listado()
+    main_html = '''<main id="main">
     <section class="hero-home pb-32">
       <div class="container">
         <span class="eyebrow">Prensa</span>
@@ -109,10 +206,11 @@ def main():
 ''' % listado
 
     os.makedirs(os.path.dirname(DESTINO), exist_ok=True)
-    pagina = re.sub(r'[ \t]+(?=\n)', '', head + cabecera + main + pie)
+    pagina = re.sub(r'[ \t]+(?=\n)', '', head + cabecera + main_html + pie)
     io.open(DESTINO, 'w', encoding='utf-8', newline='\n').write(pagina)
-    cantidad = len(re.findall(r'class="press-row"', listado))
-    print('archivo de prensa generado: %d entradas' % cantidad)
+    print('conferencias y clases en la portada de Prensa: %d' % len(novedades))
+    print('archivo cronologico conservado en /prensa/publicaciones/: %d filas'
+          % len(re.findall(r'class="press-row"', listado)))
 
 
 if __name__ == '__main__':

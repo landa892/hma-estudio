@@ -121,11 +121,47 @@ def main():
             return 0
         raise
 
-    if not filas:
-        semillas = [fila_desde_json(nota, i) for i, nota in enumerate(anteriores)]
-        filas = pedir(url, clave, '/rest/v1/prensa_publicaciones',
-                      metodo='POST', cuerpo=semillas) or semillas
-        print('prensa: %d publicaciones iniciales sembradas' % len(filas))
+    # Se siembra lo que falta, no solamente cuando la tabla esta vacia. Antes
+    # era "if not filas": con las nueve publicaciones de la primera siembra ya
+    # cargadas, las doscientas diez que docs/prensa_desde_fuentes.py armo desde
+    # el Drive y el WordPress viejo no habrian entrado nunca, y peor: el paso
+    # reescribe prensa_datos.json con lo que dice la base, asi que el build las
+    # habria borrado del sitio en la primera publicacion.
+    #
+    # La siembra va por slug y solo agrega los que no estan. Una publicacion
+    # que el estudio despublico desde el panel sigue despublicada: su fila
+    # existe, asi que no se vuelve a sembrar.
+    ya = {fila['slug'] for fila in filas}
+    faltan = [fila_desde_json(nota, i)
+              for i, nota in enumerate(anteriores) if nota['slug'] not in ya]
+    if faltan:
+        # De a tandas: doscientas filas en un solo POST es un cuerpo grande y
+        # si falla no se sabe cual quedo a medias.
+        nuevas = []
+        for desde in range(0, len(faltan), 50):
+            tanda = faltan[desde:desde + 50]
+            nuevas.extend(pedir(url, clave, '/rest/v1/prensa_publicaciones',
+                                metodo='POST', cuerpo=tanda) or tanda)
+        filas = filas + nuevas
+        print('prensa: %d publicaciones sembradas (%d ya estaban)'
+              % (len(nuevas), len(ya)))
+
+        # Las nueve que ya estaban tienen orden 0..8 y las nuevas vienen con el
+        # que les toca por fecha, asi que sin esto habria nueve empates y el
+        # listado saldria alternando 2018 con 2026. Se reacomodan una sola vez:
+        # de aca en mas manda el panel, y como la siembra ya no vuelve a
+        # correr, un reordenamiento del estudio no se pisa.
+        orden_json = {nota['slug']: i for i, nota in enumerate(anteriores)}
+        for fila in filas:
+            nuevo = orden_json.get(fila['slug'])
+            if nuevo is None or fila.get('orden') == nuevo:
+                continue
+            pedir(url, clave,
+                  '/rest/v1/prensa_publicaciones?slug=eq.'
+                  + urllib.parse.quote(fila['slug'], safe=''),
+                  metodo='PATCH', cuerpo={'orden': nuevo})
+            fila['orden'] = nuevo
+        filas.sort(key=lambda f: f.get('orden') or 0)
 
     try:
         imagenes = pedir(

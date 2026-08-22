@@ -663,7 +663,13 @@ try {
   const count = document.getElementById('pressCount');
   const loadMore = document.getElementById('pressLoadMore');
 
-  if (feed && tabs.length && yearBtns.length) {
+  /* Sin tabs tambien tiene que andar. Desde que las publicaciones pasaron a
+     tarjetas -Word del 21/08/2026- la lista quedo con clases y conferencias
+     solas y las solapas Todos/Prensa/News dejaron de tener sentido. Cuando se
+     sacaron, este bloque pedia tabs.length y se apagaba entero: la lista se
+     quedaba sin filtro por año, sin buscador, sin contador y sin "Seguir
+     viendo". */
+  if (feed && yearBtns.length) {
     const rows = Array.from(feed.querySelectorAll('.press-row'));
     let grupo = 'all';
     let anio = 'all';
@@ -702,9 +708,14 @@ try {
 
       if (count) {
         const ingles = document.documentElement.lang === 'en';
+        /* Sin solapas la lista es una sola cosa -clases y conferencias-, asi
+           que "entradas", que servia cuando convivia con las publicaciones,
+           pasa a ser "novedades". */
+        const todo = tabs.length ? 'all' : 'news';
+        const cual = grupo === 'all' ? todo : grupo;
         const que = ingles
-          ? (grupo === 'news' ? 'news items' : (grupo === 'prensa' ? 'publications' : 'entries'))
-          : (grupo === 'news' ? 'novedades' : (grupo === 'prensa' ? 'publicaciones' : 'entradas'));
+          ? (cual === 'news' ? 'news items' : (cual === 'prensa' ? 'publications' : 'entries'))
+          : (cual === 'news' ? 'novedades' : (cual === 'prensa' ? 'publicaciones' : 'entradas'));
         const singular = ingles
           ? (grupo === 'news' ? 'news item' : (grupo === 'prensa' ? 'publication' : 'entry'))
           : que.replace(/s$/, '');
@@ -787,26 +798,96 @@ try {
   if (visualYears.length && visualFeed) {
     const cards = Array.from(visualFeed.querySelectorAll('.press-card[data-year]'));
     const more = document.getElementById('prensaVisualMas');
-    let abierto = false;
+    const VISIBLES = 6;
+    const TANDA = 12;
+    let limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
     let anioVisual = 'all';
+    let busqueda = '';
 
+    const plano = t => (t || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    /* La tarjeta trae el medio, el pais, el titulo, la obra y el año, asi que
+       buscar sobre su texto encuentra por cualquiera de los cinco. */
+    const textoDe = c => {
+      if (!c.dataset.buscable) c.dataset.buscable = plano(c.textContent);
+      return c.dataset.buscable;
+    };
+
+    /* Antes esto era un interruptor: "Seguir viendo" abria las nueve tarjetas
+       de una vez. Con doscientas diez de golpe la pagina pega un salto y manda
+       a cargar doscientas imagenes juntas, asi que ahora suma de a doce, como
+       la lista de abajo. */
     const aplicarVisual = () => {
+      let coincidencias = 0;
       cards.forEach(card => {
-        card.hidden = anioVisual !== 'all' && card.dataset.year !== anioVisual;
+        const ok = (anioVisual === 'all' || card.dataset.year === anioVisual) &&
+          (busqueda === '' || textoDe(card).includes(busqueda));
+        if (ok) coincidencias++;
+        card.hidden = !ok || coincidencias > limite;
       });
-      visualFeed.classList.toggle('is-open', abierto || anioVisual !== 'all');
-      if (more) more.hidden = abierto || anioVisual !== 'all' || cards.length <= 6;
+
+      // Un año sin ninguna publicacion no se puede elegir.
+      visualYears.forEach(b => {
+        const y = b.dataset.year;
+        if (y === 'all') return;
+        b.disabled = !cards.some(c => c.dataset.year === y);
+      });
+
+      visualFeed.classList.toggle('is-open', limite > VISIBLES);
+      if (more) more.hidden = coincidencias <= limite;
       if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
     };
 
     visualYears.forEach(btn => btn.addEventListener('click', () => {
+      if (btn.disabled) return;
       visualYears.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       anioVisual = btn.dataset.year;
+      limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
       aplicarVisual();
     }));
+
+    const buscador = document.getElementById('buscadorTarjetas');
+    const campo = document.getElementById('buscadorTarjetasCampo');
+    if (buscador && campo) {
+      const lupa = buscador.querySelector('.buscador-obras__lupa');
+      const abrir = () => {
+        buscador.classList.add('is-open');
+        lupa.setAttribute('aria-expanded', 'true');
+        campo.focus();
+      };
+      const cerrar = () => {
+        buscador.classList.remove('is-open');
+        lupa.setAttribute('aria-expanded', 'false');
+        if (campo.value) {
+          campo.value = '';
+          busqueda = '';
+          limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
+          aplicarVisual();
+        }
+      };
+      lupa.addEventListener('click', () => {
+        if (buscador.classList.contains('is-open')) cerrar(); else abrir();
+      });
+      campo.addEventListener('input', () => {
+        busqueda = plano(campo.value.trim());
+        /* Buscando se muestran todas las coincidencias: el tope de seis sirve
+           para entrar a la pagina, no para una busqueda que ya devuelve poco. */
+        limite = busqueda ? Number.POSITIVE_INFINITY
+          : (more ? VISIBLES : Number.POSITIVE_INFINITY);
+        aplicarVisual();
+      });
+      campo.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { cerrar(); lupa.focus(); }
+      });
+      campo.addEventListener('blur', () => { if (!campo.value) cerrar(); });
+    }
+
     if (more) more.addEventListener('click', () => {
-      abierto = true;
+      limite += TANDA;
       aplicarVisual();
     });
     aplicarVisual();

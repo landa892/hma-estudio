@@ -36,6 +36,13 @@ IMAGENES = os.path.join(RAIZ, 'assets', 'prensa')
 SITIO = 'https://estudiohma.com'
 TARJETAS_INICIO = '<!-- PRENSA-TARJETAS-INICIO -->'
 TARJETAS_FIN = '<!-- PRENSA-TARJETAS-FIN -->'
+BARRA_INICIO = '<!-- PRENSA-BARRA-INICIO -->'
+BARRA_FIN = '<!-- PRENSA-BARRA-FIN -->'
+
+# Cuantas tarjetas se ven antes de tocar "Seguir viendo", y de a cuantas se
+# suman despues. Seis es lo que muestra el Word en la maqueta: una fila.
+VISIBLES = 6
+TANDA = 12
 
 
 def e(texto):
@@ -175,10 +182,18 @@ def cuerpo(nota):
             obra = ('\n        <div class="project-meta-row"><a href="/proyectos/'
                     '%s/">%s</a></div>' % (nota['obra'], e(titulo_obra)))
 
+    # Las comillas son para el titular de la nota. Cuando no se conoce el
+    # titular, el titulo es el nombre del medio, y entrecomillarlo lo hace
+    # parecer una cita: quedaba «Publicacion / "Publicacion"» dos veces
+    # seguidas, el rotulo y el titulo diciendo lo mismo.
+    propio = normalizado(nota['titulo']) != normalizado(nota['medio'])
+    rotulo = nota['medio'] if propio else 'Publicación'
+    titulo = ('“%s”' % e(nota['titulo'])) if propio else e(nota['titulo'])
+
     return ('\n    <section class="hero-home pb-32">\n'
             '      <div class="container">\n'
             '        <span class="eyebrow">%s</span>\n'
-            '        <h1 class="display-2 mt-14">“%s”</h1>%s\n'
+            '        <h1 class="display-2 mt-14">%s</h1>%s\n'
             '        <dl class="project-specs">\n%s\n        </dl>\n'
             '      </div>\n    </section>\n'
             '%s'
@@ -187,8 +202,7 @@ def cuerpo(nota):
             '        <a href="/prensa/" class="btn link-arrow">'
             'Ver todas las publicaciones</a>\n'
             '      </div>\n    </section>\n'
-            % (e(nota['medio']), e(nota['titulo']), obra, ficha(nota),
-               galeria(nota)))
+            % (e(rotulo), titulo, obra, ficha(nota), galeria(nota)))
 
 
 _nombres = {}
@@ -215,37 +229,116 @@ def tarjeta(nota, indice):
     ruta_tapa = os.path.join(RAIZ, tapa.lstrip('/').replace('/', os.sep))
     m = medidas(ruta_tapa) or (900, 600)
     pais = (' — ' + nota['pais']) if nota.get('pais') else ''
-    anio = re.search(r'\b(20\d{2}|19\d{2})\b', nota.get('fecha', ''))
-    anio = anio.group(1) if anio else ''
+    anio = anio_de(nota)
+    # El Word del 21/08: "Las que SI TIENEN LINK... al clickear en la foto te
+    # lleva directo a la pagina. Asi nos ahorramos que tengamos vos y nosotros
+    # que poner fotos de la pagina, total ya existe. Luego, las que NO TIENEN
+    # LINK... al CLICKEAR te lleva a la pagina donde ahi va a volver a estar la
+    # info y las fotos".
     externa = bool(nota.get('link'))
     href = nota.get('link') if externa else '/prensa/%s/' % nota['slug']
     atributos = ' target="_blank" rel="noopener"' if externa else ''
-    extra = ' is-extra' if indice >= 6 else ''
+    extra = ' is-extra' if indice >= VISIBLES else ''
     rotulo = 'Ver noticia' if externa else 'Ver publicación'
+    # Sin tapa no se escribe un <img src="">, que se ve como una imagen rota.
+    # Veinticuatro de las publicaciones no dejaron escaneo ni en el Drive ni en
+    # el repositorio: esas van con el hueco vacio y el texto completo.
+    if tapa:
+        imagen = ('<div class="press-img"><img src="%s" width="%d" height="%d" '
+                  'alt="%s%s" loading="lazy" decoding="async"></div>'
+                  % (ea(tapa), m[0], m[1], ea(nota['medio']), ea(pais)))
+    else:
+        imagen = '<div class="press-img press-img--vacia" aria-hidden="true"></div>'
+
+    # "Tambien trata de detallar cada conferencia y prensa con toda la info que
+    # tengas": si la nota habla de una obra del sitio y el titulo dice otra
+    # cosa, la obra se nombra igual.
+    obra = ''
+    if nota.get('obra'):
+        nombre = nombre_de_obra(nota['obra'])
+        if nombre and normalizado(nombre) != normalizado(nota['titulo']):
+            obra = '\n                  <div class="press-obra">%s</div>' % e(nombre)
+
     return ('              <a class="press-card%s" data-year="%s" href="%s"%s>\n'
-            '                <div class="press-img"><img src="%s" width="%d" height="%d" '
-            'alt="%s%s" loading="lazy" decoding="async"></div>\n'
+            '                %s\n'
             '                <div class="press-body">\n'
             '                  <div class="press-outlet">%s%s</div>\n'
-            '                  <div class="press-title">%s</div>\n'
+            '                  <div class="press-title">%s</div>%s\n'
             '                  <div class="press-date">%s</div>\n'
             '                  <span class="press-card__link">%s <span aria-hidden="true">↗</span></span>\n'
             '                </div>\n'
             '              </a>'
-            % (extra, anio, ea(href), atributos, ea(tapa), m[0], m[1], ea(nota['medio']),
-               ea(pais), e(nota['medio']), e(pais), e(nota['titulo']),
+            % (extra, anio, ea(href), atributos, imagen,
+               e(nota['medio']), e(pais), e(nota['titulo']), obra,
                e(nota.get('fecha', '')), rotulo))
+
+
+def normalizado(texto):
+    return re.sub(r'[^a-z0-9]+', '', (texto or '').lower())
+
+
+def barra_de_anios(notas):
+    """Los años que las tarjetas realmente tienen.
+
+    Estaba escrita a mano con seis años sueltos -2026, 2025, 2023, 2020, 2019,
+    2018- porque eran los de las nueve tarjetas de entonces. Con el archivo
+    entero van de 2003 a 2026 y tienen que salir del contenido, no de una lista
+    que hay que acordarse de tocar.
+    """
+    anios = sorted({n for n in (anio_de(x) for x in notas) if n}, reverse=True)
+    botones = ['          <button class="filter-btn active" data-year="all">'
+               'Todos</button>']
+    for anio in anios:
+        botones.append('          <button class="filter-btn" data-year="%s">'
+                       '%s</button>' % (anio, anio))
+    return ('%s\n        <div class="press-barra press-barra--tarjetas">\n'
+            '        <div class="press-filter-bar press-filter-bar--visual" '
+            'id="prensaVisualYears" aria-label="Filtrar publicaciones por año">\n'
+            '%s\n        </div>\n'
+            '%s\n        </div>\n        %s'
+            % (BARRA_INICIO, '\n'.join(botones), buscador_de_tarjetas(),
+               BARRA_FIN))
+
+
+def buscador_de_tarjetas():
+    """La lupa que el estudio pidio el 20/08 "en el sector de prensa".
+
+    Vivia en la lista, que era donde estaban las publicaciones. Ahora las
+    publicaciones son estas tarjetas, asi que la lupa se muda con ellas: con
+    doscientas catorce es donde hace falta.
+    """
+    return '''          <div class="buscador-obras" id="buscadorTarjetas">
+            <button type="button" class="buscador-obras__lupa" aria-expanded="false"
+              aria-controls="buscadorTarjetasCampo" aria-label="Buscar una publicación">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" />
+              </svg>
+            </button>
+            <input type="search" id="buscadorTarjetasCampo" class="buscador-obras__campo"
+              placeholder="Buscar" autocomplete="off" aria-label="Buscar una publicación">
+          </div>'''
+
+
+def anio_de(nota):
+    m = re.search(r'\b(20\d{2}|19\d{2})\b', nota.get('fecha', '') or '')
+    return m.group(1) if m else ''
 
 
 def actualizar_tarjetas(notas, verificar):
     """Rehace las tapas sin depender de cierres HTML heredados a mano."""
     html = io.open(LISTADO, encoding='utf-8').read()
-    if TARJETAS_INICIO not in html or TARJETAS_FIN not in html:
-        raise SystemExit('Faltan las marcas de tarjetas en prensa/index.html')
+    for marca in (TARJETAS_INICIO, TARJETAS_FIN, BARRA_INICIO, BARRA_FIN):
+        if marca not in html:
+            raise SystemExit('Falta la marca %s en prensa/index.html' % marca)
     bloque = (TARJETAS_INICIO + '\n' + '\n'.join(tarjeta(n, i) for i, n in enumerate(notas))
               + '\n              ' + TARJETAS_FIN)
     patron = re.escape(TARJETAS_INICIO) + r'.*?' + re.escape(TARJETAS_FIN)
     nuevo = re.sub(patron, lambda _: bloque, html, count=1, flags=re.S)
+    patron_barra = re.escape(BARRA_INICIO) + r'.*?' + re.escape(BARRA_FIN)
+    nuevo = re.sub(patron_barra, lambda _: barra_de_anios(notas), nuevo,
+                   count=1, flags=re.S)
     cambio = nuevo != html
     if cambio and not verificar:
         io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(nuevo)

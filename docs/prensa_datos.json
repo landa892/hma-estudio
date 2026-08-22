@@ -3,78 +3,2186 @@
   "slug": "comer-solo-sin-pedir-perdon",
   "titulo": "Comer solo sin pedir perdón",
   "obra": "",
-  "medio": "Newsweek Argentina",
+  "medio": "Newsweek",
   "pais": "",
   "fecha": "Mayo 2026",
-  "link": "",
-  "tapa": "/assets/press/newsweek-2026.webp",
+  "link": "https://www.newsweek.com.ar/revista/mayo-2026_a69fe60cb4d461d3001b4458f",
+  "tapa": "/assets/press/comer-solo-sin-pedir-perdon.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "cafeteria-osten-casa-foa-2026",
+  "titulo": "Cafetería Osten - Casa FOA",
+  "obra": "",
+  "medio": "Cafeteria Osten - Casa foa",
+  "pais": "Argentina",
+  "fecha": "21.04.2026",
+  "link": "https://archello.com/project/cafeteria-osten-casa-foa",
+  "tapa": "",
   "imagenes": []
+ },
+ {
+  "slug": "archello-2026",
+  "titulo": "Archello",
+  "obra": "",
+  "medio": "Archello",
+  "pais": "",
+  "fecha": "2026",
+  "link": "https://archello.com/project/cafeteria-osten-casa-foa",
+  "tapa": "/assets/press/archello-2026.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-2025-2",
+  "titulo": "Mercado Manduca",
+  "obra": "",
+  "medio": "Clarín ARQ",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2025",
+  "link": "https://www.clarin.com/arq/premios-arquitectura-argentina_0_LTaecNIjQL.html?fbclid=PAdGRleAOBzsNleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAaeO7Pdip59DtVh0KqL-rY0KmmgpF2PHK0xAfcnLONMdBfNehi_CJBW2fVHF3w_aem_VH94xQdEQsVAiXxdP1ElPw%23google_vignette",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "parati-deco-2025",
+  "titulo": "Cafetería Osten - Casa FOA",
+  "obra": "",
+  "medio": "ParaTi Deco",
+  "pais": "Argentina",
+  "fecha": "Octubre 2025",
+  "link": "https://www.parati.com.ar/deco/la-cafeteria-osten-de-casa-foa-2025-un-espacio-de-encuentro-y-pausa-estilo-minimalismo-maximizado/?fbclid=PAZXh0bgNhZW0CMTEAAadebWQa95NEwcKeOeWal2oKvKhQK8sPi8uk84zuKsVpsHBSHGHX6NMTDB0XLQ_aem_sGZlEHY4bpN-B4dXw5-MNA",
+  "tapa": "/assets/press/parati-deco-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "la-nacion-2025-2",
+  "titulo": "Cafetería Osten - Casa FOA",
+  "obra": "",
+  "medio": "La Nación",
+  "pais": "Argentina",
+  "fecha": "Octubre 2025",
+  "link": "https://www.lanacion.com.ar/propiedades/construccion-y-diseno/casa-foa-las-7-tendencias-que-marcan-lo-nuevo-en-decoracion-y-las-distintas-formas-de-habitar-nid03102025/",
+  "tapa": "/assets/press/la-nacion-2025-2.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-2025",
+  "titulo": "Cafetería Osten - Casa FOA",
+  "obra": "",
+  "medio": "Clarin ARQ",
+  "pais": "Argentina",
+  "fecha": "Octubre 2025",
+  "link": "https://www.clarin.com/arq/maximalismo-urbano-casa-foa-40-anos-diseno-brillo-puerto-madero_0_GfOxXIWA82.html",
+  "tapa": "/assets/press/clarin-arq-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "designverse-2025",
+  "titulo": "Aire Libre",
+  "obra": "aire-libre",
+  "medio": "designverse",
+  "pais": "Argentina",
+  "fecha": "Mayo 2025",
+  "link": "https://www.designverse.com.cn/en/article/space/452195",
+  "tapa": "/assets/press/designverse-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "mas-arq-2025",
+  "titulo": "Aire Libre",
+  "obra": "aire-libre",
+  "medio": "Mas Arq",
+  "pais": "Argentina",
+  "fecha": "Mayo 2025",
+  "link": "",
+  "tapa": "/assets/press/mas-arq-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-2025",
+  "titulo": "Aire Libre",
+  "obra": "aire-libre",
+  "medio": "ArchDaily",
+  "pais": "Argentina",
+  "fecha": "Mayo 2025",
+  "link": "https://www.archdaily.cl/cl/1029524/aire-libre-hitzig-militello-arquitectos",
+  "tapa": "/assets/press/archdaily-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "gooood-2025",
+  "titulo": "Aire Libre",
+  "obra": "aire-libre",
+  "medio": "gooood",
+  "pais": "Argentina",
+  "fecha": "Abril 2025",
+  "link": "https://www.gooood.cn/aire-libre-by-hitzig-militello-arquitectos.htm?fbclid=PAY2xjawJl28tleHRuA2FlbQIxMAABp81PeM1zBOI2F2ijuZYrm03E1bFnmrdDy-9b2LXAKOlhLjtyR_jBc_so8Br8_aem_iqtPkNAh2ApYBfrgxJ4vvg",
+  "tapa": "/assets/press/gooood-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "la-nacion-2025",
+  "titulo": "Movistar Arena VIP Lounges",
+  "obra": "",
+  "medio": "La Nacion",
+  "pais": "Argentina",
+  "fecha": "Abril 2025",
+  "link": "https://www.lanacion.com.ar/lifestyle/movistar-arena-fue-premiado-como-el-mejor-espacio-para-eventos-del-ano-por-su-innovador-diseno-nid09042025/",
+  "tapa": "/assets/press/la-nacion-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "espacio-confort-2025",
+  "titulo": "Aire Libre",
+  "obra": "aire-libre",
+  "medio": "Espacio&Confort",
+  "pais": "Argentina",
+  "fecha": "Abril 2025",
+  "link": "https://espacioyconfort.com.ar/contenido/4089/aire-libre-el-proyecto-que-fusiona-arquitectura-y-naturaleza",
+  "tapa": "/assets/press/espacio-confort-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
  },
  {
   "slug": "el-nuevo-restaurante-de-belgrano-en-un-patio-lleno",
-  "titulo": "El nuevo restaurante de Belgrano en un patio lleno de plantas",
+  "titulo": "Aire Libre",
   "obra": "aire-libre",
-  "medio": "La Nación",
+  "medio": "La Nacion",
   "pais": "Argentina",
   "fecha": "Febrero 2025",
   "link": "https://www.lanacion.com.ar/revista-lugares/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno-de-plantas-que-sirve-raciones-y-platitos-nid14022025/",
-  "tapa": "/assets/press/lanacion-airelibre.webp",
+  "tapa": "/assets/press/el-nuevo-restaurante-de-belgrano-en-un-patio-lleno.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "ministerio-de-diseno-2025",
+  "titulo": "Ministerio de diseño",
+  "obra": "",
+  "medio": "Ministerio de diseño",
+  "pais": "",
+  "fecha": "2025",
+  "link": "",
+  "tapa": "/assets/press/ministerio-de-diseno-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "mas-arq-aire-libre-2025",
+  "titulo": "MAS ARQ aire libre",
+  "obra": "",
+  "medio": "MAS ARQ aire libre",
+  "pais": "",
+  "fecha": "2025",
+  "link": "",
+  "tapa": "/assets/press/mas-arq-aire-libre-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "contemporary-interior-design-by-braun-publishing-2025",
+  "titulo": "Contemporary Interior Design by Braun Publishing",
+  "obra": "",
+  "medio": "Contemporary Interior Design by Braun Publishing",
+  "pais": "",
+  "fecha": "2025",
+  "link": "",
+  "tapa": "/assets/press/contemporary-interior-design-by-braun-publishing-2025.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "ministerio-de-diseno-2024",
+  "titulo": "Ministerio de Diseño",
+  "obra": "",
+  "medio": "Ministerio de Diseño",
+  "pais": "Uruguay",
+  "fecha": "Diciembre 2024",
+  "link": "https://xn--ministeriodediseo-uxb.com/portfolio/movistar-arena-vip-lounge-buenos-aires-hitzig-militello-arquitectos/",
+  "tapa": "",
   "imagenes": []
  },
  {
+  "slug": "estilo-propio-2024",
+  "titulo": "Movistar Arena VIP Lounges",
+  "obra": "",
+  "medio": "Estilo Propio",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2024",
+  "link": "https://revistaestilopropio.com/obra/lounge-vip-movistar-arena/",
+  "tapa": "/assets/press/estilo-propio-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "casa-linda-2024",
+  "titulo": "Casa Linda",
+  "obra": "",
+  "medio": "Casa Linda",
+  "pais": "Argentina",
+  "fecha": "Octubre 2024",
+  "link": "https://casalinda.com.ar/edicion-preview/2/titulo/9722",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "a2-2024",
+  "titulo": "FEHGRA",
+  "obra": "fehgra",
+  "medio": "a2",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2024",
+  "link": "https://grupoa2.com/portfolio/feghra/",
+  "tapa": "/assets/press/a2-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "cosentino-2024",
+  "titulo": "FEHGRA",
+  "obra": "fehgra",
+  "medio": "Cosentino",
+  "pais": "USA",
+  "fecha": "Septiembre 2024",
+  "link": "https://www.cosentino.com/blog/more-than-a-training-space-a-sensory-experience",
+  "tapa": "/assets/press/cosentino-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp",
+   "19.webp",
+   "20.webp"
+  ]
+ },
+ {
+  "slug": "arquimaster-2024",
+  "titulo": "FEHGRA",
+  "obra": "fehgra",
+  "medio": "Arquimaster",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2024",
+  "link": "https://www.arquimaster.com.ar/web/espacio-fehgra-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/arquimaster-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp"
+  ]
+ },
+ {
+  "slug": "arq-clarin-2024",
+  "titulo": "Arq Clarin",
+  "obra": "",
+  "medio": "Arq Clarin",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2024",
+  "link": "https://www.clarin.com/arq/creadores-marca-reconocimiento-internacional_0_LEdYEGfBOw.html",
+  "tapa": "/assets/press/arq-clarin-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024-11",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Julio 2024",
+  "link": "https://www.archidiaries.com/projects/osten-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-12",
+  "titulo": "People",
+  "obra": "people",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Julio 2024",
+  "link": "https://www.archidiaries.com/projects/people-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-9",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "June 2024",
+  "link": "https://www.archidiaries.com/projects/moshu-treehouse-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-10",
+  "titulo": "7167 Burger",
+  "obra": "burger-7167",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Junio 2024",
+  "link": "https://www.archidiaries.com/projects/burger-7167-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "arch-sight-2024",
+  "titulo": "Mercado Manduca",
+  "obra": "",
+  "medio": "Arch Sight",
+  "pais": "Uruguay",
+  "fecha": "Junio 2024",
+  "link": "https://archsight.uy/news/403/argentina/Montevideo/Manduca",
+  "tapa": "/assets/press/arch-sight-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024-7",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Mayo 2024",
+  "link": "https://www.archidiaries.com/projects/goodsten-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-8",
+  "titulo": "Kavak",
+  "obra": "",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Mayo 2024",
+  "link": "https://www.archidiaries.com/projects/kavak-offices-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "mas-arq-2024",
+  "titulo": "7167 Burger",
+  "obra": "burger-7167",
+  "medio": "Mas Arq",
+  "pais": "Argentina",
+  "fecha": "Abril 2024",
+  "link": "",
+  "tapa": "/assets/press/mas-arq-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp",
+   "19.webp",
+   "20.webp",
+   "21.webp",
+   "22.webp",
+   "23.webp",
+   "24.webp",
+   "25.webp",
+   "26.webp",
+   "27.webp",
+   "28.webp",
+   "29.webp",
+   "30.webp",
+   "31.webp",
+   "32.webp",
+   "33.webp",
+   "34.webp",
+   "35.webp",
+   "36.webp"
+  ]
+ },
+ {
+  "slug": "dossier-wideprint-2024",
+  "titulo": "Mercado Manduca",
+  "obra": "",
+  "medio": "DOSSIER - Wideprint",
+  "pais": "Argentina",
+  "fecha": "Abril 2024",
+  "link": "",
+  "tapa": "/assets/press/dossier-wideprint-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "cronicas-urbanas-entrevista-2024",
+  "titulo": "Crónicas Urbanas - Entrevista",
+  "obra": "",
+  "medio": "Crónicas Urbanas - Entrevista",
+  "pais": "Argentina",
+  "fecha": "Abril 2024",
+  "link": "https://www.youtube.com/watch?v=71SMSY_LouM",
+  "tapa": "/assets/press/cronicas-urbanas-entrevista-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024-5",
+  "titulo": "Benedetta",
+  "obra": "benedetta",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Abril 2024",
+  "link": "https://www.archidiaries.com/projects/benedetta-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-6",
+  "titulo": "Tostado",
+  "obra": "",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Abril 2024",
+  "link": "https://www.archidiaries.com/projects/tostado-cafe-club-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "casa-linda-entrevista-2024",
+  "titulo": "Entrevista",
+  "obra": "",
+  "medio": "Casa Linda - entrevista",
+  "pais": "Argentina",
+  "fecha": "Marzo 2024",
+  "link": "https://casalinda.com.ar/edicion-preview/1/titulo/9574",
+  "tapa": "/assets/press/casa-linda-entrevista-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp",
+   "19.webp",
+   "20.webp",
+   "21.webp",
+   "22.webp",
+   "23.webp",
+   "24.webp",
+   "25.webp",
+   "26.webp",
+   "27.webp",
+   "28.webp",
+   "29.webp",
+   "30.webp",
+   "31.webp",
+   "32.webp",
+   "33.webp",
+   "34.webp",
+   "35.webp",
+   "36.webp",
+   "37.webp",
+   "38.webp",
+   "39.webp",
+   "40.webp",
+   "41.webp",
+   "42.webp",
+   "43.webp",
+   "44.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024-2",
+  "titulo": "Antiche",
+  "obra": "antiche",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Marzo 2024",
+  "link": "https://www.archidiaries.com/projects/antiche-tentazioni-devoto-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "archidiaries-2024-4",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Marzo 2024",
+  "link": "https://www.archidiaries.com/projects/two-houses-conde-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "bosch-cia-2024",
+  "titulo": "Benedetta",
+  "obra": "benedetta",
+  "medio": "Bosch & Cia",
+  "pais": "Uruguay",
+  "fecha": "Febrero 2024",
+  "link": "https://bosch.com.uy/blog-posts/view/513/seis-estudios-de-arquitectura-latinoamericanos-que-tenes-que-conocer-y-seguir-?blog=true",
+  "tapa": "/assets/press/bosch-cia-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024",
+  "titulo": "Mercado Manduca",
+  "obra": "",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Enero 2024",
+  "link": "https://www.archidiaries.com/projects/manduca-market-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/archidiaries-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp",
+   "19.webp",
+   "20.webp",
+   "21.webp",
+   "22.webp",
+   "23.webp",
+   "24.webp",
+   "25.webp",
+   "26.webp",
+   "27.webp",
+   "28.webp",
+   "29.webp",
+   "30.webp",
+   "31.webp",
+   "32.webp",
+   "33.webp",
+   "34.webp",
+   "35.webp",
+   "36.webp",
+   "37.webp",
+   "38.webp",
+   "39.webp",
+   "40.webp",
+   "41.webp",
+   "42.webp",
+   "43.webp",
+   "44.webp",
+   "45.webp",
+   "46.webp",
+   "47.webp",
+   "48.webp",
+   "49.webp",
+   "50.webp",
+   "51.webp",
+   "52.webp",
+   "53.webp",
+   "54.webp",
+   "55.webp",
+   "56.webp",
+   "57.webp",
+   "58.webp",
+   "59.webp",
+   "60.webp",
+   "61.webp",
+   "62.webp",
+   "63.webp",
+   "64.webp",
+   "65.webp",
+   "66.webp"
+  ]
+ },
+ {
+  "slug": "archidiaries-2024-3",
+  "titulo": "Hausscape",
+  "obra": "hausscape",
+  "medio": "Archidiaries",
+  "pais": "India",
+  "fecha": "Enero 2024",
+  "link": "https://www.archidiaries.com/projects/hausscape-hitzig-militello-arquitectos/",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "ranking-clarin-2024",
+  "titulo": "Ranking Clarin",
+  "obra": "",
+  "medio": "Ranking Clarin",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/ranking-clarin-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "one-producciones-2024",
+  "titulo": "One Producciones",
+  "obra": "",
+  "medio": "One Producciones",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/one-producciones-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp",
+   "19.webp",
+   "20.webp",
+   "21.webp",
+   "22.webp",
+   "23.webp",
+   "24.webp",
+   "25.webp",
+   "26.webp",
+   "27.webp",
+   "28.webp",
+   "29.webp"
+  ]
+ },
+ {
+  "slug": "nota-clarin-milano-2024",
+  "titulo": "Nota Clarin Milano",
+  "obra": "",
+  "medio": "Nota Clarin Milano",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/nota-clarin-milano-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "elarqui-2024",
+  "titulo": "ELarqui",
+  "obra": "",
+  "medio": "ELarqui",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/elarqui-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-osten-2024",
+  "titulo": "Clarin arq osten",
+  "obra": "",
+  "medio": "Clarin arq osten",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-osten-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-mamba-2024",
+  "titulo": "Clarin arq mamba",
+  "obra": "",
+  "medio": "Clarin arq mamba",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-mamba-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-fresco-2024",
+  "titulo": "Clarin arq fresco",
+  "obra": "",
+  "medio": "Clarin arq fresco",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-fresco-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-fogon-2024",
+  "titulo": "Clarin arq fogon",
+  "obra": "",
+  "medio": "Clarin arq fogon",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-fogon-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-antiche-2024",
+  "titulo": "Clarin arq antiche",
+  "obra": "",
+  "medio": "Clarin arq antiche",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-antiche-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-burger-7167-2024",
+  "titulo": "Clarin arq Burger 7167",
+  "obra": "",
+  "medio": "Clarin arq Burger 7167",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-burger-7167-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-nota-milano-2024",
+  "titulo": "CLarin nota milano",
+  "obra": "",
+  "medio": "CLarin nota milano",
+  "pais": "",
+  "fecha": "2024",
+  "link": "",
+  "tapa": "/assets/press/clarin-nota-milano-2024.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "el-planeta-urbano-2023",
+  "titulo": "Antiche",
+  "obra": "antiche",
+  "medio": "El Planeta Urbano",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2023",
+  "link": "https://elplanetaurbano.com/2023/09/fernando-hitzig-y-leonardo-militello-arquitectos-del-detalle-el-mundo-pide-espacios-instagrameables/",
+  "tapa": "/assets/press/el-planeta-urbano-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "rethinking-the-future-2023-3",
+  "titulo": "Antiche",
+  "obra": "antiche",
+  "medio": "Rethinking the future",
+  "pais": "India",
+  "fecha": "Julio 2023",
+  "link": "https://www.re-thinkingthefuture.com/architecture/hospitality/9306-antiche-devoto-by-antiche-tentazioni-devoto/",
+  "tapa": "/assets/press/rethinking-the-future-2023-3.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "mas-arq-2023",
+  "titulo": "Especial Restaurantes y Bares",
+  "obra": "benedetta",
+  "medio": "Mas Arq",
+  "pais": "Argentina",
+  "fecha": "Julio 2023",
+  "link": "",
+  "tapa": "/assets/press/mas-arq-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "rethinking-the-future-2023",
+  "titulo": "Benedetta",
+  "obra": "benedetta",
+  "medio": "Rethinking the future",
+  "pais": "India",
+  "fecha": "Junio 2023",
+  "link": "https://www.re-thinkingthefuture.com/architecture/hospitality/9127-benedetta-by-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/rethinking-the-future-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "rethinking-the-future-2023-2",
+  "titulo": "Hausscape",
+  "obra": "hausscape",
+  "medio": "Rethinking the future",
+  "pais": "India",
+  "fecha": "Junio 2023",
+  "link": "https://www.re-thinkingthefuture.com/office-buildings/9257-hauscape-_project-specs-by-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/rethinking-the-future-2023-2.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "ministerio-de-diseno-2023-2",
+  "titulo": "Hausscape",
+  "obra": "hausscape",
+  "medio": "Ministerio de Diseño",
+  "pais": "Uruguay",
+  "fecha": "Junio 2023",
+  "link": "https://xn--ministeriodediseo-uxb.com/portfolio/hausscape-miami-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/ministerio-de-diseno-2023-2.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "el-cronista-2023",
+  "titulo": "Victoria Brown",
+  "obra": "victoria-brown",
+  "medio": "El Cronista",
+  "pais": "Argentina",
+  "fecha": "Junio 2023",
+  "link": "https://www.cronista.com/clase/gourmet/el-secreto-mejor-guardado-de-buenos-aires-el-bar-oculto-con-un-ambiente-magico-para-salir-el-fin-de-semana/",
+  "tapa": "/assets/press/el-cronista-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "s-f-b-j-2023",
+  "titulo": "S.F.B.J.",
+  "obra": "",
+  "medio": "S.F.B.J.",
+  "pais": "USA",
+  "fecha": "Mayo 2023",
+  "link": "https://www.bizjournals.com/southflorida/news/2023/05/08/luxury-retailer-moves-in-renovated-design-district.html",
+  "tapa": "/assets/press/s-f-b-j-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "ministerio-de-diseno-2023",
+  "titulo": "Benedetta",
+  "obra": "benedetta",
+  "medio": "Ministerio de diseño",
+  "pais": "Uruguay",
+  "fecha": "Mayo 2023",
+  "link": "https://xn--ministeriodediseo-uxb.com/portfolio/benedetta-buenos-aires-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/ministerio-de-diseno-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "architizer-2023",
+  "titulo": "Victoria Brown",
+  "obra": "victoria-brown",
+  "medio": "Architizer",
+  "pais": "USA",
+  "fecha": "Mayo 2023",
+  "link": "https://architizer.com/blog/inspiration/collections/restaurants-industrial-aesthetic/",
+  "tapa": "/assets/press/architizer-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "stella-artois-stand-hitzig-militello-arquitectos",
+  "titulo": "Stella Artois Mercat",
+  "obra": "stella-artois-mercat",
+  "medio": "ArchDaily",
+  "pais": "UK",
+  "fecha": "Mayo 2023",
+  "link": "https://www.archdaily.com/1000300/stella-artois-stand-hitzig-militello-arquitectos?utm_source=offices&utm_medium=email&utm_campaign=just-published",
+  "tapa": "/assets/press/archdaily-stellaartois.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
   "slug": "antiche-tentazioni-heladeria",
-  "titulo": "Antiche Tentazioni, heladería",
+  "titulo": "Antiche",
   "obra": "antiche",
   "medio": "G&G Magazine",
   "pais": "Italia",
   "fecha": "Febrero 2023",
   "link": "https://gandgmagazine.eu/antiche-tentazioni",
-  "tapa": "/assets/press/gyg-magazine.webp",
+  "tapa": "/assets/press/antiche-tentazioni-heladeria.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "plot-2023",
+  "titulo": "Edificio Araoz",
+  "obra": "",
+  "medio": "Plot",
+  "pais": "Argentina",
+  "fecha": "Enero 2023",
+  "link": "https://revistaplot.com/araoz-757/",
+  "tapa": "/assets/press/plot-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "floor-arch-surfaces-2023",
+  "titulo": "Edificio Araoz",
+  "obra": "",
+  "medio": "Floor Arch & Surfaces",
+  "pais": "Argentina",
+  "fecha": "Enero 2023",
+  "link": "https://www.floornature.com/blog/a757-flexible-condominium-buenos-aires-17493/",
+  "tapa": "",
   "imagenes": []
  },
  {
-  "slug": "stella-artois-stand-hitzig-militello-arquitectos",
-  "titulo": "Stella Artois Stand / Hitzig Militello arquitectos",
-  "obra": "stella-artois-mercat",
-  "medio": "ArchDaily",
-  "pais": "Reino Unido",
+  "slug": "estilo-propio-2023",
+  "titulo": "Edificio Araoz",
+  "obra": "",
+  "medio": "Estilo Propio",
+  "pais": "Argentina",
+  "fecha": "Enero 2023",
+  "link": "https://revistaestilopropio.com/obra/edificio-araoz/",
+  "tapa": "/assets/press/estilo-propio-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp",
+   "18.webp"
+  ]
+ },
+ {
+  "slug": "archello-2023",
+  "titulo": "7167 Burger",
+  "obra": "burger-7167",
+  "medio": "Archello",
+  "pais": "Argentina",
+  "fecha": "Enero 2023",
+  "link": "https://archello.com/project/burger-7167",
+  "tapa": "/assets/press/archello-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp"
+  ]
+ },
+ {
+  "slug": "wideprint-2023",
+  "titulo": "Wideprint",
+  "obra": "",
+  "medio": "Wideprint",
+  "pais": "",
   "fecha": "2023",
-  "link": "https://www.archdaily.com/1000300/stella-artois-stand-hitzig-militello-arquitectos",
-  "tapa": "/assets/press/archdaily-stellaartois.webp",
+  "link": "",
+  "tapa": "/assets/press/wideprint-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "revista-living-2023",
+  "titulo": "Revista Living",
+  "obra": "",
+  "medio": "Revista Living",
+  "pais": "",
+  "fecha": "2023",
+  "link": "",
+  "tapa": "/assets/press/revista-living-2023.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "moshu-2023",
+  "titulo": "Moshu",
+  "obra": "",
+  "medio": "Moshu",
+  "pais": "",
+  "fecha": "2023",
+  "link": "",
+  "tapa": "/assets/press/moshu-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-stella-artois-stand-2023",
+  "titulo": "ARCHDAILY Stella Artois Stand",
+  "obra": "",
+  "medio": "ARCHDAILY Stella Artois Stand",
+  "pais": "",
+  "fecha": "2023",
+  "link": "",
+  "tapa": "/assets/press/archdaily-stella-artois-stand-2023.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp"
+  ]
+ },
+ {
+  "slug": "deco-journal-vol-328-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Deco Journal vol. 328",
+  "pais": "Corea",
+  "fecha": "Noviembre 2022",
+  "link": "",
+  "tapa": "/assets/press/deco-journal-vol-328-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-2022",
+  "titulo": "Mercado Manduca",
+  "obra": "",
+  "medio": "Archdaily",
+  "pais": "Argentina",
+  "fecha": "Octubre 2022",
+  "link": "https://www.archdaily.com/990114/manduca-market-hitzig-militello-arquitectos?ad_source=search&ad_medium=projects_tab",
+  "tapa": "/assets/press/archdaily-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-1049-2022",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "Clarín arquitectura n° 1049",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2022",
+  "link": "",
+  "tapa": "",
   "imagenes": []
+ },
+ {
+  "slug": "stir-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Stir",
+  "pais": "India",
+  "fecha": "Julio 2022",
+  "link": "https://www.stirworld.com/see-features-hitzig-militello-architects-creates-an-urban-ruin-for-this-buenos-aires-restaurant",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "revista-estilo-propio-n-55-2022",
+  "titulo": "Antiche",
+  "obra": "antiche",
+  "medio": "Revista estilo propio n° 55",
+  "pais": "argentina",
+  "fecha": "Julio 2022",
+  "link": "",
+  "tapa": "/assets/press/revista-estilo-propio-n-55-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "dezeen-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Dezeen",
+  "pais": "UK",
+  "fecha": "Julio 2022",
+  "link": "https://www.dezeen.com/2022/07/10/hitzig-militello-restaurant-buenos-aires-home/",
+  "tapa": "/assets/press/dezeen-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "archipanic-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Archipanic",
+  "pais": "Italia",
+  "fecha": "Julio 2022",
+  "link": "https://www.archipanic.com/portfolio/moshu-tree-house/",
+  "tapa": "/assets/press/archipanic-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "sbid-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Sbid",
+  "pais": "Reino Unido",
+  "fecha": "Junio 2022",
+  "link": "https://www.sbid.org/bar-designed-in-an-old-house-creates-a-sense-of-a-demolished-place/",
+  "tapa": "/assets/press/sbid-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "glocal-design-magazine-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Glocal Design Magazine",
+  "pais": "México",
+  "fecha": "Junio 2022",
+  "link": "https://glocal.mx/moshu-treehouse-un-refugio-derruido-en-palermo/",
+  "tapa": "/assets/press/glocal-design-magazine-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "g-g-magazine-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "G&G magazine",
+  "pais": "Italia",
+  "fecha": "Mayo 2022",
+  "link": "",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "ministerio-de-diseno-2022",
+  "titulo": "Moshu Treehouse",
+  "obra": "",
+  "medio": "Ministerio de diseño",
+  "pais": "Uruguay",
+  "fecha": "Abril 2022",
+  "link": "https://xn--ministeriodediseo-uxb.com/portfolio/moshu-palermo-buenos-aires-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/ministerio-de-diseno-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "stirworld-moshu-2022",
+  "titulo": "stirworld-moshu",
+  "obra": "",
+  "medio": "stirworld-moshu",
+  "pais": "",
+  "fecha": "2022",
+  "link": "",
+  "tapa": "/assets/press/stirworld-moshu-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "revista-clarin-arq-premios-bienal-2022",
+  "titulo": "revista clarin arq-premios bienal",
+  "obra": "",
+  "medio": "revista clarin arq-premios bienal",
+  "pais": "",
+  "fecha": "2022",
+  "link": "",
+  "tapa": "/assets/press/revista-clarin-arq-premios-bienal-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "gg-magazine-moshu-2022",
+  "titulo": "GG Magazine-moshu",
+  "obra": "",
+  "medio": "GG Magazine-moshu",
+  "pais": "",
+  "fecha": "2022",
+  "link": "",
+  "tapa": "/assets/press/gg-magazine-moshu-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "clarin-osten-2022",
+  "titulo": "Clarín-Osten",
+  "obra": "",
+  "medio": "Clarín-Osten",
+  "pais": "",
+  "fecha": "2022",
+  "link": "",
+  "tapa": "/assets/press/clarin-osten-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-mamba-y-the-nim-bar-2022",
+  "titulo": "Clarin-mamba y the nim bar",
+  "obra": "",
+  "medio": "Clarin-mamba y the nim bar",
+  "pais": "",
+  "fecha": "2022",
+  "link": "",
+  "tapa": "/assets/press/clarin-mamba-y-the-nim-bar-2022.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "la-nacion-osten-2021",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "La Nacion: Osten",
+  "pais": "Argentina",
+  "fecha": "Octubre 2021",
+  "link": "https://www.lanacion.com.ar/lifestyle/un-bar-porteno-fue-elegido-como-el-mejor-de-america-por-su-impactante-diseno-nid15102021/",
+  "tapa": "/assets/press/la-nacion-osten-2021.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "infobae-osten-2021",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "Infobae: Osten",
+  "pais": "Argentina",
+  "fecha": "Octubre 2021",
+  "link": "https://www.infobae.com/tendencias/2021/10/14/un-restaurante-porteno-fue-elegido-como-el-mejor-disenado-de-america/",
+  "tapa": "/assets/press/infobae-osten-2021.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "diario-clarin-osten-2021",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "Diario Clarin: Osten",
+  "pais": "Argentina",
+  "fecha": "Octubre 2021",
+  "link": "https://www.clarin.com/gourmet/restaurante-buenos-aires-mejores-america-original-diseno_0_7BhXXu0PA.html#:~:text=Esta%20vez%2C%20el%20restaurante%20porte%C3%B1o,Am%C3%A9rica%20por%20su%20impactante%20dise%C3%B1o.",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "summa-186-2021",
+  "titulo": "Entrevista Hitzig Militello arquitectos",
+  "obra": "osten",
+  "medio": "Summa+ 186",
+  "pais": "Argentina",
+  "fecha": "Agosto 2021",
+  "link": "",
+  "tapa": "/assets/press/summa-186-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp",
+   "16.webp",
+   "17.webp"
+  ]
+ },
+ {
+  "slug": "wideprint-n-19-2021",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "Wideprint n° 19",
+  "pais": "Argentina",
+  "fecha": "Mayo 2021",
+  "link": "",
+  "tapa": "/assets/press/wideprint-n-19-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp",
+   "14.webp",
+   "15.webp"
+  ]
+ },
+ {
+  "slug": "the-real-deal-2021",
+  "titulo": "The Real Deal",
+  "obra": "",
+  "medio": "The Real Deal",
+  "pais": "USA",
+  "fecha": "Mayo 2021",
+  "link": "https://therealdeal.com/miami/2021/05/25/argentine-architecture-firm-opening-first-u-s-office-in-miami/?tpcc=sprout_general&utm_campaign=sprout_general&utm_content=1622053810&utm_medium=The+Real+Deal&utm_source=linkedin",
+  "tapa": "/assets/press/the-real-deal-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "cabare-magazine-2021",
+  "titulo": "Malita",
+  "obra": "malita",
+  "medio": "Cabare magazine",
+  "pais": "Grecia",
+  "fecha": "Mayo 2021",
+  "link": "",
+  "tapa": "/assets/press/cabare-magazine-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "revista-estilo-propio-n-51-2021",
+  "titulo": "Osten",
+  "obra": "osten",
+  "medio": "Revista Estilo propio n° 51",
+  "pais": "Argentina",
+  "fecha": "Abril 2021",
+  "link": "https://revistaestilopropio.com/notaqr/osten-por-hitzig-militello-arquitectos/",
+  "tapa": "/assets/press/revista-estilo-propio-n-51-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "rethinking-the-future-2021",
+  "titulo": "Kavak Hub",
+  "obra": "kavak-hub",
+  "medio": "Rethinking the future",
+  "pais": "India",
+  "fecha": "Abril 2021",
+  "link": "https://www.re-thinkingthefuture.com/commercial-interior-design/4568-kavak-hub-by-hitzig-militello-architects/?utm_source=hootsuite&utm_medium=&utm_term=&utm_content=&utm_campaign=",
+  "tapa": "/assets/press/rethinking-the-future-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "office-snapshots-2021",
+  "titulo": "Kavak Hub",
+  "obra": "kavak-hub",
+  "medio": "Office Snapshots",
+  "pais": "UK",
+  "fecha": "Abril 2021",
+  "link": "https://officesnapshots.com/2021/04/23/kavak-hub-offices-buenos-aires/",
+  "tapa": "/assets/press/office-snapshots-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "sbid-coffee-table-book-2021",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "SBID coffee table book",
+  "pais": "UK",
+  "fecha": "Enero 2021",
+  "link": "",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "e-architect-kavak-office-2021",
+  "titulo": "e-architect- Kavak office",
+  "obra": "",
+  "medio": "e-architect- Kavak office",
+  "pais": "",
+  "fecha": "2021",
+  "link": "",
+  "tapa": "/assets/press/e-architect-kavak-office-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "sbdi-2021",
+  "titulo": "SBDI",
+  "obra": "",
+  "medio": "SBDI",
+  "pais": "",
+  "fecha": "2021",
+  "link": "",
+  "tapa": "/assets/press/sbdi-2021.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "rbda-2021",
+  "titulo": "RBDA",
+  "obra": "",
+  "medio": "RBDA",
+  "pais": "",
+  "fecha": "2021",
+  "link": "",
+  "tapa": "/assets/press/rbda-2021.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "bauverlag-bv-gmbh-2020",
+  "titulo": "Fogón",
+  "obra": "fogon",
+  "medio": "Bauverlag BV GmbH",
+  "pais": "Alemania",
+  "fecha": "Diciembre 2020",
+  "link": "",
+  "tapa": "/assets/press/bauverlag-bv-gmbh-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "dynamic-restaurant-design-2020",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "Dynamic restaurant design",
+  "pais": "China",
+  "fecha": "Noviembre 2020",
+  "link": "",
+  "tapa": "/assets/press/dynamic-restaurant-design-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
  },
  {
   "slug": "un-lugar-para-sentarse-al-aire-libre-en-la",
-  "titulo": "Un lugar para sentarse al aire libre en la normalidad pandémica: Williamsburg",
+  "titulo": "Williamsburg",
   "obra": "williamsburg",
   "medio": "Metalocus",
   "pais": "España",
   "fecha": "Octubre 2020",
   "link": "https://www.metalocus.es/es/noticias/un-lugar-para-sentarse-al-aire-libre-en-la-normalidad-pandemica-williamsburg-por-hitzig-militello-arquitectos",
-  "tapa": "/assets/press/metalocus-williamsburg.webp",
-  "imagenes": []
+  "tapa": "/assets/press/un-lugar-para-sentarse-al-aire-libre-en-la.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
  },
  {
   "slug": "williamsburg-espacio-al-aire-libre-en-buenos-aires",
-  "titulo": "Williamsburg, espacio al aire libre en Buenos Aires",
+  "titulo": "Williamsburg",
   "obra": "williamsburg",
-  "medio": "Design Boom",
-  "pais": "",
+  "medio": "Designboom",
+  "pais": "USA",
   "fecha": "Octubre 2020",
-  "link": "https://www.designboom.com/architecture/billboard-sign-outdoor-restaurant-hitzigmilitello-arquitectos-argentina-10-08-2020/",
-  "tapa": "/assets/press/designboom-williamsburg.webp",
+  "link": "https://www.designboom.com/architecture/billboard-sign-outdoor-restaurant-hitzigmilitello-arquitectos-argentina-10-08-2020/?fbclid=IwAR2B_6wxpTVRTOrraBXydJCL1g9KcMfAMtnBtPUE4Vl7CkLdaF1N4A_RC7g",
+  "tapa": "/assets/press/williamsburg-espacio-al-aire-libre-en-buenos-aires.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "summa-179-2020",
+  "titulo": "Fresco",
+  "obra": "fresco",
+  "medio": "Summa +179",
+  "pais": "Argentina",
+  "fecha": "Agosto 2020",
+  "link": "",
+  "tapa": "/assets/press/summa-179-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "entrevista-la-nacion-2020",
+  "titulo": "Fogón",
+  "obra": "fogon",
+  "medio": "Entrevista La Nación",
+  "pais": "Argentina",
+  "fecha": "Agosto 2020",
+  "link": "https://www.lanacion.com.ar/lifestyle/militello-y-hitzig-la-humanidad-hara-todo-para-volver-a-la-vieja-normalidad-nid2432955",
+  "tapa": "/assets/press/entrevista-la-nacion-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "deco-journal-vol-299-2020",
+  "titulo": "Fresco",
+  "obra": "fresco",
+  "medio": "Deco Journal vol. 299",
+  "pais": "Corea",
+  "fecha": "Junio 2020",
+  "link": "",
+  "tapa": "/assets/press/deco-journal-vol-299-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "interiors-n-404-2020",
+  "titulo": "Fogón",
+  "obra": "fogon",
+  "medio": "Interiors n*404",
+  "pais": "Corea",
+  "fecha": "Mayo 2020",
+  "link": "",
+  "tapa": "/assets/press/interiors-n-404-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-926-2020",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Clarin arquitectura n*926",
+  "pais": "Argentina",
+  "fecha": "Mayo 2020",
+  "link": "",
+  "tapa": "/assets/press/clarin-arquitectura-n-926-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "hospitality-design-2020",
+  "titulo": "Fresco",
+  "obra": "fresco",
+  "medio": "Hospitality design",
+  "pais": "USA",
+  "fecha": "Febrero 2020",
+  "link": "https://www.hospitalitydesign.com/news/restaurants-nightlife/hitzig-militello-arquitectos-fresco-buenos-aires/",
+  "tapa": "/assets/press/hospitality-design-2020.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "bob-magazine-n-187-2020",
+  "titulo": "The Nim Bar",
+  "obra": "nim-bar",
+  "medio": "Bob Magazine n*187",
+  "pais": "Corea",
+  "fecha": "Enero 2020",
+  "link": "",
+  "tapa": "/assets/press/bob-magazine-n-187-2020.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "hospitality-design-2019",
+  "titulo": "Malita",
+  "obra": "malita",
+  "medio": "Hospitality design",
+  "pais": "USA",
+  "fecha": "Diciembre 2019",
+  "link": "https://www.hospitalitydesign.com/news/restaurants-nightlife/malita-bows-in-buenos-aires/",
+  "tapa": "/assets/press/hospitality-design-2019.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "estilo-propio-n-46-2019",
+  "titulo": "Hitzig Militello's architects interviewed",
+  "obra": "",
+  "medio": "Estilo propio n*46",
+  "pais": "Argentina",
+  "fecha": "Diciembre 2019",
+  "link": "",
+  "tapa": "/assets/press/estilo-propio-n-46-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "entrevista-los-destacados-2019",
+  "titulo": "The Nim Bar",
+  "obra": "nim-bar",
+  "medio": "Entrevista Los Destacados",
+  "pais": "Argentina",
+  "fecha": "Diciembre 2019",
+  "link": "",
+  "tapa": "",
   "imagenes": []
+ },
+ {
+  "slug": "barlife-n-96-2019",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "BarLife n*96",
+  "pais": "República Checa",
+  "fecha": "Diciembre 2019",
+  "link": "",
+  "tapa": "/assets/press/barlife-n-96-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "cheff-hotels-2019",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Cheff & Hotels",
+  "pais": "Chile",
+  "fecha": "Noviembre 2019",
+  "link": "",
+  "tapa": "/assets/press/cheff-hotels-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "diario-la-nacion-2019",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "Diario La Nación",
+  "pais": "Argentina",
+  "fecha": "Octubre 2019",
+  "link": "https://www.lanacion.com.ar/lifestyle/premiado-su-arquitectura-el-bar-mejor-disenado-nid2294194/",
+  "tapa": "/assets/press/diario-la-nacion-2019.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "summa-172-2019",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "Summa+ 172",
+  "pais": "Argentina",
+  "fecha": "Julio 2019",
+  "link": "",
+  "tapa": "/assets/press/summa-172-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "an-magazine-n-151-2019",
+  "titulo": "Mamba Bar",
+  "obra": "",
+  "medio": "An Magazine n*151",
+  "pais": "Italia",
+  "fecha": "Junio 2019",
+  "link": "",
+  "tapa": "/assets/press/an-magazine-n-151-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "revista-apertura-2019",
+  "titulo": "El Clásico de Quilmes",
+  "obra": "clasico-quilmes",
+  "medio": "Revista Apertura",
+  "pais": "Argentina",
+  "fecha": "Mayo 2019",
+  "link": "https://www.cronista.com/apertura-negocio/empresas/La-cerveza-Quilmes-apuesta-al-retail-y-ya-tiene-bares-propios-20190521-0004.html?fbclid=IwAR1TRIRHT5G-8hJDIOcjCFDRxBTKUo_4NHl4YVLFre34Bvqtf4exiaPR9S4",
+  "tapa": "/assets/press/revista-apertura-2019.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "estilo-propio-site-2019",
+  "titulo": "El Clásico de Quilmes",
+  "obra": "clasico-quilmes",
+  "medio": "Estilo Propio site",
+  "pais": "Argentina",
+  "fecha": "Abril 2019",
+  "link": "https://www.revistaestilopropio.com/?obra=el-clasico-de-quilmes",
+  "tapa": "/assets/press/estilo-propio-site-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
  },
  {
   "slug": "entrevista-a-hitzig-militello-architects",
   "titulo": "Entrevista a Hitzig Militello Architects",
   "obra": "",
   "medio": "Hospitality Design",
-  "pais": "EE.UU.",
-  "fecha": "Mayo 2019",
+  "pais": "USA",
+  "fecha": "Marzo 2019",
+  "link": "https://www.hospitalitydesign.com/people/interviews-meet-the-minds/meet-the-minds-estudio-hma/",
+  "tapa": "/assets/press/entrevista-a-hitzig-militello-architects.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "design-2019",
+  "titulo": "Ualá",
+  "obra": "",
+  "medio": "Design",
+  "pais": "Hungria",
+  "fecha": "Marzo 2019",
   "link": "",
-  "tapa": "/assets/press/hospitalitydesign-entrevista.webp",
-  "imagenes": []
+  "tapa": "/assets/press/design-2019.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
  },
  {
   "slug": "fogon-restaurante-y-bar-en-riad-arabia-saudi",
@@ -88,6 +2196,120 @@
   "imagenes": []
  },
  {
+  "slug": "l-archi-n-283-2018",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "L'archi n*283",
+  "pais": "Francia",
+  "fecha": "Noviembre 2018",
+  "link": "",
+  "tapa": "/assets/press/l-archi-n-283-2018.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-849-2018",
+  "titulo": "Ualá",
+  "obra": "",
+  "medio": "Clarín Arquitectura n*849",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2018",
+  "link": "",
+  "tapa": "/assets/press/clarin-arquitectura-n-849-2018.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "designing-ways-2018",
+  "titulo": "The Nim Bar",
+  "obra": "nim-bar",
+  "medio": "Designing ways",
+  "pais": "Sudáfrica",
+  "fecha": "Octubre 2018",
+  "link": "",
+  "tapa": "/assets/press/designing-ways-2018.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "casa-cor-2018",
+  "titulo": "Casa Cor",
+  "obra": "",
+  "medio": "Casa Cor",
+  "pais": "Brasil",
+  "fecha": "Agosto 2018",
+  "link": "https://casacor.abril.com.br/noticias/3a-edicao-do-premio-design-technical-summit-apresenta-vencedores/",
+  "tapa": "/assets/press/casa-cor-2018.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "bob-magazine-n-170-2018",
+  "titulo": "Casa Olmo",
+  "obra": "casa-olmo",
+  "medio": "BOB magazine n*170",
+  "pais": "Corea",
+  "fecha": "Agosto 2018",
+  "link": "",
+  "tapa": "/assets/press/bob-magazine-n-170-2018.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "summa-n-165-2018",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Summa n*165",
+  "pais": "Argentina",
+  "fecha": "Julio 2018",
+  "link": "",
+  "tapa": "/assets/press/summa-n-165-2018.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "interior-design-2018",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Interior Design",
+  "pais": "China",
+  "fecha": "Mayo 2018",
+  "link": "https://mixinfo.id-china.com.cn/a-18231-1.html?fbclid=IwAR3lW59fT9fpwFfL5Vn98T_Xy1PBncjPwS_wV-g4yZIBEhQyCKwzHVeLty0",
+  "tapa": "/assets/press/interior-design-2018.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "living-n-120-2018",
+  "titulo": "Goodsten",
+  "obra": "goodsten",
+  "medio": "Living n*120",
+  "pais": "Argentina",
+  "fecha": "Abril 2018",
+  "link": "",
+  "tapa": "/assets/press/living-n-120-2018.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
   "slug": "the-nim-bar-fotografia-de-federico-kulekdjian",
   "titulo": "The Nim Bar, fotografía de Federico Kulekdjian",
   "obra": "nim-bar",
@@ -97,5 +2319,1161 @@
   "link": "",
   "tapa": "/assets/press/designboom-nimbar.webp",
   "imagenes": []
+ },
+ {
+  "slug": "book-cafe-plus-2017",
+  "titulo": "Victoria Brown featured at cafe plus book",
+  "obra": "",
+  "medio": "Book Cafe plus",
+  "pais": "China",
+  "fecha": "Noviembre 2017",
+  "link": "",
+  "tapa": "/assets/press/book-cafe-plus-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "wideprint-2017",
+  "titulo": "The Birra",
+  "obra": "the-birra",
+  "medio": "Wideprint",
+  "pais": "Argentina",
+  "fecha": "Octubre 2017",
+  "link": "",
+  "tapa": "/assets/press/wideprint-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "deco-journal-vol-266-2017",
+  "titulo": "The Birra",
+  "obra": "the-birra",
+  "medio": "Deco Journal vol. 266",
+  "pais": "Corea",
+  "fecha": "Septiembre 2017",
+  "link": "",
+  "tapa": "/assets/press/deco-journal-vol-266-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "i-plus-interior-detail-2017",
+  "titulo": "The Birra",
+  "obra": "the-birra",
+  "medio": "I-Plus- Interior + Detail",
+  "pais": "Corea",
+  "fecha": "Julio 2017",
+  "link": "",
+  "tapa": "/assets/press/i-plus-interior-detail-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "ibanana-2017",
+  "titulo": "Lucciano's Olivos",
+  "obra": "luccianos-olivos",
+  "medio": "Ibanana",
+  "pais": "China",
+  "fecha": "Mayo 2017",
+  "link": "",
+  "tapa": "/assets/press/ibanana-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "deco-journal-vol-262-2017",
+  "titulo": "Lucciano's Olivos",
+  "obra": "luccianos-olivos",
+  "medio": "Deco Journal vol. 262",
+  "pais": "Corea",
+  "fecha": "Mayo 2017",
+  "link": "",
+  "tapa": "/assets/press/deco-journal-vol-262-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-2017",
+  "titulo": "Tostado Callao",
+  "obra": "",
+  "medio": "ArchDaily",
+  "pais": "Chile",
+  "fecha": "May 2017",
+  "link": "https://www.archdaily.com/870960/vivienda-multifamilar-bolivar-hitzig-militello-arquitectos",
+  "tapa": "/assets/press/archdaily-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "meet-at-the-cafe-2017",
+  "titulo": "Libro publicado por la editorial Send point.",
+  "obra": "",
+  "medio": "Meet at the cafe",
+  "pais": "China",
+  "fecha": "Abril 2017",
+  "link": "",
+  "tapa": "/assets/press/meet-at-the-cafe-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "coffee-space-magazine-2017",
+  "titulo": "Coffee Space magazine",
+  "obra": "",
+  "medio": "Coffee Space magazine",
+  "pais": "Corea",
+  "fecha": "Enero 2017",
+  "link": "",
+  "tapa": "/assets/press/coffee-space-magazine-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-chile-2017",
+  "titulo": "ArchDaily Chile",
+  "obra": "",
+  "medio": "ArchDaily Chile",
+  "pais": "",
+  "fecha": "2017",
+  "link": "",
+  "tapa": "/assets/press/archdaily-chile-2017.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "interior-design-2016",
+  "titulo": "Tostado Callao",
+  "obra": "",
+  "medio": "Interior Design",
+  "pais": "China",
+  "fecha": "Diciembre 2016",
+  "link": "",
+  "tapa": "/assets/press/interior-design-2016.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "deco-journal-vol-257-2016",
+  "titulo": "Tostado Tribunales",
+  "obra": "",
+  "medio": "Deco Journal vol. 257",
+  "pais": "Corea",
+  "fecha": "Diciembre 2016",
+  "link": "",
+  "tapa": "/assets/press/deco-journal-vol-257-2016.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "summa-n-148-2016",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Summa n*148",
+  "pais": "Argentina",
+  "fecha": "Marzo 2016",
+  "link": "",
+  "tapa": "/assets/press/summa-n-148-2016.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "wallpaper-2015",
+  "titulo": "Tostado Callao",
+  "obra": "",
+  "medio": "Wallpaper*",
+  "pais": "UK",
+  "fecha": "Octubre 2015",
+  "link": "https://www.wallpaper.com/travel/argentina/buenos-aires/restaurants/tostado-caf-club",
+  "tapa": "/assets/press/wallpaper-2015.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "i-plus-detail-2015",
+  "titulo": "Tostado Callao",
+  "obra": "",
+  "medio": "I-plus+detail",
+  "pais": "Corea",
+  "fecha": "Octubre 2015",
+  "link": "",
+  "tapa": "/assets/press/i-plus-detail-2015.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "tectonica-blog-2015",
+  "titulo": "Atelier Vilela",
+  "obra": "atelier-vilela",
+  "medio": "Tectonica Blog",
+  "pais": "España",
+  "fecha": "Julio 2015",
+  "link": "",
+  "tapa": "/assets/press/tectonica-blog-2015.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "tectonicablog-2015",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "TectonicaBlog",
+  "pais": "España",
+  "fecha": "Enero 2015",
+  "link": "",
+  "tapa": "/assets/press/tectonicablog-2015.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp"
+  ]
+ },
+ {
+  "slug": "bob-magazine-n-126-2014",
+  "titulo": "Victoria Brown",
+  "obra": "victoria-brown",
+  "medio": "BOB Magazine n*126",
+  "pais": "Corea",
+  "fecha": "Diciembre 2014",
+  "link": "",
+  "tapa": "/assets/press/bob-magazine-n-126-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "catalogo-bia-ar-2014",
+  "titulo": "Descripción de las obras ganadoras de la bienal internacional argentina",
+  "obra": "atelier-vilela",
+  "medio": "Catalogo BIA-AR",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2014",
+  "link": "",
+  "tapa": "/assets/press/catalogo-bia-ar-2014.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "architecture-on-the-web-2014",
+  "titulo": "Architecture on the web",
+  "obra": "",
+  "medio": "Architecture on the web",
+  "pais": "Italia",
+  "fecha": "Noviembre 2014",
+  "link": "",
+  "tapa": "/assets/press/architecture-on-the-web-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "rd2-revista-capba-2014",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "RD2 Revista CAPBA",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2014",
+  "link": "",
+  "tapa": "/assets/press/rd2-revista-capba-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "revista-living-n-91-2014",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Revista Living n*91",
+  "pais": "Argentina",
+  "fecha": "Agosto 2014",
+  "link": "",
+  "tapa": "/assets/press/revista-living-n-91-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "dezeen-2014",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Dezeen",
+  "pais": "UK",
+  "fecha": "Agosto 2014",
+  "link": "",
+  "tapa": "/assets/press/dezeen-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "design-boom-2014",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Design Boom",
+  "pais": "US",
+  "fecha": "Agosto 2014",
+  "link": "",
+  "tapa": "/assets/press/design-boom-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "arquitectura-e-interiores-2014",
+  "titulo": "Oficina + casa Luna",
+  "obra": "",
+  "medio": "Arquitectura e interiores",
+  "pais": "Argentina",
+  "fecha": "Agosto 2014",
+  "link": "",
+  "tapa": "/assets/press/arquitectura-e-interiores-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "revista-living-n-42-2014",
+  "titulo": "Victoria Brown",
+  "obra": "victoria-brown",
+  "medio": "Revista Living n*42",
+  "pais": "Argentina",
+  "fecha": "Julio 2014",
+  "link": "",
+  "tapa": "/assets/press/revista-living-n-42-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "revista-estilo-propio-2014",
+  "titulo": "Victoria Brown",
+  "obra": "victoria-brown",
+  "medio": "Revista estilo propio",
+  "pais": "Argentina",
+  "fecha": "Junio 2014",
+  "link": "",
+  "tapa": "/assets/press/revista-estilo-propio-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "revista-enlace-2014",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Revista Enlace",
+  "pais": "México",
+  "fecha": "Junio 2014",
+  "link": "",
+  "tapa": "/assets/press/revista-enlace-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-615-2014",
+  "titulo": "PH El Salvador",
+  "obra": "ph-el-salvador",
+  "medio": "Clarin Arquitectura n*615",
+  "pais": "Argentina",
+  "fecha": "Junio 2014",
+  "link": "",
+  "tapa": "/assets/press/clarin-arquitectura-n-615-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "mas-arquitectura-2014",
+  "titulo": "PH Loft Arias",
+  "obra": "ph-loft-arias",
+  "medio": "MAS arquitectura",
+  "pais": "Argentina",
+  "fecha": "Mayo 2014",
+  "link": "",
+  "tapa": "/assets/press/mas-arquitectura-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "compendio-n-17-2014",
+  "titulo": "Oficina + casa Luna",
+  "obra": "",
+  "medio": "Compendio n*17",
+  "pais": "Argentina",
+  "fecha": "Mayo 2014",
+  "link": "",
+  "tapa": "/assets/press/compendio-n-17-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "archdaily-com-2014",
+  "titulo": "Oficina + casa Luna",
+  "obra": "",
+  "medio": "Archdaily.com",
+  "pais": "UK",
+  "fecha": "Feb 2014 - Jul 2014 - May 2017",
+  "link": "",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "clarin-especialcasas-2014",
+  "titulo": "CLARIN EspecialCasas",
+  "obra": "",
+  "medio": "CLARIN EspecialCasas",
+  "pais": "",
+  "fecha": "2014",
+  "link": "",
+  "tapa": "/assets/press/clarin-especialcasas-2014.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "open-house-buenos-aires-2013",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Open house Buenos Aires",
+  "pais": "Argentina",
+  "fecha": "Diciembre 2013",
+  "link": "",
+  "tapa": "/assets/press/open-house-buenos-aires-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "lmd-2013",
+  "titulo": "PH Loft Arias",
+  "obra": "ph-loft-arias",
+  "medio": "LMD",
+  "pais": "Argentina",
+  "fecha": "Diciembre 2013",
+  "link": "",
+  "tapa": "/assets/press/lmd-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp",
+   "9.webp",
+   "10.webp",
+   "11.webp",
+   "12.webp",
+   "13.webp"
+  ]
+ },
+ {
+  "slug": "compendio-n-16-2013",
+  "titulo": "PH Loft Arias",
+  "obra": "ph-loft-arias",
+  "medio": "Compendio n*16",
+  "pais": "Argentina",
+  "fecha": "Diciembre 2013",
+  "link": "",
+  "tapa": "/assets/press/compendio-n-16-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "revistaplot-com-2013",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "revistaplot.com",
+  "pais": "Argentina",
+  "fecha": "Mayo 2013",
+  "link": "",
+  "tapa": "/assets/press/revistaplot-com-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-558-2013",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Clarin Arquitectura n*558",
+  "pais": "Argentina",
+  "fecha": "Abril 2013",
+  "link": "",
+  "tapa": "/assets/press/clarin-arquitectura-n-558-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arquitectura-n-557-2013",
+  "titulo": "Dos Casas Conde",
+  "obra": "dos-casas-conde",
+  "medio": "Clarin Arquitectura n*557",
+  "pais": "Argentina",
+  "fecha": "Abril 2013",
+  "link": "",
+  "tapa": "/assets/press/clarin-arquitectura-n-557-2013.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "39-addtiva-2013",
+  "titulo": "39-addtiva",
+  "obra": "",
+  "medio": "39-addtiva",
+  "pais": "",
+  "fecha": "2013",
+  "link": "",
+  "tapa": "/assets/press/39-addtiva-2013.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "revista-living-n-32-2012",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "Revista Living n*32",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2012",
+  "link": "",
+  "tapa": "/assets/press/revista-living-n-32-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "premios-arqadia-2012",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Premios ARQADIA",
+  "pais": "Argentina",
+  "fecha": "Octubre 2012",
+  "link": "",
+  "tapa": "/assets/press/premios-arqadia-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "baunetz-de-2012",
+  "titulo": "Atelier Vilela",
+  "obra": "atelier-vilela",
+  "medio": "Baunetz.de",
+  "pais": "Alemania",
+  "fecha": "Octubre 2012",
+  "link": "",
+  "tapa": "/assets/press/baunetz-de-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "revista-zona-proyecto-2012",
+  "titulo": "Revista Zona Proyecto",
+  "obra": "",
+  "medio": "Revista Zona Proyecto",
+  "pais": "Argentina",
+  "fecha": "Junio- Agosto 2012",
+  "link": "",
+  "tapa": "/assets/press/revista-zona-proyecto-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "arqa-com-2012",
+  "titulo": "PH Loft Arias",
+  "obra": "ph-loft-arias",
+  "medio": "Arqa.com",
+  "pais": "Argentina",
+  "fecha": "Abril 2012",
+  "link": "",
+  "tapa": "/assets/press/arqa-com-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "revista-enlace-2012",
+  "titulo": "PH Loft Arias",
+  "obra": "ph-loft-arias",
+  "medio": "Revista Enlace",
+  "pais": "Mexico",
+  "fecha": "Febrero 2012",
+  "link": "",
+  "tapa": "/assets/press/revista-enlace-2012.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp",
+   "8.webp"
+  ]
+ },
+ {
+  "slug": "revista-zona-proyecto-2011",
+  "titulo": "PH El Salvador",
+  "obra": "ph-el-salvador",
+  "medio": "Revista Zona Proyecto",
+  "pais": "Argentina",
+  "fecha": "2011",
+  "link": "",
+  "tapa": "/assets/press/revista-zona-proyecto-2011.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp"
+  ]
+ },
+ {
+  "slug": "revista-escala-2011",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Revista Escala",
+  "pais": "Colombia",
+  "fecha": "2011",
+  "link": "",
+  "tapa": "/assets/press/revista-escala-2011.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "revista-ad-2010",
+  "titulo": "Revista AD",
+  "obra": "",
+  "medio": "Revista AD",
+  "pais": "México",
+  "fecha": "Noviembre 2010",
+  "link": "",
+  "tapa": "/assets/press/revista-ad-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "lmd-2010",
+  "titulo": "PH El Salvador",
+  "obra": "ph-el-salvador",
+  "medio": "LMD",
+  "pais": "Argentina",
+  "fecha": "Agosto 2010",
+  "link": "",
+  "tapa": "/assets/press/lmd-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "summa-109-2010",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Summa+ 109",
+  "pais": "Argentina",
+  "fecha": "Julio 2010",
+  "link": "",
+  "tapa": "/assets/press/summa-109-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "revista-megaluz-n-49-2010",
+  "titulo": "PH El Salvador",
+  "obra": "ph-el-salvador",
+  "medio": "Revista Megaluz n*49",
+  "pais": "Argentina",
+  "fecha": "Mayo 2010",
+  "link": "",
+  "tapa": "/assets/press/revista-megaluz-n-49-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp",
+   "6.webp",
+   "7.webp"
+  ]
+ },
+ {
+  "slug": "revista-megaluz-n-48-2010",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Revista Megaluz n*48",
+  "pais": "Argentina",
+  "fecha": "Marzo 2010",
+  "link": "",
+  "tapa": "/assets/press/revista-megaluz-n-48-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "revista-sca-2010",
+  "titulo": "PH El Salvador",
+  "obra": "ph-el-salvador",
+  "medio": "Revista Sca",
+  "pais": "Argentina",
+  "fecha": "2010",
+  "link": "",
+  "tapa": "/assets/press/revista-sca-2010.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "revista-megaluz-n-46-2009",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "Revista Megaluz n*46",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2009",
+  "link": "",
+  "tapa": "/assets/press/revista-megaluz-n-46-2009.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "clarin-arq-siglo-xxi-2009",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Clarin - Arq Siglo XXI",
+  "pais": "Argentina",
+  "fecha": "Noviembre 2009",
+  "link": "",
+  "tapa": "/assets/press/clarin-arq-siglo-xxi-2009.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp",
+   "5.webp"
+  ]
+ },
+ {
+  "slug": "compendio-n-6-2009",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "Compendio n*6",
+  "pais": "Argentina",
+  "fecha": "Septiembre 2009",
+  "link": "",
+  "tapa": "/assets/press/compendio-n-6-2009.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "lmd-2009",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "LMD",
+  "pais": "Argentina",
+  "fecha": "Junio 2009",
+  "link": "",
+  "tapa": "/assets/press/lmd-2009.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "compendio-n-5-2009",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Compendio n*5",
+  "pais": "Argentina",
+  "fecha": "Mayo 2009",
+  "link": "",
+  "tapa": "/assets/press/compendio-n-5-2009.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "revista-brando-2009",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "Revista Brando",
+  "pais": "Argentina",
+  "fecha": "2009",
+  "link": "",
+  "tapa": "/assets/press/revista-brando-2009.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "revista-apertura-2009",
+  "titulo": "Areatres",
+  "obra": "",
+  "medio": "Revista Apertura",
+  "pais": "Argentina",
+  "fecha": "2009",
+  "link": "",
+  "tapa": "/assets/press/revista-apertura-2009.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "arq-diario-clarin-2008",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Arq - Diario Clarin",
+  "pais": "Argentina",
+  "fecha": "October 2008",
+  "link": "",
+  "tapa": "/assets/press/arq-diario-clarin-2008.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "sca-revista-2008",
+  "titulo": "SCA Revista",
+  "obra": "",
+  "medio": "SCA Revista",
+  "pais": "Argentina",
+  "fecha": "2008",
+  "link": "",
+  "tapa": "/assets/press/sca-revista-2008.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "canal-a-objeto-a-2008",
+  "titulo": "Galeria de arte objeto A",
+  "obra": "",
+  "medio": "Canal A: Objeto A",
+  "pais": "Argentina",
+  "fecha": "2008",
+  "link": "",
+  "tapa": "",
+  "imagenes": []
+ },
+ {
+  "slug": "sca-revista-de-concursos-2004",
+  "titulo": "Sca Revista de Concursos",
+  "obra": "",
+  "medio": "Sca Revista de Concursos",
+  "pais": "Argentina",
+  "fecha": "2004",
+  "link": "",
+  "tapa": "/assets/press/sca-revista-de-concursos-2004.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "exposicion-100-anos-sca-2004",
+  "titulo": "Exposicion 100 años SCA",
+  "obra": "",
+  "medio": "Exposicion 100 años SCA",
+  "pais": "",
+  "fecha": "2004",
+  "link": "",
+  "tapa": "/assets/press/exposicion-100-anos-sca-2004.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "diario-pagina-12-2004",
+  "titulo": "Diario PAGINA 12",
+  "obra": "",
+  "medio": "Diario PAGINA 12",
+  "pais": "",
+  "fecha": "2004",
+  "link": "",
+  "tapa": "/assets/press/diario-pagina-12-2004.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "concepto-tetris-2004",
+  "titulo": "Concepto tetris",
+  "obra": "",
+  "medio": "Concepto tetris",
+  "pais": "",
+  "fecha": "2004",
+  "link": "",
+  "tapa": "/assets/press/concepto-tetris-2004.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "concepto-catalinas-2004",
+  "titulo": "Concepto catalinas",
+  "obra": "",
+  "medio": "Concepto catalinas",
+  "pais": "",
+  "fecha": "2004",
+  "link": "",
+  "tapa": "/assets/press/concepto-catalinas-2004.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "summa-65-2003",
+  "titulo": "Summa+ 65",
+  "obra": "",
+  "medio": "Summa+ 65",
+  "pais": "Argentina",
+  "fecha": "2003",
+  "link": "",
+  "tapa": "/assets/press/summa-65-2003.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp"
+  ]
+ },
+ {
+  "slug": "publicacion-y-distibucion-calendario-en-revista-sca-2003",
+  "titulo": "Publicacion y distibución calendario en revista SCA",
+  "obra": "",
+  "medio": "Publicacion y distibución calendario en revista SCA",
+  "pais": "",
+  "fecha": "2003",
+  "link": "",
+  "tapa": "/assets/press/publicacion-y-distibucion-calendario-en-revista-sca-2003.webp",
+  "imagenes": [
+   "1.webp"
+  ]
+ },
+ {
+  "slug": "exposicion-ciclo-cine-y-video-marq-2003",
+  "titulo": "Exposición Ciclo cine y video MARQ",
+  "obra": "",
+  "medio": "Exposición Ciclo cine y video MARQ",
+  "pais": "",
+  "fecha": "2003",
+  "link": "",
+  "tapa": "/assets/press/exposicion-ciclo-cine-y-video-marq-2003.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp",
+   "3.webp",
+   "4.webp"
+  ]
+ },
+ {
+  "slug": "diario-la-nacion-2003",
+  "titulo": "Diario La Nación",
+  "obra": "",
+  "medio": "Diario La Nación",
+  "pais": "",
+  "fecha": "2003",
+  "link": "",
+  "tapa": "/assets/press/diario-la-nacion-2003.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
+ },
+ {
+  "slug": "diario-clarin-arquitectura-2003",
+  "titulo": "Diario CLARIN ARQUITECTURA",
+  "obra": "",
+  "medio": "Diario CLARIN ARQUITECTURA",
+  "pais": "",
+  "fecha": "2003",
+  "link": "",
+  "tapa": "/assets/press/diario-clarin-arquitectura-2003.webp",
+  "imagenes": [
+   "1.webp",
+   "2.webp"
+  ]
  }
 ]
