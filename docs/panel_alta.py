@@ -29,6 +29,7 @@ import io
 import json
 import os
 import re
+import shutil
 import struct
 import sys
 import urllib.request
@@ -146,11 +147,30 @@ def bajar_fotos(slug, imagenes, base_storage):
     fuera = []
     for i, im in enumerate(imagenes, 1):
         local = os.path.join(destino, '%d.webp' % i)
+        ruta = im['storage_path']
         if not os.path.isfile(local):
-            url = base_storage + '/storage/v1/object/public/obras/' + im['storage_path']
-            with urllib.request.urlopen(url, timeout=120) as r:
-                datos = r.read()
-            io.open(local, 'wb').write(datos)
+            # Las rutas con @ son archivos del repositorio, no del Storage.
+            # Pedirle al Storage "@seed:/assets/gallery/..." devuelve 400 y
+            # tumba el build entero en el paso 3. Paso el 24/08/2026 con Banco
+            # Supervielle: es la unica obra publicada sin pagina en el
+            # repositorio, asi que panel_alta la rehace en cada build, y desde
+            # que panel_galerias siembra tambien los borradores sus fotos
+            # llegan aca como @seed. El mismo commit que habia deployado bien
+            # empezo a fallar sin que cambiara una linea.
+            if ruta.startswith('@seed:') or ruta.startswith('@site:'):
+                origen = os.path.join(
+                    RAIZ, ruta.split(':', 1)[1].lstrip('/').replace('/', os.sep))
+                if not os.path.isfile(origen):
+                    print('  aviso: %s apunta a %s y ese archivo no esta; se saltea'
+                          % (slug, ruta))
+                    continue
+                if os.path.abspath(origen) != os.path.abspath(local):
+                    shutil.copyfile(origen, local)
+            else:
+                url = base_storage + '/storage/v1/object/public/obras/' + ruta
+                with urllib.request.urlopen(url, timeout=120) as r:
+                    datos = r.read()
+                io.open(local, 'wb').write(datos)
         fuera.append({'n': i,
                       'w': im.get('ancho') or 1800,
                       'h': im.get('alto') or 1200})

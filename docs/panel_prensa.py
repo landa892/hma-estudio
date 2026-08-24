@@ -63,8 +63,12 @@ def fila_desde_json(nota, orden):
 
 def tapa_local(url, clave, fila, respaldo=''):
     ruta = fila.get('storage_path') or ''
-    if ruta.startswith('@site:'):
-        return ruta[len('@site:'):]
+    # Los dos prefijos, no solo @site:. Una ruta con @ es un archivo del
+    # repositorio y pedirsela al Storage devuelve 400, que corta el build
+    # entero: fue lo que paso en panel_alta el 24/08/2026. Hoy las 186 tapas
+    # son @site:, pero si alguna llegara sembrada como @seed: rompia igual.
+    if ruta.startswith('@site:') or ruta.startswith('@seed:'):
+        return ruta.split(':', 1)[1]
     if not ruta and respaldo:
         return respaldo
     if not ruta:

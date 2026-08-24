@@ -141,8 +141,11 @@ def reemplazar_texto(codigo, dato, nuevo):
 
 
 def imagen_local(red, ruta, supabase_url=None, clave=None):
-    if ruta.startswith('@site:'):
-        return ruta[len('@site:'):]
+    # Igual que en el resto del build: una ruta con @ es del repositorio y
+    # pedirsela al Storage devuelve 400. Se cubren los dos prefijos aunque hoy
+    # las novedades solo usen @site:, para que no dependa de eso.
+    if ruta.startswith('@site:') or ruta.startswith('@seed:'):
+        return ruta.split(':', 1)[1]
     if not supabase_url or not ruta:
         return None
     os.makedirs(CARPETA, exist_ok=True)
