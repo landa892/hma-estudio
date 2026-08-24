@@ -34,6 +34,14 @@ PASA_EXACTO.update({
     # La plataforma italiana y su ciudad, en la fila que se sumo el
     # 19/08/2026. Nombres propios.
     'Archilovers', 'Bari',
+    # Los fotografos del renglon que pidio el segundo Word del 21/08. Salen del
+    # campo `fotografias_proyecto` del WordPress viejo y son gente: no se
+    # traducen. Los dos con coma son obras firmadas por dos.
+    'Alejandro Peral', 'Esteban Lobo', u'Andrés Domínguez',
+    'Mohammed Shehab Din', 'Paloma Zaldua', u'Simón Laprida', 'Uchimay',
+    u'Javier Agustín Rojas',
+    u'Federico Kulekdjian, Esteban Lobo',
+    u'Andrés Martellini, Daniel Karp',
 })
 
 DIC.update({

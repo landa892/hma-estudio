@@ -653,6 +653,85 @@ for _slug, _campos in CORRECCIONES_20_08.items():
     CORRECCIONES.setdefault(_slug, {}).update(_campos)
 
 
+# El renglon FOTOGRAFO que pide el segundo Word del 21/08: "EN TODOS LOS
+# TRABAJOS, agrega un renglon que diga FOTOGRAFO. Y que nosotros en la pagina
+# podamos mencionarlo. Tene en cuenta que vamos a mencionarlo SOLO si es una
+# obra concluida y ponemos fotos reales".
+#
+# El renglon y el campo del panel ya estaban -panel_generar.py omite la fila si
+# la obra no esta concluida-, pero el dato estaba vacio en 46 de las 47 obras
+# concluidas, asi que el renglon no salia en ninguna. El credito si existe: es
+# el campo ACF `fotografias_proyecto` del export de WordPress
+# (estudiohma.WordPress.2026-08-03.xml), que lo trae en 104 entradas.
+#
+# Cada par se cotejo por DIRECCION y por ano, no por nombre: el cruce por
+# nombre ya hizo pasar "Malita" por "Edificio Malabia". Las dos Malabia del
+# WordPress dicen el mismo fotografo, asi que ahi la ambiguedad no cambia el
+# dato. Los seis cruces que salieron de una contencion de nombre -araoz,
+# bolivar, kavak-oficinas, manduca, moshu y malabia- coinciden calle, altura y
+# ano con la base.
+#
+# Cuatro erratas del campo original quedan corregidas: "Federrico Kulekdjian",
+# "Andres Dominguez" sin tilde, "Uchimay fotos" -el "fotos" no es apellido- y
+# los dos casos de dos fotografos sin separador, que van con coma. La entrada
+# "Tostado cafe club" del WordPress dice "foto texto", que es un marcador de
+# posicion y no una persona: para esa obra vale la entrada "Tostado", que trae
+# los dos fotografos de los locales.
+#
+# Va con completar_vacio() a proposito: si el estudio carga el credito desde el
+# panel, el build no se lo pisa.
+#
+# Afuera quedan siete obras concluidas. Antiche, porque las direcciones se
+# contradicen -la base dice Nueva York 4002, Villa Devoto y el WordPress
+# Libertador y Juramento- y una foto no se firma con la duda. Y las seis que el
+# WordPress nunca tuvo: galeria-objeto-a, indusparquet, iol, parfumerie, roket
+# y uala-office. Esas las carga el estudio.
+CORRECCIONES_FOTOGRAFO = {
+    'aire-libre': {'fotografia': completar_vacio(u'Andrés Domínguez')},
+    'araoz': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'atelier-vilela': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'benedetta': {'fotografia': completar_vacio(u'Alejandro Peral')},
+    'bolivar': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'burger-7167': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'casa-olmo': {'fotografia': completar_vacio(u'Esteban Lobo')},
+    'cien': {'fotografia': completar_vacio(u'Alejandro Peral')},
+    'clasico-quilmes': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'dos-casas-conde': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'elyaki': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'fehgra': {'fotografia': completar_vacio(u'Alejandro Peral')},
+    'fogon': {'fotografia': completar_vacio(u'Mohammed Shehab Din')},
+    'fresco': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'goodsten': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'hausscape': {'fotografia': completar_vacio(u'Paloma Zaldua')},
+    'iguanafix': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'juan-valdez': {'fotografia': completar_vacio(u'Andrés Domínguez')},
+    'kavak-hub': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'kavak-oficinas': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'luccianos-caballito': {'fotografia': completar_vacio(u'Simón Laprida')},
+    'luccianos-olivos': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'malabia': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'malita': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'mamba-bar': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'manduca': {'fotografia': completar_vacio(u'Alejandro Peral')},
+    'moshu': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'movistar-arena': {'fotografia': completar_vacio(u'Alejandro Peral')},
+    'nim-bar': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'oficina-casa-luna': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'osten': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'osten-foa': {'fotografia': completar_vacio(u'Uchimay')},
+    'ph-el-salvador': {'fotografia': completar_vacio(u'Esteban Lobo')},
+    'ph-loft-arias': {'fotografia': completar_vacio(u'Esteban Lobo')},
+    'stella-artois-mercat': {'fotografia': completar_vacio(u'Federico Kulekdjian')},
+    'the-birra': {'fotografia': completar_vacio(u'Esteban Lobo')},
+    'tostado': {'fotografia': completar_vacio(u'Federico Kulekdjian, Esteban Lobo')},
+    'victoria-brown': {'fotografia': completar_vacio(u'Andrés Martellini, Daniel Karp')},
+    'williamsburg': {'fotografia': completar_vacio(u'Javier Agustín Rojas')},
+}
+
+for _slug, _campos in CORRECCIONES_FOTOGRAFO.items():
+    CORRECCIONES.setdefault(_slug, {}).update(_campos)
+
+
 # La memoria de Elyaki, del Drive, subida el 20/08/2026 a las 16:24 por
 # publicaciones@estudiohma.com.
 #
