@@ -921,45 +921,38 @@ try {
 
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
-    /* La memoria lleva como maximo cinco fotos, igual que las demas fichas:
-       alcanza para cortar un texto largo sin duplicar dentro de la memoria
-       toda la galeria que el visitante encuentra inmediatamente despues. */
-    const fotosGaleria = Array.from(document.querySelectorAll(
-      '#galeria .gallery-grid__item:not(.gallery-grid__item--plano)')).slice(0, 5);
-    const fotos = fotosGaleria.length
-      ? fotosGaleria
-      : Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
+    /* El numero de filas lo decide ahora el estudio desde el panel. Se toman
+       de project-gallery y no de la galeria completa: usar las primeras cinco
+       de #galeria ignoraba la eleccion editorial y hacia imposible mostrar
+       cero, una, cuatro o cualquier otra cantidad concreta. */
+    const fotos = Array.from(
+      galeriaEditorial.querySelectorAll('.project-row__photo'));
 
-    /* Una memoria pegada de un Word en un solo bloque deja un unico <p>, y
-       como el reparto de abajo es min(parrafos, fotos), la ficha sale con una
-       sola fila -un ladrillo de texto al lado de una foto- y las demas fotos
-       abajo, sueltas y sin texto. Es lo que le pasa a Bienal de Venecia: 1548
-       caracteres en un parrafo contra tres fotos. Nadie lo avisa, porque el
-       dato esta bien cargado; lo que falta son los saltos.
-
-       Antes de repartir, entonces, se parten los parrafos mas largos por el
-       final de oracion mas cercano a la mitad, hasta llegar a la cantidad de
-       fotos. Solo se parte lo que tiene cuerpo para dar: un parrafo corto
-       cortado al medio se lee peor que entero. Con estos dos topes, de las 61
-       fichas publicadas esto solo toca las cuatro que tienen menos parrafos
-       que fotos y texto de sobra -bienal-venecia, casa-olmo, nim-bar y
-       people-; malita, con 468 y 325, queda como esta. */
-    const LARGO_MINIMO = 500;
-    const MITAD_MINIMA = 200;
-
+    /* Una memoria pegada de un Word puede llegar como un solo <p>. Para que
+       la cantidad elegida no dependa de cuantos Enter puso quien la cargo,
+       se parte el bloque mas largo hasta tener un tramo por foto. Los cortes
+       prefieren finales de oracion y nunca parten una palabra. */
     const partirEnDos = (parrafo) => {
       const texto = parrafo.textContent.trim();
-      if (texto.length < LARGO_MINIMO) return null;
+      if (!/\s/.test(texto)) return null;
       const medio = texto.length / 2;
-      const fin = /[.!?…]\s/g;
       let corte = -1;
-      let m = fin.exec(texto);
-      while (m) {
-        const pos = m.index + m[0].length;
-        if (corte < 0 || Math.abs(pos - medio) < Math.abs(corte - medio)) corte = pos;
-        m = fin.exec(texto);
-      }
-      if (corte < MITAD_MINIMA || texto.length - corte < MITAD_MINIMA) return null;
+      /* Primero una oracion, despues una pausa y como ultimo recurso un
+         espacio. Asi la cantidad elegida se respeta incluso si la memoria se
+         pego como un solo parrafo, sin cortar palabras por la mitad. */
+      [/([.!?…])\s/g, /([,;:])\s/g, /\s/g].some((separador) => {
+        let m = separador.exec(texto);
+        while (m) {
+          const pos = m.index + m[0].length;
+          if (pos > 0 && pos < texto.length
+              && (corte < 0 || Math.abs(pos - medio) < Math.abs(corte - medio))) {
+            corte = pos;
+          }
+          m = separador.exec(texto);
+        }
+        return corte >= 0;
+      });
+      if (corte < 0) return null;
       return [texto.slice(0, corte).trim(), texto.slice(corte).trim()]
         .map((t) => {
           const p = document.createElement('p');

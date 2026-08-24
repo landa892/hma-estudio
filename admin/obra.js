@@ -10,6 +10,7 @@
   var original = null;      // lo que se cargo de la base, para saber si cambio
   var slugTocado = false;   // si el usuario lo edito a mano, no se pisa
   var guardando = false;
+  var cantidadCuerpoDisponible = false;
 
   function avisar(texto, tipo) {
     var el = $('aviso');
@@ -52,6 +53,11 @@
     $('memoria').value = o.memoria || '';
     $('memoriaEn').value = o.memoria_en || '';
     $('premios').value = o.premios || '';
+    cantidadCuerpoDisponible = Object.prototype.hasOwnProperty.call(
+      o, 'fotos_cuerpo_cantidad');
+    prepararCantidadCuerpo(cantidadCuerpoDisponible);
+    $('fotosCuerpoCantidad').value = cantidadCuerpoDisponible
+      ? o.fotos_cuerpo_cantidad : 3;
     $('estado').value = o.estado || 'en_proyecto';
     $('publicada').checked = !!o.publicada;
     contarTitulo();
@@ -68,6 +74,16 @@
     $('campoFotografia').classList.toggle('oculto', $('estado').value !== 'concluida');
   }
 
+  function prepararCantidadCuerpo(disponible) {
+    cantidadCuerpoDisponible = !!disponible;
+    $('fotosCuerpoCantidad').disabled = !cantidadCuerpoDisponible;
+    $('ayudaFotosCuerpoCantidad').classList.toggle(
+      'campo__ayuda--alerta', !cantidadCuerpoDisponible);
+    $('ayudaFotosCuerpoCantidad').textContent = cantidadCuerpoDisponible
+      ? 'Elegí de 0 a 30. La portada cuenta como la primera; después se usa la selección ordenada de abajo o, si está vacía, la galería. Cambiar este número no elimina ninguna imagen.'
+      : 'Falta activar esta opción en la base. Aplicá 0018_cantidad_fotos_cuerpo.sql; mientras tanto la obra conserva sus 3 fotos actuales.';
+  }
+
   function actualizarEnlacePublico() {
     var slug = $('slug').value.trim();
     var visible = !esNueva && !!slug && $('publicada').checked;
@@ -80,7 +96,7 @@
       var v = $(campo).value.trim();
       return v === '' ? null : v;
     };
-    return {
+    var obra = {
       titulo: $('titulo').value.trim(),
       slug: $('slug').value.trim(),
       ubicacion: texto('ubicacion'),
@@ -109,6 +125,10 @@
       banner_rotulo_en: null,
       publicada: $('publicada').checked,
     };
+    if (cantidadCuerpoDisponible) {
+      obra.fotos_cuerpo_cantidad = Number($('fotosCuerpoCantidad').value);
+    }
+    return obra;
   }
 
   function hayCambios() {
@@ -153,6 +173,7 @@
     memoria: 'la memoria',
     memoria_en: 'la memoria en inglés',
     premios: 'los premios',
+    fotos_cuerpo_cantidad: 'la cantidad de fotos del cuerpo',
     estado: 'el estado',
     destacada: 'si va al home',
     banner_rotulo: 'el rótulo del banner',
@@ -226,6 +247,12 @@
     }
     if (o.publicada && !o.anio) {
       return 'Para publicarla completá el año. Usá cuatro cifras o un rango, por ejemplo 2025–2026.';
+    }
+    if (cantidadCuerpoDisponible
+        && (!Number.isInteger(o.fotos_cuerpo_cantidad)
+            || o.fotos_cuerpo_cantidad < 0
+            || o.fotos_cuerpo_cantidad > 30)) {
+      return 'Elegí entre 0 y 30 fotos para acompañar la memoria.';
     }
     return null;
   }
@@ -434,15 +461,18 @@
     });
 
     if (esNueva) {
-      $('cargando').classList.add('oculto');
-      $('formObra').classList.remove('oculto');
-      contarTitulo();
-      contarBajada();
-      contarMemoria('memoria', 'contadorMemoria');
-      contarMemoria('memoriaEn', 'contadorMemoriaEn');
-      verFotografia();
-      $('titulo').focus();
-      return;
+      return DATOS.admiteCantidadCuerpo().then(function (disponible) {
+        prepararCantidadCuerpo(disponible);
+        $('fotosCuerpoCantidad').value = 3;
+        $('cargando').classList.add('oculto');
+        $('formObra').classList.remove('oculto');
+        contarTitulo();
+        contarBajada();
+        contarMemoria('memoria', 'contadorMemoria');
+        contarMemoria('memoriaEn', 'contadorMemoriaEn');
+        verFotografia();
+        $('titulo').focus();
+      });
     }
 
     return DATOS.traerObra(id).then(function (fila) {

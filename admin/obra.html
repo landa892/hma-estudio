@@ -196,10 +196,19 @@
       <section class="ficha">
         <h2 class="ficha__titulo">Fotos del cuerpo</h2>
 
+        <div class="campo" id="campoFotosCuerpoCantidad">
+          <label for="fotosCuerpoCantidad">Cuántas fotos mostrar junto a la memoria</label>
+          <input type="number" id="fotosCuerpoCantidad" min="0" max="30" step="1"
+            inputmode="numeric" value="3" required aria-describedby="ayudaFotosCuerpoCantidad">
+          <p class="campo__ayuda" id="ayudaFotosCuerpoCantidad">Elegí de 0 a 30. La portada cuenta
+            como la primera; después se usa la selección ordenada de abajo o, si está vacía, la galería.
+            Cambiar este número no elimina ninguna imagen.</p>
+        </div>
+
         <div class="requisitos">
           <strong>Imágenes que acompañan la memoria</strong>
           <ul>
-            <li>Sin límite de cantidad. El sitio las alterna automáticamente a izquierda y derecha.</li>
+            <li>El sitio muestra la cantidad elegida y las alterna automáticamente a izquierda y derecha.</li>
             <li>Ideal: 1800 × 1200 px; mínimo recomendado: 1600 × 900 px.</li>
             <li>Usá fotografías nítidas, sin texto ni capturas. El orden de acá es el orden del relato.</li>
             <li>Se optimizan a WebP y se adaptan solas en computadora, tablet y celular.</li>
@@ -321,9 +330,9 @@
 
   <script src="/admin/config.js"></script>
   <script src="/admin/api.js"></script>
-  <script src="/admin/datos.js"></script>
+  <script src="/admin/datos.js?v=2"></script>
   <script src="/admin/galeria.js"></script>
-  <script src="/admin/obra.js?v=3"></script>
+  <script src="/admin/obra.js?v=4"></script>
 </body>
 
 </html>

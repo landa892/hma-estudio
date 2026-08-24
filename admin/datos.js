@@ -97,12 +97,19 @@
     }).then(function (filas) { return filas[0]; });
   }
 
+  function admiteCantidadCuerpo() {
+    return llamar('/obras?select=fotos_cuerpo_cantidad&limit=1')
+      .then(function () { return true; })
+      .catch(function () { return false; });
+  }
+
   /* Las migraciones se corren a mano y el panel puede publicarse primero. En
      esa ventana no debe bloquearse la edicion de los campos que ya existian.
      Se quita solamente la columna nueva que la propia respuesta nombra. */
   function sinColumnaNueva(cuerpo, enviar) {
     return enviar(cuerpo).catch(function (e) {
-      var columna = ['ultimo_cambio', 'premios', 'intervencion'].find(function (nombre) {
+      var columna = ['ultimo_cambio', 'premios', 'intervencion',
+                     'fotos_cuerpo_cantidad'].find(function (nombre) {
         return e.message.indexOf(nombre) !== -1 && nombre in cuerpo;
       });
       if (!columna) throw e;
@@ -247,6 +254,7 @@
     traerObra: traerObra,
     crearObra: crearObra,
     actualizarObra: actualizarObra,
+    admiteCantidadCuerpo: admiteCantidadCuerpo,
     borrarObra: borrarObra,
     listarImagenes: listarImagenes,
     borrarArchivos: borrarArchivos,

@@ -65,6 +65,25 @@ def migracion_editorial_disponible(url, clave):
         raise
 
 
+def migracion_cantidad_cuerpo_disponible(url, clave):
+    """La 0018 se aplica a mano y el deploy debe conservar el dibujo anterior.
+
+    Si la columna todavia no existe, las fichas siguen con la seleccion que ya
+    tenian. Cuando existe, el valor no nulo decide exactamente cuantas filas
+    se dibujan sin borrar ninguna imagen de la base.
+    """
+    pedido = urllib.request.Request(
+        url + '/rest/v1/obras?select=fotos_cuerpo_cantidad&limit=1',
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+    try:
+        with urllib.request.urlopen(pedido, timeout=120):
+            return True
+    except urllib.error.HTTPError as error:
+        if error.code in (400, 404):
+            return False
+        raise
+
+
 def e(texto):
     return (texto or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
@@ -360,11 +379,17 @@ def resolver_imagen(slug, foto, url):
     }
 
 
-def bloque_filas(actual, titulo, fotos, cuerpo):
+def bloque_filas(actual, titulo, fotos, cuerpo, cantidad=None):
     """Portada mas cuerpo administrado; sin cuerpo, conserva el legado."""
     portada = next((foto for foto in fotos if foto['portada']), fotos[0])
     fotos = [portada] + [foto for foto in fotos if foto is not portada]
     seleccion = [portada] + cuerpo if cuerpo else fotos[:PRINCIPALES]
+    if cantidad is not None:
+        # La portada cuenta dentro de la cantidad visible, igual que antes
+        # contaba dentro de las tres filas heredadas. Recortar la lista no toca
+        # Storage ni obra_imagenes: subir de nuevo el numero las recupera.
+        fuente = [portada] + cuerpo if cuerpo else fotos
+        seleccion = fuente[:cantidad]
     filas = ['      <div class="project-row project-row--sola reveal">\n'
              '        <div class="project-row__photo"><img></div>\n      </div>'] * len(seleccion)
     nuevas = []
@@ -430,14 +455,14 @@ def figuras_planos(titulo, planos):
     ]
 
 
-def actualizar_pagina(slug, titulo, fotos, cuerpo, planos):
+def actualizar_pagina(slug, titulo, fotos, cuerpo, planos, cantidad=None):
     ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
     if not os.path.isfile(ruta):
         return False
     html = io.open(ruta, encoding='utf-8').read()
     portada = next((f for f in fotos if f['portada']), fotos[0])
     nuevo = re.sub(r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n',
-                   lambda m: bloque_filas(m.group(0), titulo, fotos, cuerpo), html, count=1)
+                   lambda m: bloque_filas(m.group(0), titulo, fotos, cuerpo, cantidad), html, count=1)
     nuevo = re.sub(r'(?s)\n    <section class="section no-border" id="galeria">.*?\n    </section>\n',
                    lambda _: bloque_grilla(titulo, fotos, figuras_planos(titulo, planos)),
                    nuevo, count=1)
@@ -616,7 +641,13 @@ def main():
     #
     # Sembrar un borrador no lo muestra en ningun lado: la pagina y la tarjeta
     # las escribe el bucle de mas abajo, que sigue mirando solo las publicadas.
-    obras = pedir(url, clave, '/rest/v1/obras?select=id,slug,titulo,publicada')
+    tiene_cantidad_cuerpo = migracion_cantidad_cuerpo_disponible(url, clave)
+    campos_obra = 'id,slug,titulo,publicada'
+    if tiene_cantidad_cuerpo:
+        campos_obra += ',fotos_cuerpo_cantidad'
+    else:
+        print('migracion 0018 pendiente: se conservan las fotos del cuerpo actuales')
+    obras = pedir(url, clave, '/rest/v1/obras?select=' + campos_obra)
     por_slug = {o['slug']: o for o in obras}
     imagenes = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
     sembradas = sembrar(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
@@ -706,6 +737,7 @@ def main():
         # Se reescribe la ficha si el estudio toco las fotos o los planos: antes
         # alcanzaba con mirar las fotos porque era lo unico administrable.
         if not (gestionada(filas_fotos) or filas_cuerpo or gestionada(filas_planos)
+                or 'fotos_cuerpo_cantidad' in obra
                 or (filas_planos and sin_planos_todavia(obra['slug']))
                 or le_faltan_fotos(obra['slug'], filas_fotos,
                                    sobran_por_obra.get(obra['slug'], set()))
@@ -731,7 +763,8 @@ def main():
         cuerpo_resuelto = [resolver_imagen(obra['slug'], f, url) for f in filas_cuerpo]
         planos_resueltos = [resolver_imagen(obra['slug'], f, url) for f in filas_planos]
         if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas,
-                             cuerpo_resuelto, planos_resueltos):
+                             cuerpo_resuelto, planos_resueltos,
+                             obra.get('fotos_cuerpo_cantidad')):
             cambiadas += 1
         portadas[obra['slug']] = next((f for f in fotos_resueltas if f['portada']), fotos_resueltas[0])
         portadas[obra['slug']]['titulo'] = obra['titulo']
