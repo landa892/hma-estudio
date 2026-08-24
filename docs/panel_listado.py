@@ -28,6 +28,12 @@ CAT_ROTULO = {
     'cultural': 'Cultural & Institucional',
 }
 
+# Son concursos aunque su categoria profesional siga siendo hoteleria,
+# gastronomia, residencial o cultural. Se mantiene separado porque el estudio
+# pidio que Concurso sea una tercera seccion junto a Obras y Proyectos.
+CONCURSOS = {'accor-hotels', 'bienal-venecia', 'edificio-del-plata',
+             'cceba', 'abasto-patio-comidas'}
+
 
 def escapar(texto):
     return ((texto or '').replace('&', '&amp;').replace('<', '&lt;')
@@ -89,6 +95,21 @@ def reemplazar_clase(html, clase, obras):
         rotulo = escapar(CAT_ROTULO.get(cat, ''))
         cat_actual = (re.search(r'data-cat="([^"]*)"', bloque) or [None, ''])[1]
         nuevo = bloque
+        slug = slug_m.group(1)
+        estado_publico = 'concurso' if slug in CONCURSOS else None
+        if estado_publico:
+            nuevo = re.sub(r'data-estado="[^"]*"',
+                           'data-estado="concurso"', nuevo, count=1)
+            if 'data-concurso=' not in nuevo:
+                nuevo = nuevo.replace('data-slug="%s"' % slug,
+                                      'data-concurso="true" data-slug="%s"' % slug, 1)
+        if slug == 'people':
+            if 'data-cats=' in nuevo:
+                nuevo = re.sub(r'data-cats="[^"]*"',
+                               'data-cats="residencial hoteleria"', nuevo, count=1)
+            else:
+                nuevo = nuevo.replace('data-cat="%s"' % cat,
+                                      'data-cat="%s" data-cats="%s hoteleria"' % (cat, cat), 1)
         orden = o.get('orden')
         if orden is not None:
             if 'data-order=' in nuevo:

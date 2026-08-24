@@ -12,9 +12,9 @@
      reescribir todo cada vez iria degradando el marcado aunque nadie edite
      nada. Comparando primero, una pagina sin cambios queda byte a byte igual.
 
-   - Los telefonos son enlaces tel:. Escribirlos como texto plano deja el
-     numero visible pero deja de ser tocable en el telefono, que es de donde
-     llama casi todo el mundo. Se rearman los <a> desde cada renglon.
+   - Los telefonos de Contacto abren WhatsApp. Escribirlos como texto plano o
+     volverlos a tel: perderia el comportamiento pedido por el estudio. Se
+     rearman los <a> desde cada renglon aunque el numero cambie en el panel.
 
    - El espejo en ingles se genera por diccionario, y un texto recien editado no
      esta en ningun diccionario: saldria en castellano dentro de la pagina en
@@ -109,7 +109,7 @@ def desde_json():
 # ---------------------------------------------------------------------------
 
 BR = re.compile(r'<br\s*/?>')
-TEL = '<a href="tel:'
+TEL = re.compile(r'<a href="(?:tel:|https://wa\.me/)')
 
 
 def piezas(interior):
@@ -118,7 +118,7 @@ def piezas(interior):
     Devuelve (prefijo, separador, sufijo, con_tel). Sin esto habria que elegir
     un formato y el archivo cambiaria de forma en cada campo que se toque.
     """
-    con_tel = TEL in interior
+    con_tel = bool(TEL.search(interior))
     m_br = BR.search(interior)
 
     prefijo = re.match(r'^\s*', interior).group(0)
@@ -142,10 +142,12 @@ def piezas(interior):
 
 
 def renglon_tel(linea):
-    """<a href="tel:+541147738658">(+54) 11 4773 8658</a>"""
+    """En Contacto, tocar el numero abre un chat nuevo de WhatsApp."""
     numero = re.sub(r'[^0-9]', '', linea)
-    mas = '+' if linea.strip().startswith('+') or '(+' in linea else ''
-    return '<a href="tel:%s%s">%s</a>' % (mas, numero, escapar(linea))
+    rotulo = escapar(linea)
+    return ('<a href="https://wa.me/%s" target="_blank" rel="noopener" '
+            'aria-label="Enviar un mensaje por WhatsApp al %s">%s</a>'
+            % (numero, rotulo, rotulo))
 
 
 def armar(texto, interior_actual):

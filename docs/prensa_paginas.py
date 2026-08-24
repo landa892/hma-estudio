@@ -244,9 +244,10 @@ def tarjeta(nota, indice):
     # Veinticuatro de las publicaciones no dejaron escaneo ni en el Drive ni en
     # el repositorio: esas van con el hueco vacio y el texto completo.
     if tapa:
+        carga = 'eager' if indice < VISIBLES else 'lazy'
         imagen = ('<div class="press-img"><img src="%s" width="%d" height="%d" '
-                  'alt="%s%s" loading="lazy" decoding="async"></div>'
-                  % (ea(tapa), m[0], m[1], ea(nota['medio']), ea(pais)))
+                  'alt="%s%s" loading="%s" decoding="async"></div>'
+                  % (ea(tapa), m[0], m[1], ea(nota['medio']), ea(pais), carga))
     else:
         imagen = '<div class="press-img press-img--vacia" aria-hidden="true"></div>'
 

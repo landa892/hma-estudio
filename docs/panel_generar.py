@@ -59,14 +59,18 @@ def formato_editorial(t):
 
 # El orden en que van las filas de la ficha tecnica. Solo se usa para
 # ubicar una fila que haya que agregar; las que ya estan no se mueven.
-ORDEN_SPECS = ['Estado', 'Tipo', 'Ubicación', 'País', 'Superficie', 'Año',
+ORDEN_SPECS = ['Intervención', 'Estado', 'Tipología', 'Ubicación', 'País', 'Superficie', 'Año',
                'Comitente', 'Fotógrafo', 'Equipo']
 
 
 def rotulo_spec(rotulo):
     """Normaliza el nombre anterior del credito al pedido por el estudio."""
     limpio = re.sub(r'\s+', ' ', rotulo).strip()
-    return 'Fotógrafo' if limpio == 'Fotografía' else limpio
+    if limpio == 'Fotografía':
+        return 'Fotógrafo'
+    if limpio == 'Tipo':
+        return 'Tipología'
+    return limpio
 
 
 def bloque_ficha(o, html):
@@ -84,8 +88,13 @@ def bloque_ficha(o, html):
     rotulos = [r for _, r in filas_actuales]
     clases = dict((rotulo_spec(r), c) for c, r in filas_actuales)
     valor = {
+        'Intervención': {
+            'interiorismo': 'Interiorismo',
+            'arquitectura': 'Arquitectura',
+            'ambos': 'Arquitectura e interiorismo',
+        }.get(o.get('intervencion'), ''),
         'Estado': ESTADOS.get(o['estado'], ''),
-        'Tipo': o.get('tipologia') or '',
+        'Tipología': o.get('tipologia') or '',
         'Ubicación': o.get('ubicacion') or '',
         'País': o.get('pais') or '',
         'Superficie': o.get('superficie') or '',

@@ -174,6 +174,12 @@ DIC.update({
     # --- categorias que faltaban ---
     'Comercial': 'Commercial',
     'Hotelería': 'Hospitality',
+    'Tipología': 'Typology',
+    'Intervención': 'Intervention',
+    'Interiorismo': 'Interior design',
+    'Arquitectura e interiorismo': 'Architecture and interior design',
+    'Enviar un mensaje por WhatsApp al +54 11 4773 8658': 'Send a WhatsApp message to +54 11 4773 8658',
+    'Enviar un mensaje por WhatsApp al +1 305 851 3565': 'Send a WhatsApp message to +1 305 851 3565',
 
     # --- Ualá II ---
     'Ualá II': 'Ualá II',

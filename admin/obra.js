@@ -45,6 +45,7 @@
     $('comitente').value = o.comitente || '';
     $('tipologia').value = o.tipologia || '';
     $('categoria').value = o.categoria || '';
+    $('intervencion').value = o.intervencion || '';
     $('fotografia').value = o.fotografia || '';
     $('equipo').value = (o.equipo || []).join('\n');
     $('bajada').value = o.bajada || '';
@@ -99,6 +100,7 @@
       comitente: texto('comitente'),
       tipologia: texto('tipologia'),
       categoria: $('categoria').value || null,
+      intervencion: $('intervencion').value || null,
       fotografia: texto('fotografia'),
       // Una linea por nombre. Se limpian las vacias que deja copiar y pegar.
       equipo: $('equipo').value.split('\n')
@@ -149,8 +151,9 @@
     anio: 'el año',
     superficie: 'la superficie',
     comitente: 'el comitente',
-    tipologia: 'el tipo',
+    tipologia: 'la tipología',
     categoria: 'la categoría',
+    intervencion: 'la intervención',
     fotografia: 'el fotógrafo',
     equipo: 'el equipo',
     bajada: 'la bajada',

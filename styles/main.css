@@ -669,7 +669,7 @@ footer.site-footer {
   min-height: 88vh;
   display: flex;
   align-items: flex-end;
-  padding: 64px 0 56px;
+  padding: 64px 0 28px;
   overflow: hidden;
   color: var(--white);
 }
@@ -711,6 +711,7 @@ footer.site-footer {
   transform-origin: left bottom;
   transform: scale(var(--hero-scale, 1));
   will-change: transform;
+  padding-bottom: 0;
 }
 
 @media (max-width: 640px) {
@@ -758,11 +759,15 @@ footer.site-footer {
   max-width: none;
   font-size: 2.65rem;
   white-space: nowrap;
+  box-sizing: border-box;
+  padding-inline: 1.85%;
 }
 
 .hero-home--photo .lede {
   width: min(92%, 760px);
   max-width: 760px;
+  box-sizing: border-box;
+  padding-inline: 1.85%;
 }
 
 /* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com
@@ -1905,6 +1910,18 @@ footer.site-footer {
 .press-card .press-img--vacia {
   background: var(--gray-bg);
   border-bottom: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+}
+
+.press-card .press-img--vacia::after {
+  content: 'HMA / PRESS';
+  padding: 16px;
+  color: var(--gray);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .press-card .press-obra {
@@ -3018,7 +3035,7 @@ footer.site-footer {
 .award-row__res {
   grid-column: 4;
   grid-row: 1 / 3;
-  align-self: start;
+  align-self: center;
   font-size: .72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -3032,7 +3049,7 @@ footer.site-footer {
   grid-column: 6;
   /* Saltamos a la columna 6, dejando la 5 vacía */
   grid-row: 1 / 3;
-  align-self: start;
+  align-self: end;
   font-size: .78rem;
   color: var(--gray);
   text-transform: uppercase;
@@ -3865,7 +3882,7 @@ footer.site-footer {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  padding: 64px 0 56px;
+  padding: 64px 0 28px;
 }
 
 .gsap-active .hero-home--photo img,
@@ -4836,7 +4853,6 @@ html.lenis body {
 .work-split__text p,
 .socios-texto p,
 .founder p,
-.award-row__desc,
 .project-banner--split__text p,
 .press-note__copy p {
   text-align: justify;
@@ -4925,6 +4941,7 @@ html.lenis body {
   max-width: 62ch;
   font-size: clamp(.9rem, .2vw + .86rem, 1rem);
   line-height: 1.58;
+  text-align: left;
 }
 
 /* En fichas largas el siguiente bloque ya no queda separado por una pantalla

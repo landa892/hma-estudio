@@ -28,7 +28,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.css?v=100">
+  <link rel="stylesheet" href="/styles/main.css?v=101">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/proyectos/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/projects/">
@@ -151,13 +151,13 @@
             <button class="filter-btn" data-filter="residencial">Residential</button>
             <button class="filter-btn" data-filter="oficinas">Offices</button>
             <button class="filter-btn" data-filter="cultural">Cultural &amp; Institutional</button>
-            <button class="filter-btn" data-filter="concursos">Competitions</button>
           </div>
           <div class="filtros-derecha">
             <div class="estado-toggle" id="estadoToggle">
               <button class="active" data-estado-filtro="all">All</button>
               <button data-estado-filtro="obra">Built work</button>
               <button data-estado-filtro="proyecto">Projects</button>
+              <button data-estado-filtro="concurso">Competitions</button>
             </div>
             <div class="view-toggle">
               <button class="active" data-view="grid">Grilla</button>
@@ -217,7 +217,7 @@
             <div class="p-meta"><span>Offices</span><span>Buenos Aires</span><span>480 m²</span><span>2025—2026</span></div>
             </div>
           </a>
-          <a href="/en/projects/cceba/" class="project-card" data-cat="cultural" data-slug="cceba" data-order="-16" data-estado="proyecto">
+          <a href="/en/projects/cceba/" class="project-card" data-cat="cultural" data-concurso="true" data-slug="cceba" data-order="-16" data-estado="concurso">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Cultural &amp; Institutional</span>
             <img src="/assets/covers/cceba.webp" width="1200" height="798" alt="CCEBA" loading="lazy"
@@ -273,7 +273,7 @@
             </div>
           </a>
           <a href="/en/projects/bienal-venecia/" class="project-card" data-cat="cultural" data-concurso="true" data-slug="bienal-venecia" data-order="-11"
-            data-estado="proyecto">
+            data-estado="concurso">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Cultural &amp; Institutional</span>
             <img src="/assets/covers/bienal-venecia.webp" width="1200" height="849" alt="Bienal de Venecia"
@@ -284,7 +284,7 @@
             </div>
           </a>
           <a href="/en/projects/edificio-del-plata/" class="project-card" data-cat="residencial" data-concurso="true"
-            data-slug="edificio-del-plata" data-order="-10" data-estado="proyecto">
+            data-slug="edificio-del-plata" data-order="-10" data-estado="concurso">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Residential</span>
             <img src="/assets/covers/edificio-del-plata.webp?v=20260818" width="1672" height="941" alt="Edificio del Plata"
@@ -316,7 +316,7 @@
             <div class="p-meta"><span>Hotel</span><span>St Michael</span><span>50.000 m²</span><span>2024</span></div>
             </div>
           </a>
-          <a href="/en/projects/people/" class="project-card" data-cat="residencial" data-slug="people" data-order="-7"
+          <a href="/en/projects/people/" class="project-card" data-cat="residencial" data-cats="residencial hoteleria" data-slug="people" data-order="-7"
             data-estado="proyecto">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Residential</span>
@@ -539,7 +539,7 @@
             </div>
           </a>
           <a href="/en/projects/abasto-patio-comidas/" class="project-card" data-cat="gastronomico" data-concurso="true"
-            data-slug="abasto-patio-comidas" data-order="32" data-estado="proyecto">
+            data-slug="abasto-patio-comidas" data-order="32" data-estado="concurso">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Hospitality</span>
             <img src="/assets/gallery/abasto-patio-comidas/1.webp" width="1920" height="1080"
@@ -610,8 +610,8 @@
             <div class="p-meta"><span>Bar</span><span>Buenos Aires</span><span>90 m² ground floor</span><span>2019</span></div>
             </div>
           </a>
-          <a href="/en/projects/accor-hotels/" class="project-card" data-cat="hoteleria" data-slug="accor-hotels" data-order="39"
-            data-estado="proyecto">
+          <a href="/en/projects/accor-hotels/" class="project-card" data-cat="hoteleria" data-concurso="true" data-slug="accor-hotels" data-order="39"
+            data-estado="concurso">
             <span class="card-estado card-estado--proyecto">Project</span>
             <span class="card-cat">Hospitality</span>
             <img src="/assets/covers/accor-hotels.webp" width="800" height="450" alt="Accor Hotels" loading="lazy"
@@ -888,8 +888,8 @@
             <div class="plr-cat">Offices</div>
             <div class="plr-loc">2025—2026</div>
           </a>
-          <a href="/en/projects/cceba/" class="project-list-row" data-cat="cultural" data-slug="cceba" data-order="-16"
-            data-estado="proyecto">
+          <a href="/en/projects/cceba/" class="project-list-row" data-cat="cultural" data-concurso="true" data-slug="cceba" data-order="-16"
+            data-estado="concurso">
             <div class="plr-thumb"><img src="/assets/covers/cceba.webp" width="1200" height="798" alt=""
             loading="lazy"></div>
             <div>
@@ -944,7 +944,7 @@
             <div class="plr-loc">2024</div>
           </a>
           <a href="/en/projects/bienal-venecia/" class="project-list-row" data-cat="cultural" data-concurso="true" data-slug="bienal-venecia" data-order="-11"
-            data-estado="proyecto">
+            data-estado="concurso">
             <div class="plr-thumb"><img src="/assets/covers/bienal-venecia.webp" width="1200" height="849" alt=""
             loading="lazy"></div>
             <div>
@@ -955,7 +955,7 @@
             <div class="plr-loc">2024</div>
           </a>
           <a href="/en/projects/edificio-del-plata/" class="project-list-row" data-cat="residencial" data-concurso="true"
-            data-slug="edificio-del-plata" data-order="-10" data-estado="proyecto">
+            data-slug="edificio-del-plata" data-order="-10" data-estado="concurso">
             <div class="plr-thumb"><img src="/assets/covers/edificio-del-plata.webp?v=20260818" width="1672" height="941" alt=""
             loading="lazy"></div>
             <div>
@@ -987,7 +987,7 @@
             <div class="plr-cat">Hospitality</div>
             <div class="plr-loc">2024</div>
           </a>
-          <a href="/en/projects/people/" class="project-list-row" data-cat="residencial" data-slug="people" data-order="-7"
+          <a href="/en/projects/people/" class="project-list-row" data-cat="residencial" data-cats="residencial hoteleria" data-slug="people" data-order="-7"
             data-estado="proyecto">
             <div class="plr-thumb"><img src="/assets/covers/people.webp" width="801" height="1000" alt=""
             loading="lazy"></div>
@@ -1207,7 +1207,7 @@
             <div class="plr-loc">2020</div>
           </a>
           <a href="/en/projects/abasto-patio-comidas/" class="project-list-row" data-cat="gastronomico" data-concurso="true"
-            data-slug="abasto-patio-comidas" data-order="32" data-estado="proyecto">
+            data-slug="abasto-patio-comidas" data-order="32" data-estado="concurso">
             <div class="plr-thumb"><img src="/assets/gallery/abasto-patio-comidas/1.webp" width="1920" height="1080"
             alt="" loading="lazy"></div>
             <div>
@@ -1277,8 +1277,8 @@
             <div class="plr-cat">Hospitality</div>
             <div class="plr-loc">2019</div>
           </a>
-          <a href="/en/projects/accor-hotels/" class="project-list-row" data-cat="hoteleria" data-slug="accor-hotels" data-order="39"
-            data-estado="proyecto">
+          <a href="/en/projects/accor-hotels/" class="project-list-row" data-cat="hoteleria" data-concurso="true" data-slug="accor-hotels" data-order="39"
+            data-estado="concurso">
             <div class="plr-thumb"><img src="/assets/covers/accor-hotels.webp" width="800" height="450" alt=""
             loading="lazy"></div>
             <div>
@@ -1614,7 +1614,7 @@
   <script src="/scripts/animations/textReveal.js?v=85"></script>
   <script src="/scripts/animations/heroAnimation.js?v=87"></script>
   <script src="/scripts/animations/scrollEffects.js?v=86"></script>
-  <script src="/scripts/main.js?v=94"></script>
+  <script src="/scripts/main.js?v=95"></script>
 </body>
 
 </html>

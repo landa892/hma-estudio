@@ -273,9 +273,8 @@ try {
     const aplicar = () => {
       let visibles = 0;
       document.querySelectorAll('[data-cat]').forEach(c => {
-        const fueraDeCat = cat === 'concursos'
-          ? c.dataset.concurso !== 'true'
-          : cat !== 'all' && c.dataset.cat !== cat;
+        const categorias = (c.dataset.cats || c.dataset.cat || '').split(/\s+/);
+        const fueraDeCat = cat !== 'all' && !categorias.includes(cat);
         const fueraDeEstado = estado !== 'all' && c.dataset.estado !== estado;
         const fueraDelTexto = texto !== '' && !textoDe(c).includes(texto);
         const fuera = fueraDeCat || fueraDeEstado || fueraDelTexto;

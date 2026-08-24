@@ -102,7 +102,7 @@
      Se quita solamente la columna nueva que la propia respuesta nombra. */
   function sinColumnaNueva(cuerpo, enviar) {
     return enviar(cuerpo).catch(function (e) {
-      var columna = ['ultimo_cambio', 'premios'].find(function (nombre) {
+      var columna = ['ultimo_cambio', 'premios', 'intervencion'].find(function (nombre) {
         return e.message.indexOf(nombre) !== -1 && nombre in cuerpo;
       });
       if (!columna) throw e;
