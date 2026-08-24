@@ -144,6 +144,10 @@ def piezas(interior):
 def renglon_tel(linea):
     """En Contacto, tocar el numero abre un chat nuevo de WhatsApp."""
     numero = re.sub(r'[^0-9]', '', linea)
+    # WhatsApp exige el 9 de movil argentino despues del codigo de pais. El
+    # numero visible y el enlace tel siguen en formato telefonico normal.
+    if numero.startswith('5411'):
+        numero = '549' + numero[2:]
     rotulo = escapar(linea)
     return ('<a href="https://wa.me/%s" target="_blank" rel="noopener" '
             'aria-label="Enviar un mensaje por WhatsApp al %s">%s</a>'

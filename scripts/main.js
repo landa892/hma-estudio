@@ -914,7 +914,15 @@ try {
 
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
-    const fotos = Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
+    /* Las tres filas editoriales son apenas la introduccion de la ficha. La
+       fuente completa es la Galeria: Hyatt Ziva tenia 15 fotos publicadas,
+       pero aca solo llegaban esas tres y toda la memoria quedaba como dos
+       columnas interminables. Los planos no participan de esta alternancia. */
+    const fotosGaleria = Array.from(document.querySelectorAll(
+      '#galeria .gallery-grid__item:not(.gallery-grid__item--plano)'));
+    const fotos = fotosGaleria.length
+      ? fotosGaleria
+      : Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
 
     /* Una memoria pegada de un Word en un solo bloque deja un unico <p>, y
        como el reparto de abajo es min(parrafos, fotos), la ficha sale con una
