@@ -57,3 +57,33 @@ El que llega segundo lleva la extension vieja pegada al nombre.
 
 Y esta es la unica copia que queda. Si el archivo web las pierde, no hay de
 donde sacarlas de nuevo.
+
+asignaciones.json
+-----------------
+Que nota le corresponde a cada imagen, hasta donde se pudo. Al 24/08/2026 hay
+168 de 369 identificadas, sobre 125 notas distintas. Cada una dice por que via
+salio y con que evidencia:
+
+    medio y fecha   la ruta del WordPress trae ano y mes -2009/11/megaluz-01.jpg-
+                    y el nombre trae el medio; se cruzo contra la fecha de cada
+                    nota. Se acepto solo cuando la mejor candidata le sacaba dos
+                    puntos a la segunda.
+    mirada          se abrio la imagen y se leyo la tapa. Es la unica via que
+                    resuelve dos ediciones del mismo medio en el mismo ano:
+                    "megaluz 48" contra "megaluz.49", "COMPENDIO 05 hoteles"
+                    contra "#6 oficinas".
+    archidiaries    esas doce notas llevan el nombre de la obra en el archivo
+                    -archidiaries-tostado_page-0001- y hay una nota por obra.
+
+La mirada le gana al cruce automatico donde discrepan, y discreparon: el
+automatico daba a "design-boom_Pagina_01.jpg" la nota de Fogon en Riad, y la
+imagen dice "billboard-like sign marks outdoor restaurant by hitzigmilitello
+arquitectos in argentina", que es Williamsburg.
+
+Otro aviso para el que siga: la carpeta 2019/01 es una subida masiva y no dice
+nada del ano real de la publicacion. Ahi el cruce por fecha se equivoca y lo
+que manda es el numero de la revista, que suele estar en el nombre del archivo
+-37-clarin-arquitectura-615.jpg es la nota de Clarin Arquitectura n*615, de
+2014, no una de 2020-.
+
+Nada de esto se aplico al sitio.
