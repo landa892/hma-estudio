@@ -420,6 +420,15 @@ def _fecha_en_ingles(fecha):
 
 
 def traducir(t):
+    # El diccionario le gana a los patrones, igual que en en_dic y en en_dic4.
+    # Sin esta linea, FICHA_NOTA -el molde "Obra in Medio, fecha."- se quedaba
+    # con frases que cumplen su forma por casualidad y las devolvia con el
+    # unico cambio de "en" por "in": las 27 conferencias de la lista de Prensa
+    # salian en castellano, con "Profesor de Arquitectura Comercial Interior in
+    # la Haus". Estaban cargadas mas abajo y no se usaban nunca, porque el
+    # patron contestaba antes de que nadie mirara el diccionario.
+    if t in DIC:
+        return DIC[t]
     m = FICHA_NOTA.match(t)
     if m:
         return u'%s in %s, %s.' % (m.group(1), m.group(2),
@@ -432,3 +441,70 @@ def traducir(t):
     if m:
         return 'Arch. %s' % m.group(1).replace('Arq. ', 'Arch. ')
     return en_dic6.traducir(t)
+
+
+# Las 27 conferencias y clases de la lista de Prensa. El texto que se ve es
+# el detalle completo desde que se corrigio la fila -el titulo del JSON venia
+# cortado por el medio-, y ese detalle nunca habia tenido traduccion: el
+# espejo ingles mostraba castellano con alguna palabra suelta cambiada,
+# "Profesor de Arquitectura Comercial Interior in la Haus", que es peor que
+# dejarlo entero. en_gen no lo reportaba porque daba la frase por traducida.
+#
+# Los nombres propios de las instituciones se dejan como estan: FADU, SCA,
+# UADE, Malba y las catedras son como se llaman, no se traducen.
+DIC.update({
+    "Profesor de Arquitectura Comercial Interior en la Haus: Leonardo Militello. Buenos Aires, Argentina.":
+        "Professor of Commercial Interior Architecture at la Haus: Leonardo Militello. Buenos Aires, Argentina.",
+    "Ciclo de conferencias 2026: impartido en DINA (Asociación Nacional de Diseñadores). Parte del ”Ciclo de conferencias presenciales 2026” —evento presencial en el Auditorio Diego de Torres, UCC Córdoba, Argentina.":
+        "2026 lecture series: delivered at DINA (National Association of Designers). Part of the ”2026 in-person lecture series” —in-person event at the Auditorio Diego de Torres, UCC Córdoba, Argentina.",
+    "Conferencia en TENDIEZ LAB: «Arquitectura Gastronómica y Hotelera: Negocio, Diseño, Experiencia». Buenos Aires, Argentina.":
+        "Lecture at TENDIEZ LAB: «Gastronomic and Hospitality Architecture: Business, Design, Experience». Buenos Aires, Argentina.",
+    "Conferencia TENDIEZ LAB: “Gastronomía: Diseño, Negocio, Experiencia y Patrimonio”. Mar del Plata, Argentina.":
+        "TENDIEZ LAB lecture: “Gastronomy: Design, Business, Experience and Heritage”. Mar del Plata, Argentina.",
+    "Conferencia: Invitados por la UADE FADI – Clase de la arq. Lucía López. Buenos Aires, Argentina.":
+        "Lecture: Invited by UADE FADI – Class of Arch. Lucía López. Buenos Aires, Argentina.",
+    "Conferencia: En el marco de la feria HOTELGA 2024, fuimos invitados a participar en una mesa redonda en la primera edición en directo del podcast Cerrame la Ocho ‘Los 1o mandamientos para no fracasar en la Industria Gastronómica’. Buenos Aires, Argentina.":
+        "Lecture: As part of the HOTELGA 2024 trade fair, we were invited to join a round table at the first live edition of the podcast Cerrame la Ocho, ‘The 10 commandments for not failing in the gastronomic industry’. Buenos Aires, Argentina.",
+    "Profesor de Interior Creative Architecture en Haus: Leonardo Militello Buenos Aires, Argentina.":
+        "Professor of Interior Creative Architecture at Haus: Leonardo Militello. Buenos Aires, Argentina.",
+    "Conferencia en la UADE – FADI (Facultad de Arquitectura y Diseño – Universidad Argentina de la Empresa). Buenos Aires, Argentina.":
+        "Lecture at UADE – FADI (School of Architecture and Design – Universidad Argentina de la Empresa). Buenos Aires, Argentina.",
+    "Clase magistral impartida en la FAD - UPC (Facultad de Arte y Diseño – Universidad Provincial de Córdoba). En el marco de la 4th Jornada de Interiorismo del centro del País. Córdoba, Argentina.":
+        "Masterclass delivered at FAD - UPC (School of Art and Design – Universidad Provincial de Córdoba), as part of the 4th Interior Design Conference of the central region. Córdoba, Argentina.",
+    "Clase magistral impartida en el IED Barcelona (Instituto Europeo de Diseño). En el marco del Master in Interior Design for Commercial Spaces and Retail. Barcelona, España.":
+        "Masterclass delivered at IED Barcelona (Istituto Europeo di Design), as part of the Master in Interior Design for Commercial Spaces and Retail. Barcelona, Spain.",
+    "Clase magistral impartida en el IED Kunsthal (Instituto Europeo de Diseño). En el marco del Master in interior design for commercial, hotel and work spaces. Bilbao, España.":
+        "Masterclass delivered at IED Kunsthal (Istituto Europeo di Design), as part of the Master in interior design for commercial, hotel and work spaces. Bilbao, Spain.",
+    "Ciclo de conferencias 10.ª TENDIEZ Experiences: \"Transforming gastronomic architecture from architecture, business and experience\". Evento presencial y virtual el 11 de octubre de 2022 a las 19:00 h en el Auditorio del Malba. Museo. Museo de Arte Latinoamericano de Buenos Aires. Buenos Aires, Argentina.":
+        "10th TENDIEZ Experiences lecture series: \"Transforming gastronomic architecture from architecture, business and experience\". In-person and online event on 11 October 2022 at 7 pm at the Malba Auditorium. Museo de Arte Latinoamericano de Buenos Aires. Buenos Aires, Argentina.",
+    "Conferencia en FADI – UADE (Universidad Argentina de la Empresa). UADE FADI- Proyecto 6 . Arquitectura y diseño. Buenos Aires, Argentina.":
+        "Lecture at FADI – UADE (Universidad Argentina de la Empresa). UADE FADI - Project 6. Architecture and design. Buenos Aires, Argentina.",
+    "Conferencia en el seminario web: Invited by BN. Miami: the market everyone is talking about ( BN-Building Network ). Buenos Aires, Argentina.":
+        "Webinar lecture: Invited by BN. Miami: the market everyone is talking about (BN-Building Network). Buenos Aires, Argentina.",
+    "Conferencia en seminario web: Invited by ESAD University of Moron Escuela Superior de Arquitectura y Diseño. Seminario web sobre su práctica profesional. Buenos Aires, Argentina.":
+        "Webinar lecture: Invited by ESAD University of Moron, Escuela Superior de Arquitectura y Diseño. Webinar on their professional practice. Buenos Aires, Argentina.",
+    "Conferencia en seminario web: Invited by Sociedad Central de Arquitectos & Museo de Arquitectura to give a lecture about it’s trajectory. (SCA http://www.socearq.org/ ). Buenos Aires, Argentina.":
+        "Webinar lecture: Invited by Sociedad Central de Arquitectos & Museo de Arquitectura to give a lecture about its trajectory. (SCA http://www.socearq.org/ ). Buenos Aires, Argentina.",
+    "Conferencia en seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“. Buenos Aires, Argentina.":
+        "Webinar lecture: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“. Buenos Aires, Argentina.",
+    "Conferencia en seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“ en la Sociedad Central de Arquitectos (SCA). Buenos Aires, Argentina.":
+        "Webinar lecture: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“ at the Sociedad Central de Arquitectos (SCA). Buenos Aires, Argentina.",
+    "Orador: Lecture at the International architecture festival ARQfestival 2019. Se celebró en las instalaciones del Teatro Diana, en la ciudad de Guadalajara, México. ARQfestival 2019 es un evento organizado por DESIGNFEST, el mayor festival internacional de diseño de México, que garantiza una experiencia contrastada y de calidad a lo largo de más de 12 años de conferencias, talleres, seminarios y exposiciones del sector de las industrias creativas en México. Integrado por 8 arquitectos de renombre, tanto nacionales como extranjeros, que impartirán conferencias magistrales; cada uno de ellos es un referente en el mundo de la arquitectura y es reconocido como un icono en sus respectivas disciplinas. https://www.arqfestival.com/#about Guadalajara, México.":
+        "Speaker: Lecture at the International architecture festival ARQfestival 2019. Held at the Teatro Diana, in Guadalajara, Mexico. ARQfestival 2019 is an event organised by DESIGNFEST, Mexico’s largest international design festival, which guarantees a proven, high-quality experience across more than 12 years of lectures, workshops, seminars and exhibitions in Mexico’s creative industries. Made up of 8 renowned architects, Argentine and international, who deliver masterclasses; each of them is a benchmark in the world of architecture and is recognised as an icon in their own discipline. https://www.arqfestival.com/#about Guadalajara, Mexico.",
+    "Orador: Invitado por TENDIEZ (Tendencias de Diseño ) to lecture on its trajectory at the architectural congress de la Sociedad Central de Arquitectos (SCA). “Experiencias en arquitectura de interiores”. Buenos Aires, Argentina.":
+        "Speaker: Invited by TENDIEZ (Tendencias de Diseño) to lecture on its trajectory at the architectural congress of the Sociedad Central de Arquitectos (SCA). “Experiences in interior architecture”. Buenos Aires, Argentina.",
+    "Profesor de Arquitectura de Marca en la Haus: Leonardo Militello https://www.holahaus.com/ Buenos Aires, Argentina":
+        "Professor of Brand Architecture at la Haus: Leonardo Militello https://www.holahaus.com/ Buenos Aires, Argentina",
+    "Orador en la Cumbre Latinoamericana de Tendencias y Creatividad. Universidad de Palermo. Buenos Aires, Argentina.":
+        "Speaker at the Latin American Summit of Trends and Creativity. Universidad de Palermo. Buenos Aires, Argentina.",
+    "Profesores de Diseño Arquitectónico I: Leonardo Militello y Fernando Hitzig Cátedra Lestard,Cajide & Janchez. FADU - Universidad de Buenos Aires. Buenos Aires, Argentina.":
+        "Professors of Architectural Design I: Leonardo Militello and Fernando Hitzig. Lestard, Cajide & Janchez studio. FADU - University of Buenos Aires. Buenos Aires, Argentina.",
+    "Graduado en Arquitectura Leonardo Militello. FADU, University of Buenos Aires. Buenos Aires, Argentina.":
+        "Architecture graduate Leonardo Militello. FADU, University of Buenos Aires. Buenos Aires, Argentina.",
+    "Profesor ayudante de Diseño Arquitectónico I: Leonardo Militello Cátedra LLauro-Soler - FADU, Universidad de Buenos Aires. Buenos Aires, Argentina.":
+        "Teaching assistant in Architectural Design I: Leonardo Militello. LLauro-Soler studio - FADU, University of Buenos Aires. Buenos Aires, Argentina.",
+    "Profesor ayudante de Historia de la Arquitectura III: Leonardo Militello Cátedra Brugnoli. FADU, Universidad de Buenos Aires. Buenos Aires, Argentina.":
+        "Teaching assistant in History of Architecture III: Leonardo Militello. Brugnoli studio. FADU, University of Buenos Aires. Buenos Aires, Argentina.",
+    "Graduado en Arquitectura Fernando Hitzig. FADU, University of Buenos Aires. Buenos Aires, Argentina.":
+        "Architecture graduate Fernando Hitzig. FADU, University of Buenos Aires. Buenos Aires, Argentina.",
+})

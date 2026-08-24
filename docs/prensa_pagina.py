@@ -53,13 +53,26 @@ def fila(novedad):
     pr-text y pr-outlet-, para que la lista se vea igual que en la captura del
     Word y para no tocar el CSS ni el filtro por año, que ya andan.
     """
-    titulo = e(novedad['titulo'])
+    # Manda el detalle y no el titulo. El titulo de prensa_novedades.json esta
+    # construido cortandole el arranque al detalle -las 28 entradas, sin
+    # excepcion- para deducir el rubro, y lo que queda empieza a mitad de
+    # frase: "2026: impartido en DINA", "marco de la feria HOTELGA 2024",
+    # "Arquitectura Comercial Interior en la Haus" sin el "Profesor de". Los
+    # prefijos que se comio son Profesor de, Ciclo de conferencias, Conferencia
+    # en, Clase magistral, Orador:, Graduado en.
+    #
+    # Ademas la fila mostraba titulo y detalle uno detras del otro, y como el
+    # detalle contiene al titulo cada linea decia lo mismo dos veces. La guarda
+    # que habia solo miraba la igualdad exacta, que no se daba nunca.
+    #
+    # El detalle esta entero y bien formado, asi que es el que va. El titulo
+    # queda de reserva por si alguna entrada futura no trae detalle.
+    texto = e((novedad.get('detalle') or novedad.get('titulo') or '').strip())
     if novedad.get('link'):
-        titulo = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
-                  % (ea(novedad['link']), titulo))
+        texto = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                 % (ea(novedad['link']), texto))
     detalle = ''
-    if novedad.get('detalle') and novedad['detalle'] != novedad['titulo']:
-        detalle = ' <span class="pr-detalle">%s</span>' % e(novedad['detalle'])
+    titulo = texto
     return ('          <div class="press-row" data-group="news" data-year="%s">'
             '<div class="pr-date">%s</div>'
             '<div class="pr-text"><b>%s</b>%s</div>'
