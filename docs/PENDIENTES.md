@@ -77,6 +77,25 @@ Instagram dio de baja la API publica y LinkedIn la reserva a partners
 aprobados. La segunda opcion que ofrecia el propio Word -poder cambiarlo desde
 el panel- es la que quedo.
 
+### 7. El panel de Prensa no muestra los escaneos que ya tiene cada nota
+
+No es un pendiente de carga: es una decision de diseno que conviene revisar.
+
+`prensa_imagenes` guarda solamente lo que el estudio sube desde el panel -los
+archivos con prefijo `panel-`-. Los 983 escaneos historicos viven en
+`assets/prensa/<slug>/` y no estan en la base. Al 23/08 la tabla tiene cero
+filas, que es correcto: nadie subio nada todavia por ahi.
+
+La consecuencia es que si el estudio abre una nota en el panel no ve los
+escaneos que la nota ya publica, y por lo tanto no puede reordenarlos, elegir
+cual va de tapa ni borrar uno. Es exactamente lo que pasaba con los planos
+antes de la migracion 0011: "el panel de edicion no los mostraba porque no
+estaban en la base; no era un bug, era que el dato ni existia ahi".
+
+Se arregla igual que se arreglo aquello: sembrandolos en la base con el
+mecanismo `@seed:`, para que el panel los liste y solo tome el control de la
+galeria cuando el estudio la toque. No esta hecho.
+
 ---
 
 ## Cerrado el 23/08
@@ -101,3 +120,9 @@ Y para los borradores, el panel: la clave publicable solo ve lo publicado, asi
 que una obra despublicada no aparece en ninguna consulta hecha con ella.
 `docs/panel_datos.json` es una copia y envejece: el 23/08 daba a Banco
 Supervielle como despublicada cuando la base decia que si.
+
+La tabla `publicaciones` -la que alimenta el aviso de "hay cambios guardados
+sin publicar"- tiene su politica restringida a usuarios autenticados, asi que
+desde afuera devuelve cero filas siempre y no se puede saber si esta vacia. Esa
+se mira desde el panel. `prensa_imagenes` no: esa si tiene lectura publica y su
+cero es real, ver el punto 7.
