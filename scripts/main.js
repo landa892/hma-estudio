@@ -495,8 +495,11 @@ try {
 
         const armarTarjetas = (lista) => lista.map(v => {
           const url = urlSegura(v.url, ['youtube.com', 'youtu.be']);
-          const img = urlSegura(v.thumbnail, ['ytimg.com', 'ggpht.com']);
-          if (!url || !img) return '';
+          if (!url || !/^[A-Za-z0-9_-]{11}$/.test(v.id || '')) return '';
+          /* La facultad y varias redes corporativas bloquean i.ytimg.com. La
+             imagen pasa por el mismo dominio del sitio para que no quede un
+             rectangulo vacio aunque YouTube este filtrado en esa red. */
+          const img = '/api/youtube-thumbnail?id=' + encodeURIComponent(v.id);
           const titulo = esc(v.title);
           const fecha = v.published ? esc(fmt.format(new Date(v.published))) : '';
           return `

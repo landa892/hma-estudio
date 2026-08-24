@@ -45,6 +45,10 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    "A definir": "To be defined",
+    "Architizer A+": "Architizer A+",
+    "IIDA": "IIDA",
+    "ARQ-FADEA": "ARQ-FADEA",
     "← Anteriores": "← Previous",
     "Siguientes →": "Next →",
     "Paginas de publicaciones": "Publication pages",

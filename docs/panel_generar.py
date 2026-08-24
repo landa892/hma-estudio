@@ -92,7 +92,7 @@ def bloque_ficha(o, html):
             'interiorismo': 'Interiorismo',
             'arquitectura': 'Arquitectura',
             'ambos': 'Arquitectura e interiorismo',
-        }.get(o.get('intervencion'), ''),
+        }.get(o.get('intervencion'), 'A definir'),
         'Estado': ESTADOS.get(o['estado'], ''),
         'Tipología': o.get('tipologia') or '',
         'Ubicación': o.get('ubicacion') or '',
@@ -200,6 +200,64 @@ def bloque_premios(o):
             '    </section>\n' % formato_editorial(texto))
 
 
+# El texto de premios es lo que edita el estudio desde el panel. La barra de
+# logos antes quedaba suelta en el HTML y una edicion o un alta nueva no la
+# actualizaba. Estas equivalencias hacen que el mismo dato gobierne ambas
+# presentaciones; un premio desconocido conserva su nombre aunque no tenga
+# todavía un archivo de logo.
+LOGOS_PREMIOS = (
+    ('restaurant & bar design', 'rbda-2023.png', 'Restaurant & Bar Design Awards'),
+    ('surface design', 'surface-design.png', 'Surface Design Awards'),
+    ('next landmark', 'next-landmark.png', 'Next Landmark Awards'),
+    ('bienal sca', 'bienal-sca.png', 'Bienal SCA-CPAU'),
+    ('bienal internacional', 'biar.png', 'Bienal Internacional de Arquitectura'),
+    ('liv hospitality', 'liv-2025.png', 'LIV Hospitality Design Awards'),
+    ('hospitality design', 'hospitality-design.png', 'Hospitality Design Awards'),
+    ('architizer', 'architizer.png', 'Architizer A+'),
+    ('arq-fadea', 'fadea.png', 'ARQ-FADEA'),
+    ('casa foa', 'casa-foa.png', 'Casa FOA'),
+    ('german design', 'german-design-awards.png', 'German Design Awards'),
+    ('prix versailles', 'prix-versailles.png', 'Prix Versailles'),
+    ('sbid', 'sbid.png', 'SBID'),
+    ('iida', 'iida.png', 'IIDA'),
+    ('accor', 'accor.png', 'Accor Hotels Design & Technical Summit'),
+    ('biar', 'biar.png', 'BIAR'),
+)
+
+
+def premios_individuales(texto):
+    return [p.strip() for p in re.split(r'\s*(?:\n|\u00b7|\ufffd)\s*', texto) if p.strip()]
+
+
+def bloque_barra_premios(o):
+    texto = (o.get('premios') or '').strip()
+    if not texto:
+        return ''
+    items = []
+    for premio in premios_individuales(texto):
+        encontrado = next((x for x in LOGOS_PREMIOS if x[0] in premio.lower()), None)
+        if encontrado:
+            _, archivo, nombre = encontrado
+            items.append(
+                '          <a class="award-bar__item" href="/premios/" aria-label="Ver %s">'
+                '<img src="/assets/awards/%s" alt="%s" loading="lazy" decoding="async">'
+                '<span>%s</span></a>' % tuple(escapar_atributo(x) for x in
+                                             (nombre, archivo, nombre, nombre))
+            )
+        else:
+            nombre = escapar(premio)
+            items.append(
+                '          <a class="award-bar__item award-bar__item--texto" '
+                'href="/premios/" aria-label="Ver premios"><span>%s</span></a>' % nombre)
+    return ('    <section class="award-bar">\n'
+            '      <div class="container award-bar__inner">\n'
+            '        <h2 class="award-bar__title">Premios y distinciones</h2>\n'
+            '        <div class="award-bar__logos">\n%s\n'
+            '        </div>\n'
+            '      </div>\n'
+            '    </section>\n' % '\n'.join(items))
+
+
 def aplicar(o, html):
     """Devuelve el HTML con las zonas de la base reemplazadas."""
     problemas = []
@@ -286,6 +344,23 @@ def aplicar(o, html):
         ancla = '    <section class="project-gallery">'
         if ancla in html:
             html = html.replace(ancla, premios + '\n' + ancla, 1)
+
+    actual_barra = re.search(
+        r'(?s)\n    <section class="award-bar">.*?\n    </section>\n', html)
+    barra = bloque_barra_premios(o)
+    if actual_barra and barra:
+        html = html[:actual_barra.start()] + '\n' + barra + html[actual_barra.end():]
+    elif barra:
+        # La franja acompaña la galería, igual que en las fichas heredadas.
+        ancla = '    <section class="section no-border" id="galeria">'
+        if ancla in html:
+            html = html.replace(ancla, barra + '\n' + ancla, 1)
+        else:
+            problemas.append('no hay donde poner la barra de premios')
+    # Si el campo todavia esta vacio se conserva la franja heredada. Hay tres
+    # reconocimientos historicos que aun no fueron volcados al panel; borrarlos
+    # por interpretar null como una orden de eliminacion repetiría la perdida
+    # que motivo esta correccion.
 
     return html, problemas
 

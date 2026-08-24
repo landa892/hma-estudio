@@ -759,17 +759,17 @@ footer.site-footer {
   max-width: none;
   /* 3rem dejaba el ultimo glifo apenas fuera de la caja: como el escenario
      recorta el video, la S de "ideas" parecia mordida. */
-  font-size: 2.9rem;
+  font-size: 3.1rem;
   white-space: nowrap;
   box-sizing: border-box;
-  padding-inline: 3.7% 0;
+  padding-inline: 0;
 }
 
 .hero-home--photo .lede {
   width: min(92%, 760px);
   max-width: 760px;
   box-sizing: border-box;
-  padding-inline: 3.7% 0;
+  padding-inline: 0;
 }
 
 /* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com
@@ -933,7 +933,7 @@ footer.site-footer {
 
 .project-banner--split__media {
   justify-content: center;
-  padding: clamp(28px, 5vw, 72px);
+  padding: 0;
 }
 
 .project-banner--split__link {
@@ -946,11 +946,11 @@ footer.site-footer {
 
 .project-banner--split__image {
   position: static;
-  width: auto;
-  height: auto;
-  max-width: min(100%, 680px);
-  max-height: min(76vh, 760px);
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
   transform: none;
   transition: none;
 }
@@ -1003,9 +1003,9 @@ footer.site-footer {
 }
 
 .project-banner--youtube__image {
-  width: min(92%, 760px);
-  height: auto;
-  max-height: 62vh;
+  width: 100%;
+  height: 100%;
+  max-height: none;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   filter: grayscale(.2) contrast(1.04);
@@ -1042,10 +1042,10 @@ footer.site-footer {
    que el Word del 21/08 marca con "que el encuadre de LINKEDIN sea igual que el
    de instagram y el de youtube". Asi manda el CSS, venga la foto que venga. */
 .project-banner--linkedin__image {
-  width: min(92%, 760px);
-  height: auto;
+  width: 100%;
+  height: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 62vh;
+  max-height: none;
   object-fit: cover;
   box-shadow: 0 14px 36px rgba(0, 0, 0, .12);
   transition: transform .45s ease;
@@ -1056,9 +1056,9 @@ footer.site-footer {
 }
 
 #section-1 .project-banner--split__image {
-  width: min(92%, 760px);
+  width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 62vh;
+  max-height: none;
   object-fit: cover;
 }
 
@@ -3688,7 +3688,10 @@ footer.site-footer {
 .award-bar__item img {
   height: 56px;
   width: auto;
-  filter: brightness(0) invert(1);
+  /* Los archivos tienen fondo blanco. Invertirlos deja el fondo negro y el
+     dibujo blanco; screen integra ese negro con la barra sin formar un marco. */
+  filter: invert(1);
+  mix-blend-mode: screen;
 }
 
 .award-bar__item span {
@@ -4194,8 +4197,8 @@ html.lenis body {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: clamp(380px, 46vw, 660px);
   margin: 0 0 2px;
-  background: var(--line);
-  gap: 1px;
+  background: var(--white);
+  gap: 0;
 }
 
 .memoria-editorial-row__text {
@@ -4225,7 +4228,7 @@ html.lenis body {
 .memoria-editorial-row__photo {
   min-width: 0;
   overflow: hidden;
-  background: #f2f2f2;
+  background: var(--white);
 }
 
 .memoria-editorial-row__photo img {
@@ -4233,6 +4236,7 @@ html.lenis body {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  display: block;
   transform: none !important;
 }
 

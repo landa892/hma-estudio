@@ -222,6 +222,9 @@
     if (o.publicada && !o.tipologia) {
       return 'Para publicarla completá la tipología. Se muestra debajo del nombre en Trabajos.';
     }
+    if (o.publicada && !o.intervencion) {
+      return 'Para publicarla elegí la intervención: interiorismo, arquitectura o ambos.';
+    }
     if (o.publicada && !o.ubicacion) {
       return 'Para publicarla completá la ubicación. Se muestra en la tarjeta de Trabajos.';
     }

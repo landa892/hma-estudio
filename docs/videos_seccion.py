@@ -31,13 +31,13 @@ def tarjeta(v):
     fecha = '%s %s' % (MESES[m].capitalize(), a) if m else a
     return (
 '          <a class="press-card" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener">\n'
-'            <div class="press-img"><img src="%s" width="1280" height="720" alt="%s"\n'
+'            <div class="press-img"><img src="/api/youtube-thumbnail?id=%s" width="1280" height="720" alt="%s"\n'
 '                loading="lazy" decoding="async"></div>\n'
 '            <div class="press-body">\n'
 '              <div class="press-outlet">YouTube — %s</div>\n'
 '              <div class="press-title">%s</div>\n'
 '            </div>\n'
-'          </a>\n' % (v['id'], v['mini'], e(v['titulo']), fecha, e(v['titulo'])))
+'          </a>\n' % (v['id'], v['id'], e(v['titulo']), fecha, e(v['titulo'])))
 
 
 def main():
