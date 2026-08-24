@@ -23,6 +23,12 @@ ficha de la obra del otro, para poder compararlas.
 "Malita" cruzo con "Edificio Malabia", que es otra obra. Los ambiguos quedaron
 afuera a proposito: "Uala" son tres obras distintas y "Kavak" son dos.
 
+Y hay una que sale marcada como dudosa: `archdaily-2017` se titula "Tostado
+Callao" pero enlaza a `vivienda-multifamilar-bolivar`, que es otra obra. El
+titulo y el link se contradicen y eso lo decide el estudio. Las otras seis
+donde la url no nombra a la obra son falsas alarmas -"a757 flexible
+condominium" es Araoz 757, "urban ruin" y "bar in an old house" son Moshu-.
+
 Cuando el estudio confirme, van a `panel_correcciones_agosto.py` con
 `completar_vacio()`, para que una edicion posterior desde el panel no se pise.
 
@@ -51,11 +57,21 @@ Word del 21/08.
 
 ### 4. Dos notas para subir al Drive
 
-    archdaily-com-2014           Oficina + casa Luna, feb 2014 - jul 2014 - may 2017
-    entrevista-los-destacados-2019   dic 2019
+    archidiaries-2024-8   "Kavak", Archidiaries, mayo 2024
+    casa-linda-2024       "Casa Linda", Casa Linda, octubre 2024
 
 Sin escaneo, sin obra asociada y sin caratula que sirva de provisoria. El
 archivo web no las tiene.
+
+Una nota: la de Archidiaries quedo sin obra porque "Kavak" es ambiguo -hay
+kavak-hub y kavak-oficinas- y el cruce automatico no elige cuando hay dos. Su
+propia url dice `kavak-offices`, asi que muy probablemente sea kavak-oficinas;
+confirmandolo, esa nota se resuelve con la caratula y queda una sola para el
+Drive.
+
+Aca decia archdaily-com-2014 y entrevista-los-destacados-2019, que era de una
+cuenta anterior: las dos se resolvieron solas cuando el cruce de obras paso a
+comparar por conjunto de palabras -oficina-casa-luna y nim-bar-.
 
 Las otras 22 sin tapa se resuelven solas en cuanto se confirme el punto 1: 18
 tienen link, y para esas el tercer Word del 21/08 dice que no hace falta foto
