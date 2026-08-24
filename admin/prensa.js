@@ -50,10 +50,15 @@
       .replace(/^-+|-+$/g, '').slice(0, 80);
   }
 
+  /* Tres origenes posibles. @seed: es la seleccion heredada que siembra
+     docs/prensa_galerias.py -el escaneo ya esta en el repositorio-, @site: es
+     esa misma seleccion despues de que el estudio la toco, y el resto son
+     archivos del Storage subidos desde aca. Los dos prefijos se resuelven
+     igual: sacarlos deja la ruta del sitio. */
   function urlImagen(ruta) {
     if (!ruta) return '';
     if (/^(blob:|data:|https?:)/.test(ruta)) return ruta;
-    if (/^@site:/.test(ruta)) return ruta.replace(/^@site:/, '');
+    if (/^@(site|seed):/.test(ruta)) return ruta.replace(/^@(site|seed):/, '');
     return HMA.BASE + '/storage/v1/object/public/obras/' + ruta;
   }
 
@@ -122,8 +127,11 @@
     });
   }
 
+  /* Ni @site: ni @seed: viven en el Storage: son archivos del repositorio.
+     Pedirle a Storage que borre "@seed:/assets/prensa/..." no borraria nada y
+     ademas cortaria la cadena de eliminarImagen con un error. */
   function borrarImagen(ruta) {
-    if (!ruta || /^@site:/.test(ruta)) return Promise.resolve();
+    if (!ruta || /^@(site|seed):/.test(ruta)) return Promise.resolve();
     return HMA.token().then(function (token) {
       return fetch(HMA.BASE + '/storage/v1/object/obras', {
         method: 'DELETE',
@@ -215,18 +223,47 @@
       });
   }
 
+  /* Igual que en las galerias de obra: la seleccion heredada se marca como
+     administrada recien al primer cambio. Mientras siga entera en @seed:,
+     panel_prensa.py publica los escaneos del repositorio y no toca nada, asi
+     que un deploy no recorta una galeria historica sin que nadie la haya
+     tocado. Cuando el estudio mueve, borra o agrega algo, estas filas pasan a
+     @site: y desde ese momento manda la base. */
+  var activando = null;
+
+  function activarGestion() {
+    var heredadas = imagenes.filter(function (f) {
+      return /^@seed:/.test(f.storage_path || '');
+    });
+    if (!heredadas.length) return Promise.resolve();
+    if (activando) return activando;
+
+    activando = Promise.all(heredadas.map(function (f) {
+      var nueva = f.storage_path.replace(/^@seed:/, '@site:');
+      return rest('/prensa_imagenes?id=eq.' + encodeURIComponent(f.id), {
+        method: 'PATCH', body: { storage_path: nueva },
+      }).then(function () { f.storage_path = nueva; });
+    })).then(function () { activando = null; }, function (e) {
+      activando = null;
+      throw e;
+    });
+    return activando;
+  }
+
   function moverImagen(desde, hasta) {
     if (hasta < 0 || hasta >= imagenes.length) return;
     var movida = imagenes.splice(desde, 1)[0];
     imagenes.splice(hasta, 0, movida);
     pintarImagenes();
     aviso('avisoPrensaGaleria', 'Guardando el orden…', 'ok');
-    Promise.all(imagenes.map(function (fila, indice) {
-      fila.orden = indice;
-      return rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id), {
-        method: 'PATCH', body: { orden: indice },
-      });
-    })).then(function () {
+    activarGestion().then(function () {
+      return Promise.all(imagenes.map(function (fila, indice) {
+        fila.orden = indice;
+        return rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id), {
+          method: 'PATCH', body: { orden: indice },
+        });
+      }));
+    }).then(function () {
       aviso('avisoPrensaGaleria', 'Orden guardado.', 'ok');
     }).catch(function (e) {
       aviso('avisoPrensaGaleria', e.message, 'error');
@@ -236,7 +273,11 @@
 
   function eliminarImagen(fila) {
     if (!confirm('¿Eliminar esta imagen? No se puede deshacer.')) return;
-    rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id), { method: 'DELETE' })
+    activarGestion()
+      .then(function () {
+        return rest('/prensa_imagenes?id=eq.' + encodeURIComponent(fila.id),
+          { method: 'DELETE' });
+      })
       .then(function () { return borrarImagen(fila.storage_path); })
       .then(function () { return cargarImagenes($('publicacionId').value); })
       .then(function () { aviso('avisoPrensaGaleria', 'Imagen eliminada.', 'ok'); })
@@ -247,7 +288,10 @@
     var publicacionId = $('publicacionId').value;
     if (!publicacionId || !archivos.length) return;
     var fallos = [];
-    var cadena = Promise.resolve();
+    // Subir una imagen tambien es tocar la galeria: las heredadas pasan a
+    // @site: antes de sumar nada, para que la nota quede administrada entera y
+    // no mitad en el repositorio y mitad en la base.
+    var cadena = activarGestion();
     Array.prototype.forEach.call(archivos, function (archivo) {
       cadena = cadena.then(function () {
         aviso('avisoPrensaGaleria', 'Optimizando ' + archivo.name + '…', 'ok');

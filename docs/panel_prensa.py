@@ -85,6 +85,17 @@ def sincronizar_imagenes(url, clave, fila, imagenes):
     Los archivos del panel llevan el prefijo panel-. Asi una nota anterior
     conserva sus recortes del Drive y una edicion desde el panel solo reemplaza
     lo que el propio panel administra.
+
+    Desde que prensa_galerias.py siembra los escaneos historicos, las filas de
+    prensa_imagenes pueden venir de dos lados. Las @seed: son la seleccion
+    heredada: apuntan a un archivo que ya esta en el repositorio, no hay nada
+    que bajar y se devuelve su nombre tal cual. Pedirle al Storage una ruta
+    "@seed:/assets/..." daria 404 y la galeria de esa nota se publicaria vacia.
+
+    Mientras la nota siga entera en @seed: manda el repositorio. En cuanto el
+    estudio toca la galeria, el panel pasa esas filas a @site: y desde entonces
+    manda la base: el orden es el de la base y lo que el estudio borro deja de
+    salir.
     """
     carpeta = os.path.join(GALERIAS, fila['slug'])
     if os.path.isdir(carpeta):
@@ -92,15 +103,29 @@ def sincronizar_imagenes(url, clave, fila, imagenes):
             os.remove(vieja)
     if not imagenes:
         return []
+
+    heredadas = [i for i in imagenes
+                 if (i.get('storage_path') or '').startswith('@seed:')]
+    if len(heredadas) == len(imagenes):
+        return [os.path.basename(i['storage_path']) for i in
+                sorted(imagenes, key=lambda x: x.get('orden', 0))]
     os.makedirs(carpeta, exist_ok=True)
-    nombres = []
-    for indice, imagen in enumerate(sorted(imagenes, key=lambda x: x.get('orden', 0)), 1):
-        nombre = 'panel-%03d.webp' % indice
+    nombres, subidas = [], 0
+    for imagen in sorted(imagenes, key=lambda x: x.get('orden', 0)):
+        ruta = imagen.get('storage_path') or ''
+        # Una galeria ya administrada mezcla las dos cosas: las que ya estaban
+        # en el repositorio -marcadas @site: cuando el estudio la toco por
+        # primera vez- y las que subio despues, que si viven en el Storage.
+        # Solo las segundas se bajan; a las primeras alcanza con nombrarlas.
+        if ruta.startswith('@site:') or ruta.startswith('@seed:'):
+            nombres.append(os.path.basename(ruta))
+            continue
+        subidas += 1
+        nombre = 'panel-%03d.webp' % subidas
         destino = os.path.join(carpeta, nombre)
         contenido = pedir(
             url, clave,
-            '/storage/v1/object/obras/'
-            + urllib.parse.quote(imagen['storage_path'], safe='/'),
+            '/storage/v1/object/obras/' + urllib.parse.quote(ruta, safe='/'),
             binario=True)
         with open(destino, 'wb') as archivo:
             archivo.write(contenido)

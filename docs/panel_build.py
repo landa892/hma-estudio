@@ -74,6 +74,10 @@ PASOS = [
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
+    # Antes que panel_prensa: siembra los escaneos historicos de cada nota como
+    # @seed: para que el panel pueda listarlos, y panel_prensa ya los encuentra
+    # en la base cuando arma prensa_datos.json.
+    ('los escaneos historicos',      'prensa_galerias.py', []),
     ('las publicaciones del panel',  'panel_prensa.py',  []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),

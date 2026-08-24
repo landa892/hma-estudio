@@ -127,14 +127,14 @@ problema es el generador, no el contenido.
 
 ## El build
 
-`docs/panel_build.py`, 20 pasos en orden:
+`docs/panel_build.py`, 21 pasos en orden:
 
 ```
 panel_config · panel_correcciones_agosto · panel_alta · panel_galerias
 panel_generar · panel_sitio · panel_listado · panel_estados
 panel_novedades · panel_textos · panel_home · obras_layout
-panel_prensa · prensa_pagina · prensa_paginas · en_gen
-obras_orden · seo_gen · sitemap_gen · panel_publicado
+prensa_galerias · panel_prensa · prensa_pagina · prensa_paginas
+en_gen · obras_orden · seo_gen · sitemap_gen · panel_publicado
 ```
 
 La lista se copia de `PASOS`, en `panel_build.py`, que es la que manda. Acá
@@ -283,6 +283,30 @@ obra.
 Y ojo: las galerías cuyas filas en la base son `@seed` **no las reescribe**
 `panel_galerias`, para no pisar lo que el estudio haya elegido. Viven en el
 HTML del repositorio. Por eso existe `sacar_excluidas_de_las_fichas()`.
+
+### Las galerías de prensa también se siembran
+
+Mismo mecanismo, para el mismo problema. El panel de Prensa listaba sólo las
+imágenes subidas desde el propio panel —las que llevan el prefijo `panel-`— y
+los 983 escaneos históricos viven en `assets/prensa/<slug>/`. El estudio abría
+una nota, veía la galería vacía y no podía reordenarla, elegir la tapa ni sacar
+una imagen. No era un bug: el dato no existía ahí, igual que con los planos
+antes de la 0011.
+
+`docs/prensa_galerias.py` los siembra como `@seed:` y corre **antes** de
+`panel_prensa`. Mientras la nota siga entera en `@seed:` manda el repositorio;
+al primer cambio el panel las pasa a `@site:` y desde ahí manda la base.
+
+Dos cosas que no hay que romper:
+
+- `sincronizar_imagenes()`, en `panel_prensa.py`, **no le pide al Storage** las
+  rutas que empiezan con `@`: son archivos del repositorio y pedirlas daría 404,
+  dejando esa galería vacía. Sólo se bajan las que subió el panel.
+- Acá **no va el cupo de treinta** de las galerías de obra. Ni la tabla ni el
+  panel lo tienen, y ponerlo recortaría: tres notas lo pasan —`archidiaries-2024`
+  con 66, `casa-linda-entrevista-2024` con 44 y `mas-arq-2024` con 36—, y en
+  cuanto el estudio tocara una, la base pasaría a mandar y esa nota perdería
+  treinta y seis escaneos que nadie borró.
 
 ### Los borradores también se siembran
 
