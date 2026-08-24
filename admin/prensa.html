@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="/admin/admin.css">
+  <link rel="stylesheet" href="/admin/admin.css?v=2">
 </head>
 <body class="panel panel--prensa">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -43,10 +43,17 @@
     </div>
     <p class="aviso" id="avisoLista" role="status" aria-live="polite"></p>
 
-    <div class="prensa-panel">
+    <div class="prensa-panel prensa-panel--publicaciones">
       <section class="ficha prensa-panel__lista" aria-labelledby="listaTitulo">
         <h2 class="ficha__titulo" id="listaTitulo">Todas las publicaciones</h2>
-        <div id="listaPrensa" class="prensa-admin-lista"></div>
+        <div class="prensa-admin-cabecera" aria-hidden="true">
+          <span>Portada</span>
+          <span>Publicación</span>
+          <span>Medio</span>
+          <span>Fecha</span>
+          <span>Estado</span>
+        </div>
+        <div id="listaPrensa" class="prensa-admin-lista prensa-admin-lista--publicaciones"></div>
         <nav class="prensa-paginacion" aria-label="Páginas de publicaciones">
           <button type="button" class="boton boton--compacto boton--claro" id="paginaAnterior">← Anteriores</button>
           <span id="paginaActual" class="conteo"></span>
@@ -199,6 +206,6 @@
 
   <script src="/admin/config.js"></script>
   <script src="/admin/api.js"></script>
-  <script src="/admin/prensa.js"></script>
+  <script src="/admin/prensa.js?v=2"></script>
 </body>
 </html>

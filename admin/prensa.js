@@ -37,7 +37,7 @@
           if (!r.ok) {
             var mensaje = (datos && datos.message) || '';
             if (/prensa_(publicaciones|imagenes|novedades)/.test(mensaje)) {
-              mensaje = 'Falta activar la actualización de Prensa en la base. Avisale al administrador.';
+              mensaje = 'Falta activar Conferencias y clases. En Supabase → SQL Editor, ejecutá completo 0017_aliases_y_novedades_prensa.sql.';
             }
             throw new Error(mensaje || 'No pudimos guardar la publicación.');
           }
@@ -351,16 +351,55 @@
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'prensa-admin-item';
-      var img = document.createElement('img');
-      img.src = urlImagen(fila.storage_path);
-      img.alt = '';
-      boton.appendChild(img);
-      var texto = document.createElement('span');
-      texto.innerHTML = '<strong></strong><small></small>';
-      texto.querySelector('strong').textContent = fila.titulo;
-      texto.querySelector('small').textContent = fila.medio + (fila.fecha ? ' · ' + fila.fecha : '')
-        + (fila.publicada ? '' : ' · Borrador');
-      boton.appendChild(texto);
+      boton.setAttribute('aria-label', 'Editar publicación: ' + fila.titulo);
+
+      var miniatura = document.createElement('span');
+      miniatura.className = 'prensa-admin-item__miniatura';
+      var sinImagen = document.createElement('span');
+      sinImagen.className = 'prensa-admin-item__sin-imagen';
+      sinImagen.textContent = 'Sin imagen';
+      if (fila.storage_path) {
+        var img = document.createElement('img');
+        img.src = urlImagen(fila.storage_path);
+        img.alt = '';
+        img.loading = 'lazy';
+        img.addEventListener('error', function () {
+          img.remove();
+          miniatura.appendChild(sinImagen);
+        }, { once: true });
+        miniatura.appendChild(img);
+      } else {
+        miniatura.appendChild(sinImagen);
+      }
+      boton.appendChild(miniatura);
+
+      var publicacion = document.createElement('span');
+      publicacion.className = 'prensa-admin-item__publicacion';
+      var fuerte = document.createElement('strong');
+      fuerte.textContent = fila.titulo;
+      var detalle = document.createElement('small');
+      detalle.textContent = [fila.pais, fila.obra ? 'Obra: ' + fila.obra : '']
+        .filter(Boolean).join(' · ') || fila.slug;
+      publicacion.appendChild(fuerte);
+      publicacion.appendChild(detalle);
+      boton.appendChild(publicacion);
+
+      var medio = document.createElement('span');
+      medio.className = 'prensa-admin-item__dato';
+      medio.dataset.rotulo = 'Medio';
+      medio.textContent = fila.medio || '—';
+      boton.appendChild(medio);
+
+      var fecha = document.createElement('span');
+      fecha.className = 'prensa-admin-item__dato';
+      fecha.dataset.rotulo = 'Fecha';
+      fecha.textContent = fila.fecha || '—';
+      boton.appendChild(fecha);
+
+      var estado = document.createElement('span');
+      estado.className = 'chip ' + (fila.publicada ? 'chip--vive' : 'chip--borrador');
+      estado.textContent = fila.publicada ? 'Publicada' : 'Borrador';
+      boton.appendChild(estado);
       boton.addEventListener('click', function () { editar(fila); });
       lista.appendChild(boton);
     });

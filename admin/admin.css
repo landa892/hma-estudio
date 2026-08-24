@@ -116,6 +116,16 @@ input:focus-visible {
   margin-top: 18px;
 }
 
+/* Publicaciones sigue el modelo de Obras: el listado es una tabla horizontal
+   de ancho completo. El formulario aparece debajo al editar; reservarle una
+   columna aun estando oculto era lo que dejaba media pantalla en blanco. */
+.prensa-panel--publicaciones { grid-template-columns: minmax(0, 1fr); }
+.prensa-panel--publicaciones .prensa-panel__form {
+  position: static;
+  width: min(100%, 980px);
+  justify-self: center;
+}
+
 .prensa-panel__lista,
 .prensa-panel__form { min-width: 0; }
 
@@ -152,6 +162,77 @@ input:focus-visible {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+
+.prensa-admin-cabecera,
+.prensa-admin-lista--publicaciones .prensa-admin-item {
+  display: grid;
+  grid-template-columns: 104px minmax(260px, 2fr) minmax(150px, .8fr) minmax(130px, .65fr) 104px;
+  gap: 16px;
+  align-items: center;
+}
+
+.prensa-admin-cabecera {
+  padding: 0 12px 10px;
+  color: var(--gris);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.prensa-admin-lista--publicaciones {
+  display: block;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prensa-admin-lista--publicaciones .prensa-admin-item {
+  min-height: 86px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--linea);
+  border-radius: 0;
+}
+
+.prensa-admin-lista--publicaciones .prensa-admin-item:last-child { border-bottom: 0; }
+.prensa-admin-lista--publicaciones .prensa-admin-item:hover { background: var(--fondo); }
+
+.prensa-admin-item__miniatura {
+  display: grid;
+  place-items: center;
+  width: 104px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--fondo);
+}
+
+.prensa-admin-lista--publicaciones .prensa-admin-item__miniatura img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.prensa-admin-item__sin-imagen {
+  color: var(--gris);
+  font-size: .68rem;
+  text-align: center;
+}
+
+.prensa-admin-item__publicacion,
+.prensa-admin-item__dato { min-width: 0; }
+.prensa-admin-item__publicacion strong,
+.prensa-admin-item__publicacion small { display: block; }
+.prensa-admin-item__publicacion small {
+  margin-top: 4px;
+  color: var(--gris);
+  font-size: .75rem;
+}
+.prensa-admin-item__dato {
+  color: var(--gris);
+  font-size: .82rem;
 }
 
 .prensa-admin-item {
@@ -203,6 +284,28 @@ input:focus-visible {
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border: 1px solid var(--linea);
+}
+
+@media (max-width: 980px) {
+  .prensa-admin-cabecera { display: none; }
+  .prensa-admin-lista--publicaciones .prensa-admin-item {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 5px 12px;
+    padding: 10px;
+  }
+  .prensa-admin-item__miniatura {
+    width: 88px;
+    grid-row: 1 / span 4;
+  }
+  .prensa-admin-item__dato::before {
+    content: attr(data-rotulo) ': ';
+    color: var(--gris);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .prensa-admin-lista--publicaciones .chip { justify-self: start; }
 }
 
 @media (max-width: 780px) {
