@@ -127,15 +127,25 @@ problema es el generador, no el contenido.
 
 ## El build
 
-`docs/panel_build.py`, 18 pasos en orden:
+`docs/panel_build.py`, 20 pasos en orden:
 
 ```
 panel_config · panel_correcciones_agosto · panel_alta · panel_galerias
 panel_generar · panel_sitio · panel_listado · panel_estados
-panel_textos · panel_home · obras_layout · prensa_pagina
-prensa_paginas · en_gen · obras_orden · seo_gen
-sitemap_gen · panel_publicado
+panel_novedades · panel_textos · panel_home · obras_layout
+panel_prensa · prensa_pagina · prensa_paginas · en_gen
+obras_orden · seo_gen · sitemap_gen · panel_publicado
 ```
+
+La lista se copia de `PASOS`, en `panel_build.py`, que es la que manda. Acá
+decía 18 y faltaban `panel_novedades` —las tarjetas de redes del Inicio— y
+`panel_prensa` —el puente entre lo que el estudio edita en el panel de Prensa
+y `docs/prensa_datos.json`, del que comen los dos generadores siguientes—.
+
+`seo_gen` va después de los generadores de páginas y no antes: cada página que
+se rehace se lleva el JSON-LD de la que le sirvió de molde. `/prensa/publicaciones/`
+quedaba con el `@id` del breadcrumb de `/prensa/`, que en datos estructurados
+es decir que son la misma entidad.
 
 `panel_publicado` va último y tiene que seguir yendo último: anota en la tabla
 `publicaciones` la fecha contra la que el panel compara para avisar que hay
