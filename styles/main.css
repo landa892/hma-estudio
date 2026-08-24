@@ -1914,6 +1914,10 @@ footer.site-footer {
   place-items: center;
 }
 
+.card-estado--concurso::before {
+  background: currentColor;
+}
+
 .press-card .press-img--vacia::after {
   content: 'HMA / PRESS';
   padding: 16px;

@@ -12,8 +12,8 @@
    - data-estado, que es contra lo que filtra el listado
    - el sello "Obra" / "Proyecto" y su clase de color (solo la tarjeta lo lleva)
 
-   El sello es binario aunque el estado tenga tres valores: una obra terminada
-   es "Obra" y las otras dos son "Proyecto". Asi lo venia mostrando el sitio.
+   Los concursos se distinguen por data-concurso: su estado de avance sigue en
+   la base, pero en el listado forman la tercera seccion que pidio el estudio.
 
        python docs/panel_estados.py --verificar   # no escribe, solo informa
        python docs/panel_estados.py               # desde el JSON local
@@ -107,6 +107,9 @@ def main(verificar, supabase):
             if not par:
                 avisos.append('%s: estado desconocido (%r)' % (slug, estado[slug]))
                 continue
+
+            if 'data-concurso="true"' in bloque:
+                par = ('concurso', 'Concurso')
 
             nuevo = arreglar(bloque, par[0], par[1], con_sello)
             if nuevo != bloque:
