@@ -908,6 +908,58 @@ try {
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
     const fotos = Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
+
+    /* Una memoria pegada de un Word en un solo bloque deja un unico <p>, y
+       como el reparto de abajo es min(parrafos, fotos), la ficha sale con una
+       sola fila -un ladrillo de texto al lado de una foto- y las demas fotos
+       abajo, sueltas y sin texto. Es lo que le pasa a Bienal de Venecia: 1548
+       caracteres en un parrafo contra tres fotos. Nadie lo avisa, porque el
+       dato esta bien cargado; lo que falta son los saltos.
+
+       Antes de repartir, entonces, se parten los parrafos mas largos por el
+       final de oracion mas cercano a la mitad, hasta llegar a la cantidad de
+       fotos. Solo se parte lo que tiene cuerpo para dar: un parrafo corto
+       cortado al medio se lee peor que entero. Con estos dos topes, de las 61
+       fichas publicadas esto solo toca las cuatro que tienen menos parrafos
+       que fotos y texto de sobra -bienal-venecia, casa-olmo, nim-bar y
+       people-; malita, con 468 y 325, queda como esta. */
+    const LARGO_MINIMO = 500;
+    const MITAD_MINIMA = 200;
+
+    const partirEnDos = (parrafo) => {
+      const texto = parrafo.textContent.trim();
+      if (texto.length < LARGO_MINIMO) return null;
+      const medio = texto.length / 2;
+      const fin = /[.!?…]\s/g;
+      let corte = -1;
+      let m = fin.exec(texto);
+      while (m) {
+        const pos = m.index + m[0].length;
+        if (corte < 0 || Math.abs(pos - medio) < Math.abs(corte - medio)) corte = pos;
+        m = fin.exec(texto);
+      }
+      if (corte < MITAD_MINIMA || texto.length - corte < MITAD_MINIMA) return null;
+      return [texto.slice(0, corte).trim(), texto.slice(corte).trim()]
+        .map((t) => {
+          const p = document.createElement('p');
+          p.textContent = t;
+          return p;
+        });
+    };
+
+    while (parrafos.length < fotos.length) {
+      let indice = -1;
+      parrafos.forEach((p, i) => {
+        if (indice < 0 || p.textContent.length > parrafos[indice].textContent.length) {
+          indice = i;
+        }
+      });
+      const mitades = indice < 0 ? null : partirEnDos(parrafos[indice]);
+      if (!mitades) break;
+      parrafos[indice].replaceWith(mitades[0], mitades[1]);
+      parrafos.splice(indice, 1, mitades[0], mitades[1]);
+    }
+
     const cantidad = Math.min(parrafos.length, fotos.length);
 
     if (cantidad) {
