@@ -60,6 +60,15 @@
       items.push({ texto: frase(t.rotulo, 'texto del sitio'), cuando: t.updated_at,
                    href: '/admin/textos' });
     });
+    (cambios.prensa || []).forEach(function (p) {
+      items.push({ texto: frase(p.titulo, 'publicación de Prensa'), cuando: p.updated_at,
+                   borrador: !p.publicada, href: '/admin/prensa' });
+    });
+    (cambios.novedadesPrensa || []).forEach(function (n) {
+      items.push({ texto: frase(n.titulo || n.detalle, 'conferencia o clase'),
+                   cuando: n.updated_at, borrador: !n.publicada,
+                   href: '/admin/prensa' });
+    });
     items.sort(function (a, b) { return a.cuando < b.cuando ? 1 : -1; });
     return items;
   }

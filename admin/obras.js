@@ -11,7 +11,6 @@
     $('totalObras').textContent = todas.length;
     $('totalPublicadas').textContent = todas.filter(function (o) { return o.publicada; }).length;
     $('totalBorradores').textContent = todas.filter(function (o) { return !o.publicada; }).length;
-    $('totalDestacadas').textContent = todas.filter(function (o) { return o.destacada; }).length;
     $('resumen').classList.remove('oculto');
   }
 
@@ -65,12 +64,6 @@
       chip.className = 'chip ' + (o.publicada ? 'chip--vive' : 'chip--borrador');
       chip.textContent = o.publicada ? 'Publicada' : 'Borrador';
       estado.appendChild(chip);
-      if (o.destacada) {
-        var d = document.createElement('span');
-        d.className = 'chip chip--destacada';
-        d.textContent = 'En el home';
-        estado.appendChild(d);
-      }
       tr.appendChild(estado);
 
       var orden = document.createElement('td');

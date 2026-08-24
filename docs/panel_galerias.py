@@ -20,6 +20,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import struct
 import sys
 import urllib.error
@@ -313,6 +314,31 @@ def resolver_imagen(slug, foto, url):
     ruta = foto['storage_path']
     if ruta.startswith('@seed:') or ruta.startswith('@site:'):
         publica = ruta.split(':', 1)[1]
+        # La ruta guardada pertenece a la imagen, no al nombre actual de la
+        # obra. Al cambiar cerveceria-austral por estancia-austral, la base
+        # siguio apuntando correctamente al archivo anterior; panel_sitio lo
+        # quitaba por ser un slug viejo y la ficha nueva quedaba rota. Se copia
+        # al slug vigente durante el build y desde ese momento toda pagina
+        # publicada usa la ruta nueva. Esto cubre portada, galeria y planos sin
+        # pedirle al estudio que vuelva a subir nada.
+        origen = ruta_local(publica)
+        partes = publica.strip('/').split('/')
+        if os.path.isfile(origen) and len(partes) >= 3 and partes[0] == 'assets':
+            carpeta = partes[1]
+            slug_guardado = partes[2] if carpeta in ('gallery', 'planos') else ''
+            if carpeta == 'covers':
+                slug_guardado = os.path.splitext(partes[2])[0]
+                destino_publico = '/assets/covers/%s.webp' % slug
+            elif carpeta in ('gallery', 'planos') and slug_guardado != slug:
+                destino_publico = '/assets/%s/%s/%s' % (
+                    carpeta, slug, os.path.basename(publica))
+            else:
+                destino_publico = publica
+            if slug_guardado and slug_guardado != slug:
+                destino = ruta_local(destino_publico)
+                os.makedirs(os.path.dirname(destino), exist_ok=True)
+                shutil.copy2(origen, destino)
+                publica = destino_publico
     else:
         carpeta_nombre = 'planos' if foto.get('tipo') == 'plano' else 'gallery'
         carpeta = os.path.join(RAIZ, 'assets', carpeta_nombre, slug)

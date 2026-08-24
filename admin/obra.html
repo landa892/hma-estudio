@@ -158,8 +158,7 @@
           <label for="bajada">Bajada</label>
           <textarea id="bajada" rows="2" maxlength="200"
             placeholder="Resumen de una o dos oraciones, sin repetir el título."></textarea>
-          <p class="campo__ayuda">Resumen para la tarjeta de Trabajos y, si la obra es destacada, para el
-            home. Recomendado: 90 a 160 caracteres; máximo 200.
+          <p class="campo__ayuda">Resumen para la tarjeta de Trabajos. Recomendado: 90 a 160 caracteres; máximo 200.
             <span id="contadorBajada"></span></p>
         </div>
 
@@ -295,37 +294,6 @@
           <select id="estado"></select>
           <p class="campo__ayuda"><b>En proyecto</b>: propuesta todavía no ejecutada. <b>En progreso</b>:
             obra en construcción. <b>Concluida</b>: obra terminada. Este estado define el sello de la tarjeta.</p>
-        </div>
-
-        <label class="casilla">
-          <input type="checkbox" id="destacada">
-          <span>Mostrarla entre las destacadas del home</span>
-        </label>
-        <p class="campo__ayuda">El home admite exactamente 3 destacadas. La obra debe estar publicada,
-          tener portada horizontal, bajada y rótulos en ambos idiomas.</p>
-
-        <!-- Solo aparecen si la obra es destacada: son los unicos datos del
-             banner del home que no salen de la ficha. El titulo del banner es el
-             titulo de la obra y el parrafo es la bajada. -->
-        <div id="camposBanner" class="oculto">
-          <div class="campo">
-            <label for="bannerRotulo">Rótulo del banner</label>
-            <input type="text" id="bannerRotulo" maxlength="60"
-              placeholder="Obra recientemente inaugurada">
-            <p class="campo__ayuda">La línea chica sobre el título, en el home. Recomendado: 2 a 5
-              palabras; máximo 60 caracteres.
-              El título y el texto del banner salen del título y la bajada de la
-              obra.</p>
-          </div>
-          <div class="campo">
-            <label for="bannerRotuloEn">Rótulo en inglés</label>
-            <input type="text" id="bannerRotuloEn" maxlength="60"
-              placeholder="Recently opened">
-            <p class="campo__ayuda">Traducción del rótulo anterior; máximo 60 caracteres. Es obligatoria
-              si la obra va al home.</p>
-          </div>
-          <p class="campo__ayuda">El home tiene lugar para tres destacadas. Si hay
-            más marcadas, entran las tres primeras.</p>
         </div>
 
         <label class="casilla">

@@ -110,7 +110,7 @@ input:focus-visible {
 
 .prensa-panel {
   display: grid;
-  grid-template-columns: minmax(260px, .8fr) minmax(380px, 1.2fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(420px, .65fr);
   gap: 18px;
   align-items: start;
   margin-top: 18px;
@@ -119,7 +119,40 @@ input:focus-visible {
 .prensa-panel__lista,
 .prensa-panel__form { min-width: 0; }
 
-.prensa-admin-lista { display: grid; gap: 8px; }
+.panel--prensa .contenido { max-width: 1480px; }
+
+.prensa-tabs {
+  display: flex;
+  gap: 0;
+  margin: 24px 0 18px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.prensa-tab {
+  appearance: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  padding: 13px 18px 11px;
+  color: var(--gris);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.prensa-tab.activa { color: var(--negro); border-bottom-color: var(--negro); }
+.prensa-tab span { margin-left: 4px; color: inherit; font-weight: 400; }
+
+.prensa-panel__form { position: sticky; top: 84px; }
+
+.prensa-admin-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
 
 .prensa-admin-item {
   width: 100%;
@@ -142,6 +175,27 @@ input:focus-visible {
 .prensa-admin-item small { display: block; }
 .prensa-admin-item small { margin-top: 3px; color: var(--gris); }
 
+.prensa-admin-lista--texto { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.prensa-admin-lista--texto .prensa-admin-item { grid-template-columns: 72px minmax(0, 1fr); }
+.prensa-admin-lista--texto .prensa-admin-item::before {
+  content: attr(data-anio);
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  border-right: 1px solid var(--linea);
+  color: var(--gris);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.prensa-paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
 .prensa-admin-preview { margin-top: 10px; }
 .prensa-admin-preview img {
   display: block;
@@ -153,6 +207,11 @@ input:focus-visible {
 
 @media (max-width: 780px) {
   .prensa-panel { grid-template-columns: 1fr; }
+  .prensa-panel__form { position: static; }
+  .prensa-admin-lista,
+  .prensa-admin-lista--texto { grid-template-columns: 1fr; }
+  .prensa-tabs { overflow-x: auto; }
+  .prensa-tab { white-space: nowrap; padding-inline: 12px; }
 }
 
 .campo + .campo { margin-top: 16px; }
@@ -388,7 +447,7 @@ input:focus-visible {
 
 .resumen {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin: 24px 0 18px;
   border: 1px solid var(--linea);
   border-radius: 8px;
@@ -598,11 +657,9 @@ select {
     padding: 8px 0;
   }
 
-  .resumen { grid-template-columns: repeat(2, 1fr); }
+  .resumen { grid-template-columns: repeat(3, 1fr); }
   .pasos-panel { align-items: flex-start; flex-direction: column; gap: 8px; }
   .pendientes__lista { gap: 6px; flex-direction: column; }
-  .resumen__dato:nth-child(2) { border-right: 0; }
-  .resumen__dato:nth-child(-n + 2) { border-bottom: 1px solid var(--linea); }
 
   .tabla, .tabla tbody, .tabla tr, .tabla td { display: block; width: 100%; }
   .tabla thead { display: none; }

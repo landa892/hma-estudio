@@ -192,8 +192,16 @@
         + '&updated_at=gt.' + d + '&order=updated_at.desc'),
       llamar('/textos?select=clave,rotulo,seccion,updated_at'
         + '&updated_at=gt.' + d + '&order=updated_at.desc'),
+      llamar('/prensa_publicaciones?select=id,titulo,publicada,updated_at'
+        + '&updated_at=gt.' + d + '&order=updated_at.desc'),
+      // La 0017 puede publicarse antes de aplicarse. En esa ventana solo se
+      // omite esta clase de pendientes; Obras y Publicaciones siguen visibles.
+      llamar('/prensa_novedades?select=id,titulo,detalle,publicada,updated_at'
+        + '&eliminada=is.false&updated_at=gt.' + d + '&order=updated_at.desc')
+        .catch(function () { return []; }),
     ]).then(function (r) {
-      return { obras: r[0] || [], textos: r[1] || [] };
+      return { obras: r[0] || [], textos: r[1] || [],
+               prensa: r[2] || [], novedadesPrensa: r[3] || [] };
     });
   }
 

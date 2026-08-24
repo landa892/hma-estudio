@@ -10,7 +10,7 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="stylesheet" href="/admin/admin.css">
 </head>
-<body class="panel">
+<body class="panel panel--prensa">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="barra">
     <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
@@ -23,8 +23,16 @@
   </header>
 
   <main class="contenido" id="contenido">
-    <p class="panel-intro">Administrá las notas destacadas de Prensa. Podés cargar una portada,
-      ordenar imágenes internas, enlazar la publicación original y dejarla en borrador hasta que esté lista.</p>
+    <p class="panel-intro">Administrá las publicaciones y la sección de conferencias y clases.
+      Todo puede quedar en borrador hasta que esté listo para publicar.</p>
+    <nav class="prensa-tabs" aria-label="Secciones de Prensa">
+      <button type="button" class="prensa-tab activa" id="abrirPublicaciones"
+        aria-controls="tabPublicaciones" aria-selected="true">Publicaciones <span id="cantidadPublicaciones"></span></button>
+      <button type="button" class="prensa-tab" id="abrirNovedades"
+        aria-controls="tabNovedades" aria-selected="false">Conferencias y clases <span id="cantidadNovedades"></span></button>
+    </nav>
+
+    <section id="tabPublicaciones">
     <div class="herramientas">
       <button type="button" class="boton boton--compacto" id="nueva">Nueva publicación</button>
       <label class="busqueda-panel" for="buscarPrensa">
@@ -37,8 +45,13 @@
 
     <div class="prensa-panel">
       <section class="ficha prensa-panel__lista" aria-labelledby="listaTitulo">
-        <h2 class="ficha__titulo" id="listaTitulo">Publicaciones destacadas</h2>
+        <h2 class="ficha__titulo" id="listaTitulo">Todas las publicaciones</h2>
         <div id="listaPrensa" class="prensa-admin-lista"></div>
+        <nav class="prensa-paginacion" aria-label="Páginas de publicaciones">
+          <button type="button" class="boton boton--compacto boton--claro" id="paginaAnterior">← Anteriores</button>
+          <span id="paginaActual" class="conteo"></span>
+          <button type="button" class="boton boton--compacto boton--claro" id="paginaSiguiente">Siguientes →</button>
+        </nav>
       </section>
 
       <form id="formPrensa" class="ficha prensa-panel__form oculto">
@@ -121,6 +134,67 @@
         </div>
       </form>
     </div>
+    </section>
+
+    <section id="tabNovedades" class="oculto">
+      <div class="herramientas">
+        <button type="button" class="boton boton--compacto" id="nuevaNovedad">Nueva novedad</button>
+        <label class="busqueda-panel" for="buscarNovedades">
+          <span class="sr-only">Buscar conferencia o clase</span>
+          <input type="search" id="buscarNovedades" placeholder="Buscar conferencia o clase" autocomplete="off">
+        </label>
+        <a class="enlace" href="/admin/obras">Publicar cambios desde Obras</a>
+      </div>
+      <p class="aviso" id="avisoNovedades" role="status" aria-live="polite"></p>
+      <div class="prensa-panel">
+        <section class="ficha prensa-panel__lista" aria-labelledby="novedadesTitulo">
+          <h2 class="ficha__titulo" id="novedadesTitulo">Conferencias y clases</h2>
+          <div id="listaNovedades" class="prensa-admin-lista prensa-admin-lista--texto"></div>
+        </section>
+        <form id="formNovedad" class="ficha prensa-panel__form oculto">
+          <h2 class="ficha__titulo" id="formNovedadTitulo">Nueva novedad</h2>
+          <input type="hidden" id="novedadId">
+          <div class="dupla">
+            <div class="campo">
+              <label for="novedadRubro">Rubro</label>
+              <select id="novedadRubro">
+                <option value="DOCENCIA">Docencia</option>
+                <option value="CONFERENCIA">Conferencia</option>
+                <option value="CLASE">Clase</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="novedadAnio">Año</label>
+              <input type="text" id="novedadAnio" maxlength="4" inputmode="numeric" required>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="novedadTituloCampo">Título interno</label>
+            <input type="text" id="novedadTituloCampo" maxlength="250" required>
+            <p class="campo__ayuda">Sirve para reconocerla en el panel.</p>
+          </div>
+          <div class="campo">
+            <label for="novedadDetalle">Texto que aparece en la web</label>
+            <textarea id="novedadDetalle" rows="5" maxlength="1000" required></textarea>
+          </div>
+          <div class="campo">
+            <label for="novedadLink">Enlace</label>
+            <input type="url" id="novedadLink" maxlength="500" placeholder="https://…">
+            <p class="campo__ayuda">Dejalo vacío si esta novedad no lleva a otra página.</p>
+          </div>
+          <div class="campo">
+            <label for="novedadOrden">Orden</label>
+            <input type="number" id="novedadOrden" min="0" max="999" value="0">
+          </div>
+          <label class="check"><input type="checkbox" id="novedadPublicada" checked> Publicada en el sitio</label>
+          <div class="acciones">
+            <button type="submit" class="boton boton--compacto" id="guardarNovedad">Guardar</button>
+            <button type="button" class="enlace enlace--riesgo oculto" id="eliminarNovedad">Eliminar novedad</button>
+            <p class="aviso" id="avisoFormNovedad" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <script src="/admin/config.js"></script>

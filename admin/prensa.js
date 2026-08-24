@@ -7,6 +7,9 @@
   var REST = HMA.BASE + '/rest/v1';
   var filas = [];
   var imagenes = [];
+  var novedades = [];
+  var pagina = 0;
+  var POR_PAGINA = 24;
 
   function aviso(id, texto, tipo) {
     var el = $(id);
@@ -33,7 +36,7 @@
           try { datos = texto ? JSON.parse(texto) : null; } catch (e) {}
           if (!r.ok) {
             var mensaje = (datos && datos.message) || '';
-            if (/prensa_(publicaciones|imagenes)/.test(mensaje)) {
+            if (/prensa_(publicaciones|imagenes|novedades)/.test(mensaje)) {
               mensaje = 'Falta activar la actualización de Prensa en la base. Avisale al administrador.';
             }
             throw new Error(mensaje || 'No pudimos guardar la publicación.');
@@ -341,7 +344,10 @@
       lista.textContent = 'No hay publicaciones que coincidan con la búsqueda.';
       return;
     }
-    visibles.forEach(function (fila) {
+    var paginas = Math.max(1, Math.ceil(visibles.length / POR_PAGINA));
+    pagina = Math.min(pagina, paginas - 1);
+    var desde = pagina * POR_PAGINA;
+    visibles.slice(desde, desde + POR_PAGINA).forEach(function (fila) {
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'prensa-admin-item';
@@ -358,6 +364,9 @@
       boton.addEventListener('click', function () { editar(fila); });
       lista.appendChild(boton);
     });
+    $('paginaActual').textContent = 'Página ' + (pagina + 1) + ' de ' + paginas;
+    $('paginaAnterior').disabled = pagina === 0;
+    $('paginaSiguiente').disabled = pagina >= paginas - 1;
   }
 
   function limpiar() {
@@ -455,8 +464,137 @@
     return rest('/prensa_publicaciones?select=*&order=orden.asc,created_at.desc').then(function (datos) {
       filas = datos || [];
       pintarLista();
+      $('cantidadPublicaciones').textContent = '(' + filas.length + ')';
       aviso('avisoLista', filas.length + ' publicaciones cargadas.', 'ok');
     }).catch(function (e) { aviso('avisoLista', e.message, 'error'); });
+  }
+
+  function cambiarTab(novedad) {
+    $('tabPublicaciones').classList.toggle('oculto', novedad);
+    $('tabNovedades').classList.toggle('oculto', !novedad);
+    $('abrirPublicaciones').classList.toggle('activa', !novedad);
+    $('abrirNovedades').classList.toggle('activa', novedad);
+    $('abrirPublicaciones').setAttribute('aria-selected', String(!novedad));
+    $('abrirNovedades').setAttribute('aria-selected', String(novedad));
+  }
+
+  function pintarNovedades() {
+    var lista = $('listaNovedades');
+    var consulta = $('buscarNovedades').value.toLowerCase().normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '').trim();
+    lista.textContent = '';
+    var visibles = novedades.filter(function (fila) {
+      if (fila.eliminada) return false;
+      if (!consulta) return true;
+      return [fila.rubro, fila.titulo, fila.detalle, fila.anio].join(' ')
+        .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .indexOf(consulta) !== -1;
+    });
+    if (!visibles.length) {
+      lista.textContent = 'No hay novedades que coincidan con la búsqueda.';
+      return;
+    }
+    visibles.forEach(function (fila) {
+      var boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'prensa-admin-item';
+      boton.dataset.anio = fila.anio || '—';
+      var texto = document.createElement('span');
+      var fuerte = document.createElement('strong');
+      fuerte.textContent = fila.detalle || fila.titulo;
+      var chico = document.createElement('small');
+      chico.textContent = fila.rubro + (fila.publicada ? '' : ' · Borrador');
+      texto.appendChild(fuerte);
+      texto.appendChild(chico);
+      boton.appendChild(texto);
+      boton.addEventListener('click', function () { editarNovedad(fila); });
+      lista.appendChild(boton);
+    });
+  }
+
+  function nuevaNovedad() {
+    $('formNovedad').reset();
+    $('novedadId').value = '';
+    $('novedadOrden').value = novedades.length;
+    $('novedadPublicada').checked = true;
+    $('formNovedadTitulo').textContent = 'Nueva novedad';
+    $('eliminarNovedad').classList.add('oculto');
+    $('formNovedad').classList.remove('oculto');
+    aviso('avisoFormNovedad', '', 'ok');
+    $('novedadTituloCampo').focus();
+  }
+
+  function editarNovedad(fila) {
+    $('novedadId').value = fila.id;
+    $('novedadRubro').value = fila.rubro || 'CONFERENCIA';
+    $('novedadAnio').value = fila.anio || '';
+    $('novedadTituloCampo').value = fila.titulo || '';
+    $('novedadDetalle').value = fila.detalle || '';
+    $('novedadLink').value = fila.link || '';
+    $('novedadOrden').value = fila.orden || 0;
+    $('novedadPublicada').checked = !!fila.publicada;
+    $('formNovedadTitulo').textContent = 'Editar novedad';
+    $('eliminarNovedad').classList.remove('oculto');
+    $('formNovedad').classList.remove('oculto');
+    aviso('avisoFormNovedad', '', 'ok');
+    $('formNovedad').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function guardarNovedad(ev) {
+    ev.preventDefault();
+    var idNovedad = $('novedadId').value;
+    var titulo = $('novedadTituloCampo').value.trim();
+    var detalle = $('novedadDetalle').value.trim();
+    var anio = $('novedadAnio').value.trim();
+    if (!titulo || !detalle || !/^\d{4}$/.test(anio)) {
+      return aviso('avisoFormNovedad', 'Completá título, texto y un año de cuatro cifras.', 'error');
+    }
+    var cuerpo = {
+      rubro: $('novedadRubro').value,
+      titulo: titulo,
+      detalle: detalle,
+      anio: anio,
+      link: $('novedadLink').value.trim() || null,
+      orden: Number($('novedadOrden').value) || 0,
+      publicada: $('novedadPublicada').checked,
+      eliminada: false,
+    };
+    if (!idNovedad) cuerpo.clave = slug(anio + '-' + titulo) + '-' + Date.now().toString(36);
+    $('guardarNovedad').disabled = true;
+    aviso('avisoFormNovedad', 'Guardando…', 'ok');
+    rest('/prensa_novedades' + (idNovedad ? '?id=eq.' + encodeURIComponent(idNovedad) : ''), {
+      method: idNovedad ? 'PATCH' : 'POST', body: cuerpo, devolver: true,
+    }).then(function () {
+      aviso('avisoFormNovedad', 'Guardado. Publicalo desde Obras.', 'ok');
+      return cargarNovedades();
+    }).catch(function (e) {
+      aviso('avisoFormNovedad', e.message, 'error');
+    }).finally(function () { $('guardarNovedad').disabled = false; });
+  }
+
+  function eliminarNovedad() {
+    var idNovedad = $('novedadId').value;
+    if (!idNovedad || !confirm('¿Eliminar esta novedad? No aparecerá en el sitio.')) return;
+    rest('/prensa_novedades?id=eq.' + encodeURIComponent(idNovedad), {
+      method: 'PATCH', body: { eliminada: true, publicada: false },
+    }).then(function () {
+      $('formNovedad').classList.add('oculto');
+      return cargarNovedades();
+    }).catch(function (e) { aviso('avisoFormNovedad', e.message, 'error'); });
+  }
+
+  function cargarNovedades() {
+    return rest('/prensa_novedades?select=*&eliminada=is.false&order=orden.asc,created_at.asc')
+      .then(function (datos) {
+        novedades = datos || [];
+        pintarNovedades();
+        $('cantidadNovedades').textContent = '(' + novedades.length + ')';
+        aviso('avisoNovedades', novedades.length + ' novedades cargadas.', 'ok');
+      }).catch(function (e) {
+        novedades = [];
+        $('cantidadNovedades').textContent = '';
+        aviso('avisoNovedades', e.message, 'error');
+      });
   }
 
   HMA.exigirSesion().then(function () {
@@ -466,7 +604,15 @@
       HMA.salir().then(function () { location.replace('/admin/'); });
     });
     $('nueva').addEventListener('click', limpiar);
-    $('buscarPrensa').addEventListener('input', pintarLista);
+    $('buscarPrensa').addEventListener('input', function () { pagina = 0; pintarLista(); });
+    $('paginaAnterior').addEventListener('click', function () { pagina--; pintarLista(); });
+    $('paginaSiguiente').addEventListener('click', function () { pagina++; pintarLista(); });
+    $('abrirPublicaciones').addEventListener('click', function () { cambiarTab(false); });
+    $('abrirNovedades').addEventListener('click', function () { cambiarTab(true); });
+    $('nuevaNovedad').addEventListener('click', nuevaNovedad);
+    $('buscarNovedades').addEventListener('input', pintarNovedades);
+    $('formNovedad').addEventListener('submit', guardarNovedad);
+    $('eliminarNovedad').addEventListener('click', eliminarNovedad);
     $('formPrensa').addEventListener('submit', guardar);
     $('eliminar').addEventListener('click', eliminar);
     $('titulo').addEventListener('input', function () {
@@ -483,6 +629,6 @@
       agregarImagenes(ev.target.files);
       ev.target.value = '';
     });
-    return cargar();
+    return Promise.all([cargar(), cargarNovedades()]);
   }).catch(function () {});
 })();

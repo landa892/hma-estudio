@@ -143,6 +143,20 @@ def desde_json():
     return [o for o in json.load(io.open(p, encoding='utf-8')) if o.get('publicada')]
 
 
+def limpiar_destacadas():
+    """La plantilla actual no tiene ranuras: reconcilia la base con el sitio."""
+    url = os.environ.get('SUPABASE_URL', '').rstrip('/')
+    clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
+    cuerpo = json.dumps({'destacada': False, 'banner_rotulo': None,
+                         'banner_rotulo_en': None}).encode('utf-8')
+    pedido = urllib.request.Request(
+        url + '/rest/v1/obras?destacada=is.true', data=cuerpo, method='PATCH',
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                 'Content-Type': 'application/json', 'Prefer': 'return=minimal'})
+    with urllib.request.urlopen(pedido, timeout=30):
+        pass
+
+
 # ---------------------------------------------------------------------------
 # El banner
 # ---------------------------------------------------------------------------
@@ -205,9 +219,11 @@ def main(verificar, supabase):
     html = io.open(HOME, encoding='utf-8').read()
     idents = BANNER.findall(html)
     if not idents:
-        print('\nEl home no incluye banners de obra: se conserva la seleccion '
-              'del panel sin mostrarla en Inicio.')
+        print('\nEl home no incluye banners de obra: se limpian las marcas '
+              'anteriores para que el panel coincida con el sitio.')
         if not verificar:
+            if supabase:
+                limpiar_destacadas()
             io.open(DESTINO_EN, 'w', encoding='utf-8', newline='\n').write('{}\n')
         return 0
     if len(idents) != RANURAS:

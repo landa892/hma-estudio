@@ -53,22 +53,12 @@
     $('memoriaEn').value = o.memoria_en || '';
     $('premios').value = o.premios || '';
     $('estado').value = o.estado || 'en_proyecto';
-    $('destacada').checked = !!o.destacada;
-    $('bannerRotulo').value = o.banner_rotulo || '';
-    $('bannerRotuloEn').value = o.banner_rotulo_en || '';
     $('publicada').checked = !!o.publicada;
     contarTitulo();
     contarBajada();
     contarMemoria('memoria', 'contadorMemoria');
     contarMemoria('memoriaEn', 'contadorMemoriaEn');
-    verBanner();
     verFotografia();
-  }
-
-  /* Los campos del banner solo tienen sentido si la obra va al home. Mostrarlos
-     siempre haria pensar que toda obra tiene banner. */
-  function verBanner() {
-    $('camposBanner').classList.toggle('oculto', !$('destacada').checked);
   }
 
   /* El credito no corresponde a proyectos que solo muestran renders. Se
@@ -111,9 +101,12 @@
       memoria_en: texto('memoriaEn'),
       premios: texto('premios'),
       estado: $('estado').value,
-      destacada: $('destacada').checked,
-      banner_rotulo: texto('bannerRotulo'),
-      banner_rotulo_en: texto('bannerRotuloEn'),
+      // El Inicio actual ya no tiene banners de obras. Se limpian las marcas
+      // heredadas al guardar para que el panel no anuncie una configuracion
+      // que la pagina no usa.
+      destacada: false,
+      banner_rotulo: null,
+      banner_rotulo_en: null,
       publicada: $('publicada').checked,
     };
   }
@@ -234,12 +227,6 @@
     if (o.publicada && !o.anio) {
       return 'Para publicarla completá el año. Usá cuatro cifras o un rango, por ejemplo 2025–2026.';
     }
-    if (o.destacada && !o.publicada) {
-      return 'Para mostrarla en el home, la obra primero tiene que estar publicada.';
-    }
-    if (o.destacada && (!o.banner_rotulo || !o.banner_rotulo_en)) {
-      return 'Para mostrarla en el home completá el rótulo del banner en castellano e inglés.';
-    }
     return null;
   }
 
@@ -258,17 +245,7 @@
       })
       : Promise.resolve();
 
-    return fotos.then(function () {
-      if (!o.destacada || (original && original.destacada)) return;
-      return DATOS.listarObras().then(function (obras) {
-        var ocupadas = obras.filter(function (obra) {
-          return obra.id !== id && obra.publicada && obra.destacada;
-        }).length;
-        if (ocupadas >= 3) {
-          throw new Error('El home ya tiene sus 3 obras destacadas. Sacá una antes de sumar esta.');
-        }
-      });
-    });
+    return fotos;
   }
 
   function contarBajada() {
@@ -290,15 +267,10 @@
 
   /* --- guardar ---------------------------------------------------------- */
 
-  /* Cambiar la direccion web de una obra ya publicada rompe la direccion
-     vieja: queda dando 404 para cualquiera que la tenga guardada o compartida,
-     y para Google, que la tiene indexada. El aviso de ayuda que ya estaba lo
-     decia, pero es texto pasivo y no alcanzo: el 24/08/2026 se renombraron dos
-     obras -indusparquet paso a bosque y cerveceria-austral a estancia-austral-
-     y las dos direcciones viejas quedaron rotas sin que nadie se enterara.
-
-     Ahora hay que confirmarlo, y el mensaje dice que hace falta pedir la
-     redireccion: sin ella el enlace viejo no vuelve solo. */
+  /* Cambiar la direccion web sigue siendo una decision importante. El
+     24/08/2026 se renombraron dos obras y sus rutas de imagen quedaron bajo el
+     slug anterior. Desde la 0017 el historial y la redireccion se guardan
+     solos, pero se conserva la confirmacion para evitar cambios accidentales. */
   /* El mismo aviso, pero mientras escribe: que se vea antes de llegar al boton
      de guardar y no como una sorpresa al final. */
   function avisarSiCambiaLaDireccion() {
@@ -308,15 +280,15 @@
     var ahora = $('slug').value.trim();
     if (!antes || antes === ahora) {
       ayuda.classList.remove('campo__ayuda--alerta');
-      ayuda.textContent = 'No la cambies salvo que sea imprescindible: rompe los enlaces '
-        + 'compartidos y la dirección que conoce Google. Sólo admite minúsculas, '
-        + 'números y guiones.';
+      ayuda.textContent = 'No la cambies salvo que sea imprescindible. Si cambia, el panel '
+        + 'conserva la dirección anterior y las fotos en el próximo deploy. Sólo admite '
+        + 'minúsculas, números y guiones.';
       return;
     }
     ayuda.classList.add('campo__ayuda--alerta');
-    ayuda.textContent = 'Ojo: /proyectos/' + antes + '/ va a quedar en error 404. '
-      + 'Si la cambiás, avisale a Ignacio para que agregue la redirección a '
-      + '/proyectos/' + (ahora || '…') + '/.';
+    ayuda.textContent = 'Ojo: estás cambiando la dirección pública. El panel conservará '
+      + '/proyectos/' + antes + '/ como acceso a /proyectos/' + (ahora || '…')
+      + '/ y trasladará sus imágenes al publicar.';
   }
 
   function confirmarCambioDeSlug(o) {
@@ -328,11 +300,8 @@
       'Vas a cambiar la dirección web de esta obra.\n\n'
       + 'Antes:  estudiohma.com/proyectos/' + antes + '/\n'
       + 'Ahora:  estudiohma.com/proyectos/' + ahora + '/\n\n'
-      + 'La dirección vieja va a dejar de funcionar: queda en error 404 para '
-      + 'quien la tenga guardada o compartida, y para Google, que la tiene '
-      + 'indexada.\n\n'
-      + 'Si igual la querés cambiar, avisale a Ignacio para que agregue la '
-      + 'redirección de la vieja a la nueva.\n\n'
+      + 'Al publicar, la dirección anterior seguirá llevando a la nueva y las '
+      + 'imágenes se trasladarán automáticamente.\n\n'
       + '¿Seguimos?');
   }
 
@@ -449,7 +418,6 @@
         campo.focus();
       });
     });
-    $('destacada').addEventListener('change', verBanner);
     $('estado').addEventListener('change', verFotografia);
     $('publicada').addEventListener('change', actualizarEnlacePublico);
     $('formObra').addEventListener('submit', guardar);
@@ -478,6 +446,12 @@
     }
 
     return DATOS.traerObra(id).then(function (fila) {
+      // El Inicio vigente no contiene banners de obras. Se normaliza tambien
+      // la copia comparable para que una marca vieja no aparezca como cambio
+      // sin guardar apenas se abre la ficha.
+      fila.destacada = false;
+      fila.banner_rotulo = null;
+      fila.banner_rotulo_en = null;
       original = fila;
       slugTocado = true;   // en una obra ya creada el slug no se recalcula
       volcar(fila);
