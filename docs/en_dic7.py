@@ -45,6 +45,11 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    "← Anteriores": "← Previous",
+    "Siguientes →": "Next →",
+    "Paginas de publicaciones": "Publication pages",
+    "Profesor en Taller de Arquitectura Interior Experiencial en Haus.":
+        "Professor in the Experiential Interior Architecture Workshop at Haus.",
     # El cliente usa una misma denominacion bilingue para la seccion en el
     # menu. El ampersand es parte del nombre visible, no una conjuncion a
     # traducir como "and".

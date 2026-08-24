@@ -757,7 +757,7 @@ footer.site-footer {
 .hero-home--photo h1 {
   width: min(92%, 760px);
   max-width: none;
-  font-size: 2.65rem;
+  font-size: 3rem;
   white-space: nowrap;
   box-sizing: border-box;
   padding-inline: 1.85%;
@@ -915,7 +915,9 @@ footer.site-footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
-  border-top: 1px solid var(--line);
+  /* Esta linea separa el dato institucional de la noticia siguiente. El gris
+     se perdia sobre el fondo blanco en pantallas claras. */
+  border-top: 1px solid var(--black);
   background: var(--white);
   color: var(--black);
 }
@@ -1978,6 +1980,31 @@ footer.site-footer {
 
 .press-archive-link {
   margin-top: 24px;
+}
+
+.press-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 64px;
+  margin-top: 24px;
+}
+
+.press-pagination__status {
+  min-width: 92px;
+  font-size: .72rem;
+  color: var(--gray);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.press-pagination .press-archive-link { margin-top: 0; }
+
+.press-pagination .press-archive-link:disabled {
+  opacity: .32;
+  cursor: default;
 }
 
 .press-archive-link[hidden],
@@ -3053,7 +3080,7 @@ footer.site-footer {
   grid-column: 6;
   /* Saltamos a la columna 6, dejando la 5 vacía */
   grid-row: 1 / 3;
-  align-self: end;
+  align-self: center;
   font-size: .78rem;
   color: var(--gray);
   text-transform: uppercase;
@@ -4121,13 +4148,11 @@ html.lenis body {
 
 /* El mismo mecanismo sirve para las galerias de obra y para la grilla de
    videos: se muestran las primeras y el resto espera detras del boton. */
-.gallery-grid__item.is-extra,
-#prensaFeed > .press-card.is-extra {
+.gallery-grid__item.is-extra {
   display: none;
 }
 
-.gallery-grid.is-open .gallery-grid__item.is-extra,
-#prensaFeed.is-open > .press-card.is-extra {
+.gallery-grid.is-open .gallery-grid__item.is-extra {
   display: flex;
 }
 

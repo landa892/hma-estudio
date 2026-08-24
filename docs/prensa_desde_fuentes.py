@@ -509,9 +509,21 @@ def novedades(academica):
             'titulo': resumir(e['texto']),
             'detalle': re.sub(r'\s+', ' ', e['texto']).strip(),
             'anio': e['anio'],
-            'link': externos[0] if externos else '',
+            # Los links del Word pueden venir con &amp;. El HTML los vuelve a
+            # escapar al generar; normalizarlos aca evita terminar en
+            # &amp;amp; y conserva completos los parametros de YouTube.
+            'link': unescape(externos[0]) if externos else '',
         })
     fuera.sort(key=lambda x: x['anio'], reverse=True)
+    # Correcciones editoriales del estudio que deben sobrevivir si se vuelve a
+    # importar el CV. La primera fila cambio de nombre y la antigua categoria
+    # de FADU ya no existe: un enlace roto es peor que una fila sin enlace.
+    if fuera:
+        fuera[0]['titulo'] = 'Taller de Arquitectura Interior Experiencial en Haus'
+        fuera[0]['detalle'] = 'Profesor en Taller de Arquitectura Interior Experiencial en Haus.'
+    for fila in fuera:
+        if fila['link'] == 'http://www.fadu.uba.ar/categoria/49-arquitectura':
+            fila['link'] = ''
     return fuera
 
 

@@ -1,8 +1,8 @@
 [
  {
   "rubro": "DOCENCIA",
-  "titulo": "Arquitectura Comercial Interior en la Haus: Leonardo Militello",
-  "detalle": "Profesor de Arquitectura Comercial Interior en la Haus: Leonardo Militello. Buenos Aires, Argentina.",
+  "titulo": "Taller de Arquitectura Interior Experiencial en Haus",
+  "detalle": "Profesor en Taller de Arquitectura Interior Experiencial en Haus.",
   "anio": "2026",
   "link": "https://holahaus.com/course/arquitectura-interior-experiencial/"
  },
@@ -109,7 +109,7 @@
   "titulo": "seminario web: Invited by ESAD University of Moron Escuela Superior de Arquitectura y Diseño. Seminario web sobre su práctica profesional",
   "detalle": "Conferencia en seminario web: Invited by ESAD University of Moron Escuela Superior de Arquitectura y Diseño. Seminario web sobre su práctica profesional. Buenos Aires, Argentina.",
   "anio": "2020",
-  "link": "https://www.youtube.com/watch?v=c8rVXGJ8HBA&amp;ab_channel=LeonardoGuidoMilitello"
+  "link": "https://www.youtube.com/watch?v=c8rVXGJ8HBA&ab_channel=LeonardoGuidoMilitello"
  },
  {
   "rubro": "CONFERENCIA",
@@ -123,14 +123,14 @@
   "titulo": "seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“",
   "detalle": "Conferencia en seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“. Buenos Aires, Argentina.",
   "anio": "2020",
-  "link": "https://www.youtube.com/watch?v=2A59FXkzQXg&amp;ab_channel=LeonardoGuidoMilitello"
+  "link": "https://www.youtube.com/watch?v=2A59FXkzQXg&ab_channel=LeonardoGuidoMilitello"
  },
  {
   "rubro": "CONFERENCIA",
   "titulo": "seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“ en la Sociedad Central de Arquitectos (SCA)",
   "detalle": "Conferencia en seminario web: Invited by University of Buenos Aires to give a lecture about “in the face of a paradigm shift versatile responses“ en la Sociedad Central de Arquitectos (SCA). Buenos Aires, Argentina.",
   "anio": "2020",
-  "link": "https://www.youtube.com/watch?v=2A59FXkzQXg&amp;ab_channel=LeonardoGuidoMilitello"
+  "link": "https://www.youtube.com/watch?v=2A59FXkzQXg&ab_channel=LeonardoGuidoMilitello"
  },
  {
   "rubro": "CONFERENCIA",
@@ -158,7 +158,7 @@
   "titulo": "Cumbre Latinoamericana de Tendencias y Creatividad. Universidad de Palermo",
   "detalle": "Orador en la Cumbre Latinoamericana de Tendencias y Creatividad. Universidad de Palermo. Buenos Aires, Argentina.",
   "anio": "2016",
-  "link": "https://www.youtube.com/watch?v=p2DsHlV4tkE&amp;ab_channel=LeonardoGuidoMilitello"
+  "link": "https://www.youtube.com/watch?v=p2DsHlV4tkE&ab_channel=LeonardoGuidoMilitello"
  },
  {
   "rubro": "DOCENCIA",
@@ -172,7 +172,7 @@
   "titulo": "Arquitectura Leonardo Militello. FADU, University of Buenos Aires",
   "detalle": "Graduado en Arquitectura Leonardo Militello. FADU, University of Buenos Aires. Buenos Aires, Argentina.",
   "anio": "2003",
-  "link": "http://www.fadu.uba.ar/categoria/49-arquitectura"
+  "link": ""
  },
  {
   "rubro": "DOCENCIA",
@@ -193,6 +193,6 @@
   "titulo": "Arquitectura Fernando Hitzig. FADU, University of Buenos Aires",
   "detalle": "Graduado en Arquitectura Fernando Hitzig. FADU, University of Buenos Aires. Buenos Aires, Argentina.",
   "anio": "2002",
-  "link": "http://www.fadu.uba.ar/categoria/49-arquitectura"
+  "link": ""
  }
 ]

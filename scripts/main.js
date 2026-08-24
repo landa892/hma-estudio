@@ -797,9 +797,10 @@ try {
   if (visualYears.length && visualFeed) {
     const cards = Array.from(visualFeed.querySelectorAll('.press-card[data-year]'));
     const more = document.getElementById('prensaVisualMas');
-    const VISIBLES = 6;
-    const TANDA = 12;
-    let limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
+    const previous = document.getElementById('prensaVisualAnterior');
+    const status = document.getElementById('prensaVisualPagina');
+    const POR_PAGINA = 6;
+    let pagina = 0;
     let anioVisual = 'all';
     let busqueda = '';
 
@@ -815,18 +816,18 @@ try {
       return c.dataset.buscable;
     };
 
-    /* Antes esto era un interruptor: "Seguir viendo" abria las nueve tarjetas
-       de una vez. Con doscientas diez de golpe la pagina pega un salto y manda
-       a cargar doscientas imagenes juntas, asi que ahora suma de a doce, como
-       la lista de abajo. */
+    /* La pagina reemplaza seis tarjetas por las seis siguientes. No acumula
+       filas: aun con doscientas publicaciones, Prensa conserva siempre la
+       misma altura y cada filtro arranca en su primera pagina. */
     const aplicarVisual = () => {
-      let coincidencias = 0;
-      cards.forEach(card => {
-        const ok = (anioVisual === 'all' || card.dataset.year === anioVisual) &&
-          (busqueda === '' || textoDe(card).includes(busqueda));
-        if (ok) coincidencias++;
-        card.hidden = !ok || coincidencias > limite;
-      });
+      const coincidencias = cards.filter(card =>
+        (anioVisual === 'all' || card.dataset.year === anioVisual) &&
+        (busqueda === '' || textoDe(card).includes(busqueda)));
+      const paginas = Math.max(1, Math.ceil(coincidencias.length / POR_PAGINA));
+      pagina = Math.min(pagina, paginas - 1);
+      const desde = pagina * POR_PAGINA;
+      const visibles = new Set(coincidencias.slice(desde, desde + POR_PAGINA));
+      cards.forEach(card => { card.hidden = !visibles.has(card); });
 
       // Un año sin ninguna publicacion no se puede elegir.
       visualYears.forEach(b => {
@@ -835,8 +836,14 @@ try {
         b.disabled = !cards.some(c => c.dataset.year === y);
       });
 
-      visualFeed.classList.toggle('is-open', limite > VISIBLES);
-      if (more) more.hidden = coincidencias <= limite;
+      if (previous) previous.disabled = pagina === 0;
+      if (more) more.disabled = pagina >= paginas - 1 || coincidencias.length === 0;
+      if (status) {
+        const ingles = document.documentElement.lang === 'en';
+        status.textContent = ingles
+          ? `Page ${pagina + 1} of ${paginas}`
+          : `Pagina ${pagina + 1} de ${paginas}`;
+      }
       if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
     };
 
@@ -845,7 +852,7 @@ try {
       visualYears.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       anioVisual = btn.dataset.year;
-      limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
+      pagina = 0;
       aplicarVisual();
     }));
 
@@ -864,7 +871,7 @@ try {
         if (campo.value) {
           campo.value = '';
           busqueda = '';
-          limite = more ? VISIBLES : Number.POSITIVE_INFINITY;
+          pagina = 0;
           aplicarVisual();
         }
       };
@@ -873,10 +880,7 @@ try {
       });
       campo.addEventListener('input', () => {
         busqueda = plano(campo.value.trim());
-        /* Buscando se muestran todas las coincidencias: el tope de seis sirve
-           para entrar a la pagina, no para una busqueda que ya devuelve poco. */
-        limite = busqueda ? Number.POSITIVE_INFINITY
-          : (more ? VISIBLES : Number.POSITIVE_INFINITY);
+        pagina = 0;
         aplicarVisual();
       });
       campo.addEventListener('keydown', e => {
@@ -885,8 +889,12 @@ try {
       campo.addEventListener('blur', () => { if (!campo.value) cerrar(); });
     }
 
+    if (previous) previous.addEventListener('click', () => {
+      pagina = Math.max(0, pagina - 1);
+      aplicarVisual();
+    });
     if (more) more.addEventListener('click', () => {
-      limite += TANDA;
+      pagina++;
       aplicarVisual();
     });
     aplicarVisual();
