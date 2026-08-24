@@ -353,6 +353,15 @@ def bloque_filas(actual, titulo, fotos, cuerpo):
 
 
 def bloque_grilla(titulo, fotos, planos):
+    """Primero todas las fotos, y los planos al final.
+
+    Antes los planos se metian despues de la foto numero VISIBLES, que es
+    donde corta el boton de "ver mas". En una obra con muchos planos eso
+    partia la galeria al medio: Hyatt Ziva mostraba seis renders, despues
+    veintiun planos y despues el resto de los renders. El estudio lo marco el
+    24/08/2026 -"en varios trabajos aun aparecen los planos entre los renders,
+    cuando deberian aparecer al final de todo"-.
+    """
     items = []
     for i, foto in enumerate(fotos, 1):
         extra = '' if i <= VISIBLES else ' is-extra'
@@ -361,10 +370,14 @@ def bloque_grilla(titulo, fotos, planos):
             'height="%s" alt="%s" loading="lazy" decoding="async"></figure>'
             % (extra, foto['src'], foto['w'], foto['h'],
                e(foto['alt'] or '%s — foto %d' % (titulo, i))))
-        if i == VISIBLES:
-            items.extend(planos)
-    if len(fotos) < VISIBLES:
-        items.extend(planos)
+    # Si hay boton de "ver mas", los planos se esconden con el mismo is-extra
+    # que las fotos que quedan abajo del corte. Sin eso quedaria la galeria al
+    # reves de lo pedido: los planos a la vista y las fotos escondidas.
+    if len(fotos) > VISIBLES:
+        planos = [p.replace('gallery-grid__item gallery-grid__item--plano',
+                            'gallery-grid__item is-extra gallery-grid__item--plano')
+                  for p in planos]
+    items.extend(planos)
     boton = ''
     if len(fotos) > VISIBLES:
         boton = ('\n        <button type="button" class="btn gallery-more" data-total="%d" '
@@ -608,6 +621,35 @@ def main():
             return False
         return 'gallery-grid__item--plano' not in io.open(ruta, encoding='utf-8').read()
 
+    def le_faltan_fotos(slug, filas, sobran):
+        """La ficha muestra menos fotos de las que la obra tiene sembradas.
+
+        La condicion de @seed existe para no pisar lo que el estudio eligio,
+        pero @seed no es una eleccion del estudio: es la seleccion heredada del
+        sitio viejo, y lo que el estudio elige entra por Storage. Mientras
+        tanto, las fichas del repositorio venian de una importacion recortada a
+        catorce fotos, asi que una obra con treinta sembradas publicaba
+        catorce y las otras dieciseis no las veia nadie.
+
+        Medido el 24/08/2026: 43 obras en ese estado y 85 fotos sin salir.
+        Tostado era el caso mas grande, 14 de 30. El estudio lo marco con
+        "en la pg de edicion hay 20 fotos, pero en la pg principal solo se ven
+        15".
+
+        Solo mira las que estan enteras en @seed y solo devuelve True si a la
+        ficha le faltan: nunca saca ninguna.
+        """
+        ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+        if not os.path.isfile(ruta):
+            return False
+        esperadas = sum(1 for f in filas
+                        if f['es_portada']
+                        or os.path.basename(f['storage_path']) not in sobran)
+        html = io.open(ruta, encoding='utf-8').read()
+        tiene = len(set(re.findall(
+            r'assets/gallery/%s/([0-9]+\.webp)' % re.escape(slug), html)))
+        return tiene < esperadas
+
     portadas, cambiadas = {}, 0
     sobran_por_obra = fotos_fuera()
     # Las paginas y las tarjetas, solo de las publicadas: un borrador no tiene
@@ -619,7 +661,9 @@ def main():
         # Se reescribe la ficha si el estudio toco las fotos o los planos: antes
         # alcanzaba con mirar las fotos porque era lo unico administrable.
         if not (gestionada(filas_fotos) or filas_cuerpo or gestionada(filas_planos)
-                or (filas_planos and sin_planos_todavia(obra['slug']))):
+                or (filas_planos and sin_planos_todavia(obra['slug']))
+                or le_faltan_fotos(obra['slug'], filas_fotos,
+                                   sobran_por_obra.get(obra['slug'], set()))):
             continue
         if not filas_fotos:
             continue  # sin fotos no hay portada que mostrar

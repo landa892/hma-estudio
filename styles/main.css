@@ -1380,25 +1380,33 @@ footer.site-footer {
   font-size: 1.15rem;
 }
 
+/* Dos renglones cuando la linea no entra en uno. Con nowrap y overflow
+   hidden, una ubicacion larga se comia los datos de la derecha: Tostado Cafe
+   Club dice "Buenos Aires · Sao Paulo · Montevideo · Miami · Madrid" y detras
+   de eso quedaban escondidos los 100 m² y el 2015-2023, que si estan en el
+   HTML. El estudio lo marco el 24/08/2026 -"en Tostado cafe no aparece el ano
+   y m2, ahi podrias en ese caso extenderte en un segundo renglon"-.
+   El nowrap se conserva en cada span, para que un dato no se parta al medio. */
 .card-plate .p-meta {
   font-size: .68rem;
   letter-spacing: .02em;
   color: rgba(255, 255, 255, .8);
   margin-top: 6px;
   display: flex;
-  gap: 12px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  overflow: hidden;
+  gap: 4px 12px;
+  flex-wrap: wrap;
 }
 
 .card-plate .p-meta span {
   flex: 0 0 auto;
+  white-space: nowrap;
 }
 
-.card-plate .p-meta span:first-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* La ubicacion es la unica que puede pasar de un renglon: es la mas larga y
+   la que menos molesta partida. Las demas -tipo, superficie, ano- son cortas
+   y van enteras. */
+.card-plate .p-meta span:nth-child(2) {
+  white-space: normal;
 }
 
 .project-card.hidden,
@@ -3416,14 +3424,17 @@ footer.site-footer {
   color: var(--white);
 }
 
-/* premios en las tarjetas de la grilla */
+/* Los premios salen de las tarjetas de la grilla, no del HTML. Lo pidio Leo
+   el 24/08/2026: "saquemos los premios de esta parte, ya se ven cuando
+   ingresas al proyecto de cada uno".
+
+   Se esconden con CSS y no se borran del marcado porque el dato lo lee
+   docs/panel_exportar.py, que saca el premio de cada obra justamente de
+   class="p-awards" del listado. Borrarlo del HTML dejaria ese export sin
+   premios. En la ficha de la obra los premios siguen a la vista, que es donde
+   el estudio quiere que esten. */
 .card-plate .p-awards {
-  margin-top: 6px;
-  font-size: .62rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: rgba(255, 255, 255, .95);
+  display: none;
 }
 
 /* ---------- ESTUDIO: bloques de foto + texto ---------- */
@@ -4830,7 +4841,13 @@ html.lenis body {
 .press-note__copy p {
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
+  /* Sin cortar palabras. Con hyphens:auto el navegador partia donde le
+     convenia para justificar y dejaba renglones terminados en "vi-", que
+     seguian con "vienda" en el siguiente. El estudio lo marco el 24/08/2026
+     sobre la bajada de la portada: "que no se corte la palabra". Queda en
+     manual y no en none para que un guion blando escrito a proposito siga
+     valiendo. */
+  hyphens: manual;
 }
 
 .work-split__text .bloque-texto p,
