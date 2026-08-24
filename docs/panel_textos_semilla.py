@@ -118,6 +118,10 @@ def main():
             sys.stderr.write('  [!] %s: no encuentro el texto en %s\n' % (clave, ruta))
             continue
         es = limpiar(m.group(1))
+        # La etiqueta visible describe el enlace, no es parte del dato que el
+        # estudio edita. Asi una resiembra conserva los telefonos puros.
+        if clave == 'contacto.telefonos':
+            es = re.sub(r'(?m)^WhatsApp:\s*', '', es)
         en = ingles(es)
         if en is None:
             sin_ingles.append(clave)

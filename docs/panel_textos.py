@@ -148,7 +148,7 @@ def renglon_tel(linea):
     if numero.startswith('5411'):
         return '<a href="tel:+%s">%s</a>' % (numero, rotulo)
     return ('<a href="https://wa.me/%s" target="_blank" rel="noopener" '
-            'aria-label="Enviar un mensaje por WhatsApp al %s">%s</a>'
+            'aria-label="WhatsApp %s">WhatsApp: %s</a>'
             % (numero, rotulo, rotulo))
 
 
@@ -230,7 +230,13 @@ def main(verificar, supabase):
                 continue
 
             interior = m.group(1)
-            if como_lo_dice_el_sitio(interior) == nuevo_texto:
+            actual = como_lo_dice_el_sitio(interior)
+            # "WhatsApp:" explica la accion en la pagina, pero no forma parte
+            # del numero editable. Sin sacarlo, cada build creeria que el panel
+            # y el HTML difieren y reescribiria Contacto aunque nada cambiara.
+            if clave == 'contacto.telefonos':
+                actual = re.sub(r'(?m)^WhatsApp:\s*', '', actual)
+            if actual == nuevo_texto:
                 continue          # igual: no se toca, asi el archivo no cambia
 
             armado = armar(nuevo_texto, interior)

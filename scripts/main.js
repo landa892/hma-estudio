@@ -644,10 +644,14 @@ try {
   }
 } catch (e) { console.error('search-page', e); }
 
-/* El estudio no tiene WhatsApp: usan solo una linea telefonica. Hasta el
-   12/08/2026 el popup de contacto ofrecia "WhatsApp - Chatear ahora" y un
-   formulario que prometia "seguimos la charla por WhatsApp", que era una
-   promesa que el sitio no podia cumplir.
+/* La linea de Buenos Aires no tiene una cuenta de WhatsApp asociada: el enlace
+   de chat fue probado con y sin el prefijo argentino de movil y WhatsApp lo
+   rechaza. El numero de Miami si esta confirmado y se ofrece como WhatsApp en
+   Contacto y en todos los pies; Buenos Aires queda como llamada telefonica.
+
+   Hasta el 12/08/2026 el popup de contacto ofrecia "WhatsApp - Chatear ahora"
+   contra la linea argentina y un formulario que prometia "seguimos la charla
+   por WhatsApp", que era una promesa que el sitio no podia cumplir.
 
    Se saco el boton y el formulario de todas las paginas. El endpoint
    /api/lead.js queda en pie y sin usar: capturaba nombre y telefono y se los

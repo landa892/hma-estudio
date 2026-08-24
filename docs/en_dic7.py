@@ -147,6 +147,12 @@ DIC.update({
 })
 
 DIC.update({
+    # Rotulo de accion y nombre accesible del numero confirmado de Miami. Son
+    # iguales en los dos idiomas, pero se declaran para que el espejo no los
+    # reporte como texto castellano sin traducir.
+    'WhatsApp: +1 (305) 851 3565': 'WhatsApp: +1 (305) 851 3565',
+    'WhatsApp +1 305 851 3565': 'WhatsApp +1 305 851 3565',
+
     # El titular de la portada lleva un espacio duro dentro, asi que en el HTML
     # nunca aparece como una frase suelta y el diccionario no lo tenia. Se
     # necesita entero para el panel de autogestion.
