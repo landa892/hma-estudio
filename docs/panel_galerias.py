@@ -650,6 +650,25 @@ def main():
             r'assets/gallery/%s/([0-9]+\.webp)' % re.escape(slug), html)))
         return tiene < esperadas
 
+    def planos_en_el_medio(slug):
+        """La ficha tiene una foto despues de un plano.
+
+        Es el orden viejo, de cuando bloque_grilla metia los planos justo
+        despues de la foto numero VISIBLES. Las fichas que ya tenian todas sus
+        fotos no entran por le_faltan_fotos y, al estar en @seed, tampoco se
+        reescriben: se quedaban con la galeria partida al medio. Quedaban tres
+        -galeria-objeto-a, oficina-casa-luna y ph-loft-arias-, todas con el
+        mismo dibujo de seis fotos, los planos y el resto de las fotos.
+        """
+        ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+        if not os.path.isfile(ruta):
+            return False
+        html = io.open(ruta, encoding='utf-8').read()
+        orden = ''.join(
+            'P' if 'plano' in m.group(1) else 'F'
+            for m in re.finditer(r'<figure class="(gallery-grid__item[^"]*)"', html))
+        return 'P' in orden and 'F' in orden.split('P')[-1]
+
     portadas, cambiadas = {}, 0
     sobran_por_obra = fotos_fuera()
     # Las paginas y las tarjetas, solo de las publicadas: un borrador no tiene
@@ -663,7 +682,8 @@ def main():
         if not (gestionada(filas_fotos) or filas_cuerpo or gestionada(filas_planos)
                 or (filas_planos and sin_planos_todavia(obra['slug']))
                 or le_faltan_fotos(obra['slug'], filas_fotos,
-                                   sobran_por_obra.get(obra['slug'], set()))):
+                                   sobran_por_obra.get(obra['slug'], set()))
+                or planos_en_el_medio(obra['slug'])):
             continue
         if not filas_fotos:
             continue  # sin fotos no hay portada que mostrar
