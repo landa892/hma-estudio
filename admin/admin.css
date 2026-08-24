@@ -172,6 +172,11 @@ input:focus-visible {
   align-items: center;
 }
 
+.prensa-admin-cabecera--novedades,
+.prensa-admin-lista--novedades .prensa-admin-item {
+  grid-template-columns: 100px minmax(360px, 2fr) minmax(150px, .7fr) 104px;
+}
+
 .prensa-admin-cabecera {
   padding: 0 12px 10px;
   color: var(--gris);
@@ -186,6 +191,30 @@ input:focus-visible {
   border: 1px solid var(--linea);
   border-radius: 8px;
   overflow: hidden;
+}
+
+.prensa-admin-lista--novedades {
+  display: block;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prensa-admin-lista--novedades .prensa-admin-item {
+  min-height: 76px;
+  padding: 12px;
+  border: 0;
+  border-bottom: 1px solid var(--linea);
+  border-radius: 0;
+}
+
+.prensa-admin-lista--novedades .prensa-admin-item:last-child { border-bottom: 0; }
+.prensa-admin-lista--novedades .prensa-admin-item:hover { background: var(--fondo); }
+
+.prensa-admin-item__anio {
+  color: var(--gris);
+  font-size: .82rem;
+  font-weight: 700;
 }
 
 .prensa-admin-lista--publicaciones .prensa-admin-item {
@@ -306,6 +335,19 @@ input:focus-visible {
     text-transform: uppercase;
   }
   .prensa-admin-lista--publicaciones .chip { justify-self: start; }
+
+  .prensa-admin-lista--novedades .prensa-admin-item {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 5px 12px;
+  }
+  .prensa-admin-lista--novedades .prensa-admin-item__anio {
+    grid-row: 1 / span 3;
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    border-right: 1px solid var(--linea);
+  }
+  .prensa-admin-lista--novedades .chip { justify-self: start; }
 }
 
 @media (max-width: 780px) {
@@ -605,6 +647,24 @@ select {
   text-decoration: none;
   display: inline-block;
 }
+
+.boton--modulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  border-color: var(--linea);
+  background: var(--blanco);
+  white-space: nowrap;
+}
+
+.boton--modulo span {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform .16s ease;
+}
+
+.boton--modulo:hover span,
+.boton--modulo:focus-visible span { transform: translateX(3px); }
 
 .tabla {
   width: 100%;

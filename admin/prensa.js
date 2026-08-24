@@ -9,6 +9,7 @@
   var imagenes = [];
   var novedades = [];
   var pagina = 0;
+  var paginaNovedades = 0;
   var POR_PAGINA = 24;
 
   function aviso(id, texto, tipo) {
@@ -531,24 +532,50 @@
     });
     if (!visibles.length) {
       lista.textContent = 'No hay novedades que coincidan con la búsqueda.';
+      $('novedadesPaginaActual').textContent = '';
+      $('novedadesAnterior').disabled = true;
+      $('novedadesSiguiente').disabled = true;
       return;
     }
-    visibles.forEach(function (fila) {
+    var paginas = Math.max(1, Math.ceil(visibles.length / POR_PAGINA));
+    paginaNovedades = Math.min(paginaNovedades, paginas - 1);
+    var desde = paginaNovedades * POR_PAGINA;
+    visibles.slice(desde, desde + POR_PAGINA).forEach(function (fila) {
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'prensa-admin-item';
-      boton.dataset.anio = fila.anio || '—';
+
+      var anio = document.createElement('span');
+      anio.className = 'prensa-admin-item__anio';
+      anio.textContent = fila.anio || '—';
+      boton.appendChild(anio);
+
       var texto = document.createElement('span');
+      texto.className = 'prensa-admin-item__publicacion';
       var fuerte = document.createElement('strong');
       fuerte.textContent = fila.detalle || fila.titulo;
       var chico = document.createElement('small');
-      chico.textContent = fila.rubro + (fila.publicada ? '' : ' · Borrador');
+      chico.textContent = fila.titulo || '';
       texto.appendChild(fuerte);
       texto.appendChild(chico);
       boton.appendChild(texto);
+
+      var rubro = document.createElement('span');
+      rubro.className = 'prensa-admin-item__dato';
+      rubro.dataset.rotulo = 'Rubro';
+      rubro.textContent = fila.rubro || '—';
+      boton.appendChild(rubro);
+
+      var estado = document.createElement('span');
+      estado.className = 'chip ' + (fila.publicada ? 'chip--vive' : 'chip--borrador');
+      estado.textContent = fila.publicada ? 'Publicada' : 'Borrador';
+      boton.appendChild(estado);
       boton.addEventListener('click', function () { editarNovedad(fila); });
       lista.appendChild(boton);
     });
+    $('novedadesPaginaActual').textContent = 'Página ' + (paginaNovedades + 1) + ' de ' + paginas;
+    $('novedadesAnterior').disabled = paginaNovedades === 0;
+    $('novedadesSiguiente').disabled = paginaNovedades >= paginas - 1;
   }
 
   function nuevaNovedad() {
@@ -649,7 +676,18 @@
     $('abrirPublicaciones').addEventListener('click', function () { cambiarTab(false); });
     $('abrirNovedades').addEventListener('click', function () { cambiarTab(true); });
     $('nuevaNovedad').addEventListener('click', nuevaNovedad);
-    $('buscarNovedades').addEventListener('input', pintarNovedades);
+    $('buscarNovedades').addEventListener('input', function () {
+      paginaNovedades = 0;
+      pintarNovedades();
+    });
+    $('novedadesAnterior').addEventListener('click', function () {
+      paginaNovedades--;
+      pintarNovedades();
+    });
+    $('novedadesSiguiente').addEventListener('click', function () {
+      paginaNovedades++;
+      pintarNovedades();
+    });
     $('formNovedad').addEventListener('submit', guardarNovedad);
     $('eliminarNovedad').addEventListener('click', eliminarNovedad);
     $('formPrensa').addEventListener('submit', guardar);

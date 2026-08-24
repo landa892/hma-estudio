@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="/admin/admin.css?v=2">
+  <link rel="stylesheet" href="/admin/admin.css?v=3">
 </head>
 <body class="panel panel--prensa">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -153,10 +153,21 @@
         <a class="enlace" href="/admin/obras">Publicar cambios desde Obras</a>
       </div>
       <p class="aviso" id="avisoNovedades" role="status" aria-live="polite"></p>
-      <div class="prensa-panel">
+      <div class="prensa-panel prensa-panel--publicaciones">
         <section class="ficha prensa-panel__lista" aria-labelledby="novedadesTitulo">
           <h2 class="ficha__titulo" id="novedadesTitulo">Conferencias y clases</h2>
-          <div id="listaNovedades" class="prensa-admin-lista prensa-admin-lista--texto"></div>
+          <div class="prensa-admin-cabecera prensa-admin-cabecera--novedades" aria-hidden="true">
+            <span>Año</span>
+            <span>Conferencia o clase</span>
+            <span>Rubro</span>
+            <span>Estado</span>
+          </div>
+          <div id="listaNovedades" class="prensa-admin-lista prensa-admin-lista--novedades"></div>
+          <nav class="prensa-paginacion" aria-label="Páginas de conferencias y clases">
+            <button type="button" class="boton boton--compacto boton--claro" id="novedadesAnterior">← Anteriores</button>
+            <span id="novedadesPaginaActual" class="conteo"></span>
+            <button type="button" class="boton boton--compacto boton--claro" id="novedadesSiguiente">Siguientes →</button>
+          </nav>
         </section>
         <form id="formNovedad" class="ficha prensa-panel__form oculto">
           <h2 class="ficha__titulo" id="formNovedadTitulo">Nueva novedad</h2>
@@ -206,6 +217,6 @@
 
   <script src="/admin/config.js"></script>
   <script src="/admin/api.js"></script>
-  <script src="/admin/prensa.js?v=2"></script>
+  <script src="/admin/prensa.js?v=3"></script>
 </body>
 </html>
