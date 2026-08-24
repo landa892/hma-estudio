@@ -753,6 +753,15 @@ textarea:focus-visible {
   color: var(--gris);
 }
 
+/* Mismo tratamiento que .texto__ayuda--alerta y .foto__datos--alerta: cuando
+   el texto de ayuda pasa de explicar a advertir, se pone en el rojo de error.
+   Lo usa la direccion web al detectar que se esta cambiando la de una obra ya
+   publicada. */
+.campo__ayuda--alerta {
+  color: var(--error);
+  font-weight: 600;
+}
+
 .editor-barra {
   display: flex;
   gap: 8px;

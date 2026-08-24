@@ -1,0 +1,12 @@
+{
+ "indusparquet": {
+  "ahora": "bosque",
+  "cuando": "2026-08-24",
+  "nota": "El estudio le cambio la direccion web desde el panel. La vieja quedo dando 404 y estaba indexada."
+ },
+ "cerveceria-austral": {
+  "ahora": "estancia-austral",
+  "cuando": "2026-08-24",
+  "nota": "Mismo caso que indusparquet, el mismo dia."
+ }
+}

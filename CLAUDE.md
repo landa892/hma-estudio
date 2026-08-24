@@ -353,6 +353,29 @@ python docs/en_gen.py   # tiene que decir "sin faltantes"
 
 ---
 
+### Renombrar una obra rompe su direccion
+
+El slug **no** se recalcula solo: `admin/obra.js` lo propone del titulo
+unicamente en obras nuevas. Asi que si una obra cambia de direccion es porque
+alguien la edito a mano.
+
+Y cuando pasa, la direccion vieja queda en 404: `panel_sitio.py` borra la
+pagina de la obra que la base ya no publica con ese slug. Paso el 24/08/2026
+con dos —`indusparquet` paso a `bosque` y `cerveceria-austral` a
+`estancia-austral`— y las dos direcciones viejas quedaron rotas, indexadas en
+Google.
+
+Ahora el panel avisa dos veces: en rojo mientras se escribe el campo, y con una
+confirmacion al guardar que nombra las dos direcciones. Pero el aviso no repone
+nada: **la redireccion hay que agregarla**.
+
+Se anota el renombre en `docs/slugs_renombrados.json` y de ahi salen los
+`redirects` de `vercel.json`, en 301 y en los dos idiomas. El 301 y no un
+rewrite: la obra se mudo de verdad, y es lo que le dice a Google que pase el
+posicionamiento de la vieja a la nueva en vez de tratarlas como dos paginas.
+
+---
+
 ## Nombres y decisiones ya tomadas
 
 - Son **tres Ualá** distintos: **Ualá Gigena** (proyecto, 2022), **Ualá

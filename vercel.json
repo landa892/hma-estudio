@@ -1,6 +1,48 @@
 {
   "outputDirectory": ".",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/proyectos/cerveceria-austral/",
+      "destination": "/proyectos/estancia-austral/",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/cerveceria-austral",
+      "destination": "/proyectos/estancia-austral/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects/cerveceria-austral/",
+      "destination": "/en/projects/estancia-austral/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects/cerveceria-austral",
+      "destination": "/en/projects/estancia-austral/",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/indusparquet/",
+      "destination": "/proyectos/bosque/",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/indusparquet",
+      "destination": "/proyectos/bosque/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects/indusparquet/",
+      "destination": "/en/projects/bosque/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects/indusparquet",
+      "destination": "/en/projects/bosque/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/proyecto/:slug/",

@@ -284,6 +284,52 @@
 
   /* --- guardar ---------------------------------------------------------- */
 
+  /* Cambiar la direccion web de una obra ya publicada rompe la direccion
+     vieja: queda dando 404 para cualquiera que la tenga guardada o compartida,
+     y para Google, que la tiene indexada. El aviso de ayuda que ya estaba lo
+     decia, pero es texto pasivo y no alcanzo: el 24/08/2026 se renombraron dos
+     obras -indusparquet paso a bosque y cerveceria-austral a estancia-austral-
+     y las dos direcciones viejas quedaron rotas sin que nadie se enterara.
+
+     Ahora hay que confirmarlo, y el mensaje dice que hace falta pedir la
+     redireccion: sin ella el enlace viejo no vuelve solo. */
+  /* El mismo aviso, pero mientras escribe: que se vea antes de llegar al boton
+     de guardar y no como una sorpresa al final. */
+  function avisarSiCambiaLaDireccion() {
+    var ayuda = $('ayudaSlug');
+    if (!ayuda || esNueva || !original) return;
+    var antes = (original.slug || '').trim();
+    var ahora = $('slug').value.trim();
+    if (!antes || antes === ahora) {
+      ayuda.classList.remove('campo__ayuda--alerta');
+      ayuda.textContent = 'No la cambies salvo que sea imprescindible: rompe los enlaces '
+        + 'compartidos y la dirección que conoce Google. Sólo admite minúsculas, '
+        + 'números y guiones.';
+      return;
+    }
+    ayuda.classList.add('campo__ayuda--alerta');
+    ayuda.textContent = 'Ojo: /proyectos/' + antes + '/ va a quedar en error 404. '
+      + 'Si la cambiás, avisale a Ignacio para que agregue la redirección a '
+      + '/proyectos/' + (ahora || '…') + '/.';
+  }
+
+  function confirmarCambioDeSlug(o) {
+    if (esNueva || !original) return true;
+    var antes = (original.slug || '').trim();
+    var ahora = (o.slug || '').trim();
+    if (!antes || antes === ahora) return true;
+    return window.confirm(
+      'Vas a cambiar la dirección web de esta obra.\n\n'
+      + 'Antes:  estudiohma.com/proyectos/' + antes + '/\n'
+      + 'Ahora:  estudiohma.com/proyectos/' + ahora + '/\n\n'
+      + 'La dirección vieja va a dejar de funcionar: queda en error 404 para '
+      + 'quien la tenga guardada o compartida, y para Google, que la tiene '
+      + 'indexada.\n\n'
+      + 'Si igual la querés cambiar, avisale a Ignacio para que agregue la '
+      + 'redirección de la vieja a la nueva.\n\n'
+      + '¿Seguimos?');
+  }
+
   function guardar(ev) {
     ev.preventDefault();
     if (guardando) return;
@@ -292,6 +338,10 @@
     var error = validar(o);
     if (error) {
       avisar(error, 'error');
+      return;
+    }
+    if (!confirmarCambioDeSlug(o)) {
+      avisar('No se guardó nada. La dirección web quedó como estaba.', 'ok');
       return;
     }
 
@@ -372,6 +422,7 @@
     });
     $('slug').addEventListener('input', function () {
       slugTocado = true;
+      avisarSiCambiaLaDireccion();
       actualizarEnlacePublico();
     });
     $('bajada').addEventListener('input', contarBajada);
