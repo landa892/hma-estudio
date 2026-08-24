@@ -40,7 +40,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="stylesheet" href="/styles/main.css?v=98">
+  <link rel="stylesheet" href="/styles/main.css?v=99">
   <link rel="preload" as="image" href="/assets/video/estudio-hero-poster.webp" fetchpriority="high">
 
   <!-- SEO-JSON-LD:START -->
@@ -151,6 +151,12 @@
     <button data-target="section-1" aria-label="Ir a Instagram"><span class="dot-label">Instagram</span></button>
     <button data-target="section-3" aria-label="Ir a LinkedIn"><span class="dot-label">LinkedIn</span></button>
     <button data-target="section-5" aria-label="Ir a YouTube"><span class="dot-label">YouTube</span></button>
+    <!-- El Word del 21/08 pide que aca esten "TODOS los items, es decir falta
+      Instagram y todo lo que esta en INICIO, es un indice de INICIO". Instagram
+      ya se agrego; faltaban las dos secciones del final, que son las unicas del
+      Inicio que no tenian punto: las asociaciones y la fila de cifras. -->
+    <button data-target="asociaciones" aria-label="Ir a miembros de"><span class="dot-label">Miembros</span></button>
+    <button data-target="section-cifras" aria-label="Ir a las cifras del estudio"><span class="dot-label">Cifras</span></button>
     <button data-target="section-contacto" aria-label="Ir a contacto"><span class="dot-label">Hablemos</span></button>
   </nav>
 
@@ -314,7 +320,7 @@
     </section>
 
 
-    <section class="section pt-0">
+    <section class="section pt-0" id="section-cifras">
       <div class="stat-row reveal">
         <div class="stat-cell">
           <div class="stat-num" data-founded-year="2006" data-suffix="+">20+</div>

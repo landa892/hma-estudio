@@ -249,6 +249,13 @@ def main(verificar, supabase):
     # cliente tacho en rojo todas menos cuatro: "En este punteo que solo quede:
     # INICIO / LINKEDIN / NOVEDADES / HABLEMOS". Como las ranuras de banner
     # -section-2, 4 y 6- salieron de esa lista, aca no hay nada que rotular.
+    #
+    # El 21/08/2026 dio marcha atras con lo de las cuatro: "En estos cuadrados
+    # deben aparecer TODOS los items, es decir falta Instagram y todo lo que
+    # esta en INICIO, es un indice de INICIO". La lista vive entera en el
+    # index.html del repositorio y este paso no la toca, pero si algun dia
+    # vuelven los banners de obra hay que acordarse de que ahora la regla es la
+    # contraria: cada seccion del Inicio lleva su punto.
 
     if avisos:
         print('\navisos de foto:')

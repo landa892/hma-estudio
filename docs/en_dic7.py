@@ -102,6 +102,11 @@ DIC.update({
     'Ver publicación ↗': 'View post ↗',
     'Concursos': 'Competitions',
     'Ir a LinkedIn': 'Go to LinkedIn',
+    # Sin estas dos, en_gen no avisa nada -el aria-label no es texto visible- y
+    # el punteo ingles quedaba con "Go to miembros de" y "Go to las cifras del
+    # estudio", medio traducido, que es justo lo que lee un lector de pantalla.
+    u'Ir a miembros de': 'Go to members',
+    u'Ir a las cifras del estudio': "Go to the studio's figures",
     'Proyectos construidos en': 'Projects built in',
     'países, con una práctica local y alcance internacional.':
         'countries, combining local practice with international reach.',
@@ -292,6 +297,12 @@ DIC.update({
         'Leonardo Militello and Fernando Hitzig look back on two decades of work and the creative process behind the Movistar Arena VIP hospitality space.',
     u'Leonardo Militello y Fernando Hitzig cuentan cómo diseñan espacios que generan experiencia.':
         'Leonardo Militello and Fernando Hitzig explain how they design experience-led spaces.',
+    # Los dos puntos que faltaban en el indice lateral del Inicio. "Miembros"
+    # rotula la seccion "Miembros de" -las asociaciones- y "Cifras" la fila de
+    # numeros; van cortos porque en el punteo son una etiqueta al lado de un
+    # cuadradito, no un titulo.
+    u'Miembros': 'Members',
+    u'Cifras': 'Figures',
     u'Conferencias y prensa': 'Conferences and press',
     u'Conferencias y clases': 'Conferences and classes',
     u'Novedades': 'News',

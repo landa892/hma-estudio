@@ -894,8 +894,19 @@ footer.site-footer {
   font-size: 1rem;
 }
 
+/* El tope en pixeles no es un capricho: con 82vh a secas el vacio crecia con
+   la pantalla y el contenido no. La foto se calcula sobre el ancho de la
+   columna (92% de 760 como maximo, 16/9), asi que en 1920x1080 el bloque
+   media mide 566 px dentro de una seccion de 886 y quedan 160 px de blanco
+   arriba y otros 160 abajo, mas los 72 del padding. Eso es lo que el Word del
+   21/08 marca en rosa contra la mitad en verde -"los vacios tienen que ser
+   proporcionales, que no sean muy grandes"-. Con min(82vh, 520px) la seccion
+   deja de estirarse: en 1920x1080 el aire baja de 232 px a los 72 del padding
+   y en 1280x720 de 165 a 129. El min() -y no 520px pelado- es para las
+   pantallas bajas: en una de 600 px de alto, 82vh son 492 y un piso de 520
+   agregaria el vacio que estamos sacando. */
 .project-banner--split {
-  min-height: 82vh;
+  min-height: min(82vh, 520px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
@@ -906,7 +917,7 @@ footer.site-footer {
 
 .project-banner--split__media,
 .project-banner--split__copy {
-  min-height: 82vh;
+  min-height: min(82vh, 520px);
   display: flex;
   align-items: center;
 }
@@ -971,7 +982,7 @@ footer.site-footer {
 
 .project-banner--youtube__media {
   position: relative;
-  min-height: 82vh;
+  min-height: min(82vh, 520px);
   justify-content: center;
   padding: clamp(28px, 5vw, 72px);
   overflow: visible;
@@ -1010,7 +1021,7 @@ footer.site-footer {
 }
 
 .project-banner--linkedin__media {
-  min-height: 82vh;
+  min-height: min(82vh, 520px);
   overflow: hidden;
   background: #f2f2f2;
 }
@@ -1109,15 +1120,21 @@ footer.site-footer {
   }
 }
 
+/* Medido en 1280x720: la frase da 126 px y el boton 52, y el bloque entero
+   daba 430. O sea que de cada tres pixeles del interludio dos eran aire. El
+   Word del 21/08 lo marca dos veces -sobre "Mas de 200+ proyectos" y sobre
+   "Desde el 2006"- con el corchete verde en la mitad del rosa, arriba, entre
+   la frase y la flecha, y abajo. Por eso van los tres a la mitad y no solo el
+   padding: el hueco que el estudio marco entre el texto y el boton es el gap. */
 .banner-interlude {
-  padding: 82px 32px;
+  padding: 44px 32px;
   max-width: 680px;
   margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 18px;
 }
 
 .banner-interlude p {
@@ -1155,8 +1172,8 @@ footer.site-footer {
 
 @media (max-width: 640px) {
   .banner-interlude {
-    padding: 88px 20px;
-    gap: 24px;
+    padding: 48px 20px;
+    gap: 16px;
   }
 }
 
