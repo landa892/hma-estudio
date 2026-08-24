@@ -755,21 +755,21 @@ footer.site-footer {
 /* Logo, titular y bajada comparten eje. El titular queda en una sola linea,
    como marco el estudio, sin competir con la marca. */
 .hero-home--photo h1 {
-  width: min(96%, 780px);
+  width: min(92%, 760px);
   max-width: none;
   /* 3rem dejaba el ultimo glifo apenas fuera de la caja: como el escenario
      recorta el video, la S de "ideas" parecia mordida. */
   font-size: 2.9rem;
   white-space: nowrap;
   box-sizing: border-box;
-  padding-inline: 1.85%;
+  padding-inline: 3.7% 0;
 }
 
 .hero-home--photo .lede {
   width: min(92%, 760px);
   max-width: 760px;
   box-sizing: border-box;
-  padding-inline: 1.85%;
+  padding-inline: 3.7% 0;
 }
 
 /* Sin capa oscura: el texto resalta con sombra propia, igual que mvrdv.com

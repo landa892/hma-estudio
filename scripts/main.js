@@ -914,12 +914,11 @@ try {
 
   if (memoria && galeriaEditorial) {
     const parrafos = Array.from(memoria.children).filter(el => el.matches('p'));
-    /* Las tres filas editoriales son apenas la introduccion de la ficha. La
-       fuente completa es la Galeria: Hyatt Ziva tenia 15 fotos publicadas,
-       pero aca solo llegaban esas tres y toda la memoria quedaba como dos
-       columnas interminables. Los planos no participan de esta alternancia. */
+    /* La memoria lleva como maximo cinco fotos, igual que las demas fichas:
+       alcanza para cortar un texto largo sin duplicar dentro de la memoria
+       toda la galeria que el visitante encuentra inmediatamente despues. */
     const fotosGaleria = Array.from(document.querySelectorAll(
-      '#galeria .gallery-grid__item:not(.gallery-grid__item--plano)'));
+      '#galeria .gallery-grid__item:not(.gallery-grid__item--plano)')).slice(0, 5);
     const fotos = fotosGaleria.length
       ? fotosGaleria
       : Array.from(galeriaEditorial.querySelectorAll('.project-row__photo'));
@@ -1003,15 +1002,6 @@ try {
         fila.append(texto, foto);
         fragmento.appendChild(fila);
       }
-      fotos.slice(cantidad).forEach((origen) => {
-        const fila = document.createElement('div');
-        fila.className = 'memoria-editorial-row memoria-editorial-row--solo-foto';
-        const foto = origen.cloneNode(true);
-        foto.className = 'memoria-editorial-row__photo';
-        foto.removeAttribute('style');
-        fila.appendChild(foto);
-        fragmento.appendChild(fila);
-      });
       memoria.replaceChildren(fragmento);
       memoria.classList.add('memoria-cuerpo--intercalada');
       memoria.classList.remove('reveal');
