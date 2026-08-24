@@ -17,6 +17,13 @@ docs/*.md
 docs/memorias_drive/
 docs/__pycache__/
 
+# El rescate del WordPress viejo: 369 imagenes, 24 MB. Ya queda afuera porque
+# panel_build borra docs/ al final, pero sin esta linea igual viajarian a
+# Vercel en cada deploy para terminar borradas. Son material de archivo, no del
+# sitio: cuando una se le asigne a una nota, la copia que se publica va a
+# assets/prensa/<slug>/ como todas las demas.
+docs/rescate_prensa/
+
 node_modules/
 package.json
 package-lock.json

@@ -1,0 +1,59 @@
+RESCATE DEL WORDPRESS VIEJO — 369 imagenes
+==========================================
+Bajadas el 23/08/2026 de web.archive.org.
+
+QUE ES
+------
+Las imagenes de las publicaciones de prensa que vivian en el WordPress
+anterior del estudio. Se daban por perdidas, y con razon: el export apunta a
+1426 archivos y hoy no responde ninguno de los tres lugares donde estuvieron.
+
+    estudiohma.com/wp-content/uploads/   403 (el dominio sirve el sitio nuevo)
+    staging.estudiohma.com/              404 (quedo otro WordPress)
+    c1480925.ferozo.com/                 el hosting original ya ni resuelve
+
+El archivo web tenia 727 guardadas. Sacando las miniaturas que WordPress
+genera solo -las "-300x219" y compania, que son la misma imagen mas chica-
+quedan 369 originales. Estan todas aca, convertidas a WebP con el mismo tope
+que usa el resto del sitio (1600 px de lado mayor, calidad 82): 112 MB de
+JPEG pasan a 24 MB.
+
+POR QUE ACA Y NO EN assets/
+---------------------------
+Porque todavia no se sabe a que nota pertenece cada una. Los nombres del
+WordPress no lo dicen y el cruce automatico no es confiable: emparejando por
+titulo dio 142 candidatos para una sola nota. Cuando el estudio confirme cual
+va en cual, la que se publique se copia a assets/prensa/<slug>/ como todas las
+demas y esta carpeta queda como respaldo.
+
+Va en docs/ y ademas en .vercelignore: panel_build borra docs/ en el servidor
+como ultimo paso, asi que igual no se publicaria, pero sin la linea del
+.vercelignore los 24 MB viajarian a Vercel en cada deploy para terminar
+borrados.
+
+indice.json
+-----------
+Una entrada por imagen, con de donde salio cada una:
+
+    archivo         ruta dentro de esta carpeta
+    original        nombre que tenia en el WordPress
+    origen          la URL que el export apuntaba
+    captura         timestamp de la copia del archivo web
+    ancho_original  medidas del JPEG antes de achicarlo
+    alto_original
+
+Para volver a bajar el original de cualquiera, con su fila del indice:
+
+    http://web.archive.org/web/<captura>id_/<origen>
+
+El sufijo id_ es lo que devuelve el archivo tal cual estaba, sin la barra de
+navegacion que el archivo web le agrega a las paginas.
+
+DOS AVISOS
+----------
+Dos originales que solo se diferenciaban por la extension -Interior-Desing.jpg
+e Interior-Desing.png- caian en el mismo .webp y el segundo pisaba al primero.
+El que llega segundo lleva la extension vieja pegada al nombre.
+
+Y esta es la unica copia que queda. Si el archivo web las pierde, no hay de
+donde sacarlas de nuevo.
