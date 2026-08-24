@@ -667,20 +667,22 @@ try {
   const tabs = document.querySelectorAll('#pressTabs .press-tab');
   const yearBtns = document.querySelectorAll('#pressYears .filter-btn');
   const count = document.getElementById('pressCount');
-  const loadMore = document.getElementById('pressLoadMore');
+  const previous = document.getElementById('pressAnterior');
+  const next = document.getElementById('pressSiguiente');
+  const status = document.getElementById('pressPagina');
 
   /* Sin tabs tambien tiene que andar. Desde que las publicaciones pasaron a
      tarjetas -Word del 21/08/2026- la lista quedo con clases y conferencias
      solas y las solapas Todos/Prensa/News dejaron de tener sentido. Cuando se
      sacaron, este bloque pedia tabs.length y se apagaba entero: la lista se
-     quedaba sin filtro por año, sin buscador, sin contador y sin "Seguir
-     viendo". */
+     quedaba sin filtro por año, sin buscador, sin contador y sin paginacion. */
   if (feed && yearBtns.length) {
     const rows = Array.from(feed.querySelectorAll('.press-row'));
     let grupo = 'all';
     let anio = 'all';
     let texto = '';
-    let limite = loadMore ? 12 : Number.POSITIVE_INFINITY;
+    let pagina = 0;
+    const POR_PAGINA = 6;
 
     const plano = t => (t || '')
       .toLowerCase()
@@ -694,15 +696,19 @@ try {
       return r.dataset.buscable;
     };
 
+    /* Igual que Publicaciones: cada pagina reemplaza las seis filas anteriores
+       en vez de acumularlas hacia abajo. El filtro y la busqueda vuelven a la
+       primera pagina, para no quedar parados en una pagina que ya no existe. */
     function aplicar() {
-      let coincidencias = 0;
-      rows.forEach(r => {
-        const ok = (grupo === 'all' || r.dataset.group === grupo) &&
+      const coincidencias = rows.filter(r =>
+        (grupo === 'all' || r.dataset.group === grupo) &&
           (anio === 'all' || r.dataset.year === anio) &&
-          (texto === '' || textoDe(r).includes(texto));
-        if (ok) coincidencias++;
-        r.hidden = !ok || coincidencias > limite;
-      });
+          (texto === '' || textoDe(r).includes(texto)));
+      const paginas = Math.max(1, Math.ceil(coincidencias.length / POR_PAGINA));
+      pagina = Math.min(pagina, paginas - 1);
+      const desde = pagina * POR_PAGINA;
+      const visibles = new Set(coincidencias.slice(desde, desde + POR_PAGINA));
+      rows.forEach(r => { r.hidden = !visibles.has(r); });
 
       // los años sin resultados dentro del grupo elegido se desactivan
       yearBtns.forEach(b => {
@@ -725,9 +731,17 @@ try {
         const singular = ingles
           ? (grupo === 'news' ? 'news item' : (grupo === 'prensa' ? 'publication' : 'entry'))
           : que.replace(/s$/, '');
-        count.textContent = coincidencias === 1 ? `1 ${singular}` : `${coincidencias} ${que}`;
+        count.textContent = coincidencias.length === 1 ? `1 ${singular}` : `${coincidencias.length} ${que}`;
       }
-      if (loadMore) loadMore.hidden = coincidencias <= limite;
+      if (previous) previous.disabled = pagina === 0;
+      if (next) next.disabled = pagina >= paginas - 1 || coincidencias.length === 0;
+      if (status) {
+        const ingles = document.documentElement.lang === 'en';
+        status.textContent = ingles
+          ? `Page ${pagina + 1} of ${paginas}`
+          : `Pagina ${pagina + 1} de ${paginas}`;
+      }
+      if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
     }
 
     const buscador = document.getElementById('buscadorPrensa');
@@ -742,17 +756,14 @@ try {
       const cerrar = () => {
         buscador.classList.remove('is-open');
         lupa.setAttribute('aria-expanded', 'false');
-        if (campo.value) { campo.value = ''; texto = ''; limite = 12; aplicar(); }
+        if (campo.value) { campo.value = ''; texto = ''; pagina = 0; aplicar(); }
       };
       lupa.addEventListener('click', () => {
         if (buscador.classList.contains('is-open')) cerrar(); else abrir();
       });
       campo.addEventListener('input', () => {
         texto = plano(campo.value.trim());
-        /* Buscando se muestran todas las coincidencias, sin el tope de doce:
-           el boton de "ver mas" tiene sentido para recorrer el archivo entero,
-           no para una busqueda que ya devuelve poco. */
-        limite = texto ? Number.POSITIVE_INFINITY : 12;
+        pagina = 0;
         aplicar();
       });
       campo.addEventListener('keydown', e => {
@@ -767,7 +778,7 @@ try {
       tabs.forEach(x => x.classList.remove('active'));
       tab.classList.add('active');
       grupo = tab.dataset.group;
-      limite = 12;
+      pagina = 0;
       // si el año elegido no existe en el grupo nuevo, se vuelve a todos
       const sigue = rows.some(r => r.dataset.year === anio && (grupo === 'all' || r.dataset.group === grupo));
       if (anio !== 'all' && !sigue) {
@@ -782,12 +793,16 @@ try {
       yearBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       anio = btn.dataset.year;
-      limite = 12;
+      pagina = 0;
       aplicar();
     }));
 
-    if (loadMore) loadMore.addEventListener('click', () => {
-      limite += 12;
+    if (previous) previous.addEventListener('click', () => {
+      pagina = Math.max(0, pagina - 1);
+      aplicar();
+    });
+    if (next) next.addEventListener('click', () => {
+      pagina++;
       aplicar();
     });
 

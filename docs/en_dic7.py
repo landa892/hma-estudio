@@ -51,6 +51,7 @@ DIC.update({
     "ARQ-FADEA": "ARQ-FADEA",
     "← Anteriores": "← Previous",
     "Siguientes →": "Next →",
+    "Páginas de conferencias y clases": "Conference and class pages",
     "Paginas de publicaciones": "Publication pages",
     "Profesor en Taller de Arquitectura Interior Experiencial en Haus.":
         "Professor in the Experiential Interior Architecture Workshop at Haus.",

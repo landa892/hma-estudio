@@ -136,7 +136,11 @@ def bloque_portada(novedades):
 %s
         </div>
 
-        <button type="button" class="btn link-arrow press-load-more" id="pressLoadMore">Seguir viendo</button>
+        <nav class="press-pagination" aria-label="Páginas de conferencias y clases">
+          <button type="button" class="btn link-arrow press-archive-link" id="pressAnterior">← Anteriores</button>
+          <span class="press-pagination__status" id="pressPagina" aria-live="polite"></span>
+          <button type="button" class="btn link-arrow press-archive-link" id="pressSiguiente">Siguientes →</button>
+        </nav>
       </div>
     </section>
     %s''' % (MARCA_INICIO, buscador(), barra_de_anios(anios), filas, MARCA_FIN)

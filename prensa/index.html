@@ -2178,7 +2178,11 @@
           <div class="press-row" data-group="news" data-year="2002"><div class="pr-date">Novedad</div><div class="pr-text"><b>Graduado en Arquitectura Fernando Hitzig. FADU, University of Buenos Aires. Buenos Aires, Argentina.</b></div><div class="pr-outlet">2002</div></div>
         </div>
 
-        <button type="button" class="btn link-arrow press-load-more" id="pressLoadMore">Seguir viendo</button>
+        <nav class="press-pagination" aria-label="Páginas de conferencias y clases">
+          <button type="button" class="btn link-arrow press-archive-link" id="pressAnterior">← Anteriores</button>
+          <span class="press-pagination__status" id="pressPagina" aria-live="polite"></span>
+          <button type="button" class="btn link-arrow press-archive-link" id="pressSiguiente">Siguientes →</button>
+        </nav>
       </div>
     </section>
     <!-- PRENSA-ARCHIVO-FIN -->
@@ -2360,7 +2364,7 @@
   <script src="/scripts/animations/textReveal.js?v=85"></script>
   <script src="/scripts/animations/heroAnimation.js?v=87"></script>
   <script src="/scripts/animations/scrollEffects.js?v=86"></script>
-  <script src="/scripts/main.js?v=99"></script>
+  <script src="/scripts/main.js?v=101"></script>
 </body>
 
 </html>
