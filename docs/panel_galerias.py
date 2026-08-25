@@ -463,11 +463,44 @@ def actualizar_pagina(slug, titulo, fotos, cuerpo, planos, cantidad=None):
         return False
     html = io.open(ruta, encoding='utf-8').read()
     portada = next((f for f in fotos if f['portada']), fotos[0])
-    nuevo = re.sub(r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n',
-                   lambda m: bloque_filas(m.group(0), titulo, fotos, cuerpo, cantidad), html, count=1)
-    nuevo = re.sub(r'(?s)\n    <section class="section no-border" id="galeria">.*?\n    </section>\n',
+    patron_filas = r'(?s)\n    <section class="project-gallery">.*?\n    </section>\n'
+    patron_grilla = (r'(?s)\n    <section class="section no-border" '
+                     r'id="galeria">.*?\n    </section>\n')
+    tiene_filas = bool(re.search(patron_filas, html))
+    tiene_grilla = bool(re.search(patron_grilla, html))
+    nuevo = re.sub(patron_filas,
+                   lambda m: bloque_filas(m.group(0), titulo, fotos, cuerpo, cantidad),
+                   html, count=1)
+    nuevo = re.sub(patron_grilla,
                    lambda _: bloque_grilla(titulo, fotos, figuras_planos(titulo, planos)),
                    nuevo, count=1)
+
+    # Una obra renombrada puede ser creada de nuevo por panel_alta sin fotos:
+    # en ese caso no hay bloques que reemplazar. Se insertan antes de "Mas
+    # proyectos", que es el mismo lugar que ocupan en todas las fichas. Esto
+    # cubre tambien cualquier obra nueva cuya primera carga venga del alias o
+    # de Storage despues de haberse creado la pagina.
+    def antes_de_relacionados(contenido):
+        relacionados = contenido.find('class="related-projects')
+        if relacionados >= 0:
+            seccion = contenido.rfind('\n    <section', 0, relacionados)
+            if seccion >= 0:
+                return seccion
+        cierre = contenido.find('\n  </main>')
+        return cierre if cierre >= 0 else len(contenido)
+
+    if not tiene_filas:
+        grilla = re.search(r'\n    <section class="section no-border" id="galeria">',
+                           nuevo)
+        posicion = grilla.start() if grilla else antes_de_relacionados(nuevo)
+        nuevo = (nuevo[:posicion] +
+                 bloque_filas('', titulo, fotos, cuerpo, cantidad) +
+                 nuevo[posicion:])
+    if not tiene_grilla:
+        posicion = antes_de_relacionados(nuevo)
+        nuevo = (nuevo[:posicion] +
+                 bloque_grilla(titulo, fotos, figuras_planos(titulo, planos)) +
+                 nuevo[posicion:])
     nuevo = re.sub(r'(<meta property="og:image" content=")[^"]+',
                    r'\g<1>%s%s' % (SITIO, portada['src']), nuevo, count=1)
     if nuevo != html:
