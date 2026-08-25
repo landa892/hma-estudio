@@ -339,17 +339,29 @@ def resolver_imagen(slug, foto, url, clave=None, aliases=()):
         # siguiente vuelve a partir del repositorio y la pierde. Si una version
         # anterior ya hizo eso, se recupera el archivo desde cualquiera de los
         # aliases historicos y se vuelve a guardar esa ruta estable.
-        if not os.path.isfile(ruta_local(publica)):
-            partes = publica.strip('/').split('/')
-            candidatos = []
-            if len(partes) >= 3 and partes[0] == 'assets':
-                carpeta = partes[1]
-                for alias in aliases:
-                    if carpeta == 'covers':
-                        candidatos.append('/assets/covers/%s.webp' % alias)
-                    elif carpeta in ('gallery', 'planos'):
-                        candidatos.append('/assets/%s/%s/%s' % (
-                            carpeta, alias, os.path.basename(publica)))
+        partes = publica.strip('/').split('/')
+        candidatos = []
+        apunta_al_slug_actual = False
+        if len(partes) >= 3 and partes[0] == 'assets':
+            carpeta = partes[1]
+            apunta_al_slug_actual = (
+                (carpeta == 'covers' and
+                 os.path.splitext(partes[2])[0] == slug)
+                or (carpeta in ('gallery', 'planos') and partes[2] == slug))
+            for alias in aliases:
+                if carpeta == 'covers':
+                    candidatos.append('/assets/covers/%s.webp' % alias)
+                elif carpeta in ('gallery', 'planos'):
+                    candidatos.append('/assets/%s/%s/%s' % (
+                        carpeta, alias, os.path.basename(publica)))
+
+        # El cache de build de Vercel puede conservar una copia creada en un
+        # deploy anterior bajo el slug nuevo. Que exista ahi no significa que
+        # forme parte del repositorio: en un deploy limpio vuelve a faltar. Si
+        # la fila apunta al nombre actual y el mismo archivo existe bajo un
+        # alias, el alias es la fuente estable y se prefiere siempre.
+        buscar_alias = apunta_al_slug_actual or not os.path.isfile(ruta_local(publica))
+        if buscar_alias:
             recuperada = next((p for p in candidatos
                                if os.path.isfile(ruta_local(p))), None)
             if recuperada:
