@@ -329,47 +329,37 @@ def sincronizar_semillas(obras, por_slug, existentes, url, clave, catalogo_plano
     return bool(actualizadas)
 
 
-def resolver_imagen(slug, foto, url, clave=None):
+def resolver_imagen(slug, foto, url, clave=None, aliases=()):
     ruta = foto['storage_path']
     if ruta.startswith('@seed:') or ruta.startswith('@site:'):
         publica = ruta.split(':', 1)[1]
-        # La ruta guardada pertenece a la imagen, no al nombre actual de la
-        # obra. Al cambiar cerveceria-austral por estancia-austral, la base
-        # siguio apuntando correctamente al archivo anterior; panel_sitio lo
-        # quitaba por ser un slug viejo y la ficha nueva quedaba rota. Se copia
-        # al slug vigente durante el build y desde ese momento toda pagina
-        # publicada usa la ruta nueva. Esto cubre portada, galeria y planos sin
-        # pedirle al estudio que vuelva a subir nada.
-        partes = publica.strip('/').split('/')
-        if len(partes) >= 3 and partes[0] == 'assets':
-            carpeta = partes[1]
-            slug_guardado = partes[2] if carpeta in ('gallery', 'planos') else ''
-            if carpeta == 'covers':
-                slug_guardado = os.path.splitext(partes[2])[0]
-                destino_publico = '/assets/covers/%s.webp' % slug
-            elif carpeta in ('gallery', 'planos') and slug_guardado != slug:
-                destino_publico = '/assets/%s/%s/%s' % (
-                    carpeta, slug, os.path.basename(publica))
-            else:
-                destino_publico = publica
-            if slug_guardado and slug_guardado != slug:
-                origen = ruta_local(publica)
-                destino = ruta_local(destino_publico)
-                if os.path.isfile(origen):
-                    os.makedirs(os.path.dirname(destino), exist_ok=True)
-                    shutil.copy2(origen, destino)
-                # El build anterior puede haber trasladado ya el archivo y
-                # eliminado la carpeta vieja. Usar el destino existente evita
-                # que un segundo renombre dependa de una ruta que ya no vive.
-                if os.path.isfile(destino):
-                    publica = destino_publico
-                    prefijo = ruta.split(':', 1)[0] + ':'
-                    ruta_vigente = prefijo + destino_publico
-                    if clave and foto.get('id') and ruta_vigente != ruta:
-                        pedir(url, clave,
-                              '/rest/v1/obra_imagenes?id=eq.%s' % foto['id'],
-                              'PATCH', {'storage_path': ruta_vigente})
-                        foto['storage_path'] = ruta_vigente
+        # La ruta de una imagen es estable y no debe seguir el nombre de la
+        # obra. Copiarla al slug nuevo dentro del build y guardar esa ruta en
+        # la base parecia funcionar, pero la copia vive solo en ese deploy: el
+        # siguiente vuelve a partir del repositorio y la pierde. Si una version
+        # anterior ya hizo eso, se recupera el archivo desde cualquiera de los
+        # aliases historicos y se vuelve a guardar esa ruta estable.
+        if not os.path.isfile(ruta_local(publica)):
+            partes = publica.strip('/').split('/')
+            candidatos = []
+            if len(partes) >= 3 and partes[0] == 'assets':
+                carpeta = partes[1]
+                for alias in aliases:
+                    if carpeta == 'covers':
+                        candidatos.append('/assets/covers/%s.webp' % alias)
+                    elif carpeta in ('gallery', 'planos'):
+                        candidatos.append('/assets/%s/%s/%s' % (
+                            carpeta, alias, os.path.basename(publica)))
+            recuperada = next((p for p in candidatos
+                               if os.path.isfile(ruta_local(p))), None)
+            if recuperada:
+                publica = recuperada
+                ruta_estable = ruta.split(':', 1)[0] + ':' + recuperada
+                if clave and foto.get('id') and ruta_estable != ruta:
+                    pedir(url, clave,
+                          '/rest/v1/obra_imagenes?id=eq.%s' % foto['id'],
+                          'PATCH', {'storage_path': ruta_estable})
+                    foto['storage_path'] = ruta_estable
     else:
         carpeta_nombre = 'planos' if foto.get('tipo') == 'plano' else 'gallery'
         carpeta = os.path.join(RAIZ, 'assets', carpeta_nombre, slug)
@@ -661,6 +651,15 @@ def main():
         print('migracion 0018 pendiente: se conservan las fotos del cuerpo actuales')
     obras = pedir(url, clave, '/rest/v1/obras?select=' + campos_obra)
     por_slug = {o['slug']: o for o in obras}
+    try:
+        filas_alias = pedir(url, clave, '/rest/v1/obra_aliases?select=obra_id,slug')
+    except urllib.error.HTTPError as error:
+        if error.code not in (400, 404):
+            raise
+        filas_alias = []
+    aliases_por_obra = {}
+    for alias in filas_alias:
+        aliases_por_obra.setdefault(alias['obra_id'], []).append(alias['slug'])
     imagenes = pedir(url, clave, '/rest/v1/obra_imagenes?select=*&order=orden.asc')
     sembradas = sembrar(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
     sincronizadas = sincronizar_semillas(catalogo, por_slug, imagenes, url, clave, catalogo_planos)
@@ -771,9 +770,10 @@ def main():
                      if f['es_portada']
                      or os.path.basename(f['storage_path']) not in sobran]
 
-        fotos_resueltas = [resolver_imagen(obra['slug'], f, url, clave) for f in filas_fotos]
-        cuerpo_resuelto = [resolver_imagen(obra['slug'], f, url, clave) for f in filas_cuerpo]
-        planos_resueltos = [resolver_imagen(obra['slug'], f, url, clave) for f in filas_planos]
+        aliases = aliases_por_obra.get(obra['id'], [])
+        fotos_resueltas = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_fotos]
+        cuerpo_resuelto = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_cuerpo]
+        planos_resueltos = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_planos]
         if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas,
                              cuerpo_resuelto, planos_resueltos,
                              obra.get('fotos_cuerpo_cantidad')):

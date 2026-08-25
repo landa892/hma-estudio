@@ -86,11 +86,9 @@
     return HMA.BASE + '/storage/v1/object/public/obras/' + ruta;
   }
 
-  /* Al renombrar una obra, el build traslada gallery/<slug> y planos/<slug>
-     a la direccion nueva. La fila de una galeria heredada puede conservar la
-     ruta anterior hasta que termine ese build. Si la miniatura se vuelve a
-     crear al ordenar, el navegador ya no puede sostenerla desde cache: prueba
-     entonces el slug vigente sin alterar ni recortar la imagen original. */
+  /* Las galerias heredadas conservan su ruta estable aunque cambie el slug de
+     la obra. Esta alternativa cubre el intervalo anterior al deploy si una
+     ruta ya fue migrada por una version vieja del generador. */
   function urlPublicaVigente(ruta) {
     if (!/^@(seed|site):/.test(ruta || '')) return null;
     var slug = (($('slug') || {}).value || '').trim();

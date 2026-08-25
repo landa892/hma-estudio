@@ -315,7 +315,7 @@
     ayuda.classList.add('campo__ayuda--alerta');
     ayuda.textContent = 'Ojo: estás cambiando la dirección pública. El panel conservará '
       + '/proyectos/' + antes + '/ como acceso a /proyectos/' + (ahora || '…')
-      + '/ y trasladará sus imágenes al publicar.';
+      + '/ y conservará sus imágenes al publicar.';
   }
 
   function confirmarCambioDeSlug(o) {
@@ -328,7 +328,7 @@
       + 'Antes:  estudiohma.com/proyectos/' + antes + '/\n'
       + 'Ahora:  estudiohma.com/proyectos/' + ahora + '/\n\n'
       + 'Al publicar, la dirección anterior seguirá llevando a la nueva y las '
-      + 'imágenes se trasladarán automáticamente.\n\n'
+      + 'imágenes se conservarán automáticamente.\n\n'
       + '¿Seguimos?');
   }
 

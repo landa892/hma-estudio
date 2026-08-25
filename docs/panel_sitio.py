@@ -189,9 +189,9 @@ def actualizar_tarjeta_renombrada(bloque, viejo, actual, titulo):
                             '/proyectos/%s/' % actual)
     bloque = bloque.replace('data-slug="%s"' % viejo,
                             'data-slug="%s"' % actual)
-    bloque = re.sub(
-        r'(/assets/covers/)%s\.webp(?:\?[^"\s]*)?' % re.escape(viejo),
-        r'\g<1>%s.webp' % actual, bloque)
+    # La portada pertenece a la imagen, no a la URL actual de la obra. Su ruta
+    # historica se conserva para que un renombre no dependa de copiar archivos
+    # efimeros durante cada deploy.
     bloque = re.sub(r'(<img\b[^>]*\balt=")[^"]*(")',
                     lambda m: m.group(1) + nombre + m.group(2), bloque, count=1)
     bloque = re.sub(r'(<div class="p-name">).*?(</div>)',
@@ -359,7 +359,10 @@ def main(verificar, supabase):
         d = os.path.join(RAIZ, 'proyectos', s)
         if os.path.isdir(d):
             shutil.rmtree(d)
-        sacar_recursos(s)
+        # Un alias es una URL anterior, no una obra eliminada. Sus recursos
+        # siguen siendo los archivos estables de la obra vigente.
+        if s not in aliases:
+            sacar_recursos(s)
 
     tarjetas = len(re.findall(r'class="project-card"', html))
     filas = len(re.findall(r'class="project-list-row"', html))
