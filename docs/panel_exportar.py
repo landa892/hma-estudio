@@ -128,6 +128,7 @@ def main():
             'comitente': f.get('Comitente'),
             'tipologia': f.get('Tipo'),
             'fotografia': f.get('Fotógrafo') or f.get('Fotografía'),
+            'renderista': f.get('Renderista'),
             'categoria': e.get('categoria'),
             'equipo': [x for x in (f.get('Equipo') or '').split('\n') if x],
             'bajada': limpiar(lede.group(1)) if lede else None,

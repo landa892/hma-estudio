@@ -11,6 +11,7 @@
   var slugTocado = false;   // si el usuario lo edito a mano, no se pisa
   var guardando = false;
   var cantidadCuerpoDisponible = false;
+  var renderistaDisponible = false;
 
   function avisar(texto, tipo) {
     var el = $('aviso');
@@ -48,6 +49,9 @@
     $('categoria').value = o.categoria || '';
     $('intervencion').value = o.intervencion || '';
     $('fotografia').value = o.fotografia || '';
+    renderistaDisponible = Object.prototype.hasOwnProperty.call(o, 'renderista');
+    prepararRenderista(renderistaDisponible);
+    $('renderista').value = renderistaDisponible ? (o.renderista || '') : '';
     $('equipo').value = (o.equipo || []).join('\n');
     $('bajada').value = o.bajada || '';
     $('memoria').value = o.memoria || '';
@@ -82,6 +86,16 @@
     $('ayudaFotosCuerpoCantidad').textContent = cantidadCuerpoDisponible
       ? 'Elegí de 0 a 30. La portada cuenta como la primera; después se usa la selección ordenada de abajo o, si está vacía, la galería. Cambiar este número no elimina ninguna imagen.'
       : 'Falta activar esta opción en la base. Aplicá 0018_cantidad_fotos_cuerpo.sql; mientras tanto la obra conserva sus 3 fotos actuales.';
+  }
+
+  function prepararRenderista(disponible) {
+    renderistaDisponible = !!disponible;
+    $('renderista').disabled = !renderistaDisponible;
+    $('ayudaRenderista').classList.toggle(
+      'campo__ayuda--alerta', !renderistaDisponible);
+    $('ayudaRenderista').textContent = renderistaDisponible
+      ? 'Crédito de quien realizó los renders. Se muestra en la ficha pública cuando tiene contenido.'
+      : 'Falta activar este campo en la base. Aplicá 0019_renderista.sql; los demás datos de la obra se pueden seguir editando.';
   }
 
   function actualizarEnlacePublico() {
@@ -128,6 +142,7 @@
     if (cantidadCuerpoDisponible) {
       obra.fotos_cuerpo_cantidad = Number($('fotosCuerpoCantidad').value);
     }
+    if (renderistaDisponible) obra.renderista = texto('renderista');
     return obra;
   }
 
@@ -168,6 +183,7 @@
     categoria: 'la categoría',
     intervencion: 'la intervención',
     fotografia: 'el fotógrafo',
+    renderista: 'el renderista',
     equipo: 'el equipo',
     bajada: 'la bajada',
     memoria: 'la memoria',
@@ -461,8 +477,12 @@
     });
 
     if (esNueva) {
-      return DATOS.admiteCantidadCuerpo().then(function (disponible) {
-        prepararCantidadCuerpo(disponible);
+      return Promise.all([
+        DATOS.admiteCantidadCuerpo(),
+        DATOS.admiteRenderista(),
+      ]).then(function (disponibles) {
+        prepararCantidadCuerpo(disponibles[0]);
+        prepararRenderista(disponibles[1]);
         $('fotosCuerpoCantidad').value = 3;
         $('cargando').classList.add('oculto');
         $('formObra').classList.remove('oculto');

@@ -194,6 +194,7 @@ DIC.update({
     'Equipo': 'Team',
     'Fotografía': 'Photography',
     'Fotógrafo': 'Photographer',
+    'Renderista': '3D artist',
     'Dirección de obra:': 'Site management:',
     'Documentación de obra:': 'Construction documentation:',
     'Project manager:': 'Project manager:',

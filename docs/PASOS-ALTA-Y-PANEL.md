@@ -220,6 +220,10 @@ En Supabase → **SQL Editor**. Pegar y ejecutar **en este orden**, de a uno:
 | 13 | `supabase/migrations/0013_aviso_de_cambios.sql` | registra cambios guardados que todavía no fueron publicados |
 | 14 | `supabase/migrations/0014_cuerpo_premios_y_prensa.sql` | habilita fotos de cuerpo, premios y el panel de Prensa |
 | 15 | `supabase/migrations/0015_cupo_de_fotos.sql` | permite 30 fotos de galería, 40 planos y fotos de cuerpo sin límite |
+| 16 | `supabase/migrations/0016_intervencion.sql` | agrega el alcance de intervención |
+| 17 | `supabase/migrations/0017_aliases_y_novedades_prensa.sql` | conserva direcciones anteriores y habilita conferencias y clases |
+| 18 | `supabase/migrations/0018_cantidad_fotos_cuerpo.sql` | permite elegir cuántas fotos acompañan la memoria |
+| 19 | `supabase/migrations/0019_renderista.sql` | agrega el crédito opcional de renderista |
 
 El orden importa: cada uno usa lo que creó el anterior.
 
@@ -404,3 +408,5 @@ Nada de esto rompe el sitio. Son huecos que se ven si se buscan.
   cambio chico
 - **Los créditos se cargan desde Fotógrafo** y se publican únicamente en obras
   concluidas con fotos reales; los proyectos y renders no muestran el renglón
+- **El crédito de Renderista es opcional** y aparece en cualquier obra o
+  proyecto cuando el estudio lo completa

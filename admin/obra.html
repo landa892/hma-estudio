@@ -143,6 +143,13 @@
         </div>
 
         <div class="campo">
+          <label for="renderista">Renderista</label>
+          <input type="text" id="renderista" maxlength="160" placeholder="Ej. Nombre del estudio o profesional"
+            aria-describedby="ayudaRenderista">
+          <p class="campo__ayuda" id="ayudaRenderista">Crédito de quien realizó los renders. Se muestra en la ficha pública cuando tiene contenido.</p>
+        </div>
+
+        <div class="campo">
           <label for="equipo">Equipo</label>
           <textarea id="equipo" rows="6"
             placeholder="Arq. Fernando Hitzig&#10;Arq. Leonardo Militello"></textarea>
@@ -330,9 +337,9 @@
 
   <script src="/admin/config.js"></script>
   <script src="/admin/api.js"></script>
-  <script src="/admin/datos.js?v=2"></script>
+  <script src="/admin/datos.js?v=3"></script>
   <script src="/admin/galeria.js?v=2"></script>
-  <script src="/admin/obra.js?v=5"></script>
+  <script src="/admin/obra.js?v=6"></script>
 </body>
 
 </html>

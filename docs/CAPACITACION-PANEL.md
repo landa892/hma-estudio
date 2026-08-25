@@ -6,10 +6,11 @@
 2. Abrir **Obras** y elegir **Nueva obra**.
 3. Completar la ficha y guardarla como borrador.
 4. Si es una obra concluida con fotos reales, completar **Fotógrafo**. En proyectos y renders el campo no aparece en la ficha pública.
-5. Cargar las fotos del cuerpo sin límite y hasta 30 imágenes en la galería. El panel las convierte a WebP y reduce su tamaño.
-6. Reordenar las imágenes y elegir una portada.
-7. Activar **Publicada** y guardar.
-8. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
+5. Si las imágenes fueron producidas por un profesional o estudio de visualización, completar **Renderista**. El campo aparece sólo cuando tiene contenido.
+6. Cargar las fotos del cuerpo sin límite y hasta 30 imágenes en la galería. El panel las convierte a WebP y reduce su tamaño.
+7. Reordenar las imágenes y elegir una portada.
+8. Activar **Publicada** y guardar.
+9. Volver a Obras y pulsar **Publicar cambios**. Tarda unos 2 a 3 minutos.
 
 ### Preparar las imágenes
 

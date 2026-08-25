@@ -103,12 +103,18 @@
       .catch(function () { return false; });
   }
 
+  function admiteRenderista() {
+    return llamar('/obras?select=renderista&limit=1')
+      .then(function () { return true; })
+      .catch(function () { return false; });
+  }
+
   /* Las migraciones se corren a mano y el panel puede publicarse primero. En
      esa ventana no debe bloquearse la edicion de los campos que ya existian.
      Se quita solamente la columna nueva que la propia respuesta nombra. */
   function sinColumnaNueva(cuerpo, enviar) {
     return enviar(cuerpo).catch(function (e) {
-      var columna = ['ultimo_cambio', 'premios', 'intervencion',
+      var columna = ['ultimo_cambio', 'premios', 'intervencion', 'renderista',
                      'fotos_cuerpo_cantidad'].find(function (nombre) {
         return e.message.indexOf(nombre) !== -1 && nombre in cuerpo;
       });
@@ -255,6 +261,7 @@
     crearObra: crearObra,
     actualizarObra: actualizarObra,
     admiteCantidadCuerpo: admiteCantidadCuerpo,
+    admiteRenderista: admiteRenderista,
     borrarObra: borrarObra,
     listarImagenes: listarImagenes,
     borrarArchivos: borrarArchivos,

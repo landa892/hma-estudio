@@ -60,7 +60,7 @@ def formato_editorial(t):
 # El orden en que van las filas de la ficha tecnica. Solo se usa para
 # ubicar una fila que haya que agregar; las que ya estan no se mueven.
 ORDEN_SPECS = ['Intervención', 'Estado', 'Tipología', 'Ubicación', 'País', 'Superficie', 'Año',
-               'Comitente', 'Fotógrafo', 'Equipo']
+               'Comitente', 'Fotógrafo', 'Renderista', 'Equipo']
 
 
 def rotulo_spec(rotulo):
@@ -103,11 +103,15 @@ def bloque_ficha(o, html):
         # El credito solo corresponde a obras terminadas con fotos reales. Un
         # valor viejo no debe hacer aparecer el renglon en un proyecto/render.
         'Fotógrafo': (o.get('fotografia') or '') if o['estado'] == 'concluida' else '',
+        # El renderista puede corresponder tanto a un proyecto como a una obra
+        # terminada; se publica siempre que el estudio cargue el credito.
+        'Renderista': o.get('renderista') or '',
         'Equipo': '<br>'.join(escapar(x) for x in (o.get('equipo') or [])),
     }
 
     orden = [rotulo_spec(r) for r in rotulos]
-    orden = [r for r in orden if r != 'Fotógrafo' or valor['Fotógrafo']]
+    orden = [r for r in orden
+             if r not in ('Fotógrafo', 'Renderista') or valor[r]]
     if any(rot not in valor for rot in orden):
         return None          # rotulo que el generador no conoce: no se toca
 
