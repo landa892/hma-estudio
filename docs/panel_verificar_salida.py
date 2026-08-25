@@ -1,0 +1,288 @@
+# -*- coding: utf-8 -*-
+"""Impide publicar si lo guardado en el panel no llego al sitio generado.
+
+Esta comprobacion corre despues de generar el castellano y el espejo ingles,
+pero antes de marcar el build como publicado. No corrige nada: si encuentra
+una diferencia termina con error y Vercel conserva el deploy anterior.
+
+La regla es deliberadamente global. Revisa obras, fichas, memorias, textos
+fijos, novedades del Inicio, destacadas, Prensa y Conferencias y clases.
+Tambien recorre todos los HTML para detectar referencias locales a imagenes
+que no existen.
+"""
+import html
+import io
+import json
+import os
+import re
+import subprocess
+import sys
+import urllib.parse
+import urllib.request
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DOCS = os.path.join(RAIZ, 'docs')
+sys.path.insert(0, DOCS)
+
+import panel_home
+import panel_textos
+import prensa_paginas
+
+
+def configuracion():
+    url = (os.environ.get('SUPABASE_URL') or '').rstrip('/')
+    clave = os.environ.get('SUPABASE_SERVICE_KEY') or ''
+    if not url or not clave:
+        raise RuntimeError('faltan SUPABASE_URL o SUPABASE_SERVICE_KEY')
+    return url, clave
+
+
+def pedir(url, clave, ruta):
+    pedido = urllib.request.Request(
+        url + ruta,
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+    with urllib.request.urlopen(pedido, timeout=45) as respuesta:
+        crudo = respuesta.read()
+        return json.loads(crudo.decode('utf-8')) if crudo else []
+
+
+def leer(relativa):
+    ruta = os.path.join(RAIZ, *relativa.replace('/', os.sep).split(os.sep))
+    return io.open(ruta, encoding='utf-8').read() if os.path.isfile(ruta) else None
+
+
+def visible(codigo):
+    codigo = re.sub(r'(?is)<script\b.*?</script>|<style\b.*?</style>', ' ', codigo or '')
+    codigo = re.sub(r'(?i)<br\s*/?>', '\n', codigo)
+    codigo = re.sub(r'(?s)<[^>]+>', ' ', codigo)
+    return re.sub(r'\s+', ' ', html.unescape(codigo)).strip()
+
+
+def plano(texto):
+    return re.sub(r'\s+', ' ', html.unescape(texto or '')).strip()
+
+
+def correr_verificador(script, argumentos):
+    resultado = subprocess.run(
+        [sys.executable, os.path.join(DOCS, script)] + argumentos,
+        cwd=RAIZ)
+    return resultado.returncode == 0
+
+
+def verificar_obras_y_textos(problemas):
+    # Estos dos comparan usando exactamente los moldes que escriben la salida.
+    if not correr_verificador('panel_generar.py', ['--supabase', '--verificar']):
+        problemas.append('las fichas o memorias de obras no coinciden con la base')
+    if not correr_verificador('panel_textos.py', ['--supabase', '--verificar']):
+        problemas.append('los textos generales en castellano no coinciden con la base')
+
+
+def verificar_listado(obras, problemas):
+    codigo = leer('proyectos/index.html')
+    if codigo is None:
+        problemas.append('no existe proyectos/index.html')
+        return
+    tarjetas = re.findall(r'<a\b[^>]*class="[^"]*project-card[^"]*".*?</a>',
+                           codigo, re.S)
+    filas = re.findall(r'<a\b[^>]*class="[^"]*project-list-row[^"]*".*?</a>',
+                       codigo, re.S)
+    por_tarjeta = {m.group(1): b for b in tarjetas
+                   for m in [re.search(r'data-slug="([^"]+)"', b)] if m}
+    por_fila = {m.group(1): b for b in filas
+                for m in [re.search(r'data-slug="([^"]+)"', b)] if m}
+    esperadas = {o['slug'] for o in obras}
+    if set(por_tarjeta) != esperadas:
+        problemas.append('la grilla de Trabajos no tiene exactamente las obras publicadas')
+    if set(por_fila) != esperadas:
+        problemas.append('la lista de Trabajos no tiene exactamente las obras publicadas')
+    for obra in obras:
+        for nombre, bloques in (('tarjeta', por_tarjeta), ('fila', por_fila)):
+            bloque = bloques.get(obra['slug'], '')
+            if bloque and plano(obra.get('titulo')) not in visible(bloque):
+                problemas.append('%s: titulo viejo en la %s de Trabajos'
+                                  % (obra['slug'], nombre))
+
+
+def verificar_destacadas(obras, problemas):
+    codigo = leer('index.html')
+    if codigo is None:
+        problemas.append('no existe index.html')
+        return
+    destacadas = [o for o in obras if o.get('destacada')]
+    destacadas.sort(key=lambda o: (o.get('orden') is None, o.get('orden') or 0,
+                                   (o.get('titulo') or '').lower()))
+    bloques = list(panel_home.BANNER.finditer(codigo))
+    for obra, coincidencia in zip(destacadas[:panel_home.RANURAS], bloques):
+        esperado, aviso = panel_home.armar(obra, coincidencia.group(1))
+        if esperado is None:
+            problemas.append('%s: no se puede construir su banner (%s)'
+                              % (obra['slug'], aviso))
+        elif esperado != coincidencia.group(0):
+            problemas.append('%s: el banner del Inicio no refleja el panel' % obra['slug'])
+
+
+def verificar_novedades_inicio(textos, problemas):
+    codigo = leer('index.html') or ''
+    por_clave = {f.get('clave'): f for f in textos}
+    for red in ('instagram', 'linkedin', 'youtube'):
+        for campo in ('titulo', 'texto'):
+            fila = por_clave.get('home.%s_%s' % (red, campo))
+            if not fila or not (fila.get('es') or '').strip():
+                continue
+            patron = (r'<(?:h2|p)\b[^>]*data-%s-%s\b[^>]*>(.*?)</(?:h2|p)>'
+                      % (red, 'title' if campo == 'titulo' else 'text'))
+            m = re.search(patron, codigo, re.S)
+            if not m or visible(m.group(1)) != plano(fila['es']):
+                problemas.append('Inicio: %s de %s no coincide con el panel'
+                                  % (campo, red))
+        for campo, atributo in (('url', 'href'), ('imagen', 'src')):
+            fila = por_clave.get('home.%s_%s' % (red, campo))
+            if not fila or not (fila.get('es') or '').strip():
+                continue
+            valor = fila['es'].strip()
+            if campo == 'imagen' and valor.startswith(('@site:', '@seed:')):
+                valor = valor.split(':', 1)[1]
+            patron = r'<[^>]*\bdata-%s-%s\b[^>]*\b%s="%s"' % (
+                red, 'link' if campo == 'url' else 'image', atributo,
+                re.escape(html.escape(valor, quote=True)))
+            if not re.search(patron, codigo):
+                problemas.append('Inicio: %s de %s no coincide con el panel'
+                                  % (campo, red))
+
+
+def verificar_prensa(url, clave, problemas):
+    filas = pedir(url, clave,
+                  '/rest/v1/prensa_publicaciones?select=*&publicada=is.true&order=orden.asc,created_at.desc')
+    datos = json.load(io.open(os.path.join(DOCS, 'prensa_datos.json'), encoding='utf-8'))
+    por_slug = {n['slug']: n for n in datos}
+    if {f['slug'] for f in filas} != set(por_slug):
+        problemas.append('Prensa: el archivo generado no coincide con las publicaciones activas')
+
+    antes, despues = prensa_paginas.cascara()
+    for nota in datos:
+        ruta = 'prensa/%s/index.html' % nota['slug']
+        actual = leer(ruta)
+        if actual is None:
+            problemas.append('%s: falta la pagina de Prensa' % nota['slug'])
+            continue
+        esperado = (prensa_paginas.cabeza(antes, nota)
+                    + prensa_paginas.cuerpo(nota) + despues)
+        # en_gen solo agrega estos enlaces al castellano. Se comparan las
+        # zonas administrables, que son el cuerpo de la nota y sus metadatos.
+        if prensa_paginas.cuerpo(nota) not in actual:
+            problemas.append('%s: la ficha de Prensa no refleja el panel' % nota['slug'])
+        titulo = prensa_paginas.titulo_seo(nota)
+        if '<title>%s</title>' % prensa_paginas.e(titulo) not in actual:
+            problemas.append('%s: titulo SEO de Prensa desactualizado' % nota['slug'])
+
+    novedades = pedir(
+        url, clave,
+        '/rest/v1/prensa_novedades?select=*&publicada=is.true&eliminada=is.false&order=orden.asc,created_at.asc')
+    generadas = json.load(io.open(
+        os.path.join(DOCS, 'prensa_novedades.json'), encoding='utf-8'))
+    esperado = [{
+        'rubro': f.get('rubro') or 'CONFERENCIA',
+        'titulo': f.get('titulo') or '',
+        'detalle': f.get('detalle') or '',
+        'anio': str(f.get('anio') or ''),
+        'link': f.get('link') or '',
+    } for f in novedades]
+    if generadas != esperado:
+        problemas.append('Conferencias y clases: el archivo generado no coincide con la base')
+    pagina = leer('prensa/index.html') or ''
+    for novedad in generadas:
+        if prensa_paginas.e((novedad.get('detalle') or novedad.get('titulo') or '').strip()) not in pagina:
+            problemas.append('Conferencias y clases: falta una entrada de %s'
+                              % novedad.get('anio', 'sin fecha'))
+
+
+def verificar_ingles(obras, textos, problemas):
+    rutas = {
+        'index.html': 'en/index.html',
+        'estudio/index.html': 'en/studio/index.html',
+        'proyectos/index.html': 'en/projects/index.html',
+        'prensa/index.html': 'en/press/index.html',
+        'premios/index.html': 'en/awards/index.html',
+        'contacto/index.html': 'en/contact/index.html',
+    }
+    ruta_por_clave = {clave: ruta for clave, ruta, _patron
+                      in panel_textos.ubicaciones(textos)}
+    cache = {}
+    for fila in textos:
+        valor = plano(fila.get('en'))
+        ruta_es = ruta_por_clave.get(fila.get('clave'), 'index.html'
+                                     if fila.get('seccion') == 'novedades' else None)
+        ruta_en = rutas.get(ruta_es)
+        if not valor or not ruta_en:
+            continue
+        if ruta_en not in cache:
+            cache[ruta_en] = visible(leer(ruta_en) or '')
+        partes = [plano(x) for x in (fila.get('en') or '').split('\n') if plano(x)]
+        if any(parte not in cache[ruta_en] for parte in partes):
+            problemas.append('%s: el texto ingles no llego al espejo' % fila['clave'])
+
+    for obra in obras:
+        memoria = plano(obra.get('memoria_en'))
+        if not memoria:
+            continue
+        pagina = visible(leer('en/projects/%s/index.html' % obra['slug']) or '')
+        partes = [plano(p) for p in re.split(r'\n\s*\n', obra['memoria_en']) if plano(p)]
+        if any(parte not in pagina for parte in partes):
+            problemas.append('%s: la memoria inglesa no llego al espejo' % obra['slug'])
+
+
+def verificar_imagenes(problemas):
+    rotas = []
+    for base, carpetas, archivos in os.walk(RAIZ):
+        carpetas[:] = [d for d in carpetas if d not in (
+            '.git', '.vercel', 'node_modules', 'docs', 'admin')]
+        for nombre in archivos:
+            if nombre != 'index.html' and nombre != '404.html':
+                continue
+            ruta = os.path.join(base, nombre)
+            codigo = io.open(ruta, encoding='utf-8').read()
+            for fuente in re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', codigo):
+                if not fuente.startswith('/') or fuente.startswith('//'):
+                    continue
+                local = fuente.split('?', 1)[0].split('#', 1)[0]
+                destino = os.path.join(RAIZ, *local.lstrip('/').split('/'))
+                if not os.path.isfile(destino):
+                    rotas.append('%s -> %s' % (os.path.relpath(ruta, RAIZ), local))
+    if rotas:
+        problemas.append('hay %d referencias a imagenes locales inexistentes: %s'
+                          % (len(rotas), '; '.join(rotas[:8])))
+
+
+def main():
+    url, clave = configuracion()
+    problemas = []
+    obras = pedir(url, clave,
+                  '/rest/v1/obras?select=*&publicada=is.true&order=orden.asc')
+    textos = pedir(url, clave, '/rest/v1/textos?select=*&order=orden.asc')
+
+    verificar_obras_y_textos(problemas)
+    verificar_listado(obras, problemas)
+    verificar_destacadas(obras, problemas)
+    verificar_novedades_inicio(textos, problemas)
+    verificar_prensa(url, clave, problemas)
+    verificar_ingles(obras, textos, problemas)
+    verificar_imagenes(problemas)
+
+    if problemas:
+        print('\nVERIFICACION GLOBAL FALLIDA (%d):' % len(problemas))
+        for problema in problemas:
+            print('  - ' + problema)
+        print('\nNo se marca el build como publicado y Vercel conserva el sitio anterior.')
+        return 1
+    print('\nVERIFICACION GLOBAL OK')
+    print('  %d obras, %d textos y toda Prensa coinciden con la salida generada.'
+          % (len(obras), len(textos)))
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except Exception as error:
+        print('ERROR en la verificacion global: %s' % error)
+        sys.exit(1)
