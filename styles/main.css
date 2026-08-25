@@ -4935,6 +4935,13 @@ html.lenis body {
   font-family: inherit;
 }
 
+/* En "Como trabajamos" las cuatro frases son hitos del proceso, no texto
+   secundario. El estudio pidio que tengan la misma presencia que los nombres
+   de los socios, que en esta pagina estan definidos en 1.5rem. */
+.work-split--proceso .work-split__text .bloque-texto p {
+  font-size: 1.5rem;
+}
+
 /* Enfoque y socios forman una misma secuencia; antes dos paddings completos
    dejaban un vacio que parecia el final de la pagina. */
 .estudio-enfoque {
