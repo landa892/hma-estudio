@@ -9,45 +9,53 @@
 
      1. panel_config    escribe admin/config.js desde las variables de entorno.
                         Sin el, el panel publicado no conecta con nada.
-     2. panel_correcciones_agosto aplica correcciones pendientes solo cuando
-                        encuentra el valor viejo; no pisa ediciones posteriores.
-     3. panel_alta      crea la pagina de cada obra nueva y baja sus fotos.
+     2. panel_alta      crea la pagina de cada obra nueva y baja sus fotos.
                         Va antes del generador: si la pagina no existe, la saltea.
-     4. panel_galerias  conecta fotos y planos historicos y aplica portada y
+     3. panel_galerias  conecta fotos y planos historicos y aplica portada y
                         orden. Saltea las repetidas segun
                         docs/galeria_repetidas.json, que se regenera a mano con
                         docs/galeria_repetidas.py cuando cambian las fotos: ese
                         paso necesita Pillow y aca no hay.
-     5. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
-     6. panel_sitio     saca del sitio las eliminadas o despublicadas.
-     7. panel_listado   sincroniza titulo y categoria de cada tarjeta con la
+     4. panel_generar   rellena titulo, bajada, ficha y memoria en las publicadas.
+     5. panel_sitio     saca del sitio las eliminadas o despublicadas.
+     6. panel_listado   sincroniza titulo y categoria de cada tarjeta con la
                         base.
-     8. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
+     7. panel_estados   pone el sello "Obra"/"Proyecto" del listado de acuerdo
                         con el estado de la base. Va despues de las altas y las
                         bajas, que son las que agregan y sacan tarjetas.
-     9. panel_novedades siembra y escribe los respaldos de Instagram,
+     8. panel_novedades siembra y escribe los respaldos de Instagram,
                         LinkedIn y YouTube que se editan desde el panel.
-    10. panel_textos    escribe los textos fijos de home, estudio y contacto.
-    11. panel_home      pone las destacadas en los banners del home.
-    12. obras_layout    garantiza que la portada abra cada ficha y deja una
+     9. panel_home      pone las destacadas en los banners del home.
+    10. obras_layout    garantiza que la portada abra cada ficha y deja una
                         composicion consistente para la memoria editorial.
                         Los planos van en el paso 4: panel_galerias los trae
                         como filas de obra_imagenes con tipo='plano', ya no
                         hay un paso planos_fichas aparte.
-    13. panel_prensa    sincroniza las publicaciones editables del panel.
+    11. prensa_galerias siembra los escaneos historicos de cada nota.
+    12. panel_prensa    sincroniza las publicaciones editables del panel.
+    13. panel_prensa_novedades sincroniza conferencias y clases.
     14. prensa_pagina   rearma el archivo completo de publicaciones.
     15. prensa_paginas  arma la pagina propia de cada nota y enlaza su
                         tarjeta. Va despues del archivo, que es quien
                         rehace el listado.
-    16. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
+    16. panel_textos    escribe los textos editables al final de los generadores
+                        en castellano. Si corriera antes, Inicio o Prensa podrian
+                        reconstruir la pagina y volver a dejar el texto anterior.
+    17. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    17. obras_orden     ordena grilla y lista por el ano final, tanto en
+    18. panel_aliases   conserva las direcciones anteriores de obras renombradas.
+    19. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    18. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    20. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    19. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
-    20. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
+    21. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    22. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
+
+   ``panel_correcciones_agosto.py`` ya no forma parte del build. Fue una
+   importacion puntual y algunas de sus heuristicas restauraban la memoria del
+   Drive cuando el estudio guardaba deliberadamente una version mas corta.
+   Se conserva como herramienta manual, pero el panel es ahora la autoridad.
 
    Si un paso falla, corta ahi y devuelve error. Vercel no publica un build que
    no termino, asi que el sitio anterior sigue en pie: es preferible quedarse un
@@ -63,7 +71,6 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PASOS = [
     ('la conexion del panel',        'panel_config.py',  []),
-    ('las correcciones de contenido','panel_correcciones_agosto.py', ['--supabase']),
     ('las obras nuevas',             'panel_alta.py',    ['--supabase']),
     ('las galerias y portadas',       'panel_galerias.py', []),
     ('los datos de cada obra',       'panel_generar.py', ['--supabase']),
@@ -71,7 +78,6 @@ PASOS = [
     ('las tarjetas del listado',     'panel_listado.py', ['--supabase']),
     ('el estado en el listado',      'panel_estados.py', ['--supabase']),
     ('las novedades del Inicio',     'panel_novedades.py', ['--supabase']),
-    ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('los banners del home',         'panel_home.py',    ['--supabase']),
     ('la composicion de las fichas', 'obras_layout.py',  []),
     # Antes que panel_prensa: siembra los escaneos historicos de cada nota como
@@ -82,6 +88,10 @@ PASOS = [
     ('las conferencias del panel',   'panel_prensa_novedades.py', []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),
+    # Ultimo escritor del sitio en castellano: los generadores anteriores
+    # pueden rehacer secciones completas. Asi, lo que el estudio edita en
+    # Textos del sitio siempre gana antes de crear el espejo en ingles.
+    ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('el sitio en ingles',           'en_gen.py',        []),
     ('las direcciones anteriores',   'panel_aliases.py', []),
     ('el orden cronologico',         'obras_orden.py',   []),
@@ -93,7 +103,27 @@ PASOS = [
 ]
 
 
+def validar_orden():
+    """Impide publicar si vuelve una sobrescritura conocida del panel."""
+    scripts = [script for _que, script, _args in PASOS]
+    if 'panel_correcciones_agosto.py' in scripts:
+        raise RuntimeError(
+            'panel_correcciones_agosto.py es una importacion manual: no puede '
+            'correr en cada publicacion')
+
+    textos = scripts.index('panel_textos.py')
+    ingles = scripts.index('en_gen.py')
+    generadores_es = ('panel_home.py', 'prensa_pagina.py', 'prensa_paginas.py')
+    if not all(scripts.index(script) < textos for script in generadores_es):
+        raise RuntimeError('panel_textos.py debe correr despues de los generadores')
+    if textos > ingles:
+        raise RuntimeError('panel_textos.py debe correr antes de en_gen.py')
+    if scripts[-1] != 'panel_publicado.py':
+        raise RuntimeError('panel_publicado.py debe seguir siendo el ultimo paso')
+
+
 def main():
+    validar_orden()
     for i, (que, script, args) in enumerate(PASOS, 1):
         print('\n' + '=' * 70)
         print('paso %d de %d — %s  (%s)' % (i, len(PASOS), que, script))
