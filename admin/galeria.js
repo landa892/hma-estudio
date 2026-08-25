@@ -86,6 +86,23 @@
     return HMA.BASE + '/storage/v1/object/public/obras/' + ruta;
   }
 
+  /* Al renombrar una obra, el build traslada gallery/<slug> y planos/<slug>
+     a la direccion nueva. La fila de una galeria heredada puede conservar la
+     ruta anterior hasta que termine ese build. Si la miniatura se vuelve a
+     crear al ordenar, el navegador ya no puede sostenerla desde cache: prueba
+     entonces el slug vigente sin alterar ni recortar la imagen original. */
+  function urlPublicaVigente(ruta) {
+    if (!/^@(seed|site):/.test(ruta || '')) return null;
+    var slug = (($('slug') || {}).value || '').trim();
+    if (!slug) return null;
+    var publica = ruta.replace(/^@(seed|site):/, '');
+    var nueva = publica.replace(
+      /^(\/assets\/(?:gallery|planos)\/)[^/]+\//,
+      '$1' + slug + '/'
+    );
+    return nueva !== publica ? nueva : null;
+  }
+
   /* La base contesta con el tope alcanzado, "imagenes" o "planos" segun el
      tipo (ver limitar_imagenes_por_obra en 0011_planos_panel.sql). */
   function traducirTope(mensaje) {
@@ -176,6 +193,14 @@
         img.src = urlPublica(f.storage_path);
         img.alt = f.alt || '';
         img.loading = 'lazy';
+        var alternativa = urlPublicaVigente(f.storage_path);
+        if (alternativa) {
+          img.addEventListener('error', function () {
+            if (img.dataset.proboSlugVigente) return;
+            img.dataset.proboSlugVigente = '1';
+            img.src = alternativa;
+          });
+        }
         tarjeta.appendChild(img);
 
         if (f.ancho && f.alto) {
