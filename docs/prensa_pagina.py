@@ -121,7 +121,7 @@ def bloque_portada(novedades):
         <div class="section-head section-head--eje">
           <div>
             <span class="eyebrow eyebrow--seccion">Novedades</span>
-            <h2 class="display-3 mt-10">Conferencias y clases</h2>
+            <h2 class="display-3 mt-10" data-texto="prensa.novedades">Conferencias y clases</h2>
           </div>
         </div>
 %s
