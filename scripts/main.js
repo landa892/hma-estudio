@@ -301,6 +301,18 @@ try {
         estadoBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         estado = btn.dataset.estadoFiltro;
+        /* La pagina sigue siendo el archivo canonico /proyectos/, pero la URL
+           deja constancia de la vista elegida. Asi Obras no parece seguir en
+           Proyectos y el filtro sobrevive al copiar el enlace o recargar. */
+        const params = new URLSearchParams(window.location.search);
+        if (estado === 'all') params.delete('estado');
+        else params.set('estado', estado);
+        const query = params.toString();
+        window.history.replaceState(
+          null,
+          '',
+          `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`
+        );
         aplicar();
       });
     });
@@ -821,7 +833,7 @@ try {
     const more = document.getElementById('prensaVisualMas');
     const previous = document.getElementById('prensaVisualAnterior');
     const status = document.getElementById('prensaVisualPagina');
-    const POR_PAGINA = 6;
+    const POR_PAGINA = 12;
     let pagina = 0;
     let anioVisual = 'all';
     let busqueda = '';
@@ -838,9 +850,9 @@ try {
       return c.dataset.buscable;
     };
 
-    /* La pagina reemplaza seis tarjetas por las seis siguientes. No acumula
-       filas: aun con doscientas publicaciones, Prensa conserva siempre la
-       misma altura y cada filtro arranca en su primera pagina. */
+    /* La pagina reemplaza dos filas de seis tarjetas por las doce siguientes.
+       No acumula filas: aun con doscientas publicaciones, Prensa conserva
+       siempre la misma altura y cada filtro arranca en su primera pagina. */
     const aplicarVisual = () => {
       const coincidencias = cards.filter(card =>
         (anioVisual === 'all' || card.dataset.year === anioVisual) &&
