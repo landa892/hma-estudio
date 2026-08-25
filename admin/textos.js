@@ -10,10 +10,12 @@
   var $ = function (id) { return document.getElementById(id); };
 
   var TITULOS = {
-    home: 'Portada',
+    home: 'Inicio',
     estudio: 'Estudio',
     contacto: 'Contacto',
   };
+
+  var ORDEN_SECCIONES = ['home', 'estudio', 'contacto'];
 
   var GUIAS = {
     'home.titular': {
@@ -204,12 +206,29 @@
     var cont = $('secciones');
     cont.textContent = '';
 
-    ['home', 'estudio', 'contacto'].forEach(function (seccion) {
+    var pestanas = document.createElement('div');
+    pestanas.className = 'textos-tabs';
+    pestanas.setAttribute('role', 'tablist');
+    pestanas.setAttribute('aria-label', 'Secciones del sitio');
+    cont.appendChild(pestanas);
+
+    var paneles = [];
+
+    ORDEN_SECCIONES.forEach(function (seccion) {
       var propios = textos.filter(function (t) { return t.seccion === seccion; });
       if (!propios.length) return;
 
+      var boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'textos-tab';
+      boton.textContent = TITULOS[seccion] || seccion;
+      boton.setAttribute('role', 'tab');
+      boton.setAttribute('aria-selected', 'false');
+      pestanas.appendChild(boton);
+
       var caja = document.createElement('section');
-      caja.className = 'ficha';
+      caja.className = 'ficha textos-panel oculto';
+      caja.setAttribute('role', 'tabpanel');
 
       var titulo = document.createElement('h2');
       titulo.className = 'ficha__titulo';
@@ -218,14 +237,26 @@
 
       propios.forEach(function (t) { caja.appendChild(campo(t)); });
       cont.appendChild(caja);
+
+      paneles.push({ boton: boton, caja: caja });
+      boton.addEventListener('click', function () {
+        paneles.forEach(function (panel) {
+          var activa = panel.boton === boton;
+          panel.boton.classList.toggle('textos-tab--activa', activa);
+          panel.boton.setAttribute('aria-selected', activa ? 'true' : 'false');
+          panel.caja.classList.toggle('oculto', !activa);
+        });
+      });
     });
 
-    if (!cont.children.length) {
+    if (!paneles.length) {
       cont.innerHTML = '';
       var vacio = document.createElement('p');
       vacio.className = 'vacio';
       vacio.textContent = 'Todavía no hay textos cargados en la base.';
       cont.appendChild(vacio);
+    } else {
+      paneles[0].boton.click();
     }
   }
 

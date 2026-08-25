@@ -1247,6 +1247,35 @@ textarea:focus-visible {
   border-top: 1px solid var(--linea);
 }
 
+/* En Textos del sitio, las secciones se separan para evitar un formulario
+   interminable a medida que el panel incorpora mas contenido editable. */
+.textos-tabs {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.textos-tab {
+  flex: 0 0 auto;
+  padding: 0 0 12px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--gris);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.textos-tab--activa {
+  border-bottom-color: var(--negro);
+  color: var(--negro);
+}
+
+.textos-panel { margin-top: 0; }
+
 .guia__seccion h2 { margin: 0 0 14px; font-size: 1.15rem; }
 .guia__seccion h3 { margin: 20px 0 5px; font-size: .95rem; }
 .guia__seccion p { max-width: 72ch; margin: 5px 0; color: var(--gris); }
