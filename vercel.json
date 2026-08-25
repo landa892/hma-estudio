@@ -41,6 +41,76 @@
       "source": "/en/projects/indusparquet",
       "destination": "/en/projects/bosque/",
       "permanent": true
+    },
+    {
+      "source": "/prensa/ministerio-de-diseno-2/",
+      "destination": "/prensa/ministerio-de-diseno-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/ministerio-de-diseno-2",
+      "destination": "/prensa/ministerio-de-diseno-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/office-snapshot/",
+      "destination": "/prensa/office-snapshots-2021/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/office-snapshot",
+      "destination": "/prensa/office-snapshots-2021/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/infobae-osten/",
+      "destination": "/en/press/infobae-osten-2021/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/infobae-osten",
+      "destination": "/en/press/infobae-osten-2021/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/archello/",
+      "destination": "/en/press/archello-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/archello",
+      "destination": "/en/press/archello-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/south-florida-business-journal/",
+      "destination": "/en/press/s-f-b-j-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/en/prensa/south-florida-business-journal",
+      "destination": "/en/press/s-f-b-j-2023/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/13/",
+      "destination": "/prensa/summa-65-2003/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/13",
+      "destination": "/prensa/summa-65-2003/",
+      "permanent": true
+    },
+    {
+      "source": "/en/services-estudiohma-partners/",
+      "destination": "/en/studio/",
+      "permanent": true
+    },
+    {
+      "source": "/en/services-estudiohma-partners",
+      "destination": "/en/studio/",
+      "permanent": true
     }
   ],
   "rewrites": [
