@@ -45,6 +45,19 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    # Correccion de enfoque creativo enviada por el estudio el 25/08/2026.
+    'Los encargos se abordan desde una concepción arquitectónica, donde convergen problemas y soluciones propios de este campo, integrándolos al interiorismo. Se trabaja de forma holística, considerando todos los aspectos y variables para alcanzar un diseño conceptual único y diferencial.':
+        'Each commission is approached through an architectural framework, bringing together the challenges and solutions inherent to the discipline and integrating them into the interior design. We work holistically, considering every aspect and variable to achieve a unique and distinctive conceptual design.',
+    'Con dos décadas de experiencia en espacios comerciales, hotelería y oficinas, se cubren todas las fases del desarrollo. En cada proyecto, el foco está puesto en generar conceptos sólidos, con especial énfasis en identificar un camino de búsqueda identitaria.':
+        'With two decades of experience in commercial spaces, hospitality and offices, we cover every phase of development. In each project, the focus is on developing solid concepts, with particular emphasis on identifying a path towards a distinctive identity.',
+    'El diseño se entiende como un proceso integral donde convergen estrategia, arquitectura e identidad. Cada decisión responde a una visión conceptual unificada, con la arquitectura de marca como eje del proyecto.':
+        'Design is understood as an integral process where strategy, architecture and identity converge. Every decision responds to a unified conceptual vision, with brand architecture at the core of the project.',
+    'La arquitectura y el interiorismo se conciben como disciplinas holística que dialogan y trasciende lo funcional y lo estético, creando espacios experienciales.':
+        'Architecture and interior design are conceived as holistic disciplines that engage in dialogue and transcend the functional and aesthetic, creating experiential spaces.',
+    'Se resignifican referencias culturales y del imaginario colectivo para crear espacios contemporáneos, profundamente conectados con su contexto y con una identidad genuina.':
+        'Cultural references and shared imagery are reinterpreted to create contemporary spaces, deeply connected to their context and with a genuine identity.',
+    'ADN': 'DNA',
+
     "A definir": "To be defined",
     "Architizer A+": "Architizer A+",
     "IIDA": "IIDA",

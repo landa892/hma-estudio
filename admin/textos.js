@@ -58,7 +58,7 @@
     },
     'estudio.bloque3': {
       hasta: 500,
-      ayuda: 'Texto de Autenticidad. Recomendado: 35 a 70 palabras.',
+      ayuda: 'Texto de ADN. Recomendado: 35 a 70 palabras.',
     },
   };
 

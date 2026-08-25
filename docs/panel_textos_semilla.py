@@ -53,7 +53,7 @@ CAMPOS = [
 
 # Los tres bloques de "Que hacemos" y los tres de "Como trabajamos" de la
 # pagina Estudio. Se toman por su titulo, que es lo que los distingue.
-BLOQUES_ESTUDIO = ['Diseño integral', 'Identidad', 'Autenticidad']
+BLOQUES_ESTUDIO = ['Diseño integral', 'Identidad', 'ADN']
 
 
 def limpiar(t):

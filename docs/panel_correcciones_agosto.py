@@ -220,6 +220,59 @@ TEXTOS_CORRECCIONES = {
         'es': texto_normalizado(PRESENTACION_ANTERIOR_ES, PRESENTACION_NUEVA_ES),
         'en': texto_normalizado(PRESENTACION_ANTERIOR_EN, PRESENTACION_NUEVA_EN),
     },
+    'estudio.bloque1': {
+        'es': texto_normalizado(
+            'Entendemos el diseño como un proceso integral donde convergen '
+            'estrategia, arquitectura e identidad. Cada decisión responde a una '
+            'visión conceptual unificada, con la arquitectura de marca como eje '
+            'del proyecto.',
+            'El diseño se entiende como un proceso integral donde convergen '
+            'estrategia, arquitectura e identidad. Cada decisión responde a una '
+            'visión conceptual unificada, con la arquitectura de marca como eje '
+            'del proyecto.'),
+        'en': texto_normalizado(
+            'We understand design as an integral process where strategy, '
+            'architecture and identity converge. Every decision answers to a '
+            'single conceptual vision, with brand architecture at the core of '
+            'the project.',
+            'Design is understood as an integral process where strategy, '
+            'architecture and identity converge. Every decision responds to a '
+            'unified conceptual vision, with brand architecture at the core of '
+            'the project.'),
+    },
+    'estudio.bloque2': {
+        'es': texto_normalizado(
+            'Concebimos la arquitectura de interiores como una disciplina '
+            'holística que trasciende lo funcional y lo estético, creando '
+            'espacios con identidad propia y experiencias memorables.',
+            'La arquitectura y el interiorismo se conciben como disciplinas '
+            'holística que dialogan y trasciende lo funcional y lo estético, '
+            'creando espacios experienciales.'),
+        'en': texto_normalizado(
+            'We see interior architecture as a holistic discipline that goes '
+            'beyond the functional and the aesthetic, creating spaces with an '
+            'identity of their own and experiences worth remembering.',
+            'Architecture and interior design are conceived as holistic '
+            'disciplines that engage in dialogue and transcend the functional '
+            'and aesthetic, creating experiential spaces.'),
+    },
+    'estudio.bloque3': {
+        'es': texto_normalizado(
+            'Resignificamos referencias culturales y del imaginario colectivo '
+            'para crear espacios contemporáneos, profundamente conectados con '
+            'su contexto y con una identidad genuina.',
+            'Se resignifican referencias culturales y del imaginario colectivo '
+            'para crear espacios contemporáneos, profundamente conectados con '
+            'su contexto y con una identidad genuina.'),
+        'en': texto_normalizado(
+            'We reframe cultural references and shared imagery to create '
+            'contemporary spaces, deeply connected to their context and with a '
+            'genuine identity.',
+            'Cultural references and shared imagery are reinterpreted to create '
+            'contemporary spaces, deeply connected to their context and with a '
+            'genuine identity.'),
+        'rotulo': valor('Estudio — Autenticidad', 'Estudio — ADN'),
+    },
     'home.linkedin_titulo': {
         'es': valor('El estudio detrás del Movistar Arena',
                     'Aire Libre: arquitectura y naturaleza'),
@@ -1175,7 +1228,7 @@ def desde_supabase(url, clave):
 
 def textos_desde_supabase(url, clave):
     pedido = urllib.request.Request(
-        url + '/rest/v1/textos?select=clave,es,en',
+        url + '/rest/v1/textos?select=clave,es,en,rotulo',
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
     with urllib.request.urlopen(pedido, timeout=30) as respuesta:
         return json.loads(respuesta.read().decode('utf-8'))
