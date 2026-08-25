@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Arma el seed de la tabla textos leyendo las paginas fijas del sitio.
 
-El panel edita los textos de home, estudio y contacto. Se extraen del sitio
+El panel edita los textos fijos de las seis secciones principales. Se extraen del sitio
 para que la primera vez que alguien guarde no se pierda lo que ya dice.
 
 Dos decisiones que valen la pena explicar:
 
-- Los campos van enumerados a mano y no por barrido de clases. Son quince: con
+- Los campos van enumerados a mano y no por barrido de clases. Con
   una lista explicita cada clave dice que cosa es ("contacto.direccion") y
   sobrevive a un rediseño, mientras que una clave por posicion se corre entera
   si alguien mete un parrafo en el medio.
@@ -42,6 +42,27 @@ CAMPOS = [
      r'<h1[^>]*>(.*?)</h1>', False),
     ('estudio.presentacion', 'estudio', 'Presentacion del estudio',
      'estudio/index.html', r'<p class="lede[^"]*"[^>]*>(.*?)</p>', True),
+
+    ('trabajos.titular', 'trabajos', 'Titulo de la pagina', 'proyectos/index.html',
+     r'<h1[^>]*data-texto="trabajos.titular"[^>]*>(.*?)</h1>', False),
+
+    ('prensa.titular', 'prensa', 'Titulo de la pagina', 'prensa/index.html',
+     r'<h1[^>]*data-texto="prensa.titular"[^>]*>(.*?)</h1>', False),
+    ('prensa.publicaciones', 'prensa', 'Titulo de Publicaciones', 'prensa/index.html',
+     r'<h2[^>]*data-texto="prensa.publicaciones"[^>]*>(.*?)</h2>', False),
+    ('prensa.novedades', 'prensa', 'Titulo de Novedades', 'prensa/index.html',
+     r'<h2[^>]*data-texto="prensa.novedades"[^>]*>(.*?)</h2>', False),
+    ('prensa.videos', 'prensa', 'Titulo de Videos', 'prensa/index.html',
+     r'<h2[^>]*data-texto="prensa.videos"[^>]*>(.*?)</h2>', False),
+    ('prensa.videos_bajada', 'prensa', 'Bajada de Videos', 'prensa/index.html',
+     r'<h3[^>]*data-texto="prensa.videos_bajada"[^>]*>(.*?)</h3>', False),
+
+    ('premios.rotulo', 'premios', 'Rotulo sobre el titulo', 'premios/index.html',
+     r'<span[^>]*data-texto="premios.rotulo"[^>]*>(.*?)</span>', False),
+    ('premios.titular', 'premios', 'Titulo de la pagina', 'premios/index.html',
+     r'<h1[^>]*data-texto="premios.titular"[^>]*>(.*?)</h1>', False),
+    ('premios.bajada', 'premios', 'Bajada de la pagina', 'premios/index.html',
+     r'<p[^>]*data-texto="premios.bajada"[^>]*>(.*?)</p>', True),
 
     ('contacto.titular', 'contacto', 'Titulo de la pagina', 'contacto/index.html',
      r'<h1[^>]*>(.*?)</h1>', False),
@@ -160,7 +181,7 @@ def main():
 
     sys.stderr.write('textos: %d   ->  %s\n'
                      % (len(filas), os.path.relpath(destino, RAIZ)))
-    for seccion in ('home', 'estudio', 'contacto'):
+    for seccion in ('home', 'estudio', 'trabajos', 'prensa', 'premios', 'contacto'):
         sys.stderr.write('  %-9s %d\n'
                          % (seccion, sum(1 for f in filas if f[1] == seccion)))
     if sin_ingles:

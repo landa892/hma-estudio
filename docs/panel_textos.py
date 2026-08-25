@@ -33,7 +33,7 @@ import urllib.request
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, 'docs'))
 
-from panel_textos_semilla import CAMPOS, BLOQUES_ESTUDIO, limpiar
+from panel_textos_semilla import CAMPOS, BLOQUES_ESTUDIO, limpiar, leer, ingles
 
 LOCAL = os.path.join(RAIZ, 'docs', 'panel_textos.json')
 DESTINO_EN = os.path.join(RAIZ, 'docs', 'en_textos.json')
@@ -69,6 +69,37 @@ def desde_supabase():
         headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
     with urllib.request.urlopen(pedido, timeout=30) as r:
         filas = json.loads(r.read().decode('utf-8'))
+
+    # Al incorporar una nueva seccion editable, el propio build siembra sus
+    # textos actuales. Asi ampliar el panel no obliga al estudio a correr SQL.
+    existentes = set(f.get('clave') for f in filas)
+    nuevas = []
+    paginas = {}
+    for orden, (campo, seccion, rotulo, ruta, patron, multilinea) in enumerate(CAMPOS, 1):
+        if campo in existentes:
+            continue
+        if ruta not in paginas:
+            paginas[ruta] = leer(ruta)
+        m = re.search(patron, paginas[ruta], re.S)
+        if not m:
+            continue
+        es = limpiar(m.group(1))
+        en = ingles(es)
+        nuevas.append({
+            'clave': campo, 'seccion': seccion, 'rotulo': rotulo,
+            'es': es, 'en': en or es, 'multilinea': multilinea, 'orden': orden,
+        })
+    if nuevas:
+        alta = urllib.request.Request(
+            url + '/rest/v1/textos', data=json.dumps(nuevas, ensure_ascii=False).encode('utf-8'),
+            method='POST', headers={
+                'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                'Content-Type': 'application/json', 'Prefer': 'return=minimal',
+            })
+        with urllib.request.urlopen(alta, timeout=30):
+            pass
+        filas.extend(nuevas)
+        print('textos nuevos sembrados: %d' % len(nuevas))
 
     # Correccion puntual pedida por el estudio. Es condicional para no pisar
     # una edicion futura hecha desde el panel: solo migra el valor anterior.

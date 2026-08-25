@@ -1,8 +1,8 @@
-/* Textos de las secciones fijas: home, estudio y contacto.
+/* Textos de las seis secciones principales del sitio.
 
    Cada texto se guarda solo, con su propio boton. No hay un "guardar todo" a
-   proposito: son once campos en dos idiomas y un guardado unico obligaria a
-   revisar los veintidos para entender que fallo si uno se rechaza. */
+   proposito: un guardado unico obligaria a revisar todos los campos en dos
+   idiomas para entender que fallo si uno se rechaza. */
 
 (function () {
   'use strict';
@@ -12,10 +12,13 @@
   var TITULOS = {
     home: 'Inicio',
     estudio: 'Estudio',
+    trabajos: 'Trabajos',
+    prensa: 'Prensa',
+    premios: 'Premios',
     contacto: 'Contacto',
   };
 
-  var ORDEN_SECCIONES = ['home', 'estudio', 'contacto'];
+  var ORDEN_SECCIONES = ['home', 'estudio', 'trabajos', 'prensa', 'premios', 'contacto'];
 
   var GUIAS = {
     'home.titular': {
