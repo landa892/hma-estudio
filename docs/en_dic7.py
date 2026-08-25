@@ -432,6 +432,10 @@ UN_MES = r'(?:%s)' % '|'.join(en_dic.MESES_LARGOS)
 FECHA_NOTA = (r'(?:%s|[A-Za-z]{3,10}|\d{1,4})'
               r'(?:[\s./-]+(?:%s|[A-Za-z]{3,10}|\d{1,4}))*' % (UN_MES, UN_MES))
 FICHA_NOTA = re.compile(r'^(.+) en (.+?), (%s)\.$' % FECHA_NOTA)
+TITULO_PRENSA_SEO = re.compile(r'^(.*?) \| Prensa HMA$')
+FICHA_NOTA_SEO = re.compile(
+    r'^(.+) en (.+?)(?:, (%s))?\. Arquitectura e interiorismo de '
+    r'Hitzig Militello Arquitectos\.$' % FECHA_NOTA)
 
 _MES_SUELTO = re.compile(r'\b(%s)\b' % UN_MES)
 
@@ -451,6 +455,16 @@ def traducir(t):
     # patron contestaba antes de que nadie mirara el diccionario.
     if t in DIC:
         return DIC[t]
+    m = TITULO_PRENSA_SEO.match(t)
+    if m:
+        # El titular y el medio son citas de la publicacion. Solo se traduce
+        # el rotulo SEO que agrega el sitio alrededor.
+        return u'%s | HMA Press' % m.group(1)
+    m = FICHA_NOTA_SEO.match(t)
+    if m:
+        fecha = (u', %s' % _fecha_en_ingles(m.group(3))) if m.group(3) else ''
+        return (u'%s in %s%s. Architecture and interior design by Hitzig '
+                u'Militello Architects.' % (m.group(1), m.group(2), fecha))
     m = FICHA_NOTA.match(t)
     if m:
         return u'%s in %s, %s.' % (m.group(1), m.group(2),

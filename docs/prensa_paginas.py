@@ -54,6 +54,46 @@ def ea(texto):
     return e(texto).replace('"', '&quot;')
 
 
+def recortar(texto, maximo):
+    """Acorta en un limite legible, sin partir una palabra si hay espacio."""
+    texto = (texto or '').strip()
+    if len(texto) <= maximo:
+        return texto
+    corte = texto[:maximo - 1]
+    por_palabra = re.sub(r'\s+\S*$', '', corte).rstrip(' ,;:-')
+    return (por_palabra or corte.rstrip()) + u'\u2026'
+
+
+def recortar_medio(texto, maximo):
+    """Conserva el final del medio, donde suelen estar numero y edicion."""
+    texto = (texto or '').strip()
+    if len(texto) <= maximo:
+        return texto
+    izquierda = int((maximo - 1) * .62)
+    derecha = maximo - 1 - izquierda
+    return texto[:izquierda].rstrip() + u'\u2026' + texto[-derecha:].lstrip()
+
+
+def titulo_seo(nota):
+    """Titulo unico por nota, corto y con la fuente que la diferencia."""
+    anio = anio_de(nota)
+    medio = recortar_medio(nota.get('medio', ''), 26)
+    cola = u' — %s%s | Prensa HMA' % (
+        medio, u' (%s)' % anio if anio else '')
+    titular = recortar(nota.get('titulo', ''), max(16, 65 - len(cola)))
+    return titular + cola
+
+
+def descripcion_seo(nota):
+    """Descripcion informativa y unica, sin superar unos 155 caracteres."""
+    medio = recortar_medio(nota.get('medio', ''), 34)
+    fecha = u', %s' % nota['fecha'] if nota.get('fecha') else ''
+    cola = (u' en %s%s. Arquitectura e interiorismo de '
+            u'Hitzig Militello Arquitectos.' % (medio, fecha))
+    titular = recortar(nota.get('titulo', ''), max(20, 155 - len(cola)))
+    return titular + cola
+
+
 def medidas(ruta):
     """Ancho y alto de un WebP, sin depender de Pillow."""
     try:
@@ -86,9 +126,8 @@ def cascara():
 def cabeza(html, nota):
     """Titulo, descripcion y etiquetas sociales de la nota."""
     url = '%s/prensa/%s/' % (SITIO, nota['slug'])
-    titulo = '%s | Prensa | Hitzig Militello Arquitectos' % nota['titulo']
-    desc = '%s en %s%s.' % (nota['titulo'], nota['medio'],
-                            ', ' + nota['fecha'] if nota.get('fecha') else '')
+    titulo = titulo_seo(nota)
+    desc = descripcion_seo(nota)
     tapa = nota.get('tapa') or ''
 
     html = re.sub(r'<title>.*?</title>', '<title>%s</title>' % e(titulo),

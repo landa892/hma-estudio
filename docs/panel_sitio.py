@@ -33,6 +33,7 @@ import os
 import re
 import shutil
 import sys
+import urllib.error
 import urllib.request
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,6 +46,7 @@ BUSCADOR_EN = os.path.join(RAIZ, 'scripts', 'search-index-en.js')
 # Freno de mano. Si la consulta a la base falla a medias y devuelve poco, sin
 # este tope el script borraria medio sitio sin preguntar.
 TOPE_BAJAS = 5
+RENOMBRES_FIJOS = os.path.join(RAIZ, 'docs', 'slugs_renombrados.json')
 
 
 # ---------------------------------------------------------------------------
@@ -68,6 +70,38 @@ def desde_json():
     if not os.path.isfile(p):
         raise SystemExit('No existe docs/panel_datos.json. Corre con --supabase.')
     return json.load(io.open(p, encoding='utf-8'))
+
+
+def aliases_publicados(supabase):
+    """{slug anterior: slug actual} para distinguir renombres de bajas.
+
+    La ruta anterior se guarda automaticamente en obra_aliases desde la
+    migracion 0017. El JSON queda como respaldo local para poder verificar los
+    dos renombres que ocurrieron antes de que esa tabla existiera.
+    """
+    if supabase:
+        url = os.environ.get('SUPABASE_URL', '').rstrip('/')
+        clave = os.environ.get('SUPABASE_SERVICE_KEY', '')
+        pedido = urllib.request.Request(
+            url + '/rest/v1/obra_aliases?select=slug,obras!inner(slug,publicada)'
+                  '&obras.publicada=is.true',
+            headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+        try:
+            with urllib.request.urlopen(pedido, timeout=30) as respuesta:
+                filas = json.loads(respuesta.read().decode('utf-8'))
+            return dict((fila.get('slug'), (fila.get('obras') or {}).get('slug'))
+                        for fila in filas if fila.get('slug')
+                        and (fila.get('obras') or {}).get('slug'))
+        except urllib.error.HTTPError as error:
+            texto = error.read().decode('utf-8', 'replace')
+            if error.code not in (400, 404) or 'obra_aliases' not in texto:
+                raise
+
+    if not os.path.isfile(RENOMBRES_FIJOS):
+        return {}
+    filas = json.load(io.open(RENOMBRES_FIJOS, encoding='utf-8'))
+    return dict((viejo, datos.get('ahora')) for viejo, datos in filas.items()
+                if datos.get('ahora'))
 
 
 # ---------------------------------------------------------------------------
@@ -147,12 +181,79 @@ def sacar_recursos(slug):
         os.remove(portada)
 
 
+def actualizar_tarjeta_renombrada(bloque, viejo, actual, titulo):
+    """Actualiza una tarjeta copiada dentro de la ficha de otra obra."""
+    nombre = ((titulo or actual).replace('&', '&amp;').replace('<', '&lt;')
+              .replace('>', '&gt;').replace('"', '&quot;'))
+    bloque = bloque.replace('/proyectos/%s/' % viejo,
+                            '/proyectos/%s/' % actual)
+    bloque = bloque.replace('data-slug="%s"' % viejo,
+                            'data-slug="%s"' % actual)
+    bloque = re.sub(
+        r'(/assets/covers/)%s\.webp(?:\?[^"\s]*)?' % re.escape(viejo),
+        r'\g<1>%s.webp' % actual, bloque)
+    bloque = re.sub(r'(<img\b[^>]*\balt=")[^"]*(")',
+                    lambda m: m.group(1) + nombre + m.group(2), bloque, count=1)
+    bloque = re.sub(r'(<div class="p-name">).*?(</div>)',
+                    lambda m: m.group(1) + nombre + m.group(2), bloque,
+                    count=1, flags=re.S)
+    return bloque
+
+
+def migrar_referencias_de_aliases(aliases, titulos, verificar):
+    """Mueve enlaces y tarjetas al slug vigente antes de borrar el anterior.
+
+    Un renombre no es una baja editorial. Si se lo trata como baja, se quita
+    el enlace de las tarjetas relacionadas pero queda la portada vieja; cuando
+    esa portada se borra, varias fichas muestran una imagen rota. Resolver la
+    referencia completa conserva enlace, nombre y foto en un solo paso.
+    """
+    cambiados = []
+    for p in glob.glob(os.path.join(RAIZ, '**', '*.html'), recursive=True):
+        rel = os.path.relpath(p, RAIZ).replace(os.sep, '/')
+        if rel.startswith(('docs/', 'en/', 'admin/', 'node_modules/')):
+            continue
+        if rel == 'proyectos/index.html':
+            # El listado tiene su propio generador y todavia contiene la fila
+            # vieja que este mismo paso va a retirar unos renglones mas abajo.
+            continue
+        crudo = io.open(p, encoding='utf-8').read()
+        nuevo = crudo
+        for viejo, actual in aliases.items():
+            if not viejo or not actual or viejo == actual:
+                continue
+            # Las tarjetas necesitan mas que cambiar el href: portada, alt y
+            # nombre visible tambien pertenecen a la obra actual.
+            while True:
+                corte = bloque_del_listado(nuevo, 'project-card', viejo)
+                if corte is None:
+                    break
+                bloque = nuevo[corte[0]:corte[1]]
+                reemplazo = actualizar_tarjeta_renombrada(
+                    bloque, viejo, actual, titulos.get(actual, actual))
+                nuevo = nuevo[:corte[0]] + reemplazo + nuevo[corte[1]:]
+            # Premios, prensa y cualquier enlace de texto tambien deben seguir
+            # llevando a la ficha, aunque no sean una tarjeta.
+            nuevo = nuevo.replace('/proyectos/%s/' % viejo,
+                                  '/proyectos/%s/' % actual)
+            nuevo = nuevo.replace('https://estudiohma.com/proyectos/%s/' % viejo,
+                                  'https://estudiohma.com/proyectos/%s/' % actual)
+        if nuevo != crudo:
+            cambiados.append(rel)
+            if not verificar:
+                io.open(p, 'w', encoding='utf-8', newline='\n').write(nuevo)
+    return cambiados
+
+
 # ---------------------------------------------------------------------------
 
 def main(verificar, supabase):
     obras = desde_supabase() if supabase else desde_json()
     publicadas = set(o['slug'] for o in obras if o.get('publicada'))
     titulo = dict((o['slug'], o.get('titulo') or o['slug']) for o in obras)
+    aliases = dict((viejo, actual) for viejo, actual
+                   in aliases_publicados(supabase).items()
+                   if actual in publicadas)
 
     if not publicadas:
         print('ERROR: la base no devolvio ninguna obra publicada. No se toca nada.')
@@ -183,6 +284,12 @@ def main(verificar, supabase):
               'la base que fallo a medias.\nRevisar la lista y, si esta bien, '
               'subir TOPE_BAJAS a mano en este archivo.' % TOPE_BAJAS)
         return 1
+
+    migradas = migrar_referencias_de_aliases(aliases, titulo, verificar)
+    if migradas:
+        print('\nreferencias de obras renombradas actualizadas: %d' % len(migradas))
+        for rel in migradas:
+            print('  ' + rel)
 
     # --- enlaces que quedarian colgados ---
     # El propio listado no cuenta: su tarjeta y su fila se van en este mismo paso.
