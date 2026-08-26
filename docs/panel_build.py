@@ -43,16 +43,16 @@
                         reconstruir la pagina y volver a dejar el texto anterior.
     17. en_gen          rehace /en/ de cero. Traduce lo que dejaron los pasos
                         anteriores.
-    18. panel_verificar_salida compara toda la salida editable con la base. Si
-                        algo guardado no llego al HTML, corta el deploy y
-                        conserva la version publica anterior.
-    19. panel_aliases   conserva las direcciones anteriores de obras renombradas.
-    20. obras_orden     ordena grilla y lista por el ano final, tanto en
+    18. panel_aliases   conserva las direcciones anteriores de obras renombradas.
+    19. obras_orden     ordena grilla y lista por el ano final, tanto en
                         castellano como en ingles. Asi una obra nueva no queda
                         al final solo por haberse cargado despues.
-    21. seo_gen         agrega datos estructurados a cada pagina publica ya con
+    20. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
-    22. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    21. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
+    22. panel_verificar_salida compara la salida final completa con la base. Si
+                        algo guardado no llego al HTML, corta el deploy y
+                        conserva la version publica anterior.
     23. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
 
    ``panel_correcciones_agosto.py`` ya no forma parte del build. Fue una
@@ -96,11 +96,11 @@ PASOS = [
     # Textos del sitio siempre gana antes de crear el espejo en ingles.
     ('los textos fijos',             'panel_textos.py',  ['--supabase']),
     ('el sitio en ingles',           'en_gen.py',        []),
-    ('la salida completa del panel', 'panel_verificar_salida.py', []),
     ('las direcciones anteriores',   'panel_aliases.py', []),
     ('el orden cronologico',         'obras_orden.py',   []),
     ('los datos estructurados SEO',  'seo_gen.py',       []),
     ('el sitemap',                   'sitemap_gen.py',   []),
+    ('la salida completa del panel', 'panel_verificar_salida.py', []),
     # Ultimo: deja anotada la fecha contra la que el panel compara para
     # avisar que hay cambios guardados sin publicar. Ver panel_publicado.py.
     ('la marca de publicado',        'panel_publicado.py', []),
@@ -123,10 +123,9 @@ def validar_orden():
     if textos > ingles:
         raise RuntimeError('panel_textos.py debe correr antes de en_gen.py')
     verificacion = scripts.index('panel_verificar_salida.py')
-    if verificacion < ingles or verificacion >= scripts.index('panel_publicado.py'):
+    if verificacion != scripts.index('panel_publicado.py') - 1:
         raise RuntimeError(
-            'panel_verificar_salida.py debe correr despues de en_gen.py y '
-            'antes de panel_publicado.py')
+            'panel_verificar_salida.py debe ser el penultimo paso del build')
     if scripts[-1] != 'panel_publicado.py':
         raise RuntimeError('panel_publicado.py debe seguir siendo el ultimo paso')
 
