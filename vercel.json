@@ -3,6 +3,26 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/prensa/cafeteria-osten-casa-foa-2026/",
+      "destination": "/prensa/archello-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/prensa/cafeteria-osten-casa-foa-2026",
+      "destination": "/prensa/archello-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/en/press/cafeteria-osten-casa-foa-2026/",
+      "destination": "/en/press/archello-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/en/press/cafeteria-osten-casa-foa-2026",
+      "destination": "/en/press/archello-2026/",
+      "permanent": true
+    },
+    {
       "source": "/proyectos/cerveceria-austral/",
       "destination": "/proyectos/estancia-austral/",
       "permanent": true

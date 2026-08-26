@@ -40,8 +40,8 @@ BARRA_INICIO = '<!-- PRENSA-BARRA-INICIO -->'
 BARRA_FIN = '<!-- PRENSA-BARRA-FIN -->'
 
 # Cuantas tarjetas se ven antes de tocar "Seguir viendo", y de a cuantas se
-# suman despues. Seis es lo que muestra el Word en la maqueta: una fila.
-VISIBLES = 6
+# suman despues. Desde el 25/08 son dos filas de seis, igual que Nuestro canal.
+VISIBLES = 12
 TANDA = 12
 
 

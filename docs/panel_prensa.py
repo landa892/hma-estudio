@@ -152,6 +152,24 @@ def main():
             return 0
         raise
 
+    # Estas dos filas llegaron de fuentes distintas, pero apuntan a la misma
+    # nota de Archello. Se conserva la ficha completa de Archello y se pasa la
+    # otra a borrador. La condicion por enlace evita ocultarla si el estudio
+    # la reutiliza mas adelante para una publicacion realmente diferente.
+    duplicada = next((fila for fila in filas
+                      if fila.get('slug') == 'cafeteria-osten-casa-foa-2026'), None)
+    canonica = next((fila for fila in filas
+                     if fila.get('slug') == 'archello-2026'), None)
+    enlace_archello = 'https://archello.com/project/cafeteria-osten-casa-foa'
+    if (duplicada and canonica and duplicada.get('publicada')
+            and duplicada.get('link') == enlace_archello
+            and canonica.get('link') == enlace_archello):
+        pedir(url, clave,
+              '/rest/v1/prensa_publicaciones?slug=eq.cafeteria-osten-casa-foa-2026',
+              metodo='PATCH', cuerpo={'publicada': False})
+        duplicada['publicada'] = False
+        print('prensa: duplicada de Archello pasada a borrador')
+
     # Se siembra lo que falta, no solamente cuando la tabla esta vacia. Antes
     # era "if not filas": con las nueve publicaciones de la primera siembra ya
     # cargadas, las doscientas diez que docs/prensa_desde_fuentes.py armo desde
