@@ -48,8 +48,11 @@
   if (mq.addEventListener) mq.addEventListener('change', onPrefChange);
   else if (mq.addListener) mq.addListener(onPrefChange);
 
-  gsap.defaults({ overwrite: 'auto', force3D: true });
-  gsap.config({ nullTargetWarn: false });
+  /* force3D pertenece a la configuracion global de CSSPlugin. Como default de
+     cada tween tambien se intentaba aplicar sobre objetos internos de GSAP y
+     llenaba la consola con avisos, aunque la animacion terminara funcionando. */
+  gsap.defaults({ overwrite: 'auto' });
+  gsap.config({ nullTargetWarn: false, force3D: true });
   ScrollTrigger.config({ ignoreMobileResize: true, limitCallbacks: true });
 
   /* --- Lenis ---------------------------------------------------------------
