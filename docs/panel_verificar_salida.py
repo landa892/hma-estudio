@@ -70,11 +70,36 @@ def correr_verificador(script, argumentos):
 
 
 def verificar_obras_y_textos(problemas):
-    # Estos dos comparan usando exactamente los moldes que escriben la salida.
+    # Las obras se comparan usando exactamente el molde que escribe la salida.
     if not correr_verificador('panel_generar.py', ['--supabase', '--verificar']):
         problemas.append('las fichas o memorias de obras no coinciden con la base')
-    if not correr_verificador('panel_textos.py', ['--supabase', '--verificar']):
-        problemas.append('los textos generales en castellano no coinciden con la base')
+
+
+def verificar_textos_es(textos, problemas):
+    """Compara el valor visible sin confundir enlaces y rotulos agregados."""
+    por_clave = {f.get('clave'): f for f in textos}
+    por_archivo = {}
+    for clave, ruta, patron in panel_textos.ubicaciones(textos):
+        por_archivo.setdefault(ruta, []).append((clave, patron))
+    for ruta, campos in por_archivo.items():
+        codigo = leer(ruta)
+        if codigo is None:
+            problemas.append('%s: falta la pagina de un texto editable' % ruta)
+            continue
+        desde = panel_textos.zona_de_contenido(codigo)
+        for clave, patron in campos:
+            fila = por_clave.get(clave)
+            if not fila or not (fila.get('es') or '').strip():
+                continue
+            m = re.search(patron, codigo[desde:], re.S)
+            if not m:
+                problemas.append('%s: no se encuentra su campo en %s' % (clave, ruta))
+                continue
+            actual = panel_textos.como_lo_dice_el_sitio(m.group(1))
+            if clave == 'contacto.telefonos':
+                actual = re.sub(r'(?m)^WhatsApp:\s*', '', actual)
+            if plano(actual) != plano(fila['es']):
+                problemas.append('%s: el texto castellano no coincide con el panel' % clave)
 
 
 def verificar_listado(obras, problemas):
@@ -142,10 +167,14 @@ def verificar_novedades_inicio(textos, problemas):
             valor = fila['es'].strip()
             if campo == 'imagen' and valor.startswith(('@site:', '@seed:')):
                 valor = valor.split(':', 1)[1]
-            patron = r'<[^>]*\bdata-%s-%s\b[^>]*\b%s="%s"' % (
-                red, 'link' if campo == 'url' else 'image', atributo,
-                re.escape(html.escape(valor, quote=True)))
-            if not re.search(patron, codigo):
+            dato = 'data-%s-%s' % (red, 'link' if campo == 'url' else 'image')
+            etiquetas = re.findall(r'<[^>]*\b%s\b[^>]*>' % dato, codigo)
+            valores = []
+            for etiqueta in etiquetas:
+                m = re.search(r'\b%s="([^"]*)"' % atributo, etiqueta)
+                if m:
+                    valores.append(html.unescape(m.group(1)))
+            if valor not in valores:
                 problemas.append('Inicio: %s de %s no coincide con el panel'
                                   % (campo, red))
 
@@ -209,6 +238,10 @@ def verificar_ingles(obras, textos, problemas):
                       in panel_textos.ubicaciones(textos)}
     cache = {}
     for fila in textos:
+        # URL e imagen se verifican como atributos en el Inicio. No son texto
+        # visible y por eso no corresponde buscarlas dentro del espejo.
+        if fila.get('clave', '').endswith(('_url', '_imagen')):
+            continue
         valor = plano(fila.get('en'))
         ruta_es = ruta_por_clave.get(fila.get('clave'), 'index.html'
                                      if fila.get('seccion') == 'novedades' else None)
@@ -242,7 +275,8 @@ def verificar_imagenes(problemas):
             ruta = os.path.join(base, nombre)
             codigo = io.open(ruta, encoding='utf-8').read()
             for fuente in re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', codigo):
-                if not fuente.startswith('/') or fuente.startswith('//'):
+                if (not fuente.startswith('/') or fuente.startswith('//')
+                        or fuente.startswith('/api/')):
                     continue
                 local = fuente.split('?', 1)[0].split('#', 1)[0]
                 destino = os.path.join(RAIZ, *local.lstrip('/').split('/'))
@@ -261,6 +295,7 @@ def main():
     textos = pedir(url, clave, '/rest/v1/textos?select=*&order=orden.asc')
 
     verificar_obras_y_textos(problemas)
+    verificar_textos_es(textos, problemas)
     verificar_listado(obras, problemas)
     verificar_destacadas(obras, problemas)
     verificar_novedades_inicio(textos, problemas)
