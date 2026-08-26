@@ -212,6 +212,35 @@ def verificar_portadas(url, clave, obras, problemas):
             problemas.append('%s: la imagen para compartir conserva otra portada' % slug)
 
 
+def verificar_fotos_del_cuerpo(obras, problemas):
+    """La cantidad del panel debe tomar las primeras N fotos de la galeria."""
+    for obra in obras:
+        cantidad = obra.get('fotos_cuerpo_cantidad')
+        if cantidad is None:
+            continue
+        slug = obra['slug']
+        ficha = leer('proyectos/%s/index.html' % slug) or ''
+        cuerpo = re.search(
+            r'<section class="project-gallery">(.*?)</section>', ficha, re.S)
+        galeria = re.search(
+            r'<section class="section no-border" id="galeria">(.*?)</section>',
+            ficha, re.S)
+        if not cuerpo or not galeria:
+            problemas.append('%s: falta el cuerpo o la galeria de la obra' % slug)
+            continue
+        fotos_cuerpo = re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', cuerpo.group(1))
+        fotos_galeria = [
+            m.group(1) for m in re.finditer(
+                r'<figure class="gallery-grid__item(?![^"]*--plano)[^"]*">\s*'
+                r'<img\b[^>]*\bsrc="([^"]+)"', galeria.group(1), re.S)
+        ]
+        esperadas = fotos_galeria[:int(cantidad)]
+        if fotos_cuerpo != esperadas:
+            problemas.append(
+                '%s: las fotos del cuerpo no son las primeras %d de la galeria'
+                % (slug, int(cantidad)))
+
+
 def verificar_destacadas(obras, problemas):
     codigo = leer('index.html')
     if codigo is None:
@@ -382,6 +411,7 @@ def main():
     verificar_textos_es(textos, problemas)
     verificar_listado(obras, problemas)
     verificar_portadas(url, clave, obras, problemas)
+    verificar_fotos_del_cuerpo(obras, problemas)
     verificar_destacadas(obras, problemas)
     verificar_novedades_inicio(textos, problemas)
     verificar_prensa(url, clave, problemas)

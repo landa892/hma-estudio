@@ -35,9 +35,9 @@ MAPA_PORTADAS = os.path.join(RAIZ, 'docs', 'panel_portadas.json')
 SITIO = 'https://estudiohma.com'
 VISIBLES = 6
 TOPE = 30
-# Las fichas heredadas conservan tres fotos principales. Cuando el estudio
-# carga fotos de cuerpo desde el panel, esas filas pasan a ser la seleccion
-# explicita y no llevan limite.
+# Las fichas heredadas conservan tres fotos principales. Con la migracion de
+# cantidad activa, el cuerpo toma siempre las primeras fotos ordenadas de la
+# galeria: una sola coleccion evita subir y recorrer la misma imagen dos veces.
 PRINCIPALES = 3
 # Los planos llevan su propio tope, mas alto: no se cotizan ni se suben a
 # mano, salen del Drive y son los que son. Tostado tiene 35. Tiene que
@@ -399,16 +399,19 @@ def resolver_imagen(slug, foto, url, clave=None, aliases=()):
 
 
 def bloque_filas(actual, titulo, fotos, cuerpo, cantidad=None):
-    """Portada mas cuerpo administrado; sin cuerpo, conserva el legado."""
+    """Primeras fotos de galeria; el cuerpo separado queda solo como legado."""
     portada = next((foto for foto in fotos if foto['portada']), fotos[0])
     fotos = [portada] + [foto for foto in fotos if foto is not portada]
-    seleccion = [portada] + cuerpo if cuerpo else fotos[:PRINCIPALES]
+    # Antes el panel tenia otra carga llamada "Fotos del cuerpo". Hyatt fue la
+    # unica obra que la uso: las mismas tomas ya estaban en la galeria y el
+    # visor terminaba recorriendolas mas de una vez. Si existe la columna de
+    # cantidad, la eleccion es ahora simplemente las primeras N de la galeria.
+    # El fallback conserva el dibujo anterior en una base sin la migracion.
+    seleccion = ([portada] + cuerpo if cuerpo else fotos[:PRINCIPALES])
     if cantidad is not None:
-        # La portada cuenta dentro de la cantidad visible, igual que antes
-        # contaba dentro de las tres filas heredadas. Recortar la lista no toca
-        # Storage ni obra_imagenes: subir de nuevo el numero las recupera.
-        fuente = [portada] + cuerpo if cuerpo else fotos
-        seleccion = fuente[:cantidad]
+        # La portada cuenta como la primera. Cambiar la cantidad no toca
+        # Storage: solo cambia hasta donde se toma la galeria ordenada.
+        seleccion = fotos[:cantidad]
     filas = ['      <div class="project-row project-row--sola reveal">\n'
              '        <div class="project-row__photo"><img></div>\n      </div>'] * len(seleccion)
     nuevas = []
@@ -822,7 +825,14 @@ def main():
 
         aliases = aliases_por_obra.get(obra['id'], [])
         fotos_resueltas = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_fotos]
-        cuerpo_resuelto = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_cuerpo]
+        # Desde que existe la cantidad configurable, el cuerpo reutiliza las
+        # primeras fotos de la galeria. Las filas antiguas de tipo cuerpo se
+        # conservan en la base como respaldo, pero ya no se descargan ni se
+        # publican: Hyatt era la unica obra que todavia las tenia.
+        cuerpo_resuelto = [] if obra.get('fotos_cuerpo_cantidad') is not None else [
+            resolver_imagen(obra['slug'], f, url, clave, aliases)
+            for f in filas_cuerpo
+        ]
         planos_resueltos = [resolver_imagen(obra['slug'], f, url, clave, aliases) for f in filas_planos]
         if actualizar_pagina(obra['slug'], obra['titulo'], fotos_resueltas,
                              cuerpo_resuelto, planos_resueltos,
@@ -833,7 +843,7 @@ def main():
 
     sacar_excluidas_de_las_fichas()
     # Las fichas heredadas ya quedaron recortadas. No se recorta de nuevo:
-    # las filas de tipo cuerpo son una seleccion editorial explicita.
+    # las filas antiguas de tipo cuerpo quedan solamente como respaldo.
 
     if portadas:
         actualizar_listado(portadas)

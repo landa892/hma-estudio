@@ -84,7 +84,7 @@
     $('ayudaFotosCuerpoCantidad').classList.toggle(
       'campo__ayuda--alerta', !cantidadCuerpoDisponible);
     $('ayudaFotosCuerpoCantidad').textContent = cantidadCuerpoDisponible
-      ? 'Elegí de 0 a 30. La portada cuenta como la primera; después se usa la selección ordenada de abajo o, si está vacía, la galería. Cambiar este número no elimina ninguna imagen.'
+      ? 'Elegí de 0 a 30. La portada cuenta como la primera y siguen las primeras fotos de la galería en el orden elegido. Cambiar este número no duplica ni elimina ninguna imagen.'
       : 'Falta activar esta opción en la base. Aplicá 0018_cantidad_fotos_cuerpo.sql; mientras tanto la obra conserva sus 3 fotos actuales.';
   }
 

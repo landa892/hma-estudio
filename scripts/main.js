@@ -1034,6 +1034,27 @@ try {
       memoria.classList.remove('reveal');
       memoria.removeAttribute('style');
       memoriaArmada = true;
+
+      /* El boton depende de las filas finales, no de cuantos Enter tenia la
+         memoria original. Con dos fotos no queda nada oculto y "Seguir
+         leyendo" no debe aparecer; con tres o mas se crea aunque el texto
+         haya llegado pegado como un solo parrafo. */
+      const contenedorMemoria = memoria.parentElement;
+      let botonMemoria = contenedorMemoria && contenedorMemoria.querySelector('.memoria-more');
+      const hayFilasExtra = !!memoria.querySelector('.memoria-editorial-row--extra');
+      if (!hayFilasExtra && botonMemoria) {
+        botonMemoria.remove();
+        memoria.classList.add('is-open');
+      } else if (hayFilasExtra && !botonMemoria && contenedorMemoria) {
+        botonMemoria = document.createElement('button');
+        botonMemoria.className = 'memoria-more gallery-more';
+        botonMemoria.type = 'button';
+        botonMemoria.dataset.mas = T('Seguir leyendo', 'Keep reading');
+        botonMemoria.dataset.menos = T('Leer menos', 'Read less');
+        botonMemoria.setAttribute('aria-expanded', 'false');
+        botonMemoria.textContent = botonMemoria.dataset.mas;
+        contenedorMemoria.appendChild(botonMemoria);
+      }
     }
   }
 
@@ -1098,8 +1119,24 @@ try {
      tocar página por página, y para que una obra nueva lo tenga sin hacer
      nada. Las fotos siguen siendo <img> comunes: si este script no corre, la
      página se ve igual, sólo que sin ampliar. */
-  const fotos = Array.from(document.querySelectorAll(
-    '.gallery-grid__item img, .project-row__photo img, .memoria-editorial-row__photo img'));
+  /* Primero las fotos visibles junto a la memoria y despues la galeria. Las
+     filas originales quedan ocultas como fuente de la composicion. Antes se
+     juntaban las tres colecciones y el visor recorria la misma toma dos o
+     tres veces. La URL sin version es la identidad estable de cada foto. */
+  const candidatas = [
+    ...document.querySelectorAll('.memoria-editorial-row__photo img'),
+    ...document.querySelectorAll('.gallery-grid__item img'),
+    ...document.querySelectorAll('.project-row__photo img'),
+  ];
+  const vistas = new Set();
+  const fotos = candidatas.filter((foto) => {
+    const url = new URL(foto.getAttribute('src') || foto.src, location.href);
+    url.search = '';
+    url.hash = '';
+    if (vistas.has(url.href)) return false;
+    vistas.add(url.href);
+    return true;
+  });
 
   if (fotos.length) {
     const visor = document.createElement('div');

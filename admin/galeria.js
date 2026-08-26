@@ -5,10 +5,10 @@
    foto sale de 8 MB. Subir eso llena el almacenamiento en dos obras y deja la
    pagina lenta para siempre, porque despues se sirve tal cual.
 
-   Galeria, cuerpo y planos son colecciones independientes en obra_imagenes.
-   Las fotos del cuerpo no tienen cupo; galeria y planos si.
-   esta logica: crearGaleria() arma una instancia por tipo, solo cambia que
-   los planos no tienen portada. */
+   Galeria y planos son colecciones independientes en obra_imagenes. Las
+   primeras fotos de galeria acompanan tambien la memoria: una segunda carga
+   para el cuerpo duplicaba las tomas en el recorrido publico. crearGaleria()
+   arma una instancia por tipo; los planos no tienen portada. */
 
 (function () {
   'use strict';
@@ -21,7 +21,7 @@
      suben de a uno, salen del Drive y son los que son -Tostado tiene 35-.
      Con un solo tope de quince, esa obra mostraba "35 de 15" y el boton de
      subir quedaba deshabilitado para siempre. */
-  var TOPES = { foto: 30, cuerpo: null, plano: 40 };
+  var TOPES = { foto: 30, plano: 40 };
   var TAMANO_MAX = 20 * 1024 * 1024;
   var TIPOS_ARCHIVO = ['image/jpeg', 'image/png', 'image/webp'];
   var LADO_LARGO_RECOMENDADO = 1600;
@@ -553,25 +553,6 @@
     rotuloEliminar: 'Eliminar la foto',
   });
 
-  var CUERPO = crearGaleria({
-    tipo: 'cuerpo',
-    conPortada: false,
-    grilla: 'grillaCuerpo',
-    subir: 'subirCuerpo',
-    archivos: 'archivosCuerpo',
-    conteo: 'conteoCuerpo',
-    aviso: 'avisoCuerpo',
-    ayudaTope: 'ayudaTopeCuerpo',
-    unidadPlural: 'imágenes en el cuerpo',
-    vacio: 'Todavía no hay fotos en el cuerpo.',
-    tope: '',
-    subidaSingular: ' foto subida al cuerpo',
-    subidaPlural: ' fotos subidas al cuerpo',
-    avisoEliminada: 'Foto del cuerpo eliminada.',
-    confirmarBorrado: '¿Eliminar esta foto del cuerpo? No se puede deshacer.',
-    rotuloEliminar: 'Eliminar la foto del cuerpo',
-  });
-
   var PLANOS = crearGaleria({
     tipo: 'plano',
     conPortada: false,
@@ -594,10 +575,9 @@
   window.GALERIA = {
     iniciar: function (id) {
       $('galeriaFotos').classList.remove('oculto');
-      $('galeriaCuerpo').classList.remove('oculto');
       $('galeriaPlanos').classList.remove('oculto');
       $('galeriaSinObra').classList.add('oculto');
-      return Promise.all([FOTOS.iniciar(id), CUERPO.iniciar(id), PLANOS.iniciar(id)]);
+      return Promise.all([FOTOS.iniciar(id), PLANOS.iniciar(id)]);
     },
   };
 })();
