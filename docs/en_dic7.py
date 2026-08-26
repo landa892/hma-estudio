@@ -22,6 +22,7 @@ PASA_EXACTO.update({
     # Nombre de la obra en la barra de premios, desde que el premio del concurso
     # internacional dejo de estar atribuido a Novotel. Es marca, no se traduce.
     'Accor',
+    'ARQ',
     # Los dos premios que se sumaron el 12/08/2026. Son nombres propios.
     'Casa FOA', 'Archello',
     # Los tres Uala quedaron con su nombre definitivo el 19/08/2026: el Word
@@ -45,6 +46,12 @@ PASA_EXACTO.update({
 })
 
 DIC.update({
+    "Página anterior": "Previous page",
+    "Página siguiente": "Next page",
+    "Ranking Clarín ARQ": "Clarín ARQ Ranking",
+    "El estudio obtuvo el 6.º puesto en el Ranking a la Excelencia Clarín ARQ 2025, en la especialidad arquitectura y diseño interior.":
+        "The studio ranked 6th in the 2025 Clarín ARQ Ranking for Excellence, in the architecture and interior design category.",
+    "Ranking · 6.º puesto": "Ranking · 6th place",
     # Correccion de enfoque creativo enviada por el estudio el 25/08/2026.
     'Los encargos se abordan desde una concepción arquitectónica, donde convergen problemas y soluciones propios de este campo, integrándolos al interiorismo. Se trabaja de forma holística, considerando todos los aspectos y variables para alcanzar un diseño conceptual único y diferencial.':
         'Each commission is approached through an architectural framework, bringing together the challenges and solutions inherent to the discipline and integrating them into the interior design. We work holistically, considering every aspect and variable to achieve a unique and distinctive conceptual design.',

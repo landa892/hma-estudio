@@ -137,9 +137,11 @@ def bloque_portada(novedades):
         </div>
 
         <nav class="press-pagination" aria-label="Páginas de conferencias y clases">
-          <button type="button" class="btn link-arrow press-archive-link" id="pressAnterior">← Anteriores</button>
+          <button type="button" class="press-page-arrow" id="pressAnterior"
+            aria-label="Página anterior"><span aria-hidden="true">←</span></button>
           <span class="press-pagination__status" id="pressPagina" aria-live="polite"></span>
-          <button type="button" class="btn link-arrow press-archive-link" id="pressSiguiente">Siguientes →</button>
+          <button type="button" class="press-page-arrow" id="pressSiguiente"
+            aria-label="Página siguiente"><span aria-hidden="true">→</span></button>
         </nav>
       </div>
     </section>

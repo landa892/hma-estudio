@@ -24,6 +24,10 @@ docs/__pycache__/
 # assets/prensa/<slug>/ como todas las demas.
 docs/rescate_prensa/
 
+# Informes locales de herramientas de analisis; no forman parte del sitio.
+claude-seo/
+graphify-out/
+
 node_modules/
 package.json
 package-lock.json

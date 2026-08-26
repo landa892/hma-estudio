@@ -1877,6 +1877,7 @@ footer.site-footer {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-auto-rows: 1fr;
+  border: 0;
 }
 
 #prensaFeed > .press-card {
@@ -2029,6 +2030,34 @@ footer.site-footer {
 .press-pagination .press-archive-link:disabled {
   opacity: .32;
   cursor: default;
+}
+
+/* La paginacion de Prensa es deliberadamente minima: dos flechas delicadas,
+   sin cajas ni etiquetas que compitan con las tapas. */
+.press-page-arrow {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--black);
+  font: inherit;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.press-page-arrow:hover,
+.press-page-arrow:focus-visible {
+  background: #f2f2f2;
+  outline: none;
+}
+
+.press-page-arrow:disabled {
+  opacity: .2;
+  cursor: default;
+  background: transparent;
 }
 
 .press-archive-link[hidden],
@@ -3015,10 +3044,11 @@ footer.site-footer {
 
 .award-row {
   display: grid;
-  grid-template-columns: 78px 2fr 280px 160px 1fr 120px;
+  grid-template-columns: 78px minmax(180px, .8fr) minmax(430px, 2fr) 160px 120px;
   gap: 24px;
   align-items: start;
   padding: 16px 0;
+  min-height: 96px;
   border-bottom: 1px solid var(--line);
   width: 100%;
   max-width: 100%;
@@ -3101,8 +3131,7 @@ footer.site-footer {
 }
 
 .award-row__city {
-  grid-column: 6;
-  /* Saltamos a la columna 6, dejando la 5 vacía */
+  grid-column: 5;
   grid-row: 1 / 3;
   align-self: center;
   font-size: .78rem;
@@ -3582,9 +3611,9 @@ footer.site-footer {
 }
 
 .work-split--proceso {
-  grid-template-columns: minmax(0, 1.12fr) minmax(20rem, .88fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  gap: clamp(36px, 5vw, 76px);
+  gap: 0;
 }
 
 .work-split--proceso .work-steps {
@@ -3593,10 +3622,25 @@ footer.site-footer {
 }
 
 .work-split--proceso .bloque-texto {
-  display: flex;
+  display: grid;
+  grid-template-columns: 5px minmax(0, 1fr);
   align-items: baseline;
+  column-gap: 14px;
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.work-split--proceso .bloque-texto::before {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #b8b8b8;
+  transform: translateY(-.28em);
+}
+
+.work-split--proceso .work-split__text {
+  padding-left: 40px;
 }
 
 .work-split--proceso .work-split__text .bloque-texto + .bloque-texto {
@@ -3628,6 +3672,10 @@ footer.site-footer {
   .work-split--proceso {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .work-split--proceso .work-split__text {
+    padding-left: 0;
   }
 
   .work-split--proceso .work-split__photo {
@@ -4953,12 +5001,29 @@ html.lenis body {
 }
 
 .work-split--reverse {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
   align-items: start;
+}
+
+.work-split--reverse .work-split__text {
+  padding-right: 40px;
 }
 
 .work-split--reverse .work-split__text,
 .work-split--reverse .work-split__photo {
   align-self: start;
+}
+
+@media (max-width: 760px) {
+  .work-split--reverse {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .work-split--reverse .work-split__text {
+    padding-right: 0;
+  }
 }
 
 /* Las tapas de Prensa conservan exactamente la misma caja, incluso al

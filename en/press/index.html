@@ -28,7 +28,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.css?v=108">
+  <link rel="stylesheet" href="/styles/main.css?v=110">
 
   <link rel="alternate" hreflang="es" href="https://estudiohma.com/prensa/">
   <link rel="alternate" hreflang="en" href="https://estudiohma.com/en/press/">
@@ -136,7 +136,7 @@
   <main id="main">
     <section class="hero-home pb-32">
       <div class="container">
-        <h1 class="display-2 mt-14">Press</h1>
+        <h1 class="display-2 mt-14" data-texto="prensa.titular">Press</h1>
       </div>
     </section>
 
@@ -147,7 +147,7 @@
         <div class="section-head section-head--eje prensa-cabecera">
           <div>
             <span class="eyebrow eyebrow--seccion">Publications</span>
-            <h2 class="display-3 mt-10">Press</h2>
+            <h2 class="display-3 mt-10" data-texto="prensa.publicaciones">Press</h2>
           </div>
         </div>
 
@@ -2093,9 +2093,11 @@
               <!-- PRENSA-TARJETAS-FIN -->
             </div>
             <nav class="press-pagination" aria-label="Publication pages">
-              <button type="button" class="btn link-arrow press-archive-link" id="prensaVisualAnterior">← Previous</button>
+              <button type="button" class="press-page-arrow" id="prensaVisualAnterior"
+                aria-label="Previous page"><span aria-hidden="true">←</span></button>
               <span class="press-pagination__status" id="prensaVisualPagina" aria-live="polite"></span>
-              <button type="button" class="btn link-arrow press-archive-link" id="prensaVisualMas">Next →</button>
+              <button type="button" class="press-page-arrow" id="prensaVisualMas"
+                aria-label="Next page"><span aria-hidden="true">→</span></button>
             </nav>
           </div>
 
@@ -2107,7 +2109,7 @@
         <div class="section-head section-head--eje">
           <div>
             <span class="eyebrow eyebrow--seccion">News</span>
-            <h2 class="display-3 mt-10">Conferences and classes</h2>
+            <h2 class="display-3 mt-10" data-texto="prensa.novedades">Conferences and classes</h2>
           </div>
         </div>
         <div class="press-barra">
@@ -2175,7 +2177,13 @@
           <div class="press-row" data-group="news" data-year="2002"><div class="pr-date">News</div><div class="pr-text"><b>Architecture graduate Fernando Hitzig. FADU, University of Buenos Aires. Buenos Aires, Argentina.</b></div><div class="pr-outlet">2002</div></div>
         </div>
 
-        <button type="button" class="btn link-arrow press-load-more" id="pressLoadMore">View more</button>
+        <nav class="press-pagination" aria-label="Conference and class pages">
+          <button type="button" class="press-page-arrow" id="pressAnterior"
+            aria-label="Previous page"><span aria-hidden="true">←</span></button>
+          <span class="press-pagination__status" id="pressPagina" aria-live="polite"></span>
+          <button type="button" class="press-page-arrow" id="pressSiguiente"
+            aria-label="Next page"><span aria-hidden="true">→</span></button>
+        </nav>
       </div>
     </section>
     <!-- PRENSA-ARCHIVO-FIN -->
@@ -2186,12 +2194,12 @@
         <div class="section-head section-head--eje">
           <div>
             <span class="eyebrow eyebrow--seccion">Videos</span>
-            <h2 class="display-3 mt-10">Our channel</h2>
+            <h2 class="display-3 mt-10" data-texto="prensa.videos">Our channel</h2>
           </div>
           <a href="https://www.youtube.com/@HMAEstudio" target="_blank" rel="noopener" class="btn link-arrow">Go to the channel</a>
         </div>
 
-        <h3 class="col-sub col-sub--videos">Latest videos from the channel</h3>
+        <h3 class="col-sub col-sub--videos" data-texto="prensa.videos_bajada">Latest videos from the channel</h3>
         <div id="youtubeEntrevistas" class="press-featured">
           <a class="press-card" href="https://www.youtube.com/watch?v=9Z2Q4iS2Ip0" target="_blank" rel="noopener">
             <div class="press-img"><img src="/api/youtube-thumbnail?id=9Z2Q4iS2Ip0" width="1280" height="720" alt="El estudio de arquitectura y diseño detrás del Movistar Arena, hoteles y restaurantes | HMA Estudio"
@@ -2351,11 +2359,11 @@
   <script src="/scripts/vendor/gsap.min.js"></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js"></script>
   <script src="/scripts/vendor/lenis.min.js"></script>
-  <script src="/scripts/config/gsap.js?v=86"></script>
-  <script src="/scripts/animations/textReveal.js?v=85"></script>
-  <script src="/scripts/animations/heroAnimation.js?v=87"></script>
-  <script src="/scripts/animations/scrollEffects.js?v=86"></script>
-  <script src="/scripts/main.js?v=102"></script>
+  <script src="/scripts/config/gsap.js?v=110"></script>
+  <script src="/scripts/animations/textReveal.js?v=110"></script>
+  <script src="/scripts/animations/heroAnimation.js?v=110"></script>
+  <script src="/scripts/animations/scrollEffects.js?v=110"></script>
+  <script src="/scripts/main.js?v=110"></script>
 </body>
 
 </html>

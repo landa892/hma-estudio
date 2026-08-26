@@ -1010,7 +1010,10 @@ try {
         const fin = Math.floor(((i + 1) * parrafos.length) / cantidad);
         const fila = document.createElement('div');
         fila.className = 'memoria-editorial-row' + (i % 2 ? ' memoria-editorial-row--reverse' : '');
-        if (i >= 2) fila.classList.add('memoria-editorial-row--extra');
+        /* Hasta cinco fotos el estudio quiere leer la memoria completa, sin
+           un control que no aporta nada. A partir de la sexta se conserva el
+           despliegue para que una ficha larga no se vuelva interminable. */
+        if (i >= 5) fila.classList.add('memoria-editorial-row--extra');
 
         const texto = document.createElement('div');
         texto.className = 'memoria-editorial-row__text';
@@ -1036,9 +1039,8 @@ try {
       memoriaArmada = true;
 
       /* El boton depende de las filas finales, no de cuantos Enter tenia la
-         memoria original. Con dos fotos no queda nada oculto y "Seguir
-         leyendo" no debe aparecer; con tres o mas se crea aunque el texto
-         haya llegado pegado como un solo parrafo. */
+         memoria original. Hasta cinco fotos no queda nada oculto; con seis o
+         mas se crea aunque el texto haya llegado pegado como un solo parrafo. */
       const contenedorMemoria = memoria.parentElement;
       let botonMemoria = contenedorMemoria && contenedorMemoria.querySelector('.memoria-more');
       const hayFilasExtra = !!memoria.querySelector('.memoria-editorial-row--extra');
