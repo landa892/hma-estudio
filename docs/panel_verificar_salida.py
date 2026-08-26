@@ -128,6 +128,90 @@ def verificar_listado(obras, problemas):
                                   % (obra['slug'], nombre))
 
 
+def verificar_portadas(url, clave, obras, problemas):
+    """Prueba que la portada elegida llego a todas sus salidas publicas.
+
+    Antes se comprobaba que las obras y sus titulos estuvieran en el listado,
+    pero no que su imagen fuera la seleccionada en el panel. Una tarjeta podia
+    conservar la tapa vieja y el build terminaba en verde. El mapa contiene el
+    id de la fila que panel_galerias resolvio; compararlo con la base evita que
+    una ruta valida o un alias historico escondan una portada desactualizada.
+    """
+    ruta_mapa = os.path.join(DOCS, 'panel_portadas.json')
+    if not os.path.isfile(ruta_mapa):
+        problemas.append('Trabajos: no se genero el mapa de portadas')
+        return
+    portadas = json.load(io.open(ruta_mapa, encoding='utf-8'))
+    por_slug = {o['slug']: o for o in obras}
+    filas = pedir(
+        url, clave,
+        '/rest/v1/obra_imagenes?select=id,obra_id&tipo=eq.foto&es_portada=is.true')
+    por_obra = {}
+    for fila in filas:
+        por_obra.setdefault(fila['obra_id'], []).append(fila['id'])
+
+    listado = leer('proyectos/index.html') or ''
+    buscador_crudo = leer('scripts/search-index.js') or ''
+    try:
+        inicio = buscador_crudo.index('[')
+        fin = buscador_crudo.rindex(']') + 1
+        buscador = json.loads(buscador_crudo[inicio:fin])
+    except (ValueError, TypeError):
+        buscador = []
+        problemas.append('Trabajos: no se puede leer el indice del buscador')
+    imagen_buscador = {
+        m.group(1): entrada.get('img')
+        for entrada in buscador
+        for m in [re.match(r'/proyectos/([^/]+)/', entrada.get('url', ''))]
+        if m
+    }
+
+    def src_en_bloque(patron, codigo):
+        m = re.search(patron, codigo, re.S)
+        if not m:
+            return ''
+        img = re.search(r'<img\b[^>]*\bsrc="([^"]+)"', m.group(0))
+        return html.unescape(img.group(1)) if img else ''
+
+    for slug, portada in portadas.items():
+        obra = por_slug.get(slug)
+        if not obra:
+            problemas.append('%s: hay una portada para una obra no publicada' % slug)
+            continue
+        elegidas = por_obra.get(obra['id'], [])
+        if len(elegidas) != 1:
+            problemas.append('%s: la base debe tener exactamente una portada' % slug)
+            continue
+        if portada.get('imagen_id') != elegidas[0]:
+            problemas.append('%s: la portada generada no es la elegida en el panel' % slug)
+            continue
+
+        esperada = portada.get('src') or ''
+        tarjeta = src_en_bloque(
+            r'<a\b[^>]*class="[^"]*project-card[^"]*"[^>]*data-slug="%s".*?</a>'
+            % re.escape(slug), listado)
+        fila = src_en_bloque(
+            r'<a\b[^>]*class="[^"]*project-list-row[^"]*"[^>]*data-slug="%s".*?</a>'
+            % re.escape(slug), listado)
+        if tarjeta != esperada:
+            problemas.append('%s: la grilla de Trabajos conserva otra portada' % slug)
+        if fila != esperada:
+            problemas.append('%s: la lista de Trabajos conserva otra portada' % slug)
+        if imagen_buscador.get(slug) != esperada:
+            problemas.append('%s: el buscador conserva otra portada' % slug)
+
+        ficha = leer('proyectos/%s/index.html' % slug) or ''
+        seccion = re.search(
+            r'<section class="project-gallery">.*?</section>', ficha, re.S)
+        primera = src_en_bloque(r'<section class="project-gallery">.*?</section>',
+                                ficha)
+        if not seccion or primera != esperada:
+            problemas.append('%s: la ficha conserva otra portada' % slug)
+        og = re.search(r'<meta property="og:image" content="([^"]+)"', ficha)
+        if not og or html.unescape(og.group(1)) != 'https://estudiohma.com' + esperada:
+            problemas.append('%s: la imagen para compartir conserva otra portada' % slug)
+
+
 def verificar_destacadas(obras, problemas):
     codigo = leer('index.html')
     if codigo is None:
@@ -297,6 +381,7 @@ def main():
     verificar_obras_y_textos(problemas)
     verificar_textos_es(textos, problemas)
     verificar_listado(obras, problemas)
+    verificar_portadas(url, clave, obras, problemas)
     verificar_destacadas(obras, problemas)
     verificar_novedades_inicio(textos, problemas)
     verificar_prensa(url, clave, problemas)

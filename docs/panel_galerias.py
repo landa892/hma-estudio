@@ -385,6 +385,11 @@ def resolver_imagen(slug, foto, url, clave=None, aliases=()):
             with open(local, 'wb') as archivo:
                 archivo.write(contenido)
     return {
+        # Se conserva el id para que la verificacion final pueda demostrar
+        # que la portada publicada es exactamente la elegida en el panel. La
+        # ruta sola no alcanza: al renombrar una obra puede resolverse desde
+        # un alias historico y seguir siendo una imagen valida pero distinta.
+        'imagen_id': foto.get('id'),
         'src': publica,
         'w': foto.get('ancho') or 1,
         'h': foto.get('alto') or 1,
