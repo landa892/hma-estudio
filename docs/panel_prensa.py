@@ -230,6 +230,26 @@ def main():
         print('prensa: tapa corregida en %s (%s ya no existe)'
               % (fila['slug'], archivo))
 
+    # Las capturas preparadas en el repositorio tambien tienen que quedar en
+    # la base. Si solo vivieran en prensa_datos.json se verian en la web, pero
+    # el panel seguiria diciendo "Sin imagen" y una futura edicion podria
+    # volver a dejar la tarjeta vacia. Solo completa filas sin portada: una
+    # imagen elegida o subida por el estudio siempre gana.
+    for fila in filas:
+        if fila.get('storage_path'):
+            continue
+        local = (por_slug.get(fila['slug'], {}) or {}).get('tapa') or ''
+        archivo = os.path.join(RAIZ, local.lstrip('/').replace('/', os.sep))
+        if not local or not os.path.isfile(archivo):
+            continue
+        ruta = '@site:' + local
+        pedir(url, clave,
+              '/rest/v1/prensa_publicaciones?slug=eq.'
+              + urllib.parse.quote(fila['slug'], safe=''),
+              metodo='PATCH', cuerpo={'storage_path': ruta})
+        fila['storage_path'] = ruta
+        print('prensa: tapa local incorporada al panel en %s' % fila['slug'])
+
     activas = []
     for fila in filas:
         if not fila.get('publicada'):
