@@ -284,9 +284,18 @@ def tarjeta(nota, indice):
     # el repositorio: esas van con el hueco vacio y el texto completo.
     if tapa:
         carga = 'eager' if indice < VISIBLES else 'lazy'
-        imagen = ('<div class="press-img"><img src="%s" width="%d" height="%d" '
+        # Las tapas rescatadas mezclan fotos, paginas de revista y capturas de
+        # sitios. Forzar todas con cover convertia una captura panoramica en
+        # letras gigantes (Cosentino) y cortaba fichas completas (Casa Linda).
+        # Solo las proporciones cercanas a la tarjeta se recortan; un documento
+        # o una captura muy horizontal se ve entero.
+        proporcion = float(m[0]) / float(m[1]) if m[1] else 4.0 / 3.0
+        encuadre = (' press-img--completa'
+                    if abs(proporcion - (4.0 / 3.0)) > 0.22 else '')
+        imagen = ('<div class="press-img%s"><img src="%s" width="%d" height="%d" '
                   'alt="%s%s" loading="%s" decoding="async"></div>'
-                  % (ea(tapa), m[0], m[1], ea(nota['medio']), ea(pais), carga))
+                  % (encuadre, ea(tapa), m[0], m[1], ea(nota['medio']),
+                     ea(pais), carga))
     else:
         imagen = '<div class="press-img press-img--vacia" aria-hidden="true"></div>'
 

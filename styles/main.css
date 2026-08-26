@@ -1969,6 +1969,18 @@ footer.site-footer {
   transition: filter .3s ease, transform .5s ease;
 }
 
+/* Las capturas de paginas y los escaneos no son fotos para recortar: si su
+   proporcion se aleja de la tarjeta se muestran completos. El generador
+   decide esta clase con las medidas reales, tambien despues de publicar desde
+   el panel. */
+.press-card .press-img--completa {
+  background: var(--gray-bg);
+}
+
+.press-card .press-img--completa img {
+  object-fit: contain;
+}
+
 .press-card:hover img {
   filter: grayscale(0);
   transform: scale(1.03);
