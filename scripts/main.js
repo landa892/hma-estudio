@@ -1130,14 +1130,20 @@ try {
     ...document.querySelectorAll('.gallery-grid__item img'),
     ...document.querySelectorAll('.project-row__photo img'),
   ];
-  const vistas = new Set();
-  const fotos = candidatas.filter((foto) => {
+  const indicePorUrl = new Map();
+  const fotos = [];
+  const identidad = (foto) => {
     const url = new URL(foto.getAttribute('src') || foto.src, location.href);
     url.search = '';
     url.hash = '';
-    if (vistas.has(url.href)) return false;
-    vistas.add(url.href);
-    return true;
+    return url.href;
+  };
+
+  candidatas.forEach((foto) => {
+    const url = identidad(foto);
+    if (indicePorUrl.has(url)) return;
+    indicePorUrl.set(url, fotos.length);
+    fotos.push(foto);
   });
 
   if (fotos.length) {
@@ -1192,7 +1198,12 @@ try {
       if (devolverFoco) devolverFoco.focus();
     };
 
-    fotos.forEach((foto, i) => {
+    /* La misma toma puede aparecer junto a la memoria y otra vez en la
+       galeria. El visor la cuenta una sola vez, pero cada aparicion tiene que
+       poder abrirla: antes solo la primera recibia el evento y por eso las
+       primeras miniaturas de varias obras parecian rotas. */
+    candidatas.forEach((foto) => {
+      const i = indicePorUrl.get(identidad(foto));
       foto.classList.add('foto-ampliable');
       const disparo = foto.closest('figure') || foto;
       // Las fotos de la memoria van dentro de un enlace en algunas fichas:

@@ -2029,12 +2029,9 @@ footer.site-footer {
 }
 
 .press-pagination__status {
-  min-width: 92px;
-  font-size: .72rem;
-  color: var(--gray);
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: .04em;
+  /* El script conserva el contador para sus calculos, pero el estudio pidio
+     que visualmente la navegacion tenga solamente las dos flechas. */
+  display: none;
 }
 
 .press-pagination .press-archive-link { margin-top: 0; }
@@ -3060,7 +3057,10 @@ footer.site-footer {
   gap: 24px;
   align-items: start;
   padding: 16px 0;
-  min-height: 96px;
+  /* La fila mas exigente es la de SBID: su nombre ocupa tres renglones.
+     Usar ese alto como minimo evita que el texto vuelva a gobernar cada fila
+     por separado cuando el panel regenere los premios. */
+  min-height: 143px;
   border-bottom: 1px solid var(--line);
   width: 100%;
   max-width: 100%;
