@@ -22,7 +22,11 @@ function limpiar(texto) {
 function tituloDe(texto) {
   const limpio = limpiar(texto);
   if (!limpio) return "Última novedad del estudio";
-  const frase = limpio.split(/[.!?]\s/)[0];
+  // Algunas publicaciones usan un punto solo como separador en el primer
+  // renglon. No puede convertirse en un titulo vacio en el Inicio.
+  const frase = limpio.split(/[.!?]\s+/)
+    .map((parte) => parte.replace(/^[\s.!?·•—–-]+/, "").trim())
+    .find((parte) => /[A-Za-zÀ-ÿ0-9]/.test(parte)) || "Última novedad del estudio";
   const palabras = frase.split(" ");
   return (palabras.length > 12 ? palabras.slice(0, 12).join(" ") + "…" : frase).slice(0, 100);
 }
