@@ -1,11 +1,11 @@
-/* Tarjetas sociales del Inicio. Instagram se mantiene editorialmente desde
-   aca; LinkedIn y YouTube usan estos datos solo si sus APIs no responden. */
+/* Tarjetas sociales del Inicio. Sus datos quedan como respaldo editorial si
+   alguna de las conexiones automaticas no responde. */
 (function () {
   'use strict';
 
   var $ = function (id) { return document.getElementById(id); };
   var REDES = [
-    { id: 'instagram', nombre: 'Instagram', automatica: false },
+    { id: 'instagram', nombre: 'Instagram', automatica: null },
     { id: 'linkedin', nombre: 'LinkedIn', automatica: null },
     { id: 'youtube', nombre: 'YouTube', automatica: true },
   ];
@@ -218,18 +218,19 @@
     });
   }
 
-  function comprobarLinkedIn() {
-    var estado = $('estado-linkedin');
+  function comprobarConexion(red) {
+    var estado = $('estado-' + red);
     if (!estado) return;
-    fetch('/api/linkedin-latest').then(function (respuesta) {
+    var nombre = red === 'instagram' ? 'Instagram' : 'LinkedIn';
+    fetch('/api/' + red + '-latest').then(function (respuesta) {
       if (!respuesta.ok) throw new Error();
       return respuesta.json();
     }).then(function (nota) {
       estado.textContent = nota && nota.automatic === true
-        ? 'La conexión automática está activa. Estos campos son el respaldo si LinkedIn no responde.'
-        : 'La conexión automática no está activa: LinkedIn se administra desde acá. Guardá la última publicación y publicá los cambios desde Obras.';
+        ? 'La conexión automática está activa. Estos campos son el respaldo si ' + nombre + ' no responde.'
+        : 'La conexión automática no está activa: ' + nombre + ' se administra desde acá. Guardá la última publicación y publicá los cambios desde Obras.';
     }).catch(function () {
-      estado.textContent = 'No se pudo comprobar la conexión. LinkedIn se administra desde acá hasta que el servicio vuelva a responder.';
+      estado.textContent = 'No se pudo comprobar la conexión. ' + nombre + ' se administra desde acá hasta que el servicio vuelva a responder.';
     });
   }
 
@@ -243,7 +244,8 @@
   }).then(function (filas) {
     (filas || []).forEach(function (f) { datos[f.clave] = f; });
     REDES.forEach(function (red) { $('formularios').appendChild(formulario(red)); });
-    comprobarLinkedIn();
+    comprobarConexion('instagram');
+    comprobarConexion('linkedin');
     $('cargando').classList.add('oculto');
     $('formularios').classList.remove('oculto');
   }).catch(function (e) {

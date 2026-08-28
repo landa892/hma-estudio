@@ -82,16 +82,13 @@ tienen link, y para esas el tercer Word del 21/08 dice que no hace falta foto
 Falta el dato, no la estructura. El estudio decidio el 23/08 dejarlo para mas
 adelante.
 
-### 6. Actualizar Instagram y LinkedIn a mano
+### 6. Actualizacion de las redes del Inicio
 
-En `/admin/novedades`, cada vez que el estudio publique algo nuevo.
-
-El tercer Word pedia que se actualizara solo. Se puede en YouTube y ya esta
-hecho: `/api/youtube-latest` devuelve el ultimo video de verdad. En LinkedIn e
-Instagram no: `/api/linkedin-latest` contesta `"automatic": false` porque
-Instagram dio de baja la API publica y LinkedIn la reserva a partners
-aprobados. La segunda opcion que ofrecia el propio Word -poder cambiarlo desde
-el panel- es la que quedo.
+Cerrado el 28/08. YouTube, LinkedIn e Instagram tienen funciones de servidor
+para consultar la publicacion mas reciente sin exponer las credenciales. Los
+campos de `/admin/novedades` siguen existiendo como respaldo: si una API o un
+token falla, el navegador conserva lo ultimo publicado desde el panel en vez
+de dejar el bloque vacio o reponer una noticia vieja.
 
 ---
 

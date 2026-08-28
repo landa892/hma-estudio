@@ -230,6 +230,18 @@ def verificar():
             problemas.append(
                 'LinkedIn puede volver a pisar el contenido del panel con un respaldo viejo')
 
+    inicio_social = os.path.join(RAIZ, 'scripts', 'home-latest.js')
+    instagram_api = os.path.join(RAIZ, 'api', 'instagram-latest.js')
+    if not os.path.isfile(instagram_api):
+        problemas.append('Instagram perdio su funcion automatica de servidor')
+    if os.path.isfile(inicio_social):
+        codigo = open(inicio_social, encoding='utf-8').read()
+        if "fetch('/api/instagram-latest')" not in codigo:
+            problemas.append('El Inicio dejo de consultar la ultima publicacion de Instagram')
+        if 'nota.automatic !== true' not in codigo:
+            problemas.append(
+                'Instagram puede volver a pisar el contenido del panel con un respaldo viejo')
+
     prensa_panel = os.path.join(RAIZ, 'admin', 'prensa.js')
     if os.path.isfile(prensa_panel):
         codigo = open(prensa_panel, encoding='utf-8').read()
