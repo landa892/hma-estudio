@@ -29,3 +29,7 @@ admin/config.js
 .vercel/
 .env.local
 .env.*.local
+
+# Lo escribe el build validado para que el control posterior sepa que commit
+# esta realmente online. No es contenido fuente.
+/deployment.json

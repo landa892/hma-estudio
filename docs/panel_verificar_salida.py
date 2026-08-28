@@ -17,6 +17,7 @@ import os
 import re
 import subprocess
 import sys
+import datetime
 import urllib.parse
 import urllib.request
 
@@ -400,6 +401,28 @@ def verificar_imagenes(problemas):
                           % (len(rotas), '; '.join(rotas[:8])))
 
 
+def escribir_marca_de_deploy():
+    """Deja una prueba publica de que commit termino todas las validaciones.
+
+    El control posterior al deploy espera esta marca antes de recorrer el
+    dominio. Sin ella podria probar la version anterior mientras Vercel aun
+    esta construyendo y anunciar un falso positivo.
+    """
+    commit = (os.environ.get('VERCEL_GIT_COMMIT_SHA') or '').strip()
+    if not os.environ.get('VERCEL') or not commit:
+        print('  fuera de Vercel: no se escribe deployment.json')
+        return
+    marca = {
+        'commit': commit,
+        'generado': datetime.datetime.now(datetime.timezone.utc)
+        .replace(microsecond=0).isoformat(),
+    }
+    with io.open(os.path.join(RAIZ, 'deployment.json'), 'w', encoding='utf-8') as salida:
+        json.dump(marca, salida, ensure_ascii=False, sort_keys=True)
+        salida.write('\n')
+    print('  marca de deploy: ' + commit[:12])
+
+
 def main():
     url, clave = configuracion()
     problemas = []
@@ -427,6 +450,7 @@ def main():
     print('\nVERIFICACION GLOBAL OK')
     print('  %d obras, %d textos y toda Prensa coinciden con la salida generada.'
           % (len(obras), len(textos)))
+    escribir_marca_de_deploy()
     return 0
 
 

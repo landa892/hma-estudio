@@ -285,6 +285,15 @@
         if (!lista.length) {
           throw new Error('Para publicarla cargá al menos una foto y elegí una portada.');
         }
+        var portadas = lista.filter(function (foto) { return !!foto.es_portada; });
+        if (portadas.length !== 1) {
+          throw new Error('Antes de publicar elegí exactamente una foto como portada.');
+        }
+        if (cantidadCuerpoDisponible && o.fotos_cuerpo_cantidad > lista.length) {
+          throw new Error('Elegiste ' + o.fotos_cuerpo_cantidad
+            + ' fotos para la memoria, pero la obra tiene ' + lista.length
+            + '. Bajá la cantidad o agregá las fotos que faltan.');
+        }
       })
       : Promise.resolve();
 

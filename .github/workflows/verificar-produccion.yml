@@ -1,0 +1,31 @@
+name: Verificar sitio publicado
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Control diario aunque nadie haya publicado cambios.
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verificar-produccion
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar el commit
+        uses: actions/checkout@v4
+
+      - name: Esperar a Vercel y recorrer el sitio
+        run: >-
+          python3 docs/verificar_publicado.py
+          --base https://estudiohma.com
+          --commit "$GITHUB_SHA"
+          --esperar 600

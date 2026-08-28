@@ -455,11 +455,32 @@
     };
   }
 
+  function validarPublicacion(cuerpo) {
+    if (!cuerpo.titulo) return 'Completá el título de la publicación.';
+    if (!cuerpo.medio) return 'Completá el medio de la publicación.';
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(cuerpo.slug)) {
+      return 'La dirección web sólo admite minúsculas, números y guiones, sin guiones dobles.';
+    }
+    if (cuerpo.publicada && !cuerpo.fecha) {
+      return 'Para publicarla completá la fecha o el año que se mostrará en la tarjeta.';
+    }
+    if (cuerpo.link && !/^https?:\/\/[^\s]+$/i.test(cuerpo.link)) {
+      return 'El enlace de la nota tiene que empezar con http:// o https://.';
+    }
+    if (cuerpo.obra && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(cuerpo.obra)) {
+      return 'La obra relacionada debe ser su dirección corta, por ejemplo movistar-arena.';
+    }
+    return null;
+  }
+
   function guardar(ev) {
     ev.preventDefault();
     var id = $('publicacionId').value;
     var anterior = $('storagePath').value;
     var archivo = $('imagenPrensa').files[0];
+    var preliminar = datosFormulario(anterior);
+    var error = validarPublicacion(preliminar);
+    if (error) return aviso('avisoForm', error, 'error');
     if (!archivo && !anterior) return aviso('avisoForm', 'Elegí una imagen de portada.', 'error');
     $('guardar').disabled = true;
     aviso('avisoForm', archivo ? 'Optimizando y subiendo la portada…' : 'Guardando…', 'ok');

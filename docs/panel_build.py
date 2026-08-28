@@ -50,10 +50,13 @@
     20. seo_gen         agrega datos estructurados a cada pagina publica ya con
                         el contenido y el orden definitivos.
     21. sitemap_gen     rearma el sitemap leyendo el disco, incluido el espejo.
-    22. panel_verificar_salida compara la salida final completa con la base. Si
+    22. verificar_html revisa estructura, enlaces y recursos locales. Si
+                        encuentra una referencia rota, corta el deploy antes
+                        de que llegue al dominio.
+    23. panel_verificar_salida compara la salida final completa con la base. Si
                         algo guardado no llego al HTML, corta el deploy y
                         conserva la version publica anterior.
-    23. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
+    24. panel_publicado anota el ultimo build terminado. Debe quedar ultimo.
 
    ``panel_correcciones_agosto.py`` ya no forma parte del build. Fue una
    importacion puntual y algunas de sus heuristicas restauraban la memoria del
@@ -100,6 +103,7 @@ PASOS = [
     ('el orden cronologico',         'obras_orden.py',   []),
     ('los datos estructurados SEO',  'seo_gen.py',       []),
     ('el sitemap',                   'sitemap_gen.py',   []),
+    ('la integridad del HTML',        'verificar_html.py', []),
     ('la salida completa del panel', 'panel_verificar_salida.py', []),
     # Ultimo: deja anotada la fecha contra la que el panel compara para
     # avisar que hay cambios guardados sin publicar. Ver panel_publicado.py.

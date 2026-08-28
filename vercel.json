@@ -169,6 +169,19 @@
   ],
   "headers": [
     {
+      "source": "/deployment.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/((?!admin).*)",
       "headers": [
         {
