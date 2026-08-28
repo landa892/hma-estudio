@@ -121,22 +121,33 @@ def descargar_pagina(url):
 
 
 def probar_recurso(url):
-    try:
-        _final, estado, _cabeceras, _cuerpo = pedir(url, 'HEAD')
-        if estado < 400:
-            return None
-    except urllib.error.HTTPError as error:
-        if error.code not in (403, 405):
-            return '%s: HTTP %s' % (url, error.code)
-    except Exception:
-        pass
-    try:
-        _final, estado, _cabeceras, _cuerpo = pedir(url, 'GET', 1)
-        return None if estado < 400 else '%s: HTTP %s' % (url, estado)
-    except urllib.error.HTTPError as error:
-        return '%s: HTTP %s' % (url, error.code)
-    except Exception as error:
-        return '%s: %s' % (url, error)
+    ultimo = None
+    for intento in range(3):
+        try:
+            _final, estado, _cabeceras, _cuerpo = pedir(url, 'HEAD')
+            if estado < 400:
+                return None
+        except urllib.error.HTTPError as error:
+            if error.code not in (403, 405, 408, 429, 500, 502, 503, 504):
+                return '%s: HTTP %s' % (url, error.code)
+            ultimo = 'HTTP %s' % error.code
+        except Exception as error:
+            ultimo = str(error)
+        try:
+            _final, estado, _cabeceras, _cuerpo = pedir(url, 'GET', 1)
+            if estado < 400:
+                return None
+            ultimo = 'HTTP %s' % estado
+        except urllib.error.HTTPError as error:
+            if error.code not in (408, 429, 500, 502, 503, 504):
+                return '%s: HTTP %s' % (url, error.code)
+            ultimo = 'HTTP %s' % error.code
+        except Exception as error:
+            ultimo = str(error)
+        if intento < 2:
+            # El CDN puede limitar una rafaga larga sin que el archivo este roto.
+            time.sleep(1.5 * (intento + 1))
+    return '%s: %s despues de 3 intentos' % (url, ultimo or 'sin respuesta')
 
 
 def verificar(base):
@@ -149,7 +160,7 @@ def verificar(base):
             problemas.append('el sitemap no incluye ' + ruta)
 
     resultados = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=12) as ejecutor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ejecutor:
         futuros = {ejecutor.submit(descargar_pagina, url): url for url in urls}
         for futuro in concurrent.futures.as_completed(futuros):
             url = futuros[futuro]
@@ -185,7 +196,8 @@ def verificar(base):
 
     # Las URLs del sitemap ya fueron descargadas completas; no se repiten.
     pendientes = sorted((recursos | enlaces) - set(urls))
-    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ejecutor:
+    # Seis conexiones evitan que el CDN interprete la auditoria como una rafaga.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ejecutor:
         for error in ejecutor.map(probar_recurso, pendientes):
             if error:
                 problemas.append(error)
