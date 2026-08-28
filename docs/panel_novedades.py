@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Escribe en el Inicio los respaldos editables de Instagram, LinkedIn y YouTube.
 
-LinkedIn y YouTube intentan actualizarse en el navegador desde sus APIs. Estos
-datos siguen siendo necesarios: si una credencial vence o un servicio falla, la
-pagina conserva una publicacion valida. Instagram no expone un feed publico sin
-una aplicacion de Meta, asi que se actualiza desde el panel.
+Instagram y YouTube intentan actualizarse en el navegador desde sus APIs.
+Estos datos siguen siendo necesarios: si una credencial vence, una publicacion
+es una colaboracion o un servicio falla, la pagina conserva lo elegido en el
+panel. LinkedIn se administra desde ese mismo panel.
 """
 import html
 import io
@@ -30,6 +30,7 @@ DEFAULTS = {
             'the Commercial Interiors category of the 2026 Architizer A+ Awards.'),
         'url': ('https://www.instagram.com/p/DYANnd0CXnT/',) * 2,
         'imagen': ('@site:/assets/covers/movistar-arena.webp',) * 2,
+        'modo': ('automatico',) * 2,
     },
     'linkedin': {
         'titulo': ('Aire Libre: arquitectura y naturaleza',
@@ -63,7 +64,9 @@ def filas_default():
     filas = []
     orden = 40
     for red in ('instagram', 'linkedin', 'youtube'):
-        for campo in ('titulo', 'texto', 'url', 'imagen'):
+        campos = ('titulo', 'texto', 'url', 'imagen', 'modo') if red == 'instagram' else (
+            'titulo', 'texto', 'url', 'imagen')
+        for campo in campos:
             es, en = DEFAULTS[red][campo]
             filas.append({
                 'clave': 'home.%s_%s' % (red, campo),
@@ -184,6 +187,9 @@ def main(supabase):
         filas, url, clave = filas_default(), None, None
 
     codigo = io.open(INICIO, encoding='utf-8').read()
+    codigo = reemplazar_atributo(
+        codigo, 'data-instagram-mode', 'data-instagram-mode',
+        valor(filas, 'instagram', 'modo'))
     for red in ('instagram', 'linkedin', 'youtube'):
         codigo = reemplazar_atributo(
             codigo, 'href', 'data-%s-link' % red, valor(filas, red, 'url'))

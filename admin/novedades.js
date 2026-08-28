@@ -16,6 +16,7 @@
     'home.instagram_texto': ['Nuestro proyecto VIP Lounge Movistar Arena fue distinguido con una Mención Especial en la categoría Commercial Interiors de los Architizer A+ Awards 2026.', 'Our VIP Lounge Movistar Arena project received a Special Mention in the Commercial Interiors category of the 2026 Architizer A+ Awards.'],
     'home.instagram_url': ['https://www.instagram.com/p/DYANnd0CXnT/', 'https://www.instagram.com/p/DYANnd0CXnT/'],
     'home.instagram_imagen': ['@site:/assets/covers/movistar-arena.webp', '@site:/assets/covers/movistar-arena.webp'],
+    'home.instagram_modo': ['automatico', 'automatico'],
     'home.linkedin_titulo': ['Aire Libre: arquitectura y naturaleza', 'Aire Libre: architecture and nature'],
     'home.linkedin_texto': ['Inspirado en los antiguos invernaderos ingleses, Aire Libre combina recursos industriales, vegetación y coctelería en más de 900 m².', 'Inspired by historic English greenhouses, Aire Libre combines industrial materials, vegetation and cocktail culture across more than 900 m².'],
     'home.linkedin_url': ['https://www.linkedin.com/posts/hitzig-militello-arquitectos_interiordesign-dise%C3%B1odeinteriores-architecture-activity-7311051799749128194-7TTX', 'https://www.linkedin.com/posts/hitzig-militello-arquitectos_interiordesign-dise%C3%B1odeinteriores-architecture-activity-7311051799749128194-7TTX'],
@@ -123,6 +124,33 @@
     return control;
   }
 
+  function selector(caja, etiqueta, id, valorInicial, opciones, ayuda) {
+    var grupo = document.createElement('div');
+    grupo.className = 'campo';
+    var label = document.createElement('label');
+    label.htmlFor = id;
+    label.textContent = etiqueta;
+    var control = document.createElement('select');
+    control.id = id;
+    opciones.forEach(function (opcion) {
+      var item = document.createElement('option');
+      item.value = opcion[0];
+      item.textContent = opcion[1];
+      control.appendChild(item);
+    });
+    control.value = valorInicial;
+    grupo.appendChild(label);
+    grupo.appendChild(control);
+    if (ayuda) {
+      var p = document.createElement('p');
+      p.className = 'campo__ayuda';
+      p.textContent = ayuda;
+      grupo.appendChild(p);
+    }
+    caja.appendChild(grupo);
+    return control;
+  }
+
   function formulario(red) {
     var form = document.createElement('form');
     form.className = 'ficha novedad-form';
@@ -147,6 +175,12 @@
     }
 
     var base = 'home.' + red.id + '_';
+    if (red.id === 'instagram') {
+      selector(form, 'Origen de la publicación', 'instagram-modo', valor(base + 'modo', 'es'), [
+        ['automatico', 'Automático: última publicación propia'],
+        ['manual', 'Manual: respetar lo cargado abajo'],
+      ], 'Usá Manual para colaboraciones: Meta no las entrega como publicaciones propias.');
+    }
     campo(form, 'Título', 'text', red.id + '-titulo-es', valor(base + 'titulo', 'es'), 'Recomendado: 4 a 12 palabras.');
     campo(form, 'Título en inglés', 'text', red.id + '-titulo-en', valor(base + 'titulo', 'en'));
     campo(form, 'Descripción', 'textarea', red.id + '-texto-es', valor(base + 'texto', 'es'), 'Una o dos oraciones; recomendado hasta 260 caracteres.');
@@ -195,13 +229,17 @@
 
     (archivo ? subirImagen(red, archivo) : Promise.resolve(rutaActual)).then(function (ruta) {
       var base = 'home.' + red + '_';
-      var ordenBase = { instagram: 40, linkedin: 44, youtube: 48 }[red];
+      var ordenBase = { instagram: 40, linkedin: 45, youtube: 49 }[red];
       var filas = [
         fila(base + 'titulo', red + ' — título', $(red + '-titulo-es').value.trim(), $(red + '-titulo-en').value.trim(), false, ordenBase),
         fila(base + 'texto', red + ' — descripción', $(red + '-texto-es').value.trim(), $(red + '-texto-en').value.trim(), true, ordenBase + 1),
         fila(base + 'url', red + ' — enlace', $(red + '-url').value.trim(), $(red + '-url').value.trim(), false, ordenBase + 2),
         fila(base + 'imagen', red + ' — imagen', ruta, ruta, false, ordenBase + 3),
       ];
+      if (red === 'instagram') {
+        filas.push(fila(base + 'modo', 'Instagram — origen', $('instagram-modo').value,
+          $('instagram-modo').value, false, ordenBase + 4));
+      }
       return rest('/textos?on_conflict=clave', { method: 'POST', body: filas,
         prefer: 'resolution=merge-duplicates,return=representation' });
     }).then(function (filas) {
@@ -226,9 +264,13 @@
       if (!respuesta.ok) throw new Error();
       return respuesta.json();
     }).then(function (nota) {
-      estado.textContent = nota && nota.automatic === true
-        ? 'La conexión automática está activa. Estos campos son el respaldo si ' + nombre + ' no responde.'
-        : 'La conexión automática no está activa: ' + nombre + ' se administra desde acá. Guardá la última publicación y publicá los cambios desde Obras.';
+      if (nota && nota.automatic === true) {
+        estado.textContent = 'La conexión automática está activa. Estos campos son el respaldo si ' + nombre + ' no responde.';
+      } else if (red === 'instagram' && nota && nota.reason === 'latest-owned-post-is-stale') {
+        estado.textContent = 'La conexión funciona, pero Instagram no entrega las colaboraciones como publicaciones propias. Cargá acá la colaboración más nueva y publicá los cambios desde Obras.';
+      } else {
+        estado.textContent = 'La conexión automática no está activa: ' + nombre + ' se administra desde acá. Guardá la última publicación y publicá los cambios desde Obras.';
+      }
     }).catch(function () {
       estado.textContent = 'No se pudo comprobar la conexión. ' + nombre + ' se administra desde acá hasta que el servicio vuelva a responder.';
     });

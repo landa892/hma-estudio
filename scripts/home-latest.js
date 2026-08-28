@@ -5,7 +5,10 @@
 
   var instagram = document.getElementById('section-1');
   if (instagram) {
-    fetch('/api/instagram-latest').then(function (respuesta) {
+    // Las colaboraciones visibles en la grilla no aparecen en /me/media. El
+    // estudio puede fijarlas desde el panel sin que la API vuelva a pisarlas.
+    if (instagram.dataset.instagramMode !== 'manual') {
+      fetch('/api/instagram-latest').then(function (respuesta) {
       if (!respuesta.ok) throw new Error();
       return respuesta.json();
     }).then(function (nota) {
@@ -16,13 +19,25 @@
         enlace.href = nota.url;
       });
       var imagenInstagram = instagram.querySelector('[data-instagram-image]');
-      if (imagenInstagram && nota.image) imagenInstagram.src = nota.image;
+      if (imagenInstagram && nota.image) {
+        imagenInstagram.src = nota.image;
+        var ajustarEncuadre = function () {
+          // Una portada cuadrada de Instagram no se recorta como si fuera una
+          // foto horizontal: se conserva completa sobre un fondo neutro.
+          var proporcion = imagenInstagram.naturalWidth / imagenInstagram.naturalHeight;
+          imagenInstagram.style.objectFit = proporcion && proporcion < 1.5 ? 'contain' : 'cover';
+          imagenInstagram.style.backgroundColor = proporcion && proporcion < 1.5 ? '#111' : '';
+        };
+        if (imagenInstagram.complete) ajustarEncuadre();
+        else imagenInstagram.addEventListener('load', ajustarEncuadre, { once: true });
+      }
       if (!document.documentElement.lang.toLowerCase().startsWith('es')) return;
       var tituloInstagram = instagram.querySelector('[data-instagram-title]');
       var textoInstagram = instagram.querySelector('[data-instagram-text]');
       if (tituloInstagram && nota.title) tituloInstagram.textContent = nota.title;
       if (textoInstagram && nota.text) textoInstagram.textContent = nota.text;
-    }).catch(function () { /* El HTML conserva la publicacion del panel. */ });
+      }).catch(function () { /* El HTML conserva la publicacion del panel. */ });
+    }
   }
 
   var bloque = document.getElementById('section-5');

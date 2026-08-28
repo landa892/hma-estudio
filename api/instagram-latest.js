@@ -31,6 +31,28 @@ function tituloDe(texto) {
   return (palabras.length > 12 ? palabras.slice(0, 12).join(" ") + "…" : frase).slice(0, 100);
 }
 
+function normalizarComparacion(texto) {
+  return limpiar(texto).toLocaleLowerCase("es").replace(/[^a-zà-ÿ0-9]+/g, " ").trim();
+}
+
+function textoDe(texto, titulo) {
+  const lineas = (texto || "").split(/\r?\n/)
+    .map((linea) => limpiar(linea))
+    .filter((linea) => /[A-Za-zÀ-ÿ0-9]/.test(linea));
+  if (lineas.length && normalizarComparacion(lineas[0]) === normalizarComparacion(titulo)) {
+    lineas.shift();
+  }
+  return lineas.join(" ").replace(/^[\s.!?·•—–-]+/, "").trim().slice(0, 360);
+}
+
+function esDemasiadoAntigua(publicacion) {
+  if (!publicacion || !publicacion.timestamp) return false;
+  const fecha = Date.parse(publicacion.timestamp);
+  if (!Number.isFinite(fecha)) return false;
+  const dias = Number(process.env.INSTAGRAM_MAX_AGE_DAYS || 45);
+  return Date.now() - fecha > Math.max(1, dias) * 86400000;
+}
+
 function imagenDe(publicacion) {
   if (!publicacion) return null;
   if (publicacion.media_type === "VIDEO") {
@@ -56,7 +78,9 @@ async function ultimaPublicacion() {
     throw new Error(`Instagram respondió ${respuesta.status}: ${await respuesta.text()}`);
   }
   const datos = await respuesta.json();
-  return (datos.data || []).find((item) => item && item.permalink && imagenDe(item)) || null;
+  return (datos.data || [])
+    .filter((item) => item && item.permalink && imagenDe(item))
+    .sort((a, b) => Date.parse(b.timestamp || 0) - Date.parse(a.timestamp || 0))[0] || null;
 }
 
 async function enviarImagen(res, publicacion) {
@@ -80,10 +104,21 @@ async function handler(req, res) {
     if (req.query && req.query.image) return enviarImagen(res, publicacion);
 
     const texto = (publicacion.caption || "").trim();
+    const titulo = tituloDe(texto);
+    // Instagram Login solo lista contenido creado por la cuenta. Si esa lista
+    // quedo vieja pero el perfil muestra colaboraciones nuevas, no debe pisar
+    // el respaldo que el estudio eligio desde el panel llamandolo "lo ultimo".
+    if (esDemasiadoAntigua(publicacion)) {
+      return res.status(200).json({
+        ...FALLBACK,
+        reason: "latest-owned-post-is-stale",
+        latestOwnedAt: publicacion.timestamp || null,
+      });
+    }
     return res.status(200).json({
       automatic: true,
-      title: tituloDe(texto),
-      text: texto.slice(0, 360),
+      title: titulo,
+      text: textoDe(texto, titulo),
       url: publicacion.permalink,
       image: "/api/instagram-latest?image=1",
       publishedAt: publicacion.timestamp || null,
@@ -95,5 +130,5 @@ async function handler(req, res) {
   }
 }
 
-handler._internals = { limpiar, tituloDe, imagenDe };
+handler._internals = { limpiar, tituloDe, textoDe, imagenDe, esDemasiadoAntigua };
 module.exports = handler;
