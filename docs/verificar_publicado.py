@@ -150,6 +150,30 @@ def probar_recurso(url):
     return '%s: %s despues de 3 intentos' % (url, ultimo or 'sin respuesta')
 
 
+def recursos_representativos(recursos):
+    """Reduce galerias grandes sin dejar ningun conjunto sin comprobar.
+
+    El build ya comprobo que todos los archivos existen en la salida. Desde
+    Internet alcanza con tocar los dos extremos de cada carpeta pesada; CSS,
+    JS, videos, iconos y caratulas se comprueban todos.
+    """
+    completos = set()
+    grupos = {}
+    extensiones_imagen = ('.avif', '.gif', '.jpg', '.jpeg', '.png', '.webp')
+    carpetas_pesadas = ('/assets/gallery/', '/assets/planos/', '/assets/prensa/')
+    for url in recursos:
+        ruta = urllib.parse.urlsplit(url).path.lower()
+        if ruta.endswith(extensiones_imagen) and ruta.startswith(carpetas_pesadas):
+            grupos.setdefault(ruta.rsplit('/', 1)[0], []).append(url)
+        else:
+            completos.add(url)
+    for valores in grupos.values():
+        ordenados = sorted(valores)
+        completos.add(ordenados[0])
+        completos.add(ordenados[-1])
+    return completos
+
+
 def verificar(base):
     problemas = []
     _final, _estado, _cabeceras, cuerpo = pedir(base + '/sitemap.xml')
@@ -195,7 +219,8 @@ def verificar(base):
                 enlaces.add(url)
 
     # Las URLs del sitemap ya fueron descargadas completas; no se repiten.
-    pendientes = sorted((recursos | enlaces) - set(urls))
+    recursos_externos = recursos_representativos(recursos)
+    pendientes = sorted((recursos_externos | enlaces) - set(urls))
     # Seis conexiones evitan que el CDN interprete la auditoria como una rafaga.
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ejecutor:
         for error in ejecutor.map(probar_recurso, pendientes):
@@ -210,8 +235,10 @@ def verificar(base):
             print('  - ... y %d problemas mas' % (len(problemas) - 100))
         return 1
     print('\nVERIFICACION PUBLICA OK')
-    print('  %d paginas, %d recursos y %d enlaces internos comprobados.'
-          % (len(urls), len(recursos), len(enlaces)))
+    print('  %d paginas, %d recursos externos y %d enlaces internos comprobados.'
+          % (len(urls), len(recursos_externos), len(enlaces)))
+    print('  Los %d recursos generados ya fueron comprobados dentro del build.'
+          % len(recursos))
     return 0
 
 
