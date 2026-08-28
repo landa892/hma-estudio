@@ -178,6 +178,15 @@ def verificar():
             if not doc.imagenes:
                 problemas.append('%s: la nota no tiene ninguna imagen' % ruta)
 
+        if ruta in ('index.html', 'en/index.html'):
+            # Cifras y Contacto conservan sus secciones, pero no deben volver
+            # al indice lateral: esa regresion ya ocurrio al regenerar /en/.
+            for destino in ('section-cifras', 'section-contacto'):
+                if 'id="%s"' % destino not in codigo:
+                    problemas.append('%s: falta la seccion %s' % (ruta, destino))
+                if 'data-target="%s"' % destino in codigo:
+                    problemas.append('%s: %s volvio al indice lateral' % (ruta, destino))
+
         for recurso in doc.recursos:
             if not recurso or recurso.startswith(PROTOCOLOS_EXTERNOS):
                 continue
@@ -213,6 +222,20 @@ def verificar():
     if len(versiones_js) != 1:
         problemas.append('main.js tiene versiones mezcladas: %s'
                           % ', '.join(sorted(versiones_js)))
+
+    linkedin = os.path.join(RAIZ, 'scripts', 'linkedin-latest.js')
+    if (os.path.isfile(linkedin)):
+        codigo = open(linkedin, encoding='utf-8').read()
+        if 'nota.automatic !== true' not in codigo:
+            problemas.append(
+                'LinkedIn puede volver a pisar el contenido del panel con un respaldo viejo')
+
+    prensa_panel = os.path.join(RAIZ, 'admin', 'prensa.js')
+    if os.path.isfile(prensa_panel):
+        codigo = open(prensa_panel, encoding='utf-8').read()
+        if 'Usar de portada' not in codigo or 'esImagenInterna(anterior)' not in codigo:
+            problemas.append(
+                'Prensa perdio la eleccion segura de una imagen interna como portada')
     return cantidad, problemas
 
 

@@ -7,7 +7,10 @@
     if (!respuesta.ok) throw new Error();
     return respuesta.json();
   }).then(function (nota) {
-    if (!nota || !nota.url) return;
+    // automatic:false significa que LinkedIn no esta conectado. En ese caso
+    // manda el HTML que genero el panel: aplicar el respaldo fijo de la API
+    // aca restauraba una noticia vieja despues de cada carga.
+    if (!nota || nota.automatic !== true || !nota.url) return;
     bloque.querySelectorAll('[data-linkedin-link]').forEach(function (enlace) {
       enlace.href = nota.url;
     });

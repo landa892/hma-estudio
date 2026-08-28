@@ -6,7 +6,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var REDES = [
     { id: 'instagram', nombre: 'Instagram', automatica: false },
-    { id: 'linkedin', nombre: 'LinkedIn', automatica: true },
+    { id: 'linkedin', nombre: 'LinkedIn', automatica: null },
     { id: 'youtube', nombre: 'YouTube', automatica: true },
   ];
   var datos = {};
@@ -131,11 +131,19 @@
     h.className = 'ficha__titulo';
     h.textContent = red.nombre;
     form.appendChild(h);
-    if (red.automatica) {
+    if (red.automatica !== false) {
       var nota = document.createElement('p');
       nota.className = 'campo__ayuda';
-      nota.textContent = 'Se actualiza automáticamente. Estos campos son el respaldo si el servicio externo no responde.';
+      nota.id = 'estado-' + red.id;
+      nota.textContent = red.automatica
+        ? 'Se actualiza automáticamente. Estos campos son el respaldo si el servicio externo no responde.'
+        : 'Comprobando si la actualización automática está conectada…';
       form.appendChild(nota);
+    } else {
+      var manual = document.createElement('p');
+      manual.className = 'campo__ayuda';
+      manual.textContent = 'No se actualiza sola: cargá acá la publicación que querés mostrar y después publicá los cambios desde Obras.';
+      form.appendChild(manual);
     }
 
     var base = 'home.' + red.id + '_';
@@ -210,6 +218,21 @@
     });
   }
 
+  function comprobarLinkedIn() {
+    var estado = $('estado-linkedin');
+    if (!estado) return;
+    fetch('/api/linkedin-latest').then(function (respuesta) {
+      if (!respuesta.ok) throw new Error();
+      return respuesta.json();
+    }).then(function (nota) {
+      estado.textContent = nota && nota.automatic === true
+        ? 'La conexión automática está activa. Estos campos son el respaldo si LinkedIn no responde.'
+        : 'La conexión automática no está activa: LinkedIn se administra desde acá. Guardá la última publicación y publicá los cambios desde Obras.';
+    }).catch(function () {
+      estado.textContent = 'No se pudo comprobar la conexión. LinkedIn se administra desde acá hasta que el servicio vuelva a responder.';
+    });
+  }
+
   HMA.exigirSesion().then(function () {
     var sesion = HMA.sesion();
     $('quien').textContent = sesion && sesion.email ? sesion.email : '';
@@ -220,6 +243,7 @@
   }).then(function (filas) {
     (filas || []).forEach(function (f) { datos[f.clave] = f; });
     REDES.forEach(function (red) { $('formularios').appendChild(formulario(red)); });
+    comprobarLinkedIn();
     $('cargando').classList.add('oculto');
     $('formularios').classList.remove('oculto');
   }).catch(function (e) {

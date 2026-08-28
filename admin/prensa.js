@@ -160,6 +160,29 @@
     caja.classList.remove('oculto');
   }
 
+  function rutaComparable(ruta) {
+    return (ruta || '').replace(/^@(site|seed):/, '');
+  }
+
+  function esPortadaActual(ruta) {
+    return rutaComparable(ruta) === rutaComparable($('storagePath').value);
+  }
+
+  function elegirPortada(fila) {
+    $('storagePath').value = fila.storage_path;
+    pintarPreview(fila.storage_path);
+    pintarImagenes();
+    aviso('avisoPrensaGaleria',
+      'Portada elegida. Apretá Guardar para confirmar el cambio.', 'ok');
+  }
+
+  function esImagenInterna(ruta) {
+    var comparable = rutaComparable(ruta);
+    return imagenes.some(function (fila) {
+      return rutaComparable(fila.storage_path) === comparable;
+    });
+  }
+
   function botonImagen(texto, titulo, deshabilitado, alTocar, clase) {
     var boton = document.createElement('button');
     boton.type = 'button';
@@ -191,6 +214,10 @@
       }
       var pie = document.createElement('figcaption');
       pie.className = 'foto__pie';
+      var esPortada = esPortadaActual(fila.storage_path);
+      pie.appendChild(botonImagen(esPortada ? 'Portada actual' : 'Usar de portada',
+        esPortada ? 'Esta imagen es la portada' : 'Usar esta imagen como portada',
+        esPortada, function () { elegirPortada(fila); }, 'foto__accion foto__accion--portada'));
       pie.appendChild(botonImagen('‹', 'Mover antes', indice === 0, function () {
         moverImagen(indice, indice - 1);
       }));
@@ -499,7 +526,12 @@
         $('formTitulo').textContent = 'Editar publicación';
         $('eliminar').classList.remove('oculto');
       }
-      if (archivo && anterior && anterior !== nuevaRuta) borrarImagen(anterior).catch(function () {});
+      // Una portada elegida desde la galeria sigue siendo una imagen interna.
+      // Si luego suben otra tapa no se la borra del Storage: tiene que seguir
+      // apareciendo dentro de la nota.
+      if (archivo && anterior && anterior !== nuevaRuta && !esImagenInterna(anterior)) {
+        borrarImagen(anterior).catch(function () {});
+      }
       aviso('avisoForm', 'Guardado. Publicalo desde la pantalla Obras.', 'ok');
       return Promise.all([cargar(), cargarImagenes($('publicacionId').value)]);
     }).catch(function (e) {
