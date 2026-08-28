@@ -34,6 +34,7 @@ class Documento(html.parser.HTMLParser):
         self.h1 = 0
         self.main = 0
         self.imagenes = 0
+        self.redireccion = False
 
     def handle_starttag(self, tag, attrs):
         datos = dict(attrs)
@@ -41,6 +42,10 @@ class Documento(html.parser.HTMLParser):
             self.ids.append(datos['id'])
         if tag == 'a' and datos.get('href'):
             self.enlaces.append(datos['href'])
+        if (tag == 'meta'
+                and (datos.get('http-equiv') or '').lower() == 'refresh'
+                and 'url=' in (datos.get('content') or '').lower()):
+            self.redireccion = True
         if tag == 'img':
             self.imagenes += 1
             if datos.get('src'):
@@ -155,15 +160,19 @@ def verificar():
             problemas.append('%s: ids repetidos (%s)' % (ruta, ', '.join(repetidos[:5])))
         if len(doc.titulos) != 1 or not ''.join(doc.titulos).strip():
             problemas.append('%s: necesita un solo title con contenido' % ruta)
-        if not ruta.endswith('404.html') and doc.main != 1:
+        if not ruta.endswith('404.html') and not doc.redireccion and doc.main != 1:
             problemas.append('%s: necesita exactamente un elemento main' % ruta)
 
-        if ruta.startswith(('proyectos/', 'en/projects/')) and ruta.count('/') == 2:
+        if (not doc.redireccion
+                and ruta.startswith(('proyectos/', 'en/projects/'))
+                and ruta.count('/') == 2):
             if doc.h1 != 1:
                 problemas.append('%s: la ficha necesita exactamente un h1' % ruta)
             if not doc.imagenes:
                 problemas.append('%s: la ficha no tiene ninguna imagen' % ruta)
-        if ruta.startswith(('prensa/', 'en/press/')) and ruta.count('/') == 2:
+        if (not doc.redireccion
+                and ruta.startswith(('prensa/', 'en/press/'))
+                and ruta.count('/') == 2):
             if doc.h1 != 1:
                 problemas.append('%s: la nota necesita exactamente un h1' % ruta)
             if not doc.imagenes:
