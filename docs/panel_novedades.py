@@ -140,12 +140,28 @@ def reemplazar_texto(codigo, dato, nuevo):
     return actualizado
 
 
+def ruta_imagen_salida(red, ruta):
+    """Devuelve la direccion que debe quedar escrita en el Inicio.
+
+    La base conserva la ruta estable de Storage, pero el sitio publicado usa
+    una copia local con nombre fijo. Centralizar esa conversion evita que el
+    verificador compare la ruta de origen con la ruta de salida y rechace una
+    imagen que el build descargo correctamente.
+    """
+    if ruta.startswith('@site:') or ruta.startswith('@seed:'):
+        return ruta.split(':', 1)[1]
+    if ruta:
+        return '/assets/home/%s-panel.webp' % red
+    return None
+
+
 def imagen_local(red, ruta, supabase_url=None, clave=None):
     # Igual que en el resto del build: una ruta con @ es del repositorio y
     # pedirsela al Storage devuelve 400. Se cubren los dos prefijos aunque hoy
     # las novedades solo usen @site:, para que no dependa de eso.
+    salida = ruta_imagen_salida(red, ruta)
     if ruta.startswith('@site:') or ruta.startswith('@seed:'):
-        return ruta.split(':', 1)[1]
+        return salida
     if not supabase_url or not ruta:
         return None
     os.makedirs(CARPETA, exist_ok=True)
@@ -158,7 +174,7 @@ def imagen_local(red, ruta, supabase_url=None, clave=None):
     if not contenido:
         raise RuntimeError('la imagen guardada esta vacia')
     io.open(destino, 'wb').write(contenido)
-    return '/assets/home/%s-panel.webp' % red
+    return salida
 
 
 def main(supabase):
@@ -178,8 +194,11 @@ def main(supabase):
         try:
             local = imagen_local(red, valor(filas, red, 'imagen'), url, clave)
         except Exception as exc:
-            local = None
-            print('aviso: no se bajo la imagen de %s: %s' % (red, exc))
+            # Dejar la copia anterior seria especialmente enganoso: el build
+            # terminaria en verde aunque el estudio acabara de elegir otra
+            # imagen. La publicacion se conserva anterior y el log explica la
+            # causa concreta para poder reintentar.
+            raise RuntimeError('no se pudo bajar la imagen de %s: %s' % (red, exc))
         if local:
             codigo = reemplazar_atributo(
                 codigo, 'src', 'data-%s-image' % red, local)

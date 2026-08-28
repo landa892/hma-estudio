@@ -26,6 +26,7 @@ DOCS = os.path.join(RAIZ, 'docs')
 sys.path.insert(0, DOCS)
 
 import panel_home
+import panel_novedades
 import panel_textos
 import prensa_paginas
 
@@ -279,8 +280,8 @@ def verificar_novedades_inicio(textos, problemas):
             if not fila or not (fila.get('es') or '').strip():
                 continue
             valor = fila['es'].strip()
-            if campo == 'imagen' and valor.startswith(('@site:', '@seed:')):
-                valor = valor.split(':', 1)[1]
+            if campo == 'imagen':
+                valor = panel_novedades.ruta_imagen_salida(red, valor)
             dato = 'data-%s-%s' % (red, 'link' if campo == 'url' else 'image')
             etiquetas = re.findall(r'<[^>]*\b%s\b[^>]*>' % dato, codigo)
             valores = []
