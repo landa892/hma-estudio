@@ -22,11 +22,12 @@
       if (imagenInstagram && nota.image) {
         imagenInstagram.src = nota.image;
         var ajustarEncuadre = function () {
-          // Una portada cuadrada de Instagram no se recorta como si fuera una
-          // foto horizontal: se conserva completa sobre un fondo neutro.
-          var proporcion = imagenInstagram.naturalWidth / imagenInstagram.naturalHeight;
-          imagenInstagram.style.objectFit = proporcion && proporcion < 1.5 ? 'contain' : 'cover';
-          imagenInstagram.style.backgroundColor = proporcion && proporcion < 1.5 ? '#111' : '';
+          // Instagram entrega muchas portadas cuadradas con placas o sellos en
+          // el borde inferior. El bloque del Inicio es apaisado: se recorta la
+          // portada desde arriba para conservar la obra y ocultar ese pie.
+          imagenInstagram.style.objectFit = 'cover';
+          imagenInstagram.style.objectPosition = 'center top';
+          imagenInstagram.style.backgroundColor = '';
         };
         if (imagenInstagram.complete) ajustarEncuadre();
         else imagenInstagram.addEventListener('load', ajustarEncuadre, { once: true });
