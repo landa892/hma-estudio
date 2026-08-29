@@ -353,9 +353,9 @@ def verificar_ingles(obras, textos, problemas):
                       in panel_textos.ubicaciones(textos)}
     cache = {}
     for fila in textos:
-        # URL e imagen se verifican como atributos en el Inicio. No son texto
-        # visible y por eso no corresponde buscarlas dentro del espejo.
-        if fila.get('clave', '').endswith(('_url', '_imagen')):
+        # URL, imagen y modo se verifican como configuracion del Inicio. No son
+        # texto visible y por eso no corresponde buscarlos dentro del espejo.
+        if fila.get('clave', '').endswith(('_url', '_imagen', '_modo')):
             continue
         valor = plano(fila.get('en'))
         ruta_es = ruta_por_clave.get(fila.get('clave'), 'index.html'
