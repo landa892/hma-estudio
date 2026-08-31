@@ -26,6 +26,8 @@ import sys
 import urllib.error
 import urllib.request
 
+from cache_publicado import guardar_webp, huella_ruta, recuperar_publicada
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATOS = os.path.join(RAIZ, 'docs', 'panel_datos.json')
 DATOS_PLANOS = os.path.join(RAIZ, 'docs', 'planos.json')
@@ -376,14 +378,18 @@ def resolver_imagen(slug, foto, url, clave=None, aliases=()):
         carpeta_nombre = 'planos' if foto.get('tipo') == 'plano' else 'gallery'
         carpeta = os.path.join(RAIZ, 'assets', carpeta_nombre, slug)
         os.makedirs(carpeta, exist_ok=True)
-        publica = '/assets/%s/%s/panel-%s.webp' % (carpeta_nombre, slug, foto['id'])
+        # El id identifica la fila, pero no su contenido: al reemplazar una
+        # foto el panel conserva el id y crea otro storage_path. La huella hace
+        # que solo una imagen exactamente igual pueda recuperarse del ultimo
+        # deploy, en vez de volver a bajar toda la galeria desde Supabase.
+        publica = '/assets/%s/%s/panel-%s-%s.webp' % (
+            carpeta_nombre, slug, foto['id'], huella_ruta(ruta))
         local = ruta_local(publica)
-        if not os.path.isfile(local):
+        if not os.path.isfile(local) and not recuperar_publicada(publica, local):
             origen = url + '/storage/v1/object/public/obras/' + ruta
             with urllib.request.urlopen(origen, timeout=120) as respuesta:
                 contenido = respuesta.read()
-            with open(local, 'wb') as archivo:
-                archivo.write(contenido)
+            guardar_webp(local, contenido)
     return {
         # Se conserva el id para que la verificacion final pueda demostrar
         # que la portada publicada es exactamente la elegida en el panel. La

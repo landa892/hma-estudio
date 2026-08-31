@@ -16,6 +16,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from cache_publicado import guardar_webp, huella_ruta, recuperar_publicada
+
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATOS = os.path.join(RAIZ, 'docs', 'prensa_datos.json')
@@ -74,13 +76,14 @@ def tapa_local(url, clave, fila, respaldo=''):
     if not ruta:
         return ''
     os.makedirs(ASSETS, exist_ok=True)
-    nombre = 'panel-%s.webp' % fila['slug']
+    nombre = 'panel-%s-%s.webp' % (fila['slug'], huella_ruta(ruta))
     destino = os.path.join(ASSETS, nombre)
-    contenido = pedir(url, clave, '/storage/v1/object/obras/'
-                      + urllib.parse.quote(ruta, safe='/'), binario=True)
-    with open(destino, 'wb') as archivo:
-        archivo.write(contenido)
-    return '/assets/press/' + nombre
+    publica = '/assets/press/' + nombre
+    if not os.path.isfile(destino) and not recuperar_publicada(publica, destino):
+        contenido = pedir(url, clave, '/storage/v1/object/obras/'
+                          + urllib.parse.quote(ruta, safe='/'), binario=True)
+        guardar_webp(destino, contenido)
+    return publica
 
 
 def sincronizar_imagenes(url, clave, fila, imagenes):
@@ -102,19 +105,22 @@ def sincronizar_imagenes(url, clave, fila, imagenes):
     salir.
     """
     carpeta = os.path.join(GALERIAS, fila['slug'])
-    if os.path.isdir(carpeta):
-        for vieja in glob.glob(os.path.join(carpeta, 'panel-*.webp')):
-            os.remove(vieja)
     if not imagenes:
+        if os.path.isdir(carpeta):
+            for vieja in glob.glob(os.path.join(carpeta, 'panel-*.webp')):
+                os.remove(vieja)
         return []
 
     heredadas = [i for i in imagenes
                  if (i.get('storage_path') or '').startswith('@seed:')]
     if len(heredadas) == len(imagenes):
+        if os.path.isdir(carpeta):
+            for vieja in glob.glob(os.path.join(carpeta, 'panel-*.webp')):
+                os.remove(vieja)
         return [os.path.basename(i['storage_path']) for i in
                 sorted(imagenes, key=lambda x: x.get('orden', 0))]
     os.makedirs(carpeta, exist_ok=True)
-    nombres, subidas = [], 0
+    nombres = []
     for imagen in sorted(imagenes, key=lambda x: x.get('orden', 0)):
         ruta = imagen.get('storage_path') or ''
         # Una galeria ya administrada mezcla las dos cosas: las que ya estaban
@@ -124,16 +130,21 @@ def sincronizar_imagenes(url, clave, fila, imagenes):
         if ruta.startswith('@site:') or ruta.startswith('@seed:'):
             nombres.append(os.path.basename(ruta))
             continue
-        subidas += 1
-        nombre = 'panel-%03d.webp' % subidas
+        identificador = imagen.get('id') or imagen.get('orden') or len(nombres) + 1
+        nombre = 'panel-%s-%s.webp' % (identificador, huella_ruta(ruta))
         destino = os.path.join(carpeta, nombre)
-        contenido = pedir(
-            url, clave,
-            '/storage/v1/object/obras/' + urllib.parse.quote(ruta, safe='/'),
-            binario=True)
-        with open(destino, 'wb') as archivo:
-            archivo.write(contenido)
+        publica = '/assets/prensa/%s/%s' % (fila['slug'], nombre)
+        if not os.path.isfile(destino) and not recuperar_publicada(publica, destino):
+            contenido = pedir(
+                url, clave,
+                '/storage/v1/object/obras/' + urllib.parse.quote(ruta, safe='/'),
+                binario=True)
+            guardar_webp(destino, contenido)
         nombres.append(nombre)
+    vigentes = set(nombres)
+    for vieja in glob.glob(os.path.join(carpeta, 'panel-*.webp')):
+        if os.path.basename(vieja) not in vigentes:
+            os.remove(vieja)
     return nombres
 
 
