@@ -10,10 +10,10 @@
    De cada obra publicada actualiza, en su tarjeta y en su fila:
 
    - data-estado, que es contra lo que filtra el listado
-   - el sello "Obra" / "Proyecto" y su clase de color (solo la tarjeta lo lleva)
+   - los sellos "En progreso" / "Concurso" (las concluidas no llevan sello)
 
    Los concursos se distinguen por data-concurso: su estado de avance sigue en
-   la base, pero en el listado forman la tercera seccion que pidio el estudio.
+   la base, pero en el listado forman una seccion aparte.
 
        python docs/panel_estados.py --verificar   # no escribe, solo informa
        python docs/panel_estados.py               # desde el JSON local
@@ -31,9 +31,9 @@ LISTADO = os.path.join(RAIZ, 'proyectos', 'index.html')
 
 # estado de la base -> (valor de data-estado, rotulo del sello)
 SELLO = {
-    'concluida':   ('obra', 'Obra'),
-    'en_progreso': ('proyecto', 'Proyecto'),
-    'en_proyecto': ('proyecto', 'Proyecto'),
+    'concluida':   ('obra', ''),
+    'en_progreso': ('proyecto', 'En progreso'),
+    'en_proyecto': ('proyecto', 'En progreso'),
 }
 
 
@@ -70,6 +70,11 @@ def arreglar(bloque, valor, rotulo, con_sello):
     nuevo = re.sub(r'data-estado="[^"]*"', 'data-estado="%s"' % valor, bloque, count=1)
 
     if con_sello:
+        # Las concluidas siguen en Todas, pero ya no llevan un sello publico.
+        # No cambiamos el estado guardado ni quitamos la tarjeta del listado.
+        if not rotulo:
+            return re.sub(r'<span class="card-estado[^"]*"[^>]*>[^<]*</span>',
+                          '', nuevo)
         marca = ('<span class="card-estado card-estado--%s">%s</span>'
                  % (valor, rotulo))
         if 'card-estado' in nuevo:
@@ -83,6 +88,20 @@ def arreglar(bloque, valor, rotulo, con_sello):
     return nuevo
 
 
+def presentacion(html):
+    """Mantiene los filtros y sellos pedidos aunque el molde tenga los viejos."""
+    html = re.sub(r'\s*<button\b[^>]*data-estado-filtro="obra"[^>]*>.*?</button>',
+                  '', html, flags=re.S)
+    html = re.sub(r'(<button\b[^>]*data-estado-filtro="proyecto"[^>]*>).*?(</button>)',
+                  r'\g<1>En progreso\g<2>', html, flags=re.S)
+    for ini, fin, bloque in reversed(list(bloques(html, 'project-card'))):
+        valor = (re.search(r'data-estado="([^"]+)"', bloque) or [None, ''])[1]
+        rotulo = {'obra': '', 'proyecto': 'En progreso', 'concurso': 'Concurso'}.get(valor)
+        if rotulo is not None:
+            html = html[:ini] + arreglar(bloque, valor, rotulo, True) + html[fin:]
+    return html
+
+
 def main(verificar, supabase):
     obras = desde_supabase() if supabase else desde_json()
     estado = dict((o['slug'], o.get('estado')) for o in obras)
@@ -91,6 +110,7 @@ def main(verificar, supabase):
         return 1
 
     html = io.open(LISTADO, encoding='utf-8').read()
+    original = html
     cambios, avisos = [], []
 
     for clase, con_sello in (('project-card', True), ('project-list-row', False)):
@@ -118,7 +138,8 @@ def main(verificar, supabase):
                                % (slug, clase.replace('project-', ''), antes, par[0]))
                 html = html[:ini] + nuevo + html[fin:]
 
-    if cambios and not verificar:
+    html = presentacion(html)
+    if html != original and not verificar:
         io.open(LISTADO, 'w', encoding='utf-8', newline='\n').write(html)
 
     print('obras publicadas: %d   corregidas en el listado: %d'
@@ -129,7 +150,7 @@ def main(verificar, supabase):
         print('\navisos:')
         for a in avisos:
             print('  ' + a)
-    if verificar and cambios:
+    if verificar and html != original:
         print('\n(--verificar: no se toco nada)')
     return 0
 

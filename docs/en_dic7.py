@@ -138,7 +138,8 @@ DIC.update({
         'Movistar Arena VIP Lounge, a project by Hitzig Militello Architects',
     'Ver publicación': 'View post',
     'Ver publicación ↗': 'View post ↗',
-    'Concursos': 'Competitions',
+    'Concursos': 'Competition',
+    'En progreso': 'In progress',
     'Ir a LinkedIn': 'Go to LinkedIn',
     # Sin estas dos, en_gen no avisa nada -el aria-label no es texto visible- y
     # el punteo ingles quedaba con "Go to miembros de" y "Go to las cifras del
