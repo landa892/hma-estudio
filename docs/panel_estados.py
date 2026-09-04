@@ -36,6 +36,14 @@ SELLO = {
     'en_proyecto': ('proyecto', 'En progreso'),
 }
 
+# Pedido del estudio del 04/09: estas cinco tapas quedan sin clasificacion
+# de avance. No implica que esten construidas: conservamos el dato de la
+# ficha y del panel, pero no las incluimos en el filtro En progreso.
+# Hyatt-Ziva queda fuera de esta lista por la rectificacion "Esta si".
+SIN_CLASIFICACION = frozenset({
+    'estancia-austral', 'novotel', 'plaza-mateo', 'uala-gigena', 'cafe-artois',
+})
+
 
 def desde_supabase():
     url = os.environ.get('SUPABASE_URL', '').rstrip('/')
@@ -99,6 +107,14 @@ def presentacion(html):
         rotulo = {'obra': '', 'proyecto': 'En progreso', 'concurso': 'Concurso'}.get(valor)
         if rotulo is not None:
             html = html[:ini] + arreglar(bloque, valor, rotulo, True) + html[fin:]
+    # Al final, para que ni el estado de la base ni un molde viejo vuelvan
+    # a agregar el sello. Grilla y lista deben responder al mismo filtro.
+    for clase in ('project-card', 'project-list-row'):
+        for ini, fin, bloque in reversed(list(bloques(html, clase))):
+            slug = re.search(r'data-slug="([^"]+)"', bloque)
+            if slug and slug[1] in SIN_CLASIFICACION:
+                nuevo = arreglar(bloque, 'sin-clasificar', '', clase == 'project-card')
+                html = html[:ini] + nuevo + html[fin:]
     return html
 
 

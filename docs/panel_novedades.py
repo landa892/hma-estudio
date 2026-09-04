@@ -7,6 +7,7 @@ es una colaboracion o un servicio falla, la pagina conserva lo elegido en el
 panel. LinkedIn se administra desde ese mismo panel.
 """
 import html
+import hashlib
 import io
 import json
 import os
@@ -147,14 +148,17 @@ def ruta_imagen_salida(red, ruta):
     """Devuelve la direccion que debe quedar escrita en el Inicio.
 
     La base conserva la ruta estable de Storage, pero el sitio publicado usa
-    una copia local con nombre fijo. Centralizar esa conversion evita que el
+    una copia local versionada por la ruta de Storage. Centralizar evita que el
     verificador compare la ruta de origen con la ruta de salida y rechace una
     imagen que el build descargo correctamente.
     """
     if ruta.startswith('@site:') or ruta.startswith('@seed:'):
         return ruta.split(':', 1)[1]
     if ruta:
-        return '/assets/home/%s-panel.webp' % red
+        # El panel genera otra ruta en cada carga. Con un nombre fijo el
+        # navegador seguia mostrando IOL aunque ARQ ya estuviera publicado.
+        version = hashlib.sha256(ruta.encode('utf-8')).hexdigest()[:12]
+        return '/assets/home/%s-panel-%s.webp' % (red, version)
     return None
 
 
@@ -168,7 +172,7 @@ def imagen_local(red, ruta, supabase_url=None, clave=None):
     if not supabase_url or not ruta:
         return None
     os.makedirs(CARPETA, exist_ok=True)
-    destino = os.path.join(CARPETA, '%s-panel.webp' % red)
+    destino = os.path.join(CARPETA, os.path.basename(salida))
     remoto = (supabase_url + '/storage/v1/object/public/obras/'
               + urllib.parse.quote(ruta, safe='/'))
     pedido = urllib.request.Request(remoto, headers={'apikey': clave})
@@ -176,7 +180,8 @@ def imagen_local(red, ruta, supabase_url=None, clave=None):
         contenido = r.read()
     if not contenido:
         raise RuntimeError('la imagen guardada esta vacia')
-    io.open(destino, 'wb').write(contenido)
+    with io.open(destino, 'wb') as archivo:
+        archivo.write(contenido)
     return salida
 
 

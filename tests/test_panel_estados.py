@@ -50,6 +50,22 @@ class EstadosTest(unittest.TestCase):
         for estado in ('en_proyecto', 'en_progreso'):
             self.assertEqual(estados.SELLO[estado], ('proyecto', 'En progreso'))
 
+    def test_cinco_excepciones_sin_clasificar_y_hyatt_con_sello(self):
+        for slug in estados.SIN_CLASIFICACION:
+            tarjeta = self.tarjeta('proyecto', 'En progreso').replace('prueba', slug)
+            fila = ('<a class="project-list-row" data-slug="%s" '
+                    'data-estado="proyecto">Trabajo</a>' % slug)
+            resultado = estados.presentacion(tarjeta + fila)
+            self.assertNotIn('card-estado', resultado)
+            self.assertEqual(resultado.count('data-estado="sin-clasificar"'), 2)
+            self.assertEqual(estados.presentacion(resultado), resultado)
+            self.assertIn('<img src="foto.webp">', resultado)
+            ingles = en_gen.traducir_html(resultado)
+            self.assertEqual(ingles.count('data-estado="sin-clasificar"'), 2)
+            self.assertNotIn('card-estado', ingles)
+        hyatt = self.tarjeta('proyecto', 'En progreso').replace('prueba', 'hyatt-ziva')
+        self.assertEqual(estados.presentacion(hyatt), hyatt)
+
     def test_listado_real_y_traduccion(self):
         import re
         ruta = Path(estados.LISTADO)
@@ -65,6 +81,18 @@ class EstadosTest(unittest.TestCase):
         self.assertEqual(filtros, [('all', 'All'), ('proyecto', 'In progress'),
                                   ('concurso', 'Competition')])
         self.assertNotIn('>Proyecto</span>', resultado)
+        for codigo in (resultado, ingles):
+            for clase in ('project-card', 'project-list-row'):
+                por_slug = {re.search(r'data-slug="([^"]+)"', b)[1]: b
+                            for _, _, b in estados.bloques(codigo, clase)}
+                for slug in estados.SIN_CLASIFICACION:
+                    # El molde viejo usa cerveceria-austral; panel_alta lo
+                    # renombra desde la base antes de generar el listado.
+                    if slug not in por_slug:
+                        continue
+                    self.assertIn('data-estado="sin-clasificar"', por_slug[slug])
+                    self.assertNotIn('card-estado', por_slug[slug])
+                self.assertIn('data-estado="proyecto"', por_slug['hyatt-ziva'])
 
 
 if __name__ == '__main__':
