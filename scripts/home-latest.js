@@ -21,6 +21,8 @@
       var imagenInstagram = instagram.querySelector('[data-instagram-image]');
       if (imagenInstagram && nota.image) {
         imagenInstagram.src = nota.image;
+        imagenInstagram.alt = document.documentElement.lang.toLowerCase().startsWith('es')
+          ? nota.title : (nota.titleEn || 'Instagram — Hitzig Militello Arquitectos');
         var ajustarEncuadre = function () {
           // Instagram entrega muchas portadas cuadradas con placas o sellos en
           // el borde inferior. El bloque del Inicio es apaisado: se recorta la
@@ -32,11 +34,13 @@
         if (imagenInstagram.complete) ajustarEncuadre();
         else imagenInstagram.addEventListener('load', ajustarEncuadre, { once: true });
       }
-      if (!document.documentElement.lang.toLowerCase().startsWith('es')) return;
+      var es = document.documentElement.lang.toLowerCase().startsWith('es');
       var tituloInstagram = instagram.querySelector('[data-instagram-title]');
       var textoInstagram = instagram.querySelector('[data-instagram-text]');
-      if (tituloInstagram && nota.title) tituloInstagram.textContent = nota.title;
-      if (textoInstagram && nota.text) textoInstagram.textContent = nota.text;
+      var tituloNota = es ? nota.title : nota.titleEn;
+      var textoNota = es ? nota.text : nota.textEn;
+      if (tituloInstagram && tituloNota) tituloInstagram.textContent = tituloNota;
+      if (textoInstagram && textoNota) textoInstagram.textContent = textoNota;
       }).catch(function () { /* El HTML conserva la publicacion del panel. */ });
     }
   }

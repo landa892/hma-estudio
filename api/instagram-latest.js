@@ -14,13 +14,39 @@ const FALLBACK = {
 const VERSION = process.env.INSTAGRAM_API_VERSION || "v23.0";
 const API = `https://graph.instagram.com/${VERSION}`;
 
+// La miniatura de este post es cuadrada y de 533 px. La misma toma publicada
+// por el estudio en LinkedIn conserva mas encuadre; queda ligada solo a este
+// permalink para no sustituir la foto de una publicacion futura.
+const EDITORIAL = {
+  Dc1ktAKlFQy: {
+    title: "IOL Inversiones: nuevas oficinas en QIUB Palermo",
+    text: "Diseñamos las oficinas de IOL Inversiones en el piso 23 de QIUB Palermo: 480 m² que combinan espacios de trabajo, áreas colaborativas y vistas a la ciudad, con materiales cálidos y confort acústico y lumínico.",
+    titleEn: "IOL Inversiones: new offices in QIUB Palermo",
+    textEn: "We designed IOL Inversiones’ offices on the 23rd floor of QIUB Palermo: 480 m² combining workspaces, collaborative areas and city views, with warm materials and careful acoustic and lighting design.",
+    image: "/assets/instagram-iol-20260904.jpg",
+  },
+};
+
+function editorialDe(url) {
+  const codigo = (url || "").match(/instagram\.com\/(?:p|reel)\/([^/?]+)/);
+  return codigo ? EDITORIAL[codigo[1]] || null : null;
+}
+
+function recortar(texto, limite) {
+  if (texto.length <= limite) return texto;
+  const fragmento = texto.slice(0, limite - 1);
+  const corte = fragmento.lastIndexOf(" ");
+  return fragmento.slice(0, corte > 0 ? corte : fragmento.length).replace(/[,:;\s]+$/, "") + "…";
+}
+
 function limpiar(texto) {
   return (texto || "").replace(/https?:\/\/\S+/g, "").replace(/#\S+/g, "")
     .replace(/\s+/g, " ").trim();
 }
 
 function tituloDe(texto) {
-  const limpio = limpiar(texto);
+  const limpio = (texto || "").split(/\r?\n/).map(limpiar)
+    .find((linea) => /[A-Za-zÀ-ÿ0-9]/.test(linea)) || "";
   if (!limpio) return "Última novedad del estudio";
   // Algunas publicaciones usan un punto solo como separador en el primer
   // renglon. No puede convertirse en un titulo vacio en el Inicio.
@@ -28,7 +54,7 @@ function tituloDe(texto) {
     .map((parte) => parte.replace(/^[\s.!?·•—–-]+/, "").trim())
     .find((parte) => /[A-Za-zÀ-ÿ0-9]/.test(parte)) || "Última novedad del estudio";
   const palabras = frase.split(" ");
-  return (palabras.length > 12 ? palabras.slice(0, 12).join(" ") + "…" : frase).slice(0, 100);
+  return recortar(palabras.length > 12 ? palabras.slice(0, 12).join(" ") + "…" : frase, 100);
 }
 
 function normalizarComparacion(texto) {
@@ -42,7 +68,7 @@ function textoDe(texto, titulo) {
   if (lineas.length && normalizarComparacion(lineas[0]) === normalizarComparacion(titulo)) {
     lineas.shift();
   }
-  return lineas.join(" ").replace(/^[\s.!?·•—–-]+/, "").trim().slice(0, 360);
+  return recortar(lineas.join(" ").replace(/^[\s.!?·•—–-]+/, "").trim(), 360);
 }
 
 function esDemasiadoAntigua(publicacion) {
@@ -122,6 +148,7 @@ async function handler(req, res) {
       url: publicacion.permalink,
       image: "/api/instagram-latest?image=1",
       publishedAt: publicacion.timestamp || null,
+      ...editorialDe(publicacion.permalink),
     });
   } catch (error) {
     console.error("Instagram:", error.message);
@@ -130,5 +157,5 @@ async function handler(req, res) {
   }
 }
 
-handler._internals = { limpiar, tituloDe, textoDe, imagenDe, esDemasiadoAntigua };
+handler._internals = { limpiar, tituloDe, textoDe, imagenDe, esDemasiadoAntigua, recortar, editorialDe };
 module.exports = handler;
