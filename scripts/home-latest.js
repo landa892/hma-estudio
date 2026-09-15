@@ -24,12 +24,11 @@
         imagenInstagram.alt = document.documentElement.lang.toLowerCase().startsWith('es')
           ? nota.title : (nota.titleEn || 'Instagram — Hitzig Militello Arquitectos');
         var ajustarEncuadre = function () {
-          // Instagram entrega muchas portadas cuadradas con placas o sellos en
-          // el borde inferior. El bloque del Inicio es apaisado: se recorta la
-          // portada desde arriba para conservar la obra y ocultar ese pie.
-          imagenInstagram.style.objectFit = 'cover';
-          imagenInstagram.style.objectPosition = 'center top';
-          imagenInstagram.style.backgroundColor = '';
+          // Se conserva la imagen completa: el recorte superior ocultaba parte
+          // de las publicaciones y en celular parecia una imagen defectuosa.
+          imagenInstagram.style.objectFit = 'contain';
+          imagenInstagram.style.objectPosition = 'center center';
+          imagenInstagram.style.backgroundColor = '#f2f2f2';
         };
         if (imagenInstagram.complete) ajustarEncuadre();
         else imagenInstagram.addEventListener('load', ajustarEncuadre, { once: true });
