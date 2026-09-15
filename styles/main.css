@@ -4626,7 +4626,7 @@ html.lenis body {
 /* Los sellos se muestran en una caja pareja y sin deformarlos. El tamano
    permite leerlos en celular sin recortar los que son verticales. */
 .asociaciones img {
-  max-width: 128px;
+  max-width: 96px;
   max-height: 128px;
   height: auto;
   width: auto;
