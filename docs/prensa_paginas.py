@@ -104,15 +104,21 @@ def medidas(ruta):
     if d[:4] != b'RIFF' or d[8:12] != b'WEBP':
         return None
     if d[12:16] == b'VP8X':
-        return ((d[24] | d[25] << 8 | d[26] << 16) + 1,
-                (d[27] | d[28] << 8 | d[29] << 16) + 1)
-    if d[12:16] == b'VP8L':
+        medidas_webp = ((d[24] | d[25] << 8 | d[26] << 16) + 1,
+                        (d[27] | d[28] << 8 | d[29] << 16) + 1)
+    elif d[12:16] == b'VP8L':
         b = d[21] | d[22] << 8 | d[23] << 16 | d[24] << 24
-        return ((b & 0x3FFF) + 1, ((b >> 14) & 0x3FFF) + 1)
-    if d[12:16] == b'VP8 ':
-        return (int.from_bytes(d[26:28], 'little') & 0x3FFF,
-                int.from_bytes(d[28:30], 'little') & 0x3FFF)
-    return None
+        medidas_webp = ((b & 0x3FFF) + 1, ((b >> 14) & 0x3FFF) + 1)
+    elif d[12:16] == b'VP8 ':
+        medidas_webp = (int.from_bytes(d[26:28], 'little') & 0x3FFF,
+                        int.from_bytes(d[28:30], 'little') & 0x3FFF)
+    else:
+        return None
+    # Un archivo de pocos pixeles suele ser una miniatura o un placeholder
+    # roto. No debe convertirse en una foto gigante dentro de la galeria.
+    if medidas_webp[0] < 120 and medidas_webp[1] < 120:
+        return None
+    return medidas_webp
 
 
 def cascara():
