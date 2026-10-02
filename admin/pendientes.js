@@ -69,6 +69,10 @@
                    cuando: n.updated_at, borrador: !n.publicada,
                    href: '/admin/prensa' });
     });
+    (cambios.premios || []).forEach(function (p) {
+      items.push({ texto: frase(p.nombre, 'premio'), cuando: p.updated_at,
+                   borrador: !p.publicada, href: '/admin/premios' });
+    });
     items.sort(function (a, b) { return a.cuando < b.cuando ? 1 : -1; });
     return items;
   }

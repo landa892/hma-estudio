@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premios — Panel HMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/admin/admin.css?v=110">
+</head>
+
+<body class="panel">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <img src="/assets/logo-mark-black.png" alt="HMA" class="barra__marca">
+    <h1 class="barra__titulo">Premios y distinciones</h1>
+    <span class="barra__quien" id="quien"></span>
+    <a class="barra__ayuda" href="/admin/ayuda#premios">Guía de uso</a>
+    <a class="barra__sitio" href="/premios/" target="_blank" rel="noopener">Ver página pública</a>
+    <button type="button" class="enlace" id="salir">Salir</button>
+  </header>
+
+  <main class="contenido" id="contenido">
+    <div class="herramientas">
+      <a class="enlace" href="/admin/obras">← Volver a Obras</a>
+      <button type="button" class="boton boton--compacto" id="nuevoPremio">Nuevo premio</button>
+    </div>
+
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+    <p class="introduccion">Desde acá podés agregar una distinción a la página pública de premios.
+      Los premios históricos que ya están publicados siguen igual; las filas nuevas aparecen cuando las
+      guardás como publicadas y después elegís <b>Publicar cambios</b> en Obras.</p>
+
+    <div class="prensa-panel premios-panel">
+      <section aria-labelledby="listaTitulo">
+        <h2 id="listaTitulo">Premios cargados</h2>
+        <div id="listaPremios" class="premio-admin-lista">
+          <p class="vacio">Cargando premios…</p>
+        </div>
+      </section>
+
+      <section class="prensa-panel__form" aria-labelledby="formTitulo">
+        <h2 id="formTitulo">Nuevo premio</h2>
+        <form id="formPremio" novalidate>
+          <input type="hidden" id="premioId">
+          <div class="dupla">
+            <label class="campo"><span>Año <b aria-hidden="true">*</b></span>
+              <input id="anio" type="number" min="1900" max="2100" required></label>
+            <label class="campo"><span>Orden dentro del año</span>
+              <input id="orden" type="number" min="0" max="9999" value="0"></label>
+          </div>
+          <label class="campo"><span>Nombre del premio <b aria-hidden="true">*</b></span>
+            <input id="nombre" type="text" maxlength="180" required
+              placeholder="Premio o reconocimiento"></label>
+          <div class="dupla">
+            <label class="campo"><span>Resultado</span>
+              <input id="resultado" type="text" maxlength="120" placeholder="Ganador, mención…"></label>
+            <label class="campo"><span>Ciudad</span>
+              <input id="ciudad" type="text" maxlength="100" placeholder="Buenos Aires"></label>
+          </div>
+          <label class="campo"><span>Descripción</span>
+            <textarea id="descripcion" rows="4" maxlength="500"
+              placeholder="Texto breve que acompaña al premio"></textarea></label>
+          <label class="campo"><span>Enlace externo</span>
+            <input id="enlace" type="url" maxlength="500" placeholder="https://…"></label>
+          <label class="campo"><span>Obra relacionada (slug, opcional)</span>
+            <input id="obraSlug" type="text" maxlength="80" pattern="[a-z0-9-]*"
+              placeholder="nombre-de-la-obra"></label>
+          <label class="campo"><span>Logo (ruta pública o URL, opcional)</span>
+            <input id="logo" type="text" maxlength="500" placeholder="/assets/awards/logo.svg"></label>
+          <label class="casilla"><input id="publicada" type="checkbox">
+            <span>Publicar esta fila en la página</span></label>
+          <div class="acciones-formulario">
+            <button type="submit" class="boton" id="guardarPremio">Guardar premio</button>
+            <button type="button" class="boton boton--claro oculto" id="borrarPremio">Eliminar</button>
+            <button type="button" class="enlace" id="cancelarPremio">Cancelar</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script src="/admin/config.js"></script>
+  <script src="/admin/api.js"></script>
+  <script src="/admin/datos.js"></script>
+  <script src="/admin/premios.js"></script>
+</body>
+</html>

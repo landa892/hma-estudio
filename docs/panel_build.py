@@ -94,6 +94,7 @@ PASOS = [
     ('las conferencias del panel',   'panel_prensa_novedades.py', []),
     ('el archivo de prensa',         'prensa_pagina.py', []),
     ('la pagina de cada nota',       'prensa_paginas.py', []),
+    ('los premios nuevos del panel', 'panel_premios.py', []),
     # Ultimo escritor del sitio en castellano: los generadores anteriores
     # pueden rehacer secciones completas. Asi, lo que el estudio edita en
     # Textos del sitio siempre gana antes de crear el espejo en ingles.

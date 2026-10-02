@@ -61,6 +61,9 @@
       return 'La base todavía conserva el límite anterior de 15 imágenes. '
         + 'Hay que aplicar la actualización 0015 antes de continuar.';
     }
+    if (/premios_panel/i.test(crudo)) {
+      return 'La administración de premios todavía no está activada. Hay que aplicar la actualización 0020 en Supabase.';
+    }
     if (status === 401 || status === 403) {
       return 'Tu sesión venció. Volvé a entrar.';
     }
@@ -176,6 +179,33 @@
     });
   }
 
+  /* --- premios generales ------------------------------------------------
+     Son distintos de los premios escritos dentro de una obra: estas filas
+     alimentan la página pública /premios/ y se pueden dejar como borrador
+     hasta que el estudio decida publicarlas. */
+
+  function listarPremios() {
+    return llamar('/premios_panel?select=*&order=anio.desc,orden.asc,created_at.asc');
+  }
+
+  function crearPremio(premio) {
+    return llamar('/premios_panel', {
+      method: 'POST', body: premio, devolver: true,
+    }).then(function (filas) { return filas[0]; });
+  }
+
+  function actualizarPremio(id, cambios) {
+    return llamar('/premios_panel?id=eq.' + encodeURIComponent(id), {
+      method: 'PATCH', body: cambios, devolver: true,
+    }).then(function (filas) { return filas[0]; });
+  }
+
+  function borrarPremio(id) {
+    return llamar('/premios_panel?id=eq.' + encodeURIComponent(id), {
+      method: 'DELETE',
+    });
+  }
+
   /* --- lo guardado que todavia no esta en la web ------------------------- */
 
   /* El sitio publico son archivos, asi que guardar no alcanza: hasta que
@@ -198,7 +228,7 @@
      el trigger de la galeria ("las fotos"). Puede venir vacia -por ejemplo si
      el cambio lo hizo el generador- y el aviso funciona igual, sin el detalle. */
   function cambiosSinPublicar(desde) {
-    if (!desde) return Promise.resolve({ obras: [], textos: [] });
+    if (!desde) return Promise.resolve({ obras: [], textos: [], premios: [] });
     var d = encodeURIComponent(desde);
     return Promise.all([
       llamar('/obras?select=id,slug,titulo,ultimo_cambio,publicada,updated_at'
@@ -212,9 +242,12 @@
       llamar('/prensa_novedades?select=id,titulo,detalle,publicada,updated_at'
         + '&eliminada=is.false&updated_at=gt.' + d + '&order=updated_at.desc')
         .catch(function () { return []; }),
+      llamar('/premios_panel?select=id,nombre,anio,publicada,updated_at'
+        + '&updated_at=gt.' + d + '&order=updated_at.desc')
+        .catch(function () { return []; }),
     ]).then(function (r) {
       return { obras: r[0] || [], textos: r[1] || [],
-               prensa: r[2] || [], novedadesPrensa: r[3] || [] };
+               prensa: r[2] || [], novedadesPrensa: r[3] || [], premios: r[4] || [] };
     });
   }
 
@@ -265,6 +298,10 @@
     borrarObra: borrarObra,
     listarImagenes: listarImagenes,
     borrarArchivos: borrarArchivos,
+    listarPremios: listarPremios,
+    crearPremio: crearPremio,
+    actualizarPremio: actualizarPremio,
+    borrarPremio: borrarPremio,
     ultimaPublicacion: ultimaPublicacion,
     cambiosSinPublicar: cambiosSinPublicar,
     proponerSlug: proponerSlug,

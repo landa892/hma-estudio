@@ -158,6 +158,24 @@ input:focus-visible {
 
 .prensa-panel__form { position: sticky; top: 84px; }
 
+.premios-panel { grid-template-columns: minmax(0, 1.2fr) minmax(360px, .8fr); }
+.premio-admin-lista { display: grid; gap: 8px; max-height: 70vh; overflow: auto; }
+.premio-admin-item {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr) 88px; gap: 12px;
+  align-items: center; width: 100%; padding: 12px 14px;
+  border: 1px solid var(--linea); background: var(--fondo); color: var(--negro);
+  text-align: left; cursor: pointer;
+}
+.premio-admin-item:hover, .premio-admin-item:focus-visible { border-color: var(--negro); }
+.premio-admin-item__anio { font-size: 1.05rem; }
+.premio-admin-item span { min-width: 0; }
+.premio-admin-item b, .premio-admin-item small {
+  display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.premio-admin-item small { margin-top: 4px; color: var(--gris); }
+.premio-admin-item__estado { color: #26734d; font-size: .7rem; font-style: normal; text-transform: uppercase; }
+.premio-admin-item__estado--borrador { color: #9a6412; }
+
 .prensa-admin-lista {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
