@@ -1,6 +1,12 @@
 {
   "outputDirectory": ".",
   "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/instagram-refresh",
+      "schedule": "0 4 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/prensa/cafeteria-osten-casa-foa-2026/",

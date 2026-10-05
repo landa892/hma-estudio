@@ -1,8 +1,15 @@
 // Ultima publicacion del Instagram profesional del estudio.
 //
-// El token vive solamente en Vercel. El navegador consulta esta funcion y la
+// El token no sale del servidor. El navegador consulta esta funcion y la
 // imagen tambien pasa por aca, para no exponer la credencial ni depender del
 // dominio temporal que Meta entrega para cada archivo.
+//
+// De donde sale el token: primero de la tabla `credenciales` de Supabase, que
+// es donde lo deja /api/instagram-refresh cada vez que lo renueva, y si ahi no
+// hay nada, de la variable INSTAGRAM_ACCESS_TOKEN. La variable sigue siendo el
+// punto de entrada del primer token; de ahi en mas manda la base, porque una
+// variable de entorno no se puede reescribir desde el propio sitio y este token
+// hay que renovarlo antes de los 60 dias.
 const FALLBACK = {
   automatic: false,
   title: "Movistar Arena",
@@ -10,6 +17,8 @@ const FALLBACK = {
   url: "https://www.instagram.com/p/DYANnd0CXnT/",
   image: "/assets/covers/movistar-arena.webp",
 };
+
+const { tokenVigente } = require("./_token-instagram.js");
 
 const VERSION = process.env.INSTAGRAM_API_VERSION || "v23.0";
 const API = `https://graph.instagram.com/${VERSION}`;
@@ -92,8 +101,9 @@ function imagenDe(publicacion) {
 }
 
 async function ultimaPublicacion() {
-  const token = process.env.INSTAGRAM_ACCESS_TOKEN;
-  if (!token) return null;
+  const vigente = await tokenVigente();
+  if (!vigente) return null;
+  const token = vigente.token;
   const campos = "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,children{media_type,media_url,thumbnail_url}";
   const parametros = new URLSearchParams({ fields: campos, limit: "10" });
   const respuesta = await fetch(`${API}/me/media?${parametros}`, {
