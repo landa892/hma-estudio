@@ -42,11 +42,21 @@ def pedir(url, clave):
         return json.loads(crudo.decode('utf-8')) if crudo else []
 
 
+def pedir_slugs_publicados(url, clave):
+    req = urllib.request.Request(
+        url + '/rest/v1/obras?select=slug&publicada=is.true',
+        headers={'apikey': clave, 'Authorization': 'Bearer ' + clave})
+    with urllib.request.urlopen(req, timeout=45) as respuesta:
+        crudo = respuesta.read()
+        obras = json.loads(crudo.decode('utf-8')) if crudo else []
+        return {obra.get('slug') for obra in obras if obra.get('slug')}
+
+
 def e(valor):
     return html.escape(str(valor or ''), quote=True)
 
 
-def fila(premio):
+def fila(premio, slugs_publicados):
     logo = (premio.get('logo') or '').strip()
     obra = (premio.get('obra_slug') or '').strip()
     enlace = (premio.get('enlace') or '').strip()
@@ -59,7 +69,7 @@ def fila(premio):
                  % e(premio.get('nombre')))
     descripcion = premio.get('descripcion') or ''
     obra_html = ''
-    if obra:
+    if obra and obra in slugs_publicados:
         obra_html = ('\n                  <span class="award-row__obra"><a href="/proyectos/%s/">%s</a></span>'
                      % (e(obra), e(obra.replace('-', ' ').title())))
     return ('            <div class="award-row">\n'
@@ -76,7 +86,7 @@ def fila(premio):
                                    e(premio.get('resultado')), e(premio.get('ciudad'))))
 
 
-def bloque(premios):
+def bloque(premios, slugs_publicados):
     grupos = {}
     for premio in premios:
         grupos.setdefault(int(premio.get('anio') or 0), []).append(premio)
@@ -85,7 +95,7 @@ def bloque(premios):
         partes.append('          <div class="award-year-block" data-year="%s">\n'
                       '            <div class="press-year-head">%s</div>\n%s\n'
                       '          </div>' % (anio, anio,
-                      '\n'.join(fila(p) for p in grupos[anio])))
+                      '\n'.join(fila(p, slugs_publicados) for p in grupos[anio])))
     return '\n'.join(partes)
 
 
@@ -102,12 +112,12 @@ def sumar_filtros(html_pagina, anios):
                                botones + '\n        </div>\n\n        <div class="award-feed">', 1)
 
 
-def bloque_obras(premios):
+def bloque_obras(premios, slugs_publicados):
     """Prepara los reconocimientos vinculados para la banda de cada ficha."""
     por_obra = {}
     for premio in premios:
         slug = (premio.get('obra_slug') or '').strip()
-        if slug:
+        if slug and slug in slugs_publicados:
             por_obra.setdefault(slug, []).append(premio)
     return por_obra
 
@@ -124,13 +134,13 @@ def item_barra(premio):
             '%s</a>' % (nombre, visual))
 
 
-def sincronizar_bandas(premios):
+def sincronizar_bandas(premios, slugs_publicados):
     """Suma premios vinculados a la banda sin reemplazar los reconocimientos viejos.
 
     Las marcas permiten sacar vínculos borrados o cambiados en cada build. Las
     bandas históricas se regeneran antes desde obras.premios y siguen intactas.
     """
-    por_obra = bloque_obras(premios)
+    por_obra = bloque_obras(premios, slugs_publicados)
     carpeta = os.path.join(RAIZ, 'proyectos')
     if not os.path.isdir(carpeta):
         return
@@ -196,18 +206,19 @@ def main():
     try:
         url, clave = configuracion()
         premios = pedir(url, clave)
+        slugs_publicados = pedir_slugs_publicados(url, clave)
     except urllib.error.HTTPError as error:
         texto = error.read().decode('utf-8', 'replace')
         if error.code in (400, 404) and 'premios_panel' in texto:
             print('premios: migracion 0020 pendiente; se conserva el contenido actual')
             return 0
         raise
-    bloque_nuevo = INICIO + ('\n' + bloque(premios) if premios else '') + '\n' + FIN
+    bloque_nuevo = INICIO + ('\n' + bloque(premios, slugs_publicados) if premios else '') + '\n' + FIN
     pagina = re.sub(re.escape(INICIO) + r'.*?' + re.escape(FIN), bloque_nuevo,
                     pagina, count=1, flags=re.S)
     pagina = sumar_filtros(pagina, [p.get('anio') for p in premios])
     io.open(PAGINA, 'w', encoding='utf-8', newline='\n').write(pagina)
-    sincronizar_bandas(premios)
+    sincronizar_bandas(premios, slugs_publicados)
     print('premios: %d filas nuevas publicadas' % len(premios))
     return 0
 
