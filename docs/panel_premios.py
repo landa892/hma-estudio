@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Suma a /premios/ los galardones cargados desde el panel.
+"""Suma a /premios/ los galardones del panel y los vincula con sus obras.
 
 La pagina historica conserva sus filas en el repositorio. Las filas nuevas
 viven en premios_panel y se escriben entre dos marcas para que cada build las
-reemplace sin duplicarlas. Si la migracion todavia no se aplico, el contenido
-historico queda intacto y el build puede seguir publicando.
+reemplace sin duplicarlas. Los reconocimientos relacionados tambien se suman
+a la banda negra de la ficha de cada obra. Si la migracion todavia no se aplico,
+el contenido historico queda intacto y el build puede seguir publicando.
 """
 import html
 import io
@@ -19,6 +20,8 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGINA = os.path.join(RAIZ, 'premios', 'index.html')
 INICIO = '<!-- PREMIOS-PANEL-INICIO -->'
 FIN = '<!-- PREMIOS-PANEL-FIN -->'
+INICIO_OBRA = '<!-- PREMIOS-PANEL-OBRA-INICIO -->'
+FIN_OBRA = '<!-- PREMIOS-PANEL-OBRA-FIN -->'
 
 
 def configuracion():
@@ -99,6 +102,93 @@ def sumar_filtros(html_pagina, anios):
                                botones + '\n        </div>\n\n        <div class="award-feed">', 1)
 
 
+def bloque_obras(premios):
+    """Prepara los reconocimientos vinculados para la banda de cada ficha."""
+    por_obra = {}
+    for premio in premios:
+        slug = (premio.get('obra_slug') or '').strip()
+        if slug:
+            por_obra.setdefault(slug, []).append(premio)
+    return por_obra
+
+
+def item_barra(premio):
+    nombre = e(premio.get('nombre'))
+    logo = (premio.get('logo') or '').strip()
+    if logo:
+        visual = ('<img src="%s" alt="%s" loading="lazy" decoding="async">'
+                  '<span>%s</span>' % (e(logo), nombre, nombre))
+    else:
+        visual = '<span>%s</span>' % nombre
+    return ('          <a class="award-bar__item" href="/premios/" aria-label="Ver %s">'
+            '%s</a>' % (nombre, visual))
+
+
+def sincronizar_bandas(premios):
+    """Suma premios vinculados a la banda sin reemplazar los reconocimientos viejos.
+
+    Las marcas permiten sacar vínculos borrados o cambiados en cada build. Las
+    bandas históricas se regeneran antes desde obras.premios y siguen intactas.
+    """
+    por_obra = bloque_obras(premios)
+    carpeta = os.path.join(RAIZ, 'proyectos')
+    if not os.path.isdir(carpeta):
+        return
+    for slug in os.listdir(carpeta):
+        ruta = os.path.join(carpeta, slug, 'index.html')
+        if not os.path.isfile(ruta):
+            continue
+        with io.open(ruta, encoding='utf-8') as archivo:
+            pagina = archivo.read()
+        if INICIO_OBRA in pagina and FIN_OBRA in pagina:
+            pagina = re.sub(re.escape(INICIO_OBRA) + r'.*?' + re.escape(FIN_OBRA), '',
+                            pagina, count=1, flags=re.S)
+        relacionados = por_obra.get(slug, [])
+        if relacionados:
+            # No repetir una distinción que ya llega desde el campo histórico
+            # obras.premios y su catálogo de logos.
+            existentes = [html.unescape(x).strip().casefold() for x in re.findall(
+                r'<a class="award-bar__item[^>]*>.*?<span>(.*?)</span>.*?</a>',
+                pagina, flags=re.S)]
+            nuevos = []
+            for premio in relacionados:
+                nombre = (premio.get('nombre') or '').strip()
+                normalizado = nombre.casefold()
+                if not normalizado or any(normalizado in x or x in normalizado for x in existentes):
+                    continue
+                nuevos.append(item_barra(premio))
+                existentes.append(normalizado)
+            if nuevos:
+                contenido = INICIO_OBRA + '\n' + '\n'.join(nuevos) + '\n' + FIN_OBRA
+                patron = r'(<div class="award-bar__logos">)(.*?)(</div>)'
+                if re.search(patron, pagina, flags=re.S):
+                    pagina = re.sub(patron, lambda m: m.group(1) + m.group(2) + '\n'
+                                    + contenido + '\n        ' + m.group(3),
+                                    pagina, count=1, flags=re.S)
+                else:
+                    banda = ('    <section class="award-bar">\n'
+                             '      <div class="container award-bar__inner">\n'
+                             '        <h2 class="award-bar__title">Premios y distinciones</h2>\n'
+                             '        <div class="award-bar__logos">\n%s\n'
+                             '        </div>\n      </div>\n    </section>\n' % contenido)
+                    ancla = '    <section class="section no-border" id="galeria">'
+                    if ancla in pagina:
+                        pagina = pagina.replace(ancla, banda + ancla, 1)
+                    else:
+                        raise RuntimeError('%s: no encuentro dónde agregar la banda de premios' % slug)
+        # Si el premio relacionado era el único elemento, al borrar o desvincular
+        # el último se quita también la banda vacía que había creado el panel.
+        patron_banda = r'(?s)\n    <section class="award-bar">.*?\n    </section>\n'
+        coincidencia = re.search(patron_banda, pagina)
+        if coincidencia and INICIO_OBRA not in coincidencia.group(0):
+            caja = re.search(r'<div class="award-bar__logos">(.*?)</div>',
+                             coincidencia.group(0), flags=re.S)
+            if caja and not caja.group(1).strip():
+                pagina = pagina[:coincidencia.start()] + '\n' + pagina[coincidencia.end():]
+        with io.open(ruta, 'w', encoding='utf-8', newline='\n') as archivo:
+            archivo.write(pagina)
+
+
 def main():
     pagina = io.open(PAGINA, encoding='utf-8').read()
     if INICIO not in pagina or FIN not in pagina:
@@ -117,6 +207,7 @@ def main():
                     pagina, count=1, flags=re.S)
     pagina = sumar_filtros(pagina, [p.get('anio') for p in premios])
     io.open(PAGINA, 'w', encoding='utf-8', newline='\n').write(pagina)
+    sincronizar_bandas(premios)
     print('premios: %d filas nuevas publicadas' % len(premios))
     return 0
 

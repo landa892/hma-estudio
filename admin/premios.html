@@ -7,9 +7,9 @@
   <title>Premios — Panel HMA</title>
   <meta name="robots" content="noindex, nofollow">
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="/admin/admin.css?v=110">
+  <link rel="stylesheet" href="/admin/admin.css?v=111">
 </head>
 
 <body class="panel">
@@ -66,11 +66,22 @@
               placeholder="Texto breve que acompaña al premio"></textarea></label>
           <label class="campo"><span>Enlace externo</span>
             <input id="enlace" type="url" maxlength="500" placeholder="https://…"></label>
-          <label class="campo"><span>Obra relacionada (slug, opcional)</span>
-            <input id="obraSlug" type="text" maxlength="80" pattern="[a-z0-9-]*"
-              placeholder="nombre-de-la-obra"></label>
-          <label class="campo"><span>Logo (ruta pública o URL, opcional)</span>
-            <input id="logo" type="text" maxlength="500" placeholder="/assets/awards/logo.svg"></label>
+          <label class="campo"><span>Obra relacionada</span>
+            <select id="obraSlug">
+              <option value="">Sin obra relacionada</option>
+            </select>
+            <small class="campo__ayuda">Elegí la obra por su nombre; el panel guarda su dirección automáticamente.</small>
+          </label>
+          <div class="campo">
+            <label for="logoArchivo">Logo del premio (opcional)</label>
+            <input id="logoArchivo" type="file" accept="image/jpeg,image/png,image/webp">
+            <small class="campo__ayuda">Subí un JPG, PNG o WebP de hasta 20 MB. Se guarda en el espacio de imágenes del sitio.</small>
+            <div id="previewLogo" class="premio-logo-preview oculto" aria-live="polite"></div>
+          </div>
+          <label class="campo"><span>O usar una imagen ya publicada (opcional)</span>
+            <input id="logo" type="url" maxlength="500" placeholder="https://… o /assets/awards/logo.svg">
+            <small class="campo__ayuda">Si elegís un archivo, se usa ese archivo y se ignora este enlace.</small>
+          </label>
           <label class="casilla"><input id="publicada" type="checkbox">
             <span>Publicar esta fila en la página</span></label>
           <div class="acciones-formulario">
@@ -86,6 +97,6 @@
   <script src="/admin/config.js"></script>
   <script src="/admin/api.js"></script>
   <script src="/admin/datos.js"></script>
-  <script src="/admin/premios.js"></script>
+  <script src="/admin/premios.js?v=1"></script>
 </body>
 </html>
