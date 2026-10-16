@@ -13,6 +13,7 @@ import os
 import re
 import sys
 import urllib.error
+import unicodedata
 import urllib.request
 import json
 
@@ -37,6 +38,24 @@ FILA_INICIO = '<!-- PREMIO-PANEL:%s -->'
 FILA_FIN = '<!-- /PREMIO-PANEL -->'
 ANIO_PANEL = '<!-- PREMIO-PANEL-ANIO -->'
 
+# Reposiciones puntuales, con la misma idea que panel_correcciones_agosto: se
+# comprueba el estado anterior antes de tocar nada, asi el build arregla lo que
+# quedo mal pero no pisa una edicion posterior del estudio.
+#
+# El 16/10/2026 el logo de Valk Gallery desaparecio de la base al guardar el
+# premio desde el panel -updated_at 14:59:43Z-, mientras el archivo seguia
+# subido al Storage. Se repone. La guarda es doble: solo si el premio sigue sin
+# logo y si nadie lo volvio a editar desde entonces. En cuanto el estudio lo
+# toque, el updated_at cambia y esta reposicion deja de aplicarse sola; cuando
+# eso pase se puede borrar esta entrada.
+REPONER_LOGO = {
+    '532a440e-52fd-4397-81d5-760bbbccab30': {
+        'updated_at': '2026-10-16T14:59:43.727626+00:00',
+        'logo': 'https://gbxtssedongadgorpxxs.supabase.co/storage/v1/object/'
+                'public/obras/premios/1792160812748-e6e6ibd9.webp',
+    },
+}
+
 
 def configuracion():
     url = (os.environ.get('SUPABASE_URL') or '').rstrip('/')
@@ -54,6 +73,35 @@ def pedir(url, clave):
     with urllib.request.urlopen(req, timeout=45) as respuesta:
         crudo = respuesta.read()
         return json.loads(crudo.decode('utf-8')) if crudo else []
+
+
+def reponer_logos(url, clave, premios):
+    """Devuelve a su logo los premios que lo perdieron, si nadie los edito despues.
+
+    Escribe en la base y tambien en la lista que ya esta en memoria, para que el
+    mismo build publique la pagina con el logo puesto y no haya que esperar al
+    siguiente.
+    """
+    for premio in premios:
+        esperado = REPONER_LOGO.get(str(premio.get('id')))
+        if not esperado:
+            continue
+        if (premio.get('logo') or '').strip():
+            continue
+        if premio.get('updated_at') != esperado['updated_at']:
+            print('premios: %s se edito despues; no se repone el logo'
+                  % premio.get('nombre'))
+            continue
+        cuerpo = json.dumps({'logo': esperado['logo']}).encode('utf-8')
+        pedido = urllib.request.Request(
+            url + '/rest/v1/premios_panel?id=eq.' + str(premio['id']),
+            data=cuerpo, method='PATCH',
+            headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                     'Content-Type': 'application/json'})
+        with urllib.request.urlopen(pedido, timeout=45):
+            pass
+        premio['logo'] = esperado['logo']
+        print('premios: logo repuesto en %s' % premio.get('nombre'))
 
 
 def pedir_slugs_publicados(url, clave):
@@ -218,16 +266,32 @@ def bloque_obras(premios, slugs_publicados):
     return por_obra
 
 
-def item_barra(premio):
+def normalizar(texto):
+    """Para comparar nombres de premio: sin acentos, sin signos, sin dobles espacios."""
+    plano = unicodedata.normalize('NFD', (texto or '').strip().casefold())
+    plano = ''.join(c for c in plano if unicodedata.category(c) != 'Mn')
+    return ' '.join(re.sub(r'[^a-z0-9]+', ' ', plano).split())
+
+
+def item_barra(premio, con_anio=False):
+    """Una entrada de la banda de la ficha.
+
+    El año se agrega solo cuando hace falta para distinguir: una obra que gano
+    el mismo premio dos veces mostraba dos sellos identicos sin manera de saber
+    cual es cual.
+    """
     nombre = e(premio.get('nombre'))
+    etiqueta = nombre
+    if con_anio and premio.get('anio'):
+        etiqueta = '%s %s' % (nombre, e(premio.get('anio')))
     logo = (premio.get('logo') or '').strip()
     if logo:
         visual = ('<img src="%s" alt="%s" loading="lazy" decoding="async">'
-                  '<span>%s</span>' % (e(logo), nombre, nombre))
+                  '<span>%s</span>' % (e(logo), etiqueta, etiqueta))
     else:
-        visual = '<span>%s</span>' % nombre
+        visual = '<span>%s</span>' % etiqueta
     return ('          <a class="award-bar__item" href="/premios/" aria-label="Ver %s">'
-            '%s</a>' % (nombre, visual))
+            '%s</a>' % (etiqueta, visual))
 
 
 def sincronizar_bandas(premios, slugs_publicados):
@@ -253,17 +317,34 @@ def sincronizar_bandas(premios, slugs_publicados):
         if relacionados:
             # No repetir una distinción que ya llega desde el campo histórico
             # obras.premios y su catálogo de logos.
-            existentes = [html.unescape(x).strip().casefold() for x in re.findall(
+            #
+            # La comparacion es por igualdad del nombre normalizado y no por
+            # subcadena. Con subcadena, "Casa FOA" tapaba a "Casa FOA — Jurado"
+            # y cualquier premio cuyo nombre estuviera contenido en un sello
+            # historico desaparecia de la ficha sin aviso.
+            historicos = {normalizar(html.unescape(x)) for x in re.findall(
                 r'<a class="award-bar__item[^>]*>.*?<span>(.*?)</span>.*?</a>',
-                pagina, flags=re.S)]
-            nuevos = []
+                pagina, flags=re.S)}
+
+            # Una obra puede tener varios premios, y puede tener el mismo premio
+            # en años distintos: la clave lleva el año. Antes la clave era solo
+            # el nombre, asi que una obra premiada dos veces por el mismo
+            # concurso mostraba una sola entrada y perdia la otra.
+            repetidos = {}
             for premio in relacionados:
-                nombre = (premio.get('nombre') or '').strip()
-                normalizado = nombre.casefold()
-                if not normalizado or any(normalizado in x or x in normalizado for x in existentes):
+                repetidos[normalizar(premio.get('nombre'))] = \
+                    repetidos.get(normalizar(premio.get('nombre')), 0) + 1
+
+            nuevos, puestos = [], set()
+            for premio in relacionados:
+                normalizado = normalizar(premio.get('nombre'))
+                if not normalizado:
                     continue
-                nuevos.append(item_barra(premio))
-                existentes.append(normalizado)
+                clave = (normalizado, str(premio.get('anio') or ''))
+                if clave in puestos or normalizado in historicos:
+                    continue
+                nuevos.append(item_barra(premio, con_anio=repetidos[normalizado] > 1))
+                puestos.add(clave)
             if nuevos:
                 contenido = INICIO_OBRA + '\n' + '\n'.join(nuevos) + '\n' + FIN_OBRA
                 patron = r'(<div class="award-bar__logos">)(.*?)(</div>)'
@@ -302,6 +383,7 @@ def main():
     try:
         url, clave = configuracion()
         premios = pedir(url, clave)
+        reponer_logos(url, clave, premios)
         slugs_publicados = pedir_slugs_publicados(url, clave)
     except urllib.error.HTTPError as error:
         texto = error.read().decode('utf-8', 'replace')
