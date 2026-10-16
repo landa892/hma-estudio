@@ -14,17 +14,91 @@
     return valor.charAt(0) === '/' ? valor : '/' + valor;
   }
 
+  /* Cuanto de la imagen es casi blanco. Devuelve null si el navegador no deja
+     leer los pixeles: una imagen de otro dominio sin CORS mancha el canvas. En
+     ese caso manda la vista previa sobre los dos fondos, que no depende de
+     poder medir nada. */
+  function proporcionClara(img) {
+    try {
+      var lienzo = document.createElement('canvas');
+      lienzo.width = img.naturalWidth;
+      lienzo.height = img.naturalHeight;
+      var ctx = lienzo.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      var datos = ctx.getImageData(0, 0, lienzo.width, lienzo.height).data;
+      var visibles = 0, claros = 0;
+      for (var i = 0; i < datos.length; i += 4) {
+        if (datos[i + 3] <= 40) continue;
+        visibles++;
+        if (datos[i] > 235 && datos[i + 1] > 235 && datos[i + 2] > 235) claros++;
+      }
+      return visibles ? claros / visibles : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function rotulo(caja, texto, esAviso) {
+    var p = document.createElement('p');
+    p.className = 'premio-logo-rotulo' + (esAviso ? ' premio-logo-rotulo--aviso' : '');
+    p.textContent = texto;
+    caja.appendChild(p);
+  }
+
+  /* El logo se muestra sobre fondo claro y sobre fondo oscuro. El sitio lo
+     publica sobre blanco, asi que un logo blanco -la version de un escudo para
+     pie de pagina, por ejemplo- se publica invisible. Antes la vista previa
+     tambien era clara y el estudio no tenia como darse cuenta: veia el recuadro
+     vacio y daba por hecho que la imagen no habia cargado. */
   function pintarPreviewLogo(valor) {
     var caja = $('previewLogo');
     caja.textContent = '';
+    caja.classList.remove('premio-logo-preview--doble');
     if (!valor) { caja.classList.add('oculto'); return; }
-    var img = document.createElement('img');
-    img.src = urlLogo(valor);
-    img.alt = 'Vista previa del logo del premio';
-    img.addEventListener('error', function () {
+
+    caja.classList.add('premio-logo-preview--doble');
+    var imgs = ['claro', 'oscuro'].map(function (fondo) {
+      var celda = document.createElement('div');
+      celda.className = 'premio-logo-fondo premio-logo-fondo--' + fondo;
+      var img = document.createElement('img');
+      img.src = urlLogo(valor);
+      img.alt = fondo === 'claro'
+        ? 'Vista previa del logo sobre fondo claro, que es como sale en el sitio'
+        : 'La misma imagen sobre fondo oscuro, para ver un logo claro';
+      celda.appendChild(img);
+      caja.appendChild(celda);
+      return img;
+    });
+
+    imgs[0].addEventListener('error', function () {
       caja.textContent = 'No se pudo mostrar la vista previa de esta imagen.';
+      caja.classList.remove('premio-logo-preview--doble');
     }, { once: true });
-    caja.appendChild(img);
+
+    imgs[0].addEventListener('load', function () {
+      // Las de otro dominio pueden medirse si el servidor manda CORS; si no,
+      // crossOrigin haria fallar la carga, asi que se prueba sobre una copia.
+      var copia = new Image();
+      copia.crossOrigin = 'anonymous';
+      copia.addEventListener('load', function () {
+        var clara = proporcionClara(copia);
+        if (clara !== null && clara > .9) {
+          rotulo(caja, 'Ojo: este logo es casi todo blanco, así que en la página '
+            + 'va a quedar invisible sobre el fondo claro. Usá la versión oscura '
+            + 'o en color.', true);
+        } else {
+          rotulo(caja, 'Izquierda: como se ve en la página. Derecha: la misma '
+            + 'imagen sobre fondo oscuro.', false);
+        }
+      }, { once: true });
+      copia.addEventListener('error', function () {
+        rotulo(caja, 'Izquierda: como se ve en la página. Derecha: la misma '
+          + 'imagen sobre fondo oscuro. Si solo aparece a la derecha, el logo es '
+          + 'blanco y en el sitio no se va a ver.', false);
+      }, { once: true });
+      copia.src = imgs[0].src;
+    }, { once: true });
+
     caja.classList.remove('oculto');
   }
 

@@ -192,6 +192,43 @@ input:focus-visible {
 }
 .premio-logo-preview img { display: block; max-width: 100%; max-height: 180px; object-fit: contain; }
 
+/* La vista previa va sobre los dos fondos a la vez. El escudo que el estudio
+   cargo el 16/10/2026 es blanco puro con transparencia -es la version para pie
+   de pagina oscuro-, asi que sobre el cuadrille claro no se veia nada y en el
+   panel parecia que la imagen no habia cargado. Partida, un logo claro aparece
+   en la mitad negra y se entiende de una. */
+.premio-logo-preview--doble {
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  padding: 0;
+  place-items: stretch;
+}
+
+.premio-logo-preview--doble .premio-logo-fondo {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  min-height: 96px;
+}
+
+.premio-logo-preview--doble .premio-logo-fondo--oscuro {
+  background: #141414;
+}
+
+.premio-logo-rotulo {
+  grid-column: 1 / -1;
+  padding: 8px 12px;
+  font-size: .78rem;
+  line-height: 1.4;
+  background: #fff;
+  border-top: 1px solid var(--linea);
+}
+
+.premio-logo-rotulo--aviso {
+  background: #fff6e5;
+  color: #7a4b00;
+}
+
 .prensa-admin-lista {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

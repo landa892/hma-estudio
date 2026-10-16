@@ -23,6 +23,20 @@ FIN = '<!-- PREMIOS-PANEL-FIN -->'
 INICIO_OBRA = '<!-- PREMIOS-PANEL-OBRA-INICIO -->'
 FIN_OBRA = '<!-- PREMIOS-PANEL-OBRA-FIN -->'
 
+# Cada fila del panel va envuelta en su propio par de marcas, y el bloque de
+# año que el panel haya tenido que crear lleva la suya. Asi cada build puede
+# sacar lo que puso la vez anterior y volver a repartirlo, sin tocar las filas
+# historicas que viven en el repositorio.
+#
+# Antes todo esto se escribia de corrido entre PREMIOS-PANEL-INICIO y -FIN, que
+# estan al final del listado. El resultado es el que filmo el estudio el
+# 16/10/2026: la pagina mostraba 2026, 2025, ... 2008 y despues otra vez 2026 y
+# 2025, con los premios cargados desde el panel colgando abajo de todo en vez
+# de estar con los de su año.
+FILA_INICIO = '<!-- PREMIO-PANEL:%s -->'
+FILA_FIN = '<!-- /PREMIO-PANEL -->'
+ANIO_PANEL = '<!-- PREMIO-PANEL-ANIO -->'
+
 
 def configuracion():
     url = (os.environ.get('SUPABASE_URL') or '').rstrip('/')
@@ -63,16 +77,23 @@ def fila(premio, slugs_publicados):
     nombre = e(premio.get('nombre'))
     if enlace:
         nombre = '<a href="%s" target="_blank" rel="noopener">%s</a>' % (e(enlace), nombre)
-    logo_html = ('<div class="award-row__logo"><img src="%s" width="400" height="300" '
-                 'alt="" loading="lazy" decoding="async"></div>' % e(logo)) if logo else (
-                 '<div class="award-row__logo award-row__logo--plain"><span class="award-platform">%s</span></div>'
-                 % e(premio.get('nombre')))
+    if logo:
+        logo_html = ('<div class="award-row__logo"><img src="%s" width="400" height="300" '
+                     'alt="" loading="lazy" decoding="async"></div>' % e(logo))
+    else:
+        # El hueco va vacio, no con el nombre repetido. En las filas historicas
+        # el texto de la izquierda es la plataforma -"Architizer", "ARQ"- y el
+        # de la derecha el premio completo, que son dos cosas distintas; aca
+        # las dos salian del mismo campo y la fila quedaba diciendo "Casa FOA
+        # Casa FOA", que es lo que se ve en el video del 16/10/2026.
+        logo_html = '<div class="award-row__logo award-row__logo--vacio"></div>'
     descripcion = premio.get('descripcion') or ''
     obra_html = ''
     if obra and obra in slugs_publicados:
         obra_html = ('\n                  <span class="award-row__obra"><a href="/proyectos/%s/">%s</a></span>'
                      % (e(obra), e(obra.replace('-', ' ').title())))
-    return ('            <div class="award-row">\n'
+    return ('%s\n'
+            '            <div class="award-row">\n'
             '              <div class="award-row__left">\n'
             '                %s\n'
             '                <div class="award-row__content">\n'
@@ -82,34 +103,109 @@ def fila(premio, slugs_publicados):
             '              </div>\n'
             '              <div class="award-row__res">%s</div>\n'
             '              <div class="award-row__city">%s</div>\n'
-            '            </div>' % (logo_html, nombre, e(descripcion), obra_html,
-                                   e(premio.get('resultado')), e(premio.get('ciudad'))))
+            '            </div>\n'
+            '            %s' % (FILA_INICIO % e(premio.get('id') or premio.get('nombre')),
+                                logo_html, nombre, e(descripcion), obra_html,
+                                e(premio.get('resultado')), e(premio.get('ciudad')),
+                                FILA_FIN))
 
 
-def bloque(premios, slugs_publicados):
+def limpiar(pagina):
+    """Saca del HTML lo que puso el panel en el build anterior.
+
+    Primero las filas, por sus marcas, y despues los bloques de año que el
+    panel habia creado y que quedaron sin ninguna fila adentro. Un bloque
+    historico nunca se toca: no lleva la marca ANIO_PANEL.
+    """
+    pagina = re.sub(r'\n?[ \t]*<!-- PREMIO-PANEL:.*?-->.*?<!-- /PREMIO-PANEL -->',
+                    '', pagina, flags=re.S)
+    # El bloque que creo el panel y quedo sin filas: solo el encabezado del año.
+    pagina = re.sub(r'\n?[ \t]*<div class="award-year-block" data-year="\d{4}">\s*'
+                    + re.escape(ANIO_PANEL)
+                    + r'\s*<div class="press-year-head">\d{4}</div>\s*</div>',
+                    '', pagina)
+    # Los botones del filtro que agrego el panel se rehacen en cada build, asi
+    # que se sacan todos y vuelven solo los años que sigan teniendo premios.
+    pagina = re.sub(r'\n?[ \t]*<button class="filter-btn"[^>]*data-panel="1"[^>]*>'
+                    r'[^<]*</button>', '', pagina)
+    return pagina
+
+
+def cierre_de(pagina, desde):
+    """Indice del </div> que cierra el <div ...> que empieza en `desde`.
+
+    Contando profundidad y no con un .*? perezoso: una fila de premio tiene
+    cuatro divs anidados adentro, asi que el primer </div> que aparece cierra
+    cualquier cosa menos el bloque.
+    """
+    nivel = 0
+    for marca in re.finditer(r'<(/?)div\b[^>]*>', pagina[desde:]):
+        if marca.group(1):
+            nivel -= 1
+            if nivel == 0:
+                return desde + marca.start()
+        else:
+            nivel += 1
+    raise RuntimeError('no encuentro el cierre del bloque de año')
+
+
+def insertar(pagina, premios, slugs_publicados):
+    """Reparte cada premio dentro del bloque del año que le corresponde."""
     grupos = {}
     for premio in premios:
         grupos.setdefault(int(premio.get('anio') or 0), []).append(premio)
-    partes = []
-    for anio in sorted(grupos, reverse=True):
-        partes.append('          <div class="award-year-block" data-year="%s">\n'
-                      '            <div class="press-year-head">%s</div>\n%s\n'
-                      '          </div>' % (anio, anio,
-                      '\n'.join(fila(p, slugs_publicados) for p in grupos[anio])))
-    return '\n'.join(partes)
+
+    for anio in sorted(grupos):
+        filas = '\n'.join(fila(p, slugs_publicados) for p in grupos[anio])
+        apertura = re.search(r'[ \t]*<div class="award-year-block" data-year="%d">'
+                             % anio, pagina)
+        if apertura:
+            corte = cierre_de(pagina, apertura.start())
+            pagina = pagina[:corte] + filas + '\n          ' + pagina[corte:]
+            continue
+
+        # El año todavia no existe en la pagina: se crea el bloque y se mete en
+        # su lugar, delante del primer año mas viejo. Si no hay ninguno mas
+        # viejo, va al final del listado.
+        bloque_nuevo = ('          <div class="award-year-block" data-year="%d">\n'
+                        '            %s\n'
+                        '            <div class="press-year-head">%d</div>\n'
+                        '%s\n'
+                        '          </div>\n' % (anio, ANIO_PANEL, anio, filas))
+        destino = None
+        for otro in re.finditer(r'[ \t]*<div class="award-year-block" data-year="(\d{4})">',
+                                pagina):
+            if int(otro.group(1)) < anio:
+                destino = otro.start()
+                break
+        if destino is None:
+            fin = pagina.index(FIN)
+            inicio_linea = pagina.rfind('\n', 0, fin) + 1
+            pagina = pagina[:inicio_linea] + bloque_nuevo + pagina[inicio_linea:]
+        else:
+            pagina = pagina[:destino] + bloque_nuevo + pagina[destino:]
+        pagina = sumar_filtro(pagina, anio)
+    return pagina
 
 
-def sumar_filtros(html_pagina, anios):
-    if not anios:
-        return html_pagina
-    existentes = set(re.findall(r'data-year="(\d{4})"', html_pagina))
-    nuevos = [a for a in sorted(set(anios), reverse=True) if str(a) not in existentes]
-    if not nuevos:
-        return html_pagina
-    botones = ''.join('\n          <button class="filter-btn" data-year="%s">%s</button>' % (a, a)
-                     for a in nuevos)
-    return html_pagina.replace('        </div>\n\n        <div class="award-feed">',
-                               botones + '\n        </div>\n\n        <div class="award-feed">', 1)
+def sumar_filtro(pagina, anio):
+    """Agrega el boton del año nuevo en su lugar, no al principio de la barra."""
+    if re.search(r'<button class="filter-btn"[^>]*data-year="%d"' % anio, pagina):
+        return pagina
+    boton = ('          <button class="filter-btn" data-year="%d" data-panel="1">'
+             '%d</button>\n' % (anio, anio))
+    for otro in re.finditer(r'[ \t]*<button class="filter-btn" data-year="(\d{4})"[^>]*>'
+                            r'\d{4}</button>\n', pagina):
+        if int(otro.group(1)) < anio:
+            return pagina[:otro.start()] + boton + pagina[otro.start():]
+    # Ninguno mas viejo: va despues del ultimo boton que haya.
+    ultimo = None
+    for otro in re.finditer(r'[ \t]*<button class="filter-btn"[^>]*>[^<]*</button>\n',
+                            pagina):
+        ultimo = otro
+    if ultimo:
+        return pagina[:ultimo.end()] + boton + pagina[ultimo.end():]
+    return pagina
 
 
 def bloque_obras(premios, slugs_publicados):
@@ -213,10 +309,13 @@ def main():
             print('premios: migracion 0020 pendiente; se conserva el contenido actual')
             return 0
         raise
-    bloque_nuevo = INICIO + ('\n' + bloque(premios, slugs_publicados) if premios else '') + '\n' + FIN
-    pagina = re.sub(re.escape(INICIO) + r'.*?' + re.escape(FIN), bloque_nuevo,
-                    pagina, count=1, flags=re.S)
-    pagina = sumar_filtros(pagina, [p.get('anio') for p in premios])
+    # Las marcas quedan vacias y se conservan: son la referencia de donde
+    # termina el listado, que insertar() usa cuando tiene que crear el bloque
+    # de un año mas viejo que todos los que hay.
+    pagina = re.sub(re.escape(INICIO) + r'.*?' + re.escape(FIN),
+                    INICIO + '\n          ' + FIN, pagina, count=1, flags=re.S)
+    pagina = limpiar(pagina)
+    pagina = insertar(pagina, premios, slugs_publicados)
     io.open(PAGINA, 'w', encoding='utf-8', newline='\n').write(pagina)
     sincronizar_bandas(premios, slugs_publicados)
     print('premios: %d filas nuevas publicadas' % len(premios))
