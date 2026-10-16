@@ -203,11 +203,18 @@ def sembrar_historicos(url, clave, premios):
     if any(clave_de(h) in en_base for h in historicos):
         return premios
 
-    # Los que ya estaban cargados desde el panel pasan atras de los historicos.
-    for premio in premios:
-        cuantos = sum(1 for h in historicos
-                      if int(h['anio']) == int(premio.get('anio') or 0))
-        nuevo = cuantos + int(premio.get('orden') or 0)
+    # Los que ya estaban cargados desde el panel pasan atras de los historicos,
+    # uno detras de otro. Sumarle a cada uno la cantidad de historicos de su año
+    # no alcanza: los cuatro venian con orden 0 -que es el valor por defecto del
+    # formulario- asi que los tres de 2026 terminaban los tres en 1.
+    porque = {}
+    for premio in sorted(premios, key=lambda p: (int(p.get('orden') or 0),
+                                                 p.get('created_at') or '')):
+        anio = int(premio.get('anio') or 0)
+        if anio not in porque:
+            porque[anio] = sum(1 for h in historicos if int(h['anio']) == anio)
+        nuevo = porque[anio]
+        porque[anio] += 1
         if nuevo != int(premio.get('orden') or 0):
             pedido = urllib.request.Request(
                 url + '/rest/v1/premios_panel?id=eq.' + str(premio['id']),
@@ -239,6 +246,44 @@ def sembrar_historicos(url, clave, premios):
     print('premios: %d historicos sembrados; desde ahora los edita el panel'
           % len(nuevos))
     return premios + nuevos
+
+
+def normalizar_orden(url, clave, premios):
+    """Deja cada año numerado 0..n-1, sin empates ni huecos.
+
+    Hace falta porque el panel guarda un premio nuevo con orden 0, que es el
+    valor por defecto del formulario: cargar uno en un año que ya tiene premios
+    lo empata con el primero. Y cambiar el año de un premio se lleva el orden
+    del año viejo, que puede chocar en el nuevo.
+
+    Un empate no rompe la pagina -se desempata por fecha de carga- pero deja el
+    orden a merced de un dato que el estudio no ve ni controla, y las flechas
+    del panel se mueven raro. Se repara en cada build, que es barato: se tocan
+    solo los que cambian.
+    """
+    por_anio = {}
+    for premio in premios:
+        por_anio.setdefault(int(premio.get('anio') or 0), []).append(premio)
+
+    arreglados = 0
+    for anio, grupo in por_anio.items():
+        ordenados = sorted(grupo, key=lambda p: (int(p.get('orden') or 0),
+                                                 p.get('created_at') or ''))
+        for puesto, premio in enumerate(ordenados):
+            if int(premio.get('orden') or 0) == puesto:
+                continue
+            pedido = urllib.request.Request(
+                url + '/rest/v1/premios_panel?id=eq.' + str(premio['id']),
+                data=json.dumps({'orden': puesto}).encode('utf-8'), method='PATCH',
+                headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                         'Content-Type': 'application/json'})
+            with urllib.request.urlopen(pedido, timeout=45):
+                pass
+            premio['orden'] = puesto
+            arreglados += 1
+    if arreglados:
+        print('premios: %d ordenes reacomodados (habia empates o huecos)'
+              % arreglados)
 
 
 def pedir_slugs_publicados(url, clave):
@@ -385,12 +430,39 @@ def filtros(premios):
         for a in anios if a)
 
 
+_sembrados = None
+
+
+def es_historico(premio):
+    """Si este premio es uno de los que vivian escritos en premios/index.html.
+
+    Su sello ya esta en la banda de la ficha desde siempre, puesto por el campo
+    obras.premios y su catalogo de logos. Al pasarlos a la base, el paso que
+    arma las bandas empezo a agregarlos otra vez, y como en la ficha figuran con
+    otro nombre -"Architizer A+" contra "A+ Awards — Architizer", "SBID" contra
+    "Society of British and International Interior Design (SBID)"- ninguna
+    comparacion de texto los emparejaba: Movistar Arena, Manduca y Osten
+    salieron publicadas con el mismo premio dos veces.
+
+    Compararlos contra la lista de los que se sembraron es exacto y no depende
+    de como este escrito el nombre en cada lado.
+    """
+    global _sembrados
+    if _sembrados is None:
+        _sembrados = set()
+        if os.path.isfile(HISTORICOS):
+            for viejo in json.load(io.open(HISTORICOS, encoding='utf-8')):
+                _sembrados.add((int(viejo['anio']), normalizar(viejo['nombre'])))
+    return (int(premio.get('anio') or 0),
+            normalizar(premio.get('nombre'))) in _sembrados
+
+
 def bloque_obras(premios, slugs_publicados):
     """Prepara los reconocimientos vinculados para la banda de cada ficha."""
     por_obra = {}
     for premio in premios:
         slug = (premio.get('obra_slug') or '').strip()
-        if slug and slug in slugs_publicados:
+        if slug and slug in slugs_publicados and not es_historico(premio):
             por_obra.setdefault(slug, []).append(premio)
     return por_obra
 
@@ -516,6 +588,7 @@ def main():
         premios = sembrar_historicos(url, clave, premios)
         reponer_logos(url, clave, premios)
         bajar_logos(premios)
+        normalizar_orden(url, clave, premios)
     except urllib.error.HTTPError as error:
         texto = error.read().decode('utf-8', 'replace')
         if error.code in (400, 404) and 'premios_panel' in texto:

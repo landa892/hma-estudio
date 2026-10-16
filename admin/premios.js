@@ -205,7 +205,10 @@
   function limpiar() {
     $('premioId').value = '';
     $('anio').value = new Date().getFullYear();
-    $('orden').value = '0';
+    /* Al final de su año, no en 0. Un premio nuevo con orden 0 empata con el
+       primero del año y queda ordenado por fecha de carga, que no es un dato
+       que el estudio vea ni pueda mover. */
+    $('orden').value = String(delAnio($('anio').value).length);
     $('nombre').value = '';
     $('resultado').value = '';
     $('ciudad').value = '';
@@ -443,6 +446,17 @@
 
   $('nuevoPremio').addEventListener('click', function () { limpiar(); $('anio').focus(); });
   $('cancelarPremio').addEventListener('click', limpiar);
+  /* Cambiar el año manda el premio al final de ese año. Si no, se lleva puesto
+     el orden del año anterior y choca con el premio que ya ocupaba ese puesto.
+     Despues se acomoda con las flechas. */
+  $('anio').addEventListener('change', function () {
+    var id = $('premioId').value;
+    var hermanos = delAnio(this.value).filter(function (f) {
+      return String(f.id) !== String(id);
+    });
+    $('orden').value = String(hermanos.length);
+  });
+
   $('logoArchivo').addEventListener('change', function () {
     var archivo = this.files[0];
     if (!archivo) return;
