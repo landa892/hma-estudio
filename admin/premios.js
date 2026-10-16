@@ -6,6 +6,9 @@
   var $ = function (id) { return document.getElementById(id); };
   var aviso = $('aviso');
   var filas = [];
+  /* Mientras se guarda un reordenamiento las flechas quedan apagadas, para no
+     encadenar dos movidas sobre un orden que todavia no confirmo la base. */
+  var moviendo = false;
   var obras = [];
 
   function urlLogo(valor) {
@@ -246,7 +249,36 @@
       lista.appendChild(vacio);
       return;
     }
-    filas.forEach(function (p) {
+    /* En el mismo orden en que salen publicados. Recorrer filas tal como vino
+       de la base dejaba la lista quieta despues de mover una flecha: el orden
+       nuevo ya estaba guardado pero no se veia hasta recargar la pagina. */
+    ordenadas().forEach(function (p) {
+      var hermanos = delAnio(p.anio);
+      var puesto = hermanos.indexOf(p);
+
+      var caja = document.createElement('div');
+      caja.className = 'premio-admin-fila';
+
+      /* Las flechas mueven dentro del año, que es como se agrupa la pagina. El
+         estudio lo pidio en audio el 16/10/2026: "si yo quiero poner otro
+         arriba pueda hacerlo". Antes solo estaba el campo numerico "Orden
+         dentro del año", que hay que abrir, escribir y guardar. */
+      var orden = document.createElement('div');
+      orden.className = 'premio-admin-orden';
+      [['↑', -1, 'Subir', puesto <= 0],
+       ['↓', 1, 'Bajar', puesto >= hermanos.length - 1]].forEach(function (x) {
+        var boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'orden-btn';
+        boton.textContent = x[0];
+        boton.title = x[2] + ' dentro de ' + p.anio;
+        boton.setAttribute('aria-label', x[2] + ' ' + p.nombre + ' dentro de ' + p.anio);
+        boton.disabled = moviendo || x[3];
+        boton.addEventListener('click', function () { mover(p, x[1]); });
+        orden.appendChild(boton);
+      });
+      caja.appendChild(orden);
+
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'premio-admin-item';
@@ -257,7 +289,61 @@
         + '<em class="premio-admin-item__estado ' + (p.publicada ? '' : 'premio-admin-item__estado--borrador')
         + '">' + (p.publicada ? 'Publicado' : 'Borrador') + '</em>';
       boton.addEventListener('click', function () { editar(p); });
-      lista.appendChild(boton);
+      caja.appendChild(boton);
+      lista.appendChild(caja);
+    });
+  }
+
+  /* Todos los premios como salen en la pagina: el año mas nuevo primero y,
+     dentro de cada año, el orden que marcan las flechas. */
+  function ordenadas() {
+    return filas.slice().sort(function (a, b) {
+      return Number(b.anio) - Number(a.anio)
+        || (a.orden || 0) - (b.orden || 0)
+        || String(a.created_at || '').localeCompare(String(b.created_at || ''));
+    });
+  }
+
+  /* Los premios de un año, en el orden en que salen publicados. */
+  function delAnio(anio) {
+    return filas.filter(function (f) { return String(f.anio) === String(anio); })
+      .sort(function (a, b) {
+        return (a.orden || 0) - (b.orden || 0)
+          || String(a.created_at || '').localeCompare(String(b.created_at || ''));
+      });
+  }
+
+  function mover(premio, direccion) {
+    if (moviendo) return;
+    var hermanos = delAnio(premio.anio);
+    var desde = hermanos.indexOf(premio);
+    var hasta = desde + direccion;
+    if (desde < 0 || hasta < 0 || hasta >= hermanos.length) return;
+
+    moviendo = true;
+    hermanos[desde] = hermanos[hasta];
+    hermanos[hasta] = premio;
+
+    /* Se renumera el año entero de 0 en adelante. Guardar solo los dos que se
+       tocaron deja huecos y empates cuando el orden venia de la siembra. */
+    var cambios = [];
+    hermanos.forEach(function (fila, indice) {
+      if (fila.orden !== indice) {
+        fila.orden = indice;
+        cambios.push(DATOS.actualizarPremio(fila.id, { orden: indice }));
+      }
+    });
+    pintar();
+    mensaje('Guardando el orden…');
+
+    Promise.all(cambios).then(function () {
+      moviendo = false;
+      pintar();
+      mensaje('Orden guardado. Publicá los cambios para verlo en la web.');
+    }).catch(function (e) {
+      moviendo = false;
+      mensaje(e.message, true);
+      cargar();
     });
   }
 

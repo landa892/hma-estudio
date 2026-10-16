@@ -167,6 +167,30 @@ input:focus-visible {
   text-align: left; cursor: pointer;
 }
 .premio-admin-item:hover, .premio-admin-item:focus-visible { border-color: var(--negro); }
+
+/* La fila de la lista: las flechas para mover el premio dentro de su año y, al
+   lado, el boton que abre la edicion. Las flechas no pueden ir adentro de ese
+   boton -un boton dentro de otro no es HTML valido-, asi que la fila los
+   envuelve a los dos. */
+.premio-admin-fila {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.premio-admin-orden {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* En Trabajos las flechas van una al lado de la otra y comparten el borde del
+   medio. Aca van apiladas, asi que esa regla dejaria una sin borde izquierdo. */
+.premio-admin-orden .orden-btn + .orden-btn {
+  border-left: 1px solid var(--linea);
+}
 .premio-admin-item__anio { font-size: 1.05rem; }
 .premio-admin-item span { min-width: 0; }
 .premio-admin-item b, .premio-admin-item small {

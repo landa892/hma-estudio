@@ -37,7 +37,12 @@ FIN_OBRA = '<!-- PREMIOS-PANEL-OBRA-FIN -->'
 # de estar con los de su año.
 FILA_INICIO = '<!-- PREMIO-PANEL:%s -->'
 FILA_FIN = '<!-- /PREMIO-PANEL -->'
-ANIO_PANEL = '<!-- PREMIO-PANEL-ANIO -->'
+FILTROS_INICIO = '<!-- PREMIOS-FILTROS-INICIO -->'
+FILTROS_FIN = '<!-- PREMIOS-FILTROS-FIN -->'
+
+# Los premios cuyo sello es una palabra y no una imagen guardan ese texto en
+# el mismo campo logo, con este prefijo.
+TEXTO = '@texto:'
 
 # Reposiciones puntuales, con la misma idea que panel_correcciones_agosto: se
 # comprueba el estado anterior antes de tocar nada, asi el build arregla lo que
@@ -168,6 +173,74 @@ def bajar_logos(premios):
             os.remove(viejo)
 
 
+HISTORICOS = os.path.join(RAIZ, 'docs', 'premios_historicos.json')
+
+
+def sembrar_historicos(url, clave, premios):
+    """Mete en la base los premios que vivian escritos en premios/index.html.
+
+    El estudio pidio en audio el 16/10/2026 poder mover el orden: "si yo quiero
+    poner otro arriba pueda hacerlo". Mientras los treinta y nueve premios
+    viejos estuvieran en el HTML eso era imposible, porque el panel no podia
+    tocarlos y siempre salian primero dentro de su año.
+
+    Se siembra una sola vez: solo si NINGUNO de los historicos esta en la base.
+    Asi, si el estudio borra uno desde el panel, el build no se lo vuelve a
+    poner. Y a los premios que el panel ya tenia cargados se les corre el orden
+    para que queden detras de los historicos de su mismo año, que es donde
+    estaban cuando se publicaban.
+    """
+    if not os.path.isfile(HISTORICOS):
+        return premios
+    historicos = json.load(io.open(HISTORICOS, encoding='utf-8'))
+    if not historicos:
+        return premios
+
+    def clave_de(premio):
+        return (int(premio.get('anio') or 0), normalizar(premio.get('nombre')))
+
+    en_base = {clave_de(p) for p in premios}
+    if any(clave_de(h) in en_base for h in historicos):
+        return premios
+
+    # Los que ya estaban cargados desde el panel pasan atras de los historicos.
+    for premio in premios:
+        cuantos = sum(1 for h in historicos
+                      if int(h['anio']) == int(premio.get('anio') or 0))
+        nuevo = cuantos + int(premio.get('orden') or 0)
+        if nuevo != int(premio.get('orden') or 0):
+            pedido = urllib.request.Request(
+                url + '/rest/v1/premios_panel?id=eq.' + str(premio['id']),
+                data=json.dumps({'orden': nuevo}).encode('utf-8'), method='PATCH',
+                headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                         'Content-Type': 'application/json'})
+            with urllib.request.urlopen(pedido, timeout=45):
+                pass
+            premio['orden'] = nuevo
+
+    cuerpo = [{
+        'anio': h['anio'], 'orden': h['orden'], 'nombre': h['nombre'],
+        'resultado': h.get('resultado') or None, 'ciudad': h.get('ciudad') or None,
+        'descripcion': h.get('descripcion') or None,
+        'enlace': h.get('enlace') or None, 'obra_slug': h.get('obra_slug') or None,
+        'logo': h.get('logo') or None, 'publicada': True,
+    } for h in historicos]
+
+    nuevos = []
+    for desde in range(0, len(cuerpo), 50):
+        pedido = urllib.request.Request(
+            url + '/rest/v1/premios_panel',
+            data=json.dumps(cuerpo[desde:desde + 50]).encode('utf-8'), method='POST',
+            headers={'apikey': clave, 'Authorization': 'Bearer ' + clave,
+                     'Content-Type': 'application/json',
+                     'Prefer': 'return=representation'})
+        with urllib.request.urlopen(pedido, timeout=60) as respuesta:
+            nuevos.extend(json.loads(respuesta.read().decode('utf-8')))
+    print('premios: %d historicos sembrados; desde ahora los edita el panel'
+          % len(nuevos))
+    return premios + nuevos
+
+
 def pedir_slugs_publicados(url, clave):
     req = urllib.request.Request(
         url + '/rest/v1/obras?select=slug&publicada=is.true',
@@ -182,6 +255,48 @@ def e(valor):
     return html.escape(str(valor or ''), quote=True)
 
 
+# Las obras que en esta pagina se nombraban distinto que en su propia ficha.
+# Al pasar los premios a la base el texto del enlace pasa a salir del <h1> de
+# la obra, y en cinco casos eso cambiaba lo que el visitante venia leyendo:
+# "Mercado Manduca" se acortaba a "Manduca", "Mamba Bar" a "Mamba" y "Osten
+# Coffee Shop" se alargaba a "Osten Coffee Shop — Casa FOA". Nadie pidio
+# cambiar esos nombres, asi que se conservan tal cual estaban publicados.
+# Si alguna vez se quiere unificar con el titulo de la ficha, se borra esta
+# tabla y listo.
+NOMBRES_EN_PREMIOS = {
+    'accor-hotels': 'Accor',
+    'dos-casas-conde': 'Dos casas Conde',
+    'mamba-bar': 'Mamba Bar',
+    'manduca': 'Mercado Manduca',
+    'osten-foa': 'Osten Coffee Shop',
+}
+
+_titulos = {}
+
+
+def titulo_de_obra(slug):
+    """El texto del enlace a la obra.
+
+    Primero las excepciones de arriba, y si no el titulo con el que la obra se
+    publica, leido de su propia ficha. Del slug no alcanza:
+    "galeria-objeto-a".title() da "Galeria Objeto A" y la obra se llama
+    "Galería de arte Objeto A".
+    """
+    if slug in NOMBRES_EN_PREMIOS:
+        return NOMBRES_EN_PREMIOS[slug]
+    if slug in _titulos:
+        return _titulos[slug]
+    ruta = os.path.join(RAIZ, 'proyectos', slug, 'index.html')
+    nombre = ''
+    if os.path.isfile(ruta):
+        marca = re.search(r'<h1[^>]*>(.*?)</h1>',
+                          io.open(ruta, encoding='utf-8').read(), re.S)
+        if marca:
+            nombre = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', marca.group(1))).strip()
+    _titulos[slug] = nombre or slug.replace('-', ' ').title()
+    return _titulos[slug]
+
+
 def fila(premio, slugs_publicados):
     logo = (premio.get('logo') or '').strip()
     obra = (premio.get('obra_slug') or '').strip()
@@ -189,23 +304,38 @@ def fila(premio, slugs_publicados):
     nombre = e(premio.get('nombre'))
     if enlace:
         nombre = '<a href="%s" target="_blank" rel="noopener">%s</a>' % (e(enlace), nombre)
-    if logo:
+
+    # Un premio cuyo sello es una palabra y no una imagen -"Architizer", "ARQ"-
+    # guarda ese texto en el mismo campo, con el prefijo @texto:. Es la idea de
+    # los @site: y @seed: que ya usan las galerias: el campo lleva una marca en
+    # vez de una ruta. Evita una columna nueva para seis filas.
+    clase_fila = ''
+    if logo.startswith(TEXTO):
+        logo_html = ('<div class="award-row__logo award-row__logo--plain">'
+                     '<span class="award-platform">%s</span></div>'
+                     % e(logo[len(TEXTO):]))
+        # Las filas de ranking se publicaban con esta clase, que aclara el
+        # resultado en gris: son reconocimientos y no premios ganados.
+        clase_fila = ' award-row--recognition'
+    elif logo:
         logo_html = ('<div class="award-row__logo"><img src="%s" width="400" height="300" '
                      'alt="" loading="lazy" decoding="async"></div>' % e(logo))
     else:
         # El hueco va vacio, no con el nombre repetido. En las filas historicas
-        # el texto de la izquierda es la plataforma -"Architizer", "ARQ"- y el
-        # de la derecha el premio completo, que son dos cosas distintas; aca
-        # las dos salian del mismo campo y la fila quedaba diciendo "Casa FOA
-        # Casa FOA", que es lo que se ve en el video del 16/10/2026.
+        # el texto de la izquierda es la plataforma y el de la derecha el premio
+        # completo, que son dos cosas distintas; cuando los dos salian del mismo
+        # campo la fila quedaba diciendo "Casa FOA Casa FOA", que es lo que se
+        # ve en el video del 16/10/2026.
         logo_html = '<div class="award-row__logo award-row__logo--vacio"></div>'
+
     descripcion = premio.get('descripcion') or ''
     obra_html = ''
     if obra and obra in slugs_publicados:
-        obra_html = ('\n                  <span class="award-row__obra"><a href="/proyectos/%s/">%s</a></span>'
-                     % (e(obra), e(obra.replace('-', ' ').title())))
+        obra_html = ('\n                  <span class="award-row__obra">'
+                     '<a href="/proyectos/%s/">%s</a></span>'
+                     % (e(obra), e(titulo_de_obra(obra))))
     return ('%s\n'
-            '            <div class="award-row">\n'
+            '            <div class="award-row%s">\n'
             '              <div class="award-row__left">\n'
             '                %s\n'
             '                <div class="award-row__content">\n'
@@ -217,107 +347,42 @@ def fila(premio, slugs_publicados):
             '              <div class="award-row__city">%s</div>\n'
             '            </div>\n'
             '            %s' % (FILA_INICIO % e(premio.get('id') or premio.get('nombre')),
-                                logo_html, nombre, e(descripcion), obra_html,
+                                clase_fila, logo_html, nombre, e(descripcion), obra_html,
                                 e(premio.get('resultado')), e(premio.get('ciudad')),
                                 FILA_FIN))
 
 
-def limpiar(pagina):
-    """Saca del HTML lo que puso el panel en el build anterior.
+def bloque(premios, slugs_publicados):
+    """Todo el listado: un bloque por año, del mas nuevo al mas viejo.
 
-    Primero las filas, por sus marcas, y despues los bloques de año que el
-    panel habia creado y que quedaron sin ninguna fila adentro. Un bloque
-    historico nunca se toca: no lleva la marca ANIO_PANEL.
+    Dentro de cada año manda el campo orden, que es el que el estudio mueve
+    desde el panel con las flechas. Antes los premios del panel se agregaban
+    sueltos a una pagina escrita a mano, asi que su orden no podia ganarle a
+    ninguna fila historica: siempre salian ultimos.
     """
-    pagina = re.sub(r'\n?[ \t]*<!-- PREMIO-PANEL:.*?-->.*?<!-- /PREMIO-PANEL -->',
-                    '', pagina, flags=re.S)
-    # El bloque que creo el panel y quedo sin filas: solo el encabezado del año.
-    pagina = re.sub(r'\n?[ \t]*<div class="award-year-block" data-year="\d{4}">\s*'
-                    + re.escape(ANIO_PANEL)
-                    + r'\s*<div class="press-year-head">\d{4}</div>\s*</div>',
-                    '', pagina)
-    # Los botones del filtro que agrego el panel se rehacen en cada build, asi
-    # que se sacan todos y vuelven solo los años que sigan teniendo premios.
-    pagina = re.sub(r'\n?[ \t]*<button class="filter-btn"[^>]*data-panel="1"[^>]*>'
-                    r'[^<]*</button>', '', pagina)
-    return pagina
-
-
-def cierre_de(pagina, desde):
-    """Indice del </div> que cierra el <div ...> que empieza en `desde`.
-
-    Contando profundidad y no con un .*? perezoso: una fila de premio tiene
-    cuatro divs anidados adentro, asi que el primer </div> que aparece cierra
-    cualquier cosa menos el bloque.
-    """
-    nivel = 0
-    for marca in re.finditer(r'<(/?)div\b[^>]*>', pagina[desde:]):
-        if marca.group(1):
-            nivel -= 1
-            if nivel == 0:
-                return desde + marca.start()
-        else:
-            nivel += 1
-    raise RuntimeError('no encuentro el cierre del bloque de año')
-
-
-def insertar(pagina, premios, slugs_publicados):
-    """Reparte cada premio dentro del bloque del año que le corresponde."""
     grupos = {}
     for premio in premios:
         grupos.setdefault(int(premio.get('anio') or 0), []).append(premio)
-
-    for anio in sorted(grupos):
-        filas = '\n'.join(fila(p, slugs_publicados) for p in grupos[anio])
-        apertura = re.search(r'[ \t]*<div class="award-year-block" data-year="%d">'
-                             % anio, pagina)
-        if apertura:
-            corte = cierre_de(pagina, apertura.start())
-            pagina = pagina[:corte] + filas + '\n          ' + pagina[corte:]
-            continue
-
-        # El año todavia no existe en la pagina: se crea el bloque y se mete en
-        # su lugar, delante del primer año mas viejo. Si no hay ninguno mas
-        # viejo, va al final del listado.
-        bloque_nuevo = ('          <div class="award-year-block" data-year="%d">\n'
-                        '            %s\n'
-                        '            <div class="press-year-head">%d</div>\n'
-                        '%s\n'
-                        '          </div>\n' % (anio, ANIO_PANEL, anio, filas))
-        destino = None
-        for otro in re.finditer(r'[ \t]*<div class="award-year-block" data-year="(\d{4})">',
-                                pagina):
-            if int(otro.group(1)) < anio:
-                destino = otro.start()
-                break
-        if destino is None:
-            fin = pagina.index(FIN)
-            inicio_linea = pagina.rfind('\n', 0, fin) + 1
-            pagina = pagina[:inicio_linea] + bloque_nuevo + pagina[inicio_linea:]
-        else:
-            pagina = pagina[:destino] + bloque_nuevo + pagina[destino:]
-        pagina = sumar_filtro(pagina, anio)
-    return pagina
+    partes = []
+    for anio in sorted(grupos, reverse=True):
+        filas = sorted(grupos[anio],
+                       key=lambda p: (int(p.get('orden') or 0),
+                                      p.get('created_at') or ''))
+        partes.append('          <div class="award-year-block" data-year="%d">\n'
+                      '            <div class="press-year-head">%d</div>\n'
+                      '%s\n'
+                      '          </div>'
+                      % (anio, anio,
+                         '\n'.join(fila(p, slugs_publicados) for p in filas)))
+    return '\n'.join(partes)
 
 
-def sumar_filtro(pagina, anio):
-    """Agrega el boton del año nuevo en su lugar, no al principio de la barra."""
-    if re.search(r'<button class="filter-btn"[^>]*data-year="%d"' % anio, pagina):
-        return pagina
-    boton = ('          <button class="filter-btn" data-year="%d" data-panel="1">'
-             '%d</button>\n' % (anio, anio))
-    for otro in re.finditer(r'[ \t]*<button class="filter-btn" data-year="(\d{4})"[^>]*>'
-                            r'\d{4}</button>\n', pagina):
-        if int(otro.group(1)) < anio:
-            return pagina[:otro.start()] + boton + pagina[otro.start():]
-    # Ninguno mas viejo: va despues del ultimo boton que haya.
-    ultimo = None
-    for otro in re.finditer(r'[ \t]*<button class="filter-btn"[^>]*>[^<]*</button>\n',
-                            pagina):
-        ultimo = otro
-    if ultimo:
-        return pagina[:ultimo.end()] + boton + pagina[ultimo.end():]
-    return pagina
+def filtros(premios):
+    """Los botones de año, que salen del contenido y no de una lista a mano."""
+    anios = sorted({int(p.get('anio') or 0) for p in premios}, reverse=True)
+    return '\n'.join(
+        '          <button class="filter-btn" data-year="%d">%d</button>' % (a, a)
+        for a in anios if a)
 
 
 def bloque_obras(premios, slugs_publicados):
@@ -447,25 +512,37 @@ def main():
     try:
         url, clave = configuracion()
         premios = pedir(url, clave)
+        slugs_publicados = pedir_slugs_publicados(url, clave)
+        premios = sembrar_historicos(url, clave, premios)
         reponer_logos(url, clave, premios)
         bajar_logos(premios)
-        slugs_publicados = pedir_slugs_publicados(url, clave)
     except urllib.error.HTTPError as error:
         texto = error.read().decode('utf-8', 'replace')
         if error.code in (400, 404) and 'premios_panel' in texto:
             print('premios: migracion 0020 pendiente; se conserva el contenido actual')
             return 0
         raise
-    # Las marcas quedan vacias y se conservan: son la referencia de donde
-    # termina el listado, que insertar() usa cuando tiene que crear el bloque
-    # de un año mas viejo que todos los que hay.
+
+    # Desde que los premios viven en la base, premios/index.html llega al build
+    # con el listado vacio. Entonces publicar sin filas no deja la pagina "como
+    # estaba": la deja sin un solo premio. Mejor cortar el build y que siga en
+    # linea la version anterior del sitio.
+    if not premios:
+        raise RuntimeError('la base no devolvio ningun premio publicado; '
+                           'no se publica una pagina de premios vacia')
+    # El listado entero y la barra de años se generan desde la base. Antes la
+    # pagina traia los premios escritos a mano y el paso solo agregaba los del
+    # panel, que es por lo que su orden nunca podia ganarles.
     pagina = re.sub(re.escape(INICIO) + r'.*?' + re.escape(FIN),
-                    INICIO + '\n          ' + FIN, pagina, count=1, flags=re.S)
-    pagina = limpiar(pagina)
-    pagina = insertar(pagina, premios, slugs_publicados)
+                    lambda _: INICIO + '\n' + bloque(premios, slugs_publicados)
+                    + '\n          ' + FIN, pagina, count=1, flags=re.S)
+    pagina = re.sub(re.escape(FILTROS_INICIO) + r'.*?' + re.escape(FILTROS_FIN),
+                    lambda _: FILTROS_INICIO + '\n' + filtros(premios)
+                    + '\n          ' + FILTROS_FIN, pagina, count=1, flags=re.S)
     io.open(PAGINA, 'w', encoding='utf-8', newline='\n').write(pagina)
     sincronizar_bandas(premios, slugs_publicados)
-    print('premios: %d filas nuevas publicadas' % len(premios))
+    print('premios: %d premios publicados en %d años'
+          % (len(premios), len({p.get('anio') for p in premios})))
     return 0
 
 
