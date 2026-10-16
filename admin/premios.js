@@ -304,6 +304,21 @@
     try { datos = recoger(); } catch (e) { mensaje(e.message, true); return; }
     var id = $('premioId').value;
     var archivo = $('logoArchivo').files[0];
+
+    /* Guardar con el campo del logo vacio borra el logo que el premio tenia, y
+       antes lo hacia sin decir nada. El 16/10/2026 el logo de Valk Gallery
+       desaparecio de la base entre dos consultas con el archivo todavia subido
+       al Storage, que es justo lo que deja este camino. Si habia logo y se va a
+       guardar sin ninguno, se pregunta. */
+    if (id && !archivo && !datos.logo) {
+      var antes = filas.find(function (fila) { return String(fila.id) === String(id); });
+      if (antes && antes.logo
+          && !window.confirm('Este premio tenía un logo cargado y lo vas a dejar '
+            + 'sin logo. ¿Seguro que querés sacarlo?')) {
+        mensaje('No se guardó: el premio conserva su logo.');
+        return;
+      }
+    }
     $('guardarPremio').disabled = true;
     mensaje(archivo ? 'Subiendo logo y guardando premio…' : 'Guardando…');
     var logoNuevo = '';
