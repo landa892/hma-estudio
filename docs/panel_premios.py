@@ -7,6 +7,7 @@ reemplace sin duplicarlas. Los reconocimientos relacionados tambien se suman
 a la banda negra de la ficha de cada obra. Si la migracion todavia no se aplico,
 el contenido historico queda intacto y el build puede seguir publicando.
 """
+import glob
 import html
 import io
 import os
@@ -102,6 +103,69 @@ def reponer_logos(url, clave, premios):
             pass
         premio['logo'] = esperado['logo']
         print('premios: logo repuesto en %s' % premio.get('nombre'))
+
+
+LOGOS = os.path.join(RAIZ, 'assets', 'awards')
+TIPOS = {'image/png': '.png', 'image/webp': '.webp', 'image/jpeg': '.jpg',
+         'image/jpg': '.jpg', 'image/svg+xml': '.svg', 'image/gif': '.gif'}
+
+
+def bajar_logos(premios):
+    """Trae al repositorio los logos que apuntan a otro dominio.
+
+    El sitio publicado declara img-src 'self' data: https://i.ytimg.com, asi
+    que el navegador bloquea cualquier imagen que no salga de estudiohma.com:
+    ni la que el panel sube al Storage de Supabase ni la que se pega de otra
+    pagina. El estudio subia el logo, lo veia bien en el panel -que si tiene
+    permitido supabase.co en su propio CSP- y en la pagina no aparecia nada.
+    Eso es el premio "que se ve en blanco" del 16/10/2026.
+
+    La salida no es abrir el CSP: dejaria el sitio mostrando imagenes de
+    servidores ajenos y dependiendo de que el Gobierno de la Ciudad no mueva un
+    archivo. Se bajan al repositorio, como ya hacen las galerias y las notas de
+    prensa, y se sirven desde el propio dominio.
+    """
+    if not any((p.get('logo') or '').startswith(('http://', 'https://'))
+               for p in premios):
+        return
+    os.makedirs(LOGOS, exist_ok=True)
+    for premio in premios:
+        origen = (premio.get('logo') or '').strip()
+        if not origen.startswith(('http://', 'https://')):
+            continue
+        try:
+            pedido = urllib.request.Request(
+                origen, headers={'User-Agent': 'hma-estudio/build'})
+            with urllib.request.urlopen(pedido, timeout=45) as respuesta:
+                tipo = (respuesta.headers.get('Content-Type') or '').split(';')[0].strip()
+                datos = respuesta.read()
+        except Exception as error:
+            # Un logo que no se puede bajar no tiene que voltear el build: la
+            # fila sale sin sello y el resto de la pagina se publica igual.
+            print('premios: no se pudo bajar el logo de %s (%s); queda sin sello'
+                  % (premio.get('nombre'), error))
+            premio['logo'] = ''
+            continue
+        extension = TIPOS.get(tipo)
+        if not extension or not datos:
+            print('premios: el logo de %s no es una imagen servible (%s); '
+                  'queda sin sello' % (premio.get('nombre'), tipo or 'sin tipo'))
+            premio['logo'] = ''
+            continue
+        nombre = 'panel-%s%s' % (premio.get('id'), extension)
+        with open(os.path.join(LOGOS, nombre), 'wb') as archivo:
+            archivo.write(datos)
+        premio['logo'] = '/assets/awards/' + nombre
+        print('premios: logo de %s guardado en %s'
+              % (premio.get('nombre'), premio['logo']))
+
+    # Los panel-* que ya no corresponden a ningun premio se van, para que la
+    # carpeta no junte logos de premios borrados.
+    vigentes = {os.path.basename(p['logo']) for p in premios
+                if (p.get('logo') or '').startswith('/assets/awards/panel-')}
+    for viejo in glob.glob(os.path.join(LOGOS, 'panel-*')):
+        if os.path.basename(viejo) not in vigentes:
+            os.remove(viejo)
 
 
 def pedir_slugs_publicados(url, clave):
@@ -384,6 +448,7 @@ def main():
         url, clave = configuracion()
         premios = pedir(url, clave)
         reponer_logos(url, clave, premios)
+        bajar_logos(premios)
         slugs_publicados = pedir_slugs_publicados(url, clave)
     except urllib.error.HTTPError as error:
         texto = error.read().decode('utf-8', 'replace')
