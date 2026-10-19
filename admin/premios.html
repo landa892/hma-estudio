@@ -50,7 +50,9 @@
             <label class="campo"><span>Año <b aria-hidden="true">*</b></span>
               <input id="anio" type="number" min="1900" max="2100" required></label>
             <label class="campo"><span>Orden dentro del año</span>
-              <input id="orden" type="number" min="0" max="9999" value="0"></label>
+              <input id="orden" type="number" min="0" max="9999" value="0" readonly
+                aria-describedby="ordenAyuda"></label>
+            <small id="ordenAyuda" class="campo__ayuda">Un premio nuevo entra arriba de su año. Para moverlo, usá las flechas de la lista.</small>
           </div>
           <label class="campo"><span>Nombre del premio <b aria-hidden="true">*</b></span>
             <input id="nombre" type="text" maxlength="180" required

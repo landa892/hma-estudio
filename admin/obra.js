@@ -388,13 +388,23 @@
 
     var promesa = validarRelacionados(o).then(function () {
       if (!esNueva) return DATOS.actualizarObra(id, o);
-      // Una obra nueva entra al final del orden que ve el estudio. Si quedara
-      // null, el panel y el sitio no tendrian una posicion comun que mover.
+      /* Una obra nueva entra ARRIBA de todo, no al final.
+         Antes entraba ultima, y el estudio lo marco el 19/10/2026: "subimos un
+         proyecto nuevo del 2026 y se me subio abajo de todo cuando deberia
+         subirse arriba". Con sesenta y tres obras cargadas, dejarla ultima
+         obliga a sesenta y dos clics en la flecha para traerla al principio, y
+         eso es lo que hacia que manejar el orden fuera "medio complicado".
+         Lo normal es que lo ultimo que hizo el estudio sea lo primero que se
+         muestra.
+         Se usa el minimo menos uno en vez de 0: poner 0 obligaria a reescribir
+         el orden de las sesenta y tres obras en cada alta. El numero negativo
+         se normaliza solo la primera vez que alguien mueve una flecha, porque
+         mover() renumera la lista entera de 0 en adelante. */
       return DATOS.listarObras().then(function (obras) {
-        o.orden = obras.reduce(function (maximo, obra) {
+        o.orden = obras.reduce(function (minimo, obra) {
           var n = Number(obra.orden);
-          return Number.isFinite(n) ? Math.max(maximo, n) : maximo;
-        }, -1) + 1;
+          return Number.isFinite(n) ? Math.min(minimo, n) : minimo;
+        }, 0) - 1;
         return DATOS.crearObra(o);
       });
     });

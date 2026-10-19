@@ -205,10 +205,13 @@
   function limpiar() {
     $('premioId').value = '';
     $('anio').value = new Date().getFullYear();
-    /* Al final de su año, no en 0. Un premio nuevo con orden 0 empata con el
-       primero del año y queda ordenado por fecha de carga, que no es un dato
-       que el estudio vea ni pueda mover. */
-    $('orden').value = String(delAnio($('anio').value).length);
+    /* Primero de su año. Lo ultimo que carga el estudio es lo que quiere ver
+       arriba -lo dijo el 19/10/2026 sobre una obra, y para los premios vale
+       igual-, y asi no hay que subirlo a flechazos.
+       Se usa el minimo del año menos uno y no 0, porque 0 chocaria con el
+       premio que ya ocupa ese puesto. El negativo se normaliza solo: lo
+       renumera el build, y tambien la primera flecha que alguien toque. */
+    $('orden').value = '0';
     $('nombre').value = '';
     $('resultado').value = '';
     $('ciudad').value = '';
@@ -305,6 +308,23 @@
         || (a.orden || 0) - (b.orden || 0)
         || String(a.created_at || '').localeCompare(String(b.created_at || ''));
     });
+  }
+
+  /* Arriba de su año es el puesto 0, y los que estaban se corren uno.
+     En Trabajos alcanza con un numero negativo y una sola escritura, pero acá
+     no se puede: premios_panel tiene check (orden between 0 and 9999), asi que
+     la base rechaza cualquier negativo. Como un año tiene seis premios a lo
+     sumo, correrlos sale barato. Si alguno de esos guardados fallara quedarian
+     empates, y de eso ya se ocupa el build, que renumera cada año 0..n-1. */
+  function correrHermanos(anio, exceptoId) {
+    var hermanos = delAnio(anio).filter(function (f) {
+      return exceptoId == null || String(f.id) !== String(exceptoId);
+    });
+    return Promise.all(hermanos.map(function (f, puesto) {
+      if (f.orden === puesto + 1) return null;
+      f.orden = puesto + 1;
+      return DATOS.actualizarPremio(f.id, { orden: puesto + 1 });
+    }).filter(Boolean));
   }
 
   /* Los premios de un año, en el orden en que salen publicados. */
@@ -414,8 +434,21 @@
     (archivo ? subirLogo(archivo) : Promise.resolve(datos.logo)).then(function (logo) {
       logoNuevo = archivo ? logo : '';
       if (archivo) datos.logo = logo;
-      var accion = id ? DATOS.actualizarPremio(id, datos) : DATOS.crearPremio(datos);
-      return accion;
+      /* El premio entra arriba de su año -orden 0- y los que ya estaban se
+         corren uno. Solo al darlo de alta, o cuando se le cambia el año a uno
+         que ya existe, que es otra forma de entrar a ese año.
+         Editar un premio sin tocarle el año no mueve nada: si corriera siempre,
+         arreglar una coma en el premio que el estudio puso tercero lo mandaria
+         de vuelta al primer puesto. */
+      var anterior = filas.find(function (f) { return String(f.id) === String(id); });
+      var entraAlAnio = !id || (anterior && String(anterior.anio) !== String(datos.anio));
+      if (!entraAlAnio) {
+        datos.orden = anterior ? anterior.orden : datos.orden;
+        return DATOS.actualizarPremio(id, datos);
+      }
+      return correrHermanos(datos.anio, id || null).then(function () {
+        return id ? DATOS.actualizarPremio(id, datos) : DATOS.crearPremio(datos);
+      });
     }).then(function () {
       mensaje('Premio guardado. Ahora falta publicar los cambios desde Obras.');
       limpiar();
@@ -446,15 +479,11 @@
 
   $('nuevoPremio').addEventListener('click', function () { limpiar(); $('anio').focus(); });
   $('cancelarPremio').addEventListener('click', limpiar);
-  /* Cambiar el año manda el premio al final de ese año. Si no, se lleva puesto
+  /* Cambiar el año manda el premio arriba de ese año. Si no, se lleva puesto
      el orden del año anterior y choca con el premio que ya ocupaba ese puesto.
      Despues se acomoda con las flechas. */
   $('anio').addEventListener('change', function () {
-    var id = $('premioId').value;
-    var hermanos = delAnio(this.value).filter(function (f) {
-      return String(f.id) !== String(id);
-    });
-    $('orden').value = String(hermanos.length);
+    $('orden').value = '0';
   });
 
   $('logoArchivo').addEventListener('change', function () {
