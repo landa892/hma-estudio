@@ -285,6 +285,32 @@
       });
       caja.appendChild(orden);
 
+      /* El numero de puesto, para saltar lejos sin apretar la flecha treinta
+         veces. El estudio lo propuso el 19/10/2026: "si le ponemos numero al
+         lado de cada premio y lo movemos poniendo numeros, onda si esta 40 y
+         queres 3 podes poner el 3 y se pone ahi".
+         Va de 1 en adelante y no de 0, que es como se cuenta una lista cuando
+         uno la mira. */
+      var puestoCampo = document.createElement('input');
+      puestoCampo.type = 'number';
+      puestoCampo.className = 'premio-admin-puesto';
+      puestoCampo.min = '1';
+      puestoCampo.max = String(hermanos.length);
+      puestoCampo.value = String(puesto + 1);
+      puestoCampo.disabled = moviendo || hermanos.length < 2;
+      puestoCampo.title = 'Puesto dentro de ' + p.anio
+        + '. Escribí otro número y salí del casillero para moverlo.';
+      puestoCampo.setAttribute('aria-label',
+        'Puesto de ' + p.nombre + ' dentro de ' + p.anio);
+      puestoCampo.addEventListener('change', function () {
+        moverA(p, Number(this.value));
+      });
+      /* Enter mueve sin tener que salir del casillero. */
+      puestoCampo.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); this.blur(); }
+      });
+      caja.appendChild(puestoCampo);
+
       var boton = document.createElement('button');
       boton.type = 'button';
       boton.className = 'premio-admin-item';
@@ -337,15 +363,25 @@
   }
 
   function mover(premio, direccion) {
+    var hermanos = delAnio(premio.anio);
+    moverA(premio, hermanos.indexOf(premio) + direccion + 1);
+  }
+
+  /* Lleva el premio al puesto pedido dentro de su año, contando desde 1. */
+  function moverA(premio, puesto) {
     if (moviendo) return;
     var hermanos = delAnio(premio.anio);
     var desde = hermanos.indexOf(premio);
-    var hasta = desde + direccion;
-    if (desde < 0 || hasta < 0 || hasta >= hermanos.length) return;
+    var hasta = Math.round(puesto) - 1;
+    if (desde < 0 || !Number.isFinite(hasta)) return pintar();
+    // Un numero fuera de rango se acomoda al extremo mas cercano en vez de no
+    // hacer nada: escribir 99 queriendo "al final" es lo que uno espera.
+    hasta = Math.max(0, Math.min(hermanos.length - 1, hasta));
+    if (hasta === desde) return pintar();
 
     moviendo = true;
-    hermanos[desde] = hermanos[hasta];
-    hermanos[hasta] = premio;
+    hermanos.splice(desde, 1);
+    hermanos.splice(hasta, 0, premio);
 
     /* Se renumera el año entero de 0 en adelante. Guardar solo los dos que se
        tocaron deja huecos y empates cuando el orden venia de la siembra. */

@@ -88,6 +88,26 @@
       bajar.disabled = moviendo || indice >= todas.length - 1;
       bajar.addEventListener('click', function () { mover(o, 1); });
       orden.appendChild(bajar);
+
+      /* El numero de puesto, para saltar lejos sin apretar la flecha treinta
+         veces. El estudio lo propuso el 19/10/2026: "si esta 40 y queres 3
+         podes poner el 3 y se pone ahi". Con sesenta y tres obras, mover una
+         del cuarenta al tres son treinta y siete clics.
+         Va de 1 en adelante, que es como se cuenta una lista al mirarla. */
+      var puesto = document.createElement('input');
+      puesto.type = 'number';
+      puesto.className = 'tabla__puesto';
+      puesto.min = '1';
+      puesto.max = String(todas.length);
+      puesto.value = String(indice + 1);
+      puesto.disabled = moviendo || todas.length < 2;
+      puesto.title = 'Puesto en Trabajos. Escribí otro número y salí del casillero.';
+      puesto.setAttribute('aria-label', 'Puesto de ' + o.titulo + ' en Trabajos');
+      puesto.addEventListener('change', function () { moverA(o, Number(this.value)); });
+      puesto.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); this.blur(); }
+      });
+      orden.appendChild(puesto);
       tr.appendChild(orden);
 
       var acciones = document.createElement('td');
@@ -132,15 +152,23 @@
      preferible una escritura mas larga una sola vez a que dos tarjetas queden
      empatadas y el build las publique en un orden impredecible. */
   function mover(obra, direccion) {
+    moverA(obra, todas.indexOf(obra) + direccion + 1);
+  }
+
+  /* Lleva la obra al puesto pedido de la lista, contando desde 1. */
+  function moverA(obra, puesto) {
     if (moviendo) return;
     var desde = todas.indexOf(obra);
-    var hasta = desde + direccion;
-    if (desde < 0 || hasta < 0 || hasta >= todas.length) return;
+    var hasta = Math.round(puesto) - 1;
+    if (desde < 0 || !Number.isFinite(hasta)) return filtrar();
+    // Un numero fuera de rango se acomoda al extremo mas cercano en vez de no
+    // hacer nada: escribir 99 queriendo "al final" es lo que uno espera.
+    hasta = Math.max(0, Math.min(todas.length - 1, hasta));
+    if (hasta === desde) return filtrar();
 
     moviendo = true;
-    var otra = todas[hasta];
-    todas[desde] = otra;
-    todas[hasta] = obra;
+    todas.splice(desde, 1);
+    todas.splice(hasta, 0, obra);
     var cambios = [];
     todas.forEach(function (fila, indice) {
       if (fila.orden !== indice) {
