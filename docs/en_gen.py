@@ -7,6 +7,7 @@
    vuelve a correr esto.
 """
 import io, os, re, glob, sys, shutil, time
+import html as html_entidades
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import en_dic3
@@ -66,7 +67,12 @@ def T(t):
     nucleo = t.strip()
     if not nucleo or not re.search(r'[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]', nucleo):
         return t
-    plano = re.sub(r'\s+', ' ', nucleo)
+    # Los generadores de novedades escapan tambien las comillas, mientras que
+    # panel_textos guarda las claves con comillas literales. Ambos representan
+    # el mismo texto: normalizar entidades permite encontrar su traduccion sin
+    # convertir los signos < y > del contenido en etiquetas HTML.
+    plano = html_entidades.escape(
+        re.sub(r'\s+', ' ', html_entidades.unescape(nucleo)), quote=False)
     if plano in TEXTOS_EN:
         return izq + TEXTOS_EN[plano] + der
     r = tr(plano)
