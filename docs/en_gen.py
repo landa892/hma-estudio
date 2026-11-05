@@ -8,6 +8,8 @@
 """
 import io, os, re, glob, sys, shutil, time
 import html as html_entidades
+import json
+import panel_novedades
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import en_dic3
@@ -53,6 +55,11 @@ def escribir(ruta, contenido):
 # Son dos archivos y no uno para que cada generador escriba el suyo: si los dos
 # tocaran el mismo, el que corriera segundo borraria los pares del primero.
 TEXTOS_EN = {}
+NOVEDADES_EN = {}
+_ruta_novedades = os.path.join(ROOT, 'docs', 'en_novedades.json')
+if os.path.isfile(_ruta_novedades):
+    with io.open(_ruta_novedades, encoding='utf-8') as _archivo:
+        NOVEDADES_EN = json.load(_archivo)
 for _nombre in ('en_textos.json', 'en_textos_banner.json'):
     _ruta_tex = os.path.join(os.path.dirname(os.path.abspath(__file__)), _nombre)
     if os.path.isfile(_ruta_tex):
@@ -117,12 +124,27 @@ def _traducir_trozo(h):
     h = re.sub(r'>([^<>]+)<', lambda m: '>' + T(m.group(1)) + '<', h)
     # atributos visibles
     h = re.sub(r'\b(%s)="([^"]*)"' % '|'.join(ATRIBUTOS),
-               lambda m: '%s="%s"' % (m.group(1), T(m.group(2))), h)
+               lambda m: '%s="%s"' % (m.group(1), traducir_atributo(m.group(2))), h)
     # meta de texto
     h = META_DE_TEXTO.sub(
         lambda m: m.group(0).replace('content="%s"' % m.group(2),
-                                     'content="%s"' % T(m.group(2))), h)
+                                     'content="%s"' % traducir_atributo(m.group(2))), h)
     return h
+
+
+def traducir_atributo(valor):
+    # La traduccion puede traer comillas literales. Deben seguir dentro del
+    # atributo, nunca cerrar alt/aria-label/content ni crear otro atributo.
+    return html_entidades.escape(html_entidades.unescape(T(valor)), quote=True)
+
+
+def traducir_novedades(codigo, traducciones):
+    # Se usa la identidad del campo, no su texto: admite numeros, emojis,
+    # saltos de linea y titulos iguales con traducciones diferentes.
+    for dato, texto in traducciones.items():
+        if texto.strip():
+            codigo = panel_novedades.reemplazar_texto(codigo, dato, texto)
+    return codigo
 
 
 # --- boton de idioma ---------------------------------------------------------
@@ -255,6 +277,7 @@ def main():
             traducir_html(sacar_memoria(sacar_boton(s_para_en))), p)
         en = reescribir_enlaces(en)
         if ruta_es == '/':
+            en = traducir_novedades(en, NOVEDADES_EN)
             en = en.replace(
                 '"description": "Estudio de arquitectura y diseño comercial especializado en hotelería, gastronomía, oficinas y arquitectura residencial."',
                 '"description": "Architecture and commercial design studio specialising in hospitality, restaurants, offices and residential architecture."', 1)

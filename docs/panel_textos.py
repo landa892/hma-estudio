@@ -307,6 +307,17 @@ def main(verificar, supabase):
                 pares[plano(a)] = plano(b)
 
     if not verificar:
+        # Las redes pueden repetir el mismo titulo en castellano y tener
+        # traducciones distintas. Guardar por campo evita que un par pise otro.
+        novedades_en = {
+            'data-%s-%s' % (red, atributo): (por_clave.get(
+                'home.%s_%s' % (red, campo), {}).get('en') or '').strip()
+            for red in ('instagram', 'linkedin', 'youtube')
+            for campo, atributo in (('titulo', 'title'), ('texto', 'text'))
+        }
+        with io.open(os.path.join(RAIZ, 'docs', 'en_novedades.json'),
+                     'w', encoding='utf-8') as archivo:
+            json.dump(novedades_en, archivo, ensure_ascii=False)
         io.open(DESTINO_EN, 'w', encoding='utf-8', newline='\n').write(
             json.dumps(pares, ensure_ascii=False, indent=1, sort_keys=True) + '\n')
 

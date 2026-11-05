@@ -1,0 +1,21 @@
+name: Verificar traducciones del panel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  traducciones:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprobar textos y novedades sin acceder a la base
+        run: |
+          python3 -m unittest discover -s tests -p 'test_traduccion_comillas.py'
+          python3 -m unittest discover -s tests -p 'test_panel_novedades.py'

@@ -137,6 +137,15 @@ def validar_orden():
 
 def main():
     validar_orden()
+    # Estas regresiones no usan credenciales ni escriben en la base. Se corren
+    # tambien al publicar desde el panel, que no dispara GitHub Actions.
+    for patron in ('test_traduccion_comillas.py', 'test_panel_novedades.py'):
+        resultado = subprocess.run(
+            [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests',
+             '-p', patron], cwd=RAIZ)
+        if resultado.returncode:
+            print('Fallo la comprobacion previa de traducciones; se conserva el sitio publicado.')
+            return resultado.returncode
     for i, (que, script, args) in enumerate(PASOS, 1):
         print('\n' + '=' * 70)
         print('paso %d de %d — %s  (%s)' % (i, len(PASOS), que, script))
